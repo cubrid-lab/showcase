@@ -43,7 +43,7 @@ showcase/
 
 In 2020, we joined the OSS Contribution Hackathon (컨트리뷰톤, CNBT-41)
 as mentor and mentee, contributing to SQLAlchemy and sqlalchemy-hana.
-We met SQLAlchemy creator Mike Bayer at a mini hackathon, found his CUBRID
+We connected with Mike Bayer via Gitter, found his CUBRID
 dialect (2012) unmaintained, and rebuilt from scratch for SQLAlchemy 2.0
 — then built the pure Python driver too.
 

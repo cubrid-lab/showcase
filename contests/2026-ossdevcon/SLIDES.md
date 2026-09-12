@@ -220,7 +220,7 @@ pip install pycubrid    # 2014년의 갭, 2026년에 닫았다
 ### 슬라이드 1-2에서 (30초)
 > "2020년 오픈소스 컨트리뷰톤에서 저(최영선)가 멘토, 경준님이 멘티로
 > 만났습니다. SQLAlchemy와 SAP HANA dialect에 함께 기여했고,
-> Mike Bayer님과 Gitter로 교류하면서 SQLAlchemy Korea 커뮤니티도
+> Gitter에서 Mike Bayer님과 직접 채팅하면서 SQLAlchemy Korea 커뮤니티도
 > 만들었습니다. 그 해가 저희 오픈소스 여정의 시작이었습니다."
 
 ### 슬라이드 3-4에서 (30초)
