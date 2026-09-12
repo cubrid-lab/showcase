@@ -81,6 +81,10 @@ actively optimizing — 19% fetch improvement shipped in the current release.
 
 ---
 
+## Q5.5: How did you approach performance optimization?
+
+We built cubrid-benchmark (separate repo) for reproducible comparison, then used profiling scripts to find bottlenecks. Key results: native ping +280%, pool_pre_ping +588%, bulk insert 12.3% faster, select-all 19.9% faster. In a niche market, you benchmark yourself.
+
 ## Q6: "What about CUBRID 12 support?"
 
 **A:** CUBRID 12 hasn't shipped yet. Our CI already tests against 10.2, 11.0,

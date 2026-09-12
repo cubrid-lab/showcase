@@ -14,6 +14,15 @@
 | Docs pages | 20 | 14 | 7 | 22 | **63** |
 | Korean docs | 13 | 14 | 5+ko | 2 | **34** |
 
+## Performance Optimizations
+
+| Optimization | Result |
+|---|---|
+| Native ping (CHECK_CAS) | +280% throughput |
+| SA pool_pre_ping | +588% throughput |
+| Bulk insert (1000 rows) | 12.3% faster |
+| Query select-all | 19.9% faster |
+
 ## Quality Gates
 
 | Gate | Value |
