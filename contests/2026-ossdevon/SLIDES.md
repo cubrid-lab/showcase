@@ -56,65 +56,87 @@
 
 ---
 
-## Slide 4: The Journey — What We Built, In Order (PT)
+## Slide 4: The Journey — What We Built & How (PT)
 
 ### ① sqlalchemy-cubrid (2021-22) — "우리가 아는 것부터"
 
-```
-Mike Bayer의 방언이 죽어있었다
-→ SQLAlchemy 2.0 기준 처음부터 작성 (포크 아닌 신규 구현)
-→ Alembic, async, native ENUM 지원
-→ 151개 PR · 769 테스트
-```
+**난제:** Mike Bayer의 방언이 SA 1.x 시절 구조로 죽어있었다
+**해결:** SA 2.0 Dialect API로 처음부터 작성 — 공식 테스트 스위트 통합
+
+| 기술 성과 | 내용 |
+|---|---|
+| 스키마 리플렉션 | 테이블·컬럼·PK·FK·인덱스·뷰·코멘트 전부 |
+| DML 확장 | ON DUPLICATE KEY UPDATE, MERGE, REPLACE |
+| Native ENUM | CUBRID 10.2–11.4 실증 후 구현 (#343) |
+| Alembic | 비트랜잭션 DDL 처리 + autogenerate 지원 |
 
 ### ② pycubrid (2025) — "드라이버가 없어서 직접 만들었다"
 
-```
-C 확장 드라이버 12년 방치 → 순수 Python으로 새로 작성
-→ 의존성 0 · asyncio 네이티브 · TLS
-→ 159개 PR · 1,147 테스트 · pip install 한 줄
+**난제:** CAS 바이너리 프로토콜 문서가 없었다
+**해결:** node-cubrid(BSD) + 공식 C 드라이버 소스 역분석으로 프로토콜 해독
+
+```python
+# 우리가 해독한 CAS 프로토콜 구조
+# [4B data_length][4B cas_info][payload]
+# 18개 패킷 타입 · 27개 데이터 타입 · big-endian
+# TLS STARTTLS 업그레이드 · 브로커 리다이렉트 · 자동 재연결
 ```
 
-### ③ cubrid-cookbook-python (2026) — "우리가 직접 써보자 (dogfooding)"
+| 기술 성과 | 내용 |
+|---|---|
+| 순수 Python | C 확장 없음, 의존성 0개, 크로스 플랫폼 |
+| asyncio 네이티브 | pycubrid.aio — 동시성 쿼리 지원 |
+| TLS/SSL | STARTTLS 방식 업그레이드 |
+| 이스케이프 협상 | no_backslash_escapes 자동 감지 |
 
-```
-드라이버를 실제 시나리오로 사용하며 검증:
-→ FastAPI·Django·Streamlit·AI 에이전트 등 7개 템플릿
-→ 75개 예제가 매일 밤 실서버 CUBRID 11.2+11.4에서 실행
-→ 45개 골든 검증 — 드라이버가 바뀌면 cookbook이 즉시 감지
+### ③ cubrid-cookbook (2026) — "우리가 직접 써보자 (dogfooding)"
 
-"예제집이 아니라, 우리 드라이버의 최전선 통합 테스트다."
-(pycubrid 1.7.0 이스케이프 버그를 cookbook이 가장 먼저 잡았다)
-```
+**역할:** 예제집 + 최전선 통합 테스트
+**증거:** pycubrid 1.7.0 이스케이프 버그를 cookbook이 가장 먼저 감지
 
 ### ④ cubrid-mcp-server (2026) — "AI 시대니까"
 
-```
-세계 최초의 CUBRID MCP 서버
-→ 12개 도구 · 읽기 전용 화이트리스트 · 도메인 지식 팩
-→ AI 에이전트 상태 저장소 패턴
-```
+**난제:** LLM이 CUBRID SQL 구문을 모른다 (LIMIT, SHOW TRACE, SET 타입)
+**해결:** 도메인 지식 팩을 서버에 내장 — LLM에게 CUBRID를 가르친다
 
-> **각 단계가 다음 단계를 자연스럽게 낳았다.**
+```
+12 tools + 5 domain-knowledge resources + 9 expert prompts
+→ LLM이 CUBRID를 몰라도 올바른 SQL을 생성
+→ 읽기 전용 화이트리스트로 DROP TABLE도 서버가 거부
+→ 세계 최초의 CUBRID MCP 서버
+```
 
 ---
 
-## Slide 5: The Full Stack (PT + 활용성)
+## Slide 5: Technical Architecture (PT)
 
-### 빌드한 순서 = 의존성 방향 (자연스러운 설계)
+### 프로토콜부터 AI까지 — 전부 직접 구현
 
 ```
-① sqlalchemy-cubrid (2021-22)  ← ORM dialect
-        ↓ (드라이버 필요)
-② pycubrid (2025)               ← Pure Python driver
-        ↓ (사용법 공유)
-③ cubrid-cookbook (2026)        ← 75 examples + 7 templates
-        ↓ (AI 시대)
-④ cubrid-mcp-server (2026)      ← AI/LLM access (세계 최초)
+         ┌─────────────────────────────────┐
+         │   cubrid-mcp-server (AI/LLM)    │
+         │   · MCP protocol (JSON-RPC)     │
+         │   · 12 tools + domain knowledge │
+         │   · read-only whitelist         │
+         ├─────────────────────────────────┤
+         │   cubrid-cookbook (dogfooding)  │
+         │   · 75 examples = 75 tests     │
+         │   · nightly live DB execution   │
+         ├─────────────────────────────────┤
+         │   sqlalchemy-cubrid (ORM)       │
+         │   · SQLAlchemy Dialect API      │
+         │   · reflection + DML + Alembic  │
+         ├─────────────────────────────────┤
+         │   pycubrid (driver)             │
+         │   · CAS binary protocol v8      │
+         │   · 18 packet types decoded     │
+         │   · pure Python, zero deps     │
+         ├─────────────────────────────────┤
+         │   CUBRID Server (TCP:33000)     │
+         └─────────────────────────────────┘
 ```
 
-**"방언을 만들다 드라이버를 만들고,
-드라이버를 만들다 생태계를 만들었다."**
+**각 계층이 아래 계층만 의존 — 순환 없음, 전부 MIT**
 
 ---
 
@@ -277,6 +299,19 @@ pip install pycubrid    # 2014년의 갭, 2026년에 닫았다
 >
 > 네 번째, MCP 서버를 만들었습니다. 세계 최초입니다.
 > 각 단계가 다음 단계를 자연스럽게 낳았습니다."
+
+### 슬라이드 4-5 (기술 심화, 90초)
+> "pycubrid의 가장 어려웠던 부분은 CAS 바이너리 프로토콜 해독이었습니다.
+> 공식 문서가 없어서 node-cubrid의 BSD 코드와 C 드라이버 소스를
+> 교차 분석해서 18개 패킷 타입과 27개 데이터 타입을 해독했습니다.
+>
+> sqlalchemy-cubrid는 Mike Bayer님이 만들다 버린 방언을
+> SQLAlchemy 2.0 기준으로 처음부터 썼습니다. 스키마 리플렉션,
+> MERGE, ON DUPLICATE KEY UPDATE, native ENUM까지 지원합니다.
+>
+> MCP 서버는 단순히 도구를 노출하는 게 아니라, 도메인 지식 팩을
+> 내장해서 LLM이 CUBRID 구문을 모르더라도 올바른 SQL을
+> 생성할 수 있게 했습니다. 이게 세계 최초의 CUBRID MCP 서버입니다."
 
 ### 슬라이드 8 (OSS 스택, 20초)
 > "이 프로젝트의 기반은 전부 오픈소스입니다. 컨트리뷰톤에서 배웠고,
