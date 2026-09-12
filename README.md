@@ -17,21 +17,29 @@ source code.
 ```
 showcase/
 ├── README.md                     # You are here
-├── contests/
-│   └── 2026-ossdevcon/          # 2026 오픈소스 개발자대회
-│       ├── SUBMISSION.md         # 출품 신청서 (개발보고서)
-│       ├── SLIDES.md             # 발표 슬라이드 (12장)
-│       ├── DEMO_RUNBOOK.md       # 데모 시나리오 + 리허설 체크리스트
-│       ├── EXPECTED_QA.md        # 예상 질문과 답변
-│       └── metrics/              # 발표용 지표 스냅샷
-├── press-kit/
-│   ├── LOGO.md                   # 로고·배지·스크린샷 모음
-│   ├── ONE_PAGER.md              # 한장 요약 (영문)
-│   └── ONE_PAGER.ko.md           # 한장 요약 (국문)
+├── contests/                      # 대회·공모전 (연도별)
+│   ├── 2026-ossdevcon/           # 2026 오픈소스 개발자대회
+│   │   ├── SUBMISSION.md          # 출품 신청서 (개발보고서)
+│   │   ├── SLIDES.md              # 발표 슬라이드 (12장)
+│   │   ├── DEMO_RUNBOOK.md        # 데모 시나리오 + 체크리스트
+│   │   ├── EXPECTED_QA.md         # 예상 질문과 답변
+│   │   └── metrics/               # 발표용 지표
+│   └── archive/                   # 과거 대회 자료 (회고 포함)
+├── programs/                      # 지원사업·그랜트 신청
+│   ├── README.md                  # 신청 가능 프로그램 목록
+│   └── templates/                 # 재사용 신청서·발표 템플릿
+├── press-kit/                     # 로고·원페이저 (모든 신청에 재사용)
+│   ├── ONE_PAGER.md               # 영문 한장 요약
+│   └── ONE_PAGER.ko.md            # 국문 한장 요약
 ├── demo-videos/                   # 녹화 데모 (git-lfs 권장)
-│   └── README.md                 # 비디오 목록과 링크
-└── archive/                       # 과거 대회·발표 자료
+└── archive/                       # 레거시 자료
 ```
+
+### 장기 운영 원칙
+- **연도별 폴더**: 대회 종료 → `contests/archive/`로 이동 + 회고 작성
+- **템플릿 재사용**: `programs/templates/`에 신청서 골격 유지 → 매년 숫자만 갱신
+- **지표는 스냅샷**: `metrics/`에 측정일자와 함께 저장 → 추세 비교 가능
+- **프레스 킷은 상시 갱신**: 로고·원페이저는 최신 상태 유지 → 어떤 신청에도 즉시 사용
 
 ## 2026 오픈소스 개발자대회
 
