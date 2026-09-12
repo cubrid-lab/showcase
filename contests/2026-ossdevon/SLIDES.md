@@ -75,12 +75,16 @@ C 확장 드라이버 12년 방치 → 순수 Python으로 새로 작성
 → 159개 PR · 1,147 테스트 · pip install 한 줄
 ```
 
-### ③ cubrid-cookbook-python (2026) — "쓰는 방법을 공유하자"
+### ③ cubrid-cookbook-python (2026) — "우리가 직접 써보자 (dogfooding)"
 
 ```
-75개 예제 + 7개 템플릿 (FastAPI ~ AI 에이전트)
-→ 45개 골든 검증 · CUBRID 11.2+11.4 CI
-→ 원커맨드 데모: docker compose up
+드라이버를 실제 시나리오로 사용하며 검증:
+→ FastAPI·Django·Streamlit·AI 에이전트 등 7개 템플릿
+→ 75개 예제가 매일 밤 실서버 CUBRID 11.2+11.4에서 실행
+→ 45개 골든 검증 — 드라이버가 바뀌면 cookbook이 즉시 감지
+
+"예제집이 아니라, 우리 드라이버의 최전선 통합 테스트다."
+(pycubrid 1.7.0 이스케이프 버그를 cookbook이 가장 먼저 잡았다)
 ```
 
 ### ④ cubrid-mcp-server (2026) — "AI 시대니까"
@@ -265,8 +269,11 @@ pip install pycubrid    # 2014년의 갭, 2026년에 닫았다
 > 2014년 이후 방치된 C 확장. 그래서 pycubrid를 순수 Python으로
 > 만들었습니다. 의존성 0개, pip install 한 줄.
 >
-> 세 번째, 쓰는 방법을 공유하고 싶어서 cookbook을 만들었습니다.
-> FastAPI부터 AI 에이전트까지 7개 템플릿.
+> 세 번째, cookbook을 만들었습니다. 단순한 예제집이 아니라
+> 우리 드라이버를 실제 애플리케이션에서 직접 써보는 dogfooding입니다.
+> 75개 예제가 매일 밤 실서버에서 실행되고,
+> 드라이버에 버그가 있으면 cookbook이 가장 먼저 잡습니다.
+> 실제로 pycubrid 1.7.0의 이스케이프 버그를 cookbook이 잡았습니다.
 >
 > 네 번째, MCP 서버를 만들었습니다. 세계 최초입니다.
 > 각 단계가 다음 단계를 자연스럽게 낳았습니다."
