@@ -61,6 +61,7 @@ echo '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":
 | cookbook | `make verify` | All examples pass |
 | mcp-server | Initialize JSON-RPC | serverInfo returned |
 | mcp-server | DROP TABLE via execute_query | **Rejected** (read-only whitelist) |
+| mcp-server | UPDATE via execute_query (approval scenario) | **Rejected** (read-only whitelist) |
 
 ## Troubleshooting
 

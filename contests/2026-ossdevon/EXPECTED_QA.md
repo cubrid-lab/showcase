@@ -73,8 +73,8 @@ server releases.
 
 It's off by default and requires explicit opt-in. Even then, only single
 DML statements in atomic transactions — no DDL. We demonstrate the
-safety live: asking Claude to "DROP TABLE" gets rejected by the
-server-level whitelist.
+safety live: asking Claude to "approve all pending documents" (On-nara
+demo) or "DROP TABLE" gets rejected by the server-level whitelist.
 
 ## Q9: How do you handle CUBRID-specific SQL differences?
 
