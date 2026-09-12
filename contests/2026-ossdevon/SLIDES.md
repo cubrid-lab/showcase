@@ -1,11 +1,11 @@
 # Presentation Slides — 2026 OSS Developer Contest Finals
 
-> 12 slides, 12 minutes. Story-driven narrative.
+> 12 slides, 12 minutes. Oracle-optimized: 35% story / 45% technical / 20% impact.
 > Numbers verified 2026-09-12. Re-measure on presentation day.
 
 ---
 
-## Slide 1: Opening — 2020, Two People Met (PT + 팀 소개)
+## Slide 1: Opening — 2020, Two People Met (PT · 0:00-0:45)
 
 **(텍스트가 순서대로 등장)**
 
@@ -24,258 +24,207 @@
 
 ---
 
-## Slide 2: The Full OSS Journey (PT)
+## Slide 2: The Gap — Why This Matters (PT + 활용성 · 0:45-1:30)
 
-### 2020년 한 해, 네 가지 역할
-
-| Role | What | Evidence |
-|---|---|---|
-| **Mentor** | 컨트리뷰톤 SQLAlchemy/HANA (CNBT-41) | 2020.05 접수 |
-| **Contributor** | sqlalchemy-hana (SAP) 기여 | GitHub verified |
-| **Community builder** | SQLAlchemy Korea 개설 | 2020.10, Mike Bayer와 Gitter 논의 후 |
-| **Learner** | Mike Bayer와 직접 교류 | Gitter 채팅 |
-
-> "받은 것을 가르치고, 가르친 것으로 커뮤니티를 만들고,
-> 커뮤니티에서 영감을 받아 새것을 만들었다."
-
----
-
-## Slide 3: The Gap We Found (PT + 활용성)
-
-### CUBRID had a SQLAlchemy dialect. Mike Bayer made it. Then abandoned it.
+### 한국 공공부문 DBMS 10.6%가 CUBRID — 그런데 Python은 죽어있었다
 
 | | |
 |---|---|
-| **zzzeek/sqlalchemy_cubrid** | Created 2012 by Mike Bayer (SQLAlchemy 창시자) |
-| Status | **Unmaintained** — old SQLAlchemy, no Python 3.10+ |
-| Official Python driver | **Last release: 2014-05-15** |
-| CUBRID market | **10.6%** of Korean public sector (1,500+ systems) |
+| **zzzeek/sqlalchemy_cubrid** | Mike Bayer가 2012년 제작 → 방치 |
+| **공식 Python 드라이버** | 마지막 릴리스 2014-05-15 |
+| **G-Cloud 표준 DBMS** | 600+ 시스템 · 국방·행안부·지자체 |
+| **영향받는 개발자** | 1,500+ 시스템 유지보수 인력 |
 
 > **"방언도 죽어가고, 드라이버도 죽어있었다.
 > 방언을 살리려니 — 드라이버부터 새로 만들어야 했다."**
 
 ---
 
-## Slide 4: The Journey — What We Built & How (PT)
+## Slide 3: What We Built — 4 Projects, In Order (PT · 1:30-3:30)
 
-### ① sqlalchemy-cubrid (2021-22) — "우리가 아는 것부터"
+### 연대기: 각 단계가 다음 단계를 자연스럽게 낳았다
 
-**난제:** Mike Bayer의 방언이 SA 1.x 시절 구조로 죽어있었다
-**해결:** SA 2.0 Dialect API로 처음부터 작성 — 공식 테스트 스위트 통합
+**① sqlalchemy-cubrid (2021-22)**
+- Mike Bayer의 방언 → SA 2.0 기준 재작성
+- 스키마 리플렉션, MERGE, ON DUPLICATE KEY UPDATE, Native ENUM
+- **SQLAlchemy 공식 테스트 스위트 통합**
 
-| 기술 성과 | 내용 |
-|---|---|
-| 스키마 리플렉션 | 테이블·컬럼·PK·FK·인덱스·뷰·코멘트 전부 |
-| DML 확장 | ON DUPLICATE KEY UPDATE, MERGE, REPLACE |
-| Native ENUM | CUBRID 10.2–11.4 실증 후 구현 (#343) |
-| Alembic | 비트랜잭션 DDL 처리 + autogenerate 지원 |
+**② pycubrid (2025)**
+- CAS 바이너리 프로토콜 해독 (문서 없음 → 역분석)
+- **PEP 249 (DB-API 2.0) 완전 준수** · 순수 Python · 의존성 0
+- asyncio 네이티브 · TLS · 크로스플랫폼 (Ubuntu + macOS)
 
-### ② pycubrid (2025) — "드라이버가 없어서 직접 만들었다"
+**③ cubrid-cookbook (2026)**
+- **7개 프로덕션 템플릿**: FastAPI, Flask, Django, Streamlit, Celery, ETL, AI Agent
+- 75 예제 = dogfooding 플랫폼 (매일 밤 실서버 검증)
+- pycubrid 1.7.0 버그를 cookbook이 가장 먼저 감지
 
-**난제:** CAS 바이너리 프로토콜 문서가 없었다
-**해결:** node-cubrid(BSD) + 공식 C 드라이버 소스 역분석으로 프로토콜 해독
-
-```python
-# 우리가 해독한 CAS 프로토콜 구조
-# [4B data_length][4B cas_info][payload]
-# 18개 패킷 타입 · 27개 데이터 타입 · big-endian
-# TLS STARTTLS 업그레이드 · 브로커 리다이렉트 · 자동 재연결
-```
-
-| 기술 성과 | 내용 |
-|---|---|
-| 순수 Python | C 확장 없음, 의존성 0개, 크로스 플랫폼 |
-| asyncio 네이티브 | pycubrid.aio — 동시성 쿼리 지원 |
-| TLS/SSL | STARTTLS 방식 업그레이드 |
-| 이스케이프 협상 | no_backslash_escapes 자동 감지 |
-| **벤치마킹 기반 최적화** | 프로파일링 → 개선 → 검증 (아래) |
-
-### ③ cubrid-cookbook (2026) — "우리가 직접 써보자 (dogfooding)"
-
-**역할:** 예제집 + 최전선 통합 테스트
-**증거:** pycubrid 1.7.0 이스케이프 버그를 cookbook이 가장 먼저 감지
-
-### ④ cubrid-mcp-server (2026) — "AI 시대니까"
-
-**난제:** LLM이 CUBRID SQL 구문을 모른다 (LIMIT, SHOW TRACE, SET 타입)
-**해결:** 도메인 지식 팩을 서버에 내장 — LLM에게 CUBRID를 가르친다
-
-```
-12 tools + 5 domain-knowledge resources + 9 expert prompts
-→ LLM이 CUBRID를 몰라도 올바른 SQL을 생성
-→ 읽기 전용 화이트리스트로 DROP TABLE도 서버가 거부
-→ 세계 최초의 CUBRID MCP 서버
-```
+**④ cubrid-mcp-server (2026)**
+- **MCP 사양 준수** — 세계 최초의 CUBRID MCP 서버
+- 12 도구 + 5 도메인 지식 팩 + 9 전문가 프롬프트
+- LLM이 CUBRID SQL을 몰라도 올바르게 쿼리 (서버가 가르침)
 
 ---
 
-## Slide 5: Technical Architecture (PT)
+## Slide 4: Standards & Open Source (OSS 적절성 · 3:30-5:30)
 
-### 프로토콜부터 AI까지 — 전부 직접 구현
+### "폐쇄형 데모가 아니라, 개방형 표준 위의 상호운용 OSS 인프라"
 
-```
-         ┌─────────────────────────────────┐
-         │   cubrid-mcp-server (AI/LLM)    │
-         │   · MCP protocol (JSON-RPC)     │
-         │   · 12 tools + domain knowledge │
-         │   · read-only whitelist         │
-         ├─────────────────────────────────┤
-         │   cubrid-cookbook (dogfooding)  │
-         │   · 75 examples = 75 tests     │
-         │   · nightly live DB execution   │
-         ├─────────────────────────────────┤
-         │   sqlalchemy-cubrid (ORM)       │
-         │   · SQLAlchemy Dialect API      │
-         │   · reflection + DML + Alembic  │
-         ├─────────────────────────────────┤
-         │   pycubrid (driver)             │
-         │   · CAS binary protocol v8      │
-         │   · 18 packet types decoded     │
-         │   · pure Python, zero deps     │
-         ├─────────────────────────────────┤
-         │   CUBRID Server (TCP:33000)     │
-         └─────────────────────────────────┘
-```
+| Standard | Compliance | Evidence |
+|---|---|---|
+| **PEP 249** (DB-API 2.0) | pycubrid 완전 준수 | 1,147 테스트 |
+| **PEP 561** (Type Safety) | py.typed · mypy strict 0 errors | CI 강제 |
+| **SQLAlchemy Dialect API** | 공식 테스트 스위트 통합 | 53 feature flags |
+| **MCP Specification** | Tools + Resources + Prompts | 세계 최초 CUBRID MCP |
 
-**각 계층이 아래 계층만 의존 — 순환 없음, 전부 MIT**
+### We stand on the shoulders of giants:
+
+| Layer | OSS | License |
+|---|---|---|
+| ORM Framework | SQLAlchemy | MIT |
+| Predecessor | zzzeek/sqlalchemy_cubrid | MIT |
+| Protocol Reference | node-cubrid | BSD |
+| MCP Protocol | Model Context Protocol | MIT |
+| Testing | pytest, hypothesis | MIT/MPL |
+| CI/CD | CodeQL, Dependabot, SBOM | GitHub |
+
+> "오픈소스 기여로 배우고, 죽은 프로젝트에서 영감을 받고,
+> 새 생태계를 만들었다."
 
 ---
 
-## Slide 5.5: Performance — 벤치마킹으로 측정하고 최적화했다 (기능테스트)
+## Slide 5: Performance — Benchmark-Driven (기능테스트 · 5:30-6:30)
 
-### 과학적 방법: 벤치마크 → 프로파일 → 최적화 → 검증
+### 니치 시장에서는 사용자가 성능을 알려주지 않는다 — 직접 측정한다
 
-**[cubrid-benchmark](https://github.com/cubrid-lab/cubrid-benchmark) 저장소** — 재현 가능한 비교 벤치마크
-
-| 최적화 | Before | After | 개선 |
+| Optimization | Before | After | Improvement |
 |---|---|---|---|
-| **Native ping()** (vs SELECT 1) | — | — | **+280% 처리량** |
-| **SA pool_pre_ping** | — | — | **+588% 처리량** |
-| **bulk insert 1000행** | 2,865ms | 2,512ms | **12.3% faster** |
-| **query select-all** | 39.8ms | 31.8ms | **19.9% faster** |
-| **fetch 최적화** | 96ms | 78ms | **-19% latency** |
+| Native ping (CHECK_CAS) | SELECT 1 fallback | CAS packet | **+280% throughput** |
+| SA pool_pre_ping | SQL round-trip | native CHECK_CAS | **+588% throughput** |
+| Bulk insert (1000 rows) | 2,865ms | 2,512ms | **12.3% faster** |
+| Query select-all | 39.8ms | 31.8ms | **19.9% faster** |
 
-### 프로파일링 도구 (demos/ + scripts/)
-
-```bash
-# 병목을 찾고 → 수정하고 → 재측정
-scripts/profile_connect.py    # 핸드셰이크 병목 분석
-scripts/profile_execute.py    # DML 경로 분석
-scripts/profile_fetch.py      # fetch 병목 분석
-# + enable_timing=True (드라이버 내장 계측)
-```
-
-> **"니치 시장에서는 사용자가 성능 문제를 알려주지 않는다.
-> 우리가 직접 벤치마크하고, 프로파일하고, 최적화했다."**
+[cubrid-benchmark](https://github.com/cubrid-lab/cubrid-benchmark) — 재현 가능한 비교 환경
 
 ---
 
-## Slide 6: Adoption Signals (활용성)
+## Slide 6: Adoption & Quality (활용성 + 기능테스트 · 6:30-7:30)
 
-| Metric | Value |
-|---|---|
-| GitHub stars (4 repos) | **111** |
-| Unique clones (14 days) | **822** developers |
-| Merged PRs | **450** |
-| PyPI releases | **35** |
-| Tests | **2,200** (CI-enforced) |
-| Documentation sites | **4/4 live** |
-| Korean docs | **34 pages** |
+### 지표가 의미하는 것
 
-**What the official driver can't do:**
+| Metric | Value | 의미 |
+|---|---|---|
+| 111 stars | 4 repos 합산 | 커뮤니티 관심 |
+| **822 unique clones** (14일) | GitHub Traffic API | **실제로 코드를 받아가는 개발자** |
+| **450 merged PRs** | 전부 CI 통과 | **AI+휴먼 협업 프로세스 검증** |
+| 35 PyPI releases | 16 + 19 | 지속적 유지보수 |
+| **2,200 tests** | 4 repos | 품질 게이트 |
+| 20 CI combinations | Py 5 × CUBRID 4 | **호환성 보장** |
+| 95% coverage | CI 강제 | 코드 품질 |
+| 4 docs sites | 전부 라이브 | 접근성 |
+| 34 Korean pages | 번역 | 한국 사용자 배려 |
+
+**공식 드라이버가 못 하는 것:**
 
 | Feature | Official (2014) | pycubrid |
 |---|---|---|
 | asyncio | ❌ | ✅ native |
 | TLS/SSL | ❌ | ✅ |
-| Python 3.10–3.14 | ❌ (3.4 max) | ✅ |
+| Python 3.10-3.14 | ❌ (3.4 max) | ✅ |
 | Pure Python | ❌ (C extension) | ✅ |
-| MCP server | — | ✅ (**world's first**) |
+| MCP server | — | ✅ (world's first) |
 
 ---
 
-## Slide 7: Demo — 3 Layers Live (데모 + 기능테스트)
+## Slide 7: Demo (데모 + 기능테스트 · 7:30-9:30)
 
-**4 minutes:**
+**4 minutes, 3 layers:**
 
 1. **App** (60s) — `docker compose up` → Streamlit dashboard
-2. **AI** (90s) — Claude: "show tables" → "DROP TABLE" → **rejected** (whitelist)
-   → MCP server가 LLM에게 CUBRID SQL을 가르친다 (domain knowledge)
+   → "7개 템플릿 중 하나 — 원커맨드로 실행"
+
+2. **AI** (90s) — Claude Desktop
+   - "show tables" → `all_table_names`
+   - "top 5 products" → `execute_query` (SELECT)
+   - **"DROP TABLE" → 거부** ← 서버 수준 화이트리스트
+   - "tags에 'sale' 있는 상품?" → SET 타입 조회 (MCP domain knowledge)
+
 3. **Driver** (60s) — `pip install pycubrid` → connect → asyncio → zero deps
+   - "PEP 249 준수, 의존성 0개, C 컴파일러 불필요"
 
-*Backup video ready. Read-only whitelist is server-enforced.*
-
----
-
-## Slide 8: The OSS Stack We Stand On (OSS 적절성)
-
-**We stand on the shoulders of giants — including the ones who came before us:**
-
-| Layer | OSS | License | How we use it |
-|---|---|---|---|
-| ORM framework | SQLAlchemy | MIT | Dialect API (learned by contributing) |
-| Predecessor | zzzeek/sqlalchemy_cubrid | MIT | Mike Bayer's original — inspiration for our rebuild |
-| Protocol reference | node-cubrid | BSD | CAS wire protocol decoding |
-| MCP protocol | Model Context Protocol | MIT | AI/LLM access (world's first for CUBRID) |
-| Testing | pytest, hypothesis | MIT/MPL | 2,200 tests |
-| CI/CD | CodeQL, Dependabot | GitHub | 20-combination matrix |
-| Benchmark | cubrid/cubrid Docker | CUBRID | Live DB testing 10.2–11.4 |
-
-> "오픈소스 기여로 배우고, 죽은 프로젝트에서 영감을 받고, 새 생태계를 만들었다."
+*(백업 영상 준비됨 — 동일 런북의 사전 녹화)*
 
 ---
 
-## Slide 9: Quality Gates (기능테스트)
-
-| Gate | Value |
-|---|---|
-| Tests | **2,200** (1,147 + 769 + 284) |
-| CI matrix (live DB) | Python 5 × CUBRID 4 = **20 combinations** |
-| Coverage floor | **95%** (CI-enforced) |
-| Type safety | mypy strict, **0 errors** |
-| API compatibility | api-baseline.json gate |
-| SQLAlchemy suite | Official test suite integrated |
-| Native ENUM | Verified live on CUBRID 10.2–11.4 (#343) |
-| SBOM | SPDX on every GitHub Release |
-
----
-
-## Slide 10: How We Work — AI + Human (커뮤니티)
-
-### The workflow we built (from OSS contribution culture):
+## Slide 8: How We Work — AI + Human (커뮤니티 · 9:30-10:15)
 
 ```
 AGENTS.md (rules) → AI implements → Human reviews → CI gates → Human releases
 ```
 
-- **450 merged PRs** — every one passed 20-combination live DB tests
+- **450 PRs** — every one passed 20-combination live DB tests
 - Translation sync CI (Korean hard gate)
-- Label taxonomy with weekly drift audit
-- Roadmap update policy (every release PR must update ROADMAP.md)
+- Label taxonomy + weekly drift audit
+- SBOM on every release
 
-> "우리는 AI가 작성한 코드를 검증하는 **시스템**을 만들었다.
+> "AI가 작성한 코드를 검증하는 시스템을 만들었다.
 > 그 시스템이 450개 PR을 통과시켰다."
 
 ---
 
-## Slide 11: Giving Back to OSS (라이선스 + 커뮤니티)
+## Slide 9: Licensing (라이선스 · 10:15-10:30)
 
-**All MIT. All open.**
+**MIT × 4** · THIRD_PARTY_LICENSES · NOTICE · SPDX SBOM · No GPL
 
-- THIRD_PARTY_LICENSES.md + NOTICE in every repo
-- SPDX SBOM on releases
-- No GPL dependencies
-- 5 good-first-issues seeded for newcomers
-
-**CUBRID server**: Apache-2.0 / BSD — verified upstream COPYING
-Our packages: independent wire-protocol clients — no server code
-
-**Roadmap**: fastmcp `<5` (canary green), CUBRID 12, vector types,
-hosted MCP, Windows CI
+**CUBRID server**: Apache-2.0 / BSD (upstream COPYING verified)
+**Our packages**: independent wire-protocol clients — no server code
 
 ---
 
-## Slide 12: The Flywheel — Closing (PT)
+## Slide 10: Ecosystem Vision — 4 Languages + Community (발전가능성 · 10:30-11:15)
+
+### Python이 레퍼런스 — TypeScript, Go, Rust도 진행 중
+
+| Language | Driver | ORM | Status |
+|---|---|---|---|
+| **Python** | pycubrid v1.7.0 | sqlalchemy-cubrid v1.7.0 | **완성 (출품작)** |
+| TypeScript | cubrid-client v1.1.0 | drizzle-cubrid v0.2.1 | 진행 중 |
+| Go | cubrid-go v0.2.1 | gorm-cubrid v0.1.0 | 진행 중 |
+| Rust | cubrid-rs v0.1.0 | sea-orm-cubrid v0.1.0 | 진행 중 |
+
+### Community: SQLAlchemy Korea 경험으로
+
+- 코드 접근성: 4 docs sites, 34 한국어 페이지, demo GIFs
+- Cookbook = 온보딩 가이드 (75 examples)
+- Good-first-issues: 5 seeded + mentoring
+- **SQLAlchemy Korea 운영 중 (2020.10~)**
+
+### Sustainability
+
+- 대가 후에도: MIT 라이선스, 문서화된 governance, CI 자동화
+- AI/MCP = 다음 세대 개발자(LLM 에이전트)도 CUBRID 사용 가능
+
+---
+
+## Slide 11: Judge Verification (기능테스트 · 11:15-11:30)
+
+### 심사위원이 직접 확인할 수 있는 경로
+
+```bash
+# PyPI에서 (등록 후)
+uvx cubrid-mcp-server
+
+# 또는 GitHub Release에서 (지금 가능)
+git clone cubrid-cookbook-python
+docker compose up -d
+make verify
+```
+
+**VERIFY.md** — 단계별 검증 가이드 (showcase repo)
+
+---
+
+## Slide 12: Closing — The Flywheel (PT · 11:30-12:00)
 
 # 컨트리뷰톤에서 배웠다
 # → Mike Bayer를 만났다
@@ -294,75 +243,49 @@ pip install pycubrid    # 2014년의 갭, 2026년에 닫았다
 ---
 ---
 
-## Appendix: Story Beats (발표 스크립트)
+## Appendix: Speaking Scripts (발표 스크립트)
 
-### 슬라이드 1 (오프닝 + 팀 소개, 30초)
+### 슬라이드 1 (오프닝, 30초)
 > "2020년, NIPA가 운영하는 오픈소스 컨트리뷰톤에서 두 사람이 만났습니다.
 > 멘토와 멘티로요. 저희입니다.
 > 그때 SQLAlchemy를 배웠고, Gitter에서 창시자 Mike Bayer님과 대화하면서
 > 한국 커뮤니티도 만들었습니다. 6년 후, 하나의 생태계를 들고 왔습니다."
 
-### 슬라이드 2 (여정, 30초)
-> "2020년 한 해에 저희는 네 가지 역할을 했습니다.
-> 컨트리뷰톤 멘토, SAP sqlalchemy-hana 기여자,
-> Mike Bayer와 Gitter에서 대화한 학습자,
-> 그리고 SQLAlchemy Korea 커뮤니티 빌더.
-> 이 네 가지가 지금 프로젝트의 기반입니다."
-
-### 슬라이드 3 (갭 발견, 20초)
-> "Mike Bayer님이 2012년에 CUBRID 방언을 만드셨지만 방치되어 있었습니다.
-> 드라이버는 더 심각했습니다 — 2014년 이후 죽어있었으니까."
-
-### 슬라이드 4 (프로젝트 소개, 60초 — 연대기 순)
-> "첫 번째로 sqlalchemy-cubrid를 만들었습니다. Mike Bayer님이 만들다
-> 버린 방언을 SQLAlchemy 2.0 기준으로 처음부터 썼습니다.
+### 슬라이드 3 (프로젝트, 90초 — 연대기 순)
+> "첫 번째, sqlalchemy-cubrid입니다. Mike Bayer님이 만들다 버린 방언을
+> SQLAlchemy 2.0 기준으로 처음부터 썼습니다. 공식 테스트 스위트를 통합했고,
+> Native ENUM도 실증해서 구현했습니다.
 >
 > 두 번째, 방언을 만들다 보니 드라이버가 문제였습니다.
 > 2014년 이후 방치된 C 확장. 그래서 pycubrid를 순수 Python으로
-> 만들었습니다. 의존성 0개, pip install 한 줄.
+> 만들었습니다. PEP 249를 완전히 준수하고, 의존성이 0개입니다.
 >
-> 세 번째, cookbook을 만들었습니다. 단순한 예제집이 아니라
-> 우리 드라이버를 실제 애플리케이션에서 직접 써보는 dogfooding입니다.
-> 75개 예제가 매일 밤 실서버에서 실행되고,
+> 세 번째, cookbook입니다. 7개 프로덕션 템플릿 — FastAPI부터 AI 에이전트까지.
+> 이게 단순한 예제집이 아니라 dogfooding 플랫폼입니다.
+> 매일 밤 75개 예제가 실서버에서 실행되고,
 > 드라이버에 버그가 있으면 cookbook이 가장 먼저 잡습니다.
-> 실제로 pycubrid 1.7.0의 이스케이프 버그를 cookbook이 잡았습니다.
 >
-> 네 번째, MCP 서버를 만들었습니다. 세계 최초입니다.
-> 각 단계가 다음 단계를 자연스럽게 낳았습니다."
+> 네 번째, MCP 서버입니다. 세계 최초의 CUBRID MCP 서버이고,
+> 도메인 지식 팩을 내장해서 LLM이 CUBRID를 몰라도
+> 올바른 SQL을 생성할 수 있습니다."
 
-### 슬라이드 5.5 (성능, 30초)
-> "벤치마킹을 통해 성능을 개선했습니다. cubrid-benchmark라는 별도
-> 저장소를 만들어 재현 가능한 비교 환경을 구축했고,
-> 프로파일링 스크립트로 병목을 찾아 최적화했습니다.
->
-> 대표적인 결과: native ping을 구현해서 SELECT 1 폴백 대비
-> 280% 처리량 향상, SQLAlchemy pool_pre_ping 시나리오에서는
-> 588% 향상을 달성했습니다. 대량 INSERT도 12% 빨라졌습니다.
->
-> 이게 니치 시장에서 성능을 개선하는 방법입니다 —
-> 사용자가 알려줄 때까지 기다리지 않고 직접 측정합니다."
+### 슬라이드 4 (OSS 적절성, 60초)
+> "이 프로젝트는 폐쇄형 데모 앱이 아니라, 개방형 표준 위의
+> 상호운용 가능한 OSS 인프라입니다.
+> pycubrid는 PEP 249를 완전히 준수하고,
+> sqlalchemy-cubrid는 SQLAlchemy 공식 테스트 스위트를 통합했으며,
+> MCP 서버는 MCP 사양을 준수합니다.
+> SQLAlchemy, pytest, CodeQL — 전부 오픈소스 위에 구축했습니다."
 
-### 슬라이드 4-5 (기술 심화, 90초)
-> "pycubrid의 가장 어려웠던 부분은 CAS 바이너리 프로토콜 해독이었습니다.
-> 공식 문서가 없어서 node-cubrid의 BSD 코드와 C 드라이버 소스를
-> 교차 분석해서 18개 패킷 타입과 27개 데이터 타입을 해독했습니다.
->
-> sqlalchemy-cubrid는 Mike Bayer님이 만들다 버린 방언을
-> SQLAlchemy 2.0 기준으로 처음부터 썼습니다. 스키마 리플렉션,
-> MERGE, ON DUPLICATE KEY UPDATE, native ENUM까지 지원합니다.
->
-> MCP 서버는 단순히 도구를 노출하는 게 아니라, 도메인 지식 팩을
-> 내장해서 LLM이 CUBRID 구문을 모르더라도 올바른 SQL을
-> 생성할 수 있게 했습니다. 이게 세계 최초의 CUBRID MCP 서버입니다."
-
-### 슬라이드 8 (OSS 스택, 20초)
-> "이 프로젝트의 기반은 전부 오픈소스입니다. 컨트리뷰톤에서 배웠고,
-> Mike Bayer님의 원작에서 영감을 받았고, node-cubrid의 BSD 코드가
-> 프로토콜 해석의 출발점이었습니다."
+### 슬라이드 5 (성능, 30초)
+> "니치 시장에서는 사용자가 성능 문제를 알려주지 않습니다.
+> 그래서 직접 벤치마크하고, 프로파일하고, 최적화했습니다.
+> Native ping 구현으로 280%, SQLAlchemy pool_pre_ping에서는
+> 588% 처리량이 향상됐습니다. 전부 cubrid-benchmark에서 재현 가능합니다."
 
 ### 슬라이드 12 (클로징, 20초)
 > "2020년에 멘토로 시작해서 6년이 걸렸습니다.
 > 기여자에서 커뮤니티 빌더가 되고, 방언을 만들고,
 > 드라이버를 만들고, 결국 생태계를 만들었습니다.
-> SQLAlchemy Korea 커뮤니티도 계속 운영하고 있습니다.
+> SQLAlchemy Korea도 계속 운영하고 있습니다.
 > 다음 컨트리뷰톤에서 누군가 저희 프로젝트를 이어가 주길 기다립니다."
