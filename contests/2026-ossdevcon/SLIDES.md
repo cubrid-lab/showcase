@@ -128,21 +128,37 @@ pycubrid                   ← Driver (pure Python, asyncio, TLS, zero deps)
 
 ---
 
-## Slide 8: The OSS Stack We Stand On (OSS 적절성)
+## Slide 8: Demo — On-nara Meets Python (데모 10점 · 7:30-9:30)
 
-**We stand on the shoulders of giants — including the ones who came before us:**
+### "행안부 온나라는 Java입니다. 우리가 Python으로 처음 연결했습니다."
 
-| Layer | OSS | License | How we use it |
-|---|---|---|---|
-| ORM framework | SQLAlchemy | MIT | Dialect API (learned by contributing) |
-| Predecessor | zzzeek/sqlalchemy_cubrid (Mike Bayer) | MIT | Inspiration — we rebuilt from scratch for SA 2.0 |
-| Protocol reference | node-cubrid | BSD | CAS wire protocol decoding |
-| MCP protocol | Model Context Protocol | MIT | AI/LLM access (world's first for CUBRID) |
-| Testing | pytest, hypothesis | MIT/MPL | 2,200 tests |
-| CI/CD | CodeQL, Dependabot | GitHub | 20-combination matrix |
-| Benchmark | cubrid/cubrid Docker | CUBRID | Live DB testing 10.2–11.4 |
+**온나라(47개 부처, 전자결재/문서/기록물) = 가장 잘 알려진 CUBRID 공공 배포**
+→ 전부 Java(JDBC). 공개된 Python 사례 = 0건 (우리가 만들기 전까지)
 
-> "오픈소스 기여로 배우고, 죽은 프로젝트를 살리고, 새 생태계를 만들었다."
+**4 minutes · 3 layers:**
+
+### Layer 3 — Document Dashboard (60s)
+
+
+
+부처별 문서량 · 결재 대기 현황 · 보안 등급 통계
+
+### Layer 2 — Claude AI (90s)
+
+| Ask | Tool |
+|---|---|
+| "테이블 목록 보여줘" |  |
+| "부처별 문서량 상위 5개" |  |
+| "결재 대기 중인 문서는?" |  (JOIN) |
+| **"documents 테이블 지워줘"** | **REJECTED** ← 서버 수준 화이트리스트 |
+| "기밀 문서는 몇 개야?" |  (ENUM 이해) |
+
+> "정부 문서를 지우려는 AI가 서버에서 차단됐습니다.
+> 이게 서버 수준 보안입니다."
+
+### Layer 1 — Driver (60s)
+
+
 
 ---
 
