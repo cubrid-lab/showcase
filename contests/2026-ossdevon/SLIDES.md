@@ -88,6 +88,7 @@
 | asyncio 네이티브 | pycubrid.aio — 동시성 쿼리 지원 |
 | TLS/SSL | STARTTLS 방식 업그레이드 |
 | 이스케이프 협상 | no_backslash_escapes 자동 감지 |
+| **벤치마킹 기반 최적화** | 프로파일링 → 개선 → 검증 (아래) |
 
 ### ③ cubrid-cookbook (2026) — "우리가 직접 써보자 (dogfooding)"
 
@@ -137,6 +138,35 @@
 ```
 
 **각 계층이 아래 계층만 의존 — 순환 없음, 전부 MIT**
+
+---
+
+## Slide 5.5: Performance — 벤치마킹으로 측정하고 최적화했다 (기능테스트)
+
+### 과학적 방법: 벤치마크 → 프로파일 → 최적화 → 검증
+
+**[cubrid-benchmark](https://github.com/cubrid-lab/cubrid-benchmark) 저장소** — 재현 가능한 비교 벤치마크
+
+| 최적화 | Before | After | 개선 |
+|---|---|---|---|
+| **Native ping()** (vs SELECT 1) | — | — | **+280% 처리량** |
+| **SA pool_pre_ping** | — | — | **+588% 처리량** |
+| **bulk insert 1000행** | 2,865ms | 2,512ms | **12.3% faster** |
+| **query select-all** | 39.8ms | 31.8ms | **19.9% faster** |
+| **fetch 최적화** | 96ms | 78ms | **-19% latency** |
+
+### 프로파일링 도구 (demos/ + scripts/)
+
+```bash
+# 병목을 찾고 → 수정하고 → 재측정
+scripts/profile_connect.py    # 핸드셰이크 병목 분석
+scripts/profile_execute.py    # DML 경로 분석
+scripts/profile_fetch.py      # fetch 병목 분석
+# + enable_timing=True (드라이버 내장 계측)
+```
+
+> **"니치 시장에서는 사용자가 성능 문제를 알려주지 않는다.
+> 우리가 직접 벤치마크하고, 프로파일하고, 최적화했다."**
 
 ---
 
@@ -299,6 +329,18 @@ pip install pycubrid    # 2014년의 갭, 2026년에 닫았다
 >
 > 네 번째, MCP 서버를 만들었습니다. 세계 최초입니다.
 > 각 단계가 다음 단계를 자연스럽게 낳았습니다."
+
+### 슬라이드 5.5 (성능, 30초)
+> "벤치마킹을 통해 성능을 개선했습니다. cubrid-benchmark라는 별도
+> 저장소를 만들어 재현 가능한 비교 환경을 구축했고,
+> 프로파일링 스크립트로 병목을 찾아 최적화했습니다.
+>
+> 대표적인 결과: native ping을 구현해서 SELECT 1 폴백 대비
+> 280% 처리량 향상, SQLAlchemy pool_pre_ping 시나리오에서는
+> 588% 향상을 달성했습니다. 대량 INSERT도 12% 빨라졌습니다.
+>
+> 이게 니치 시장에서 성능을 개선하는 방법입니다 —
+> 사용자가 알려줄 때까지 기다리지 않고 직접 측정합니다."
 
 ### 슬라이드 4-5 (기술 심화, 90초)
 > "pycubrid의 가장 어려웠던 부분은 CAS 바이너리 프로토콜 해독이었습니다.
