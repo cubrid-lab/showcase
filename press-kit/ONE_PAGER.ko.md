@@ -36,6 +36,8 @@ cubrid-mcp-server   AI/LLM 접근 (12개 도구, 읽기 전용 화이트리스�
 | 문서 | 4개 사이트, 한국어 33페이지 |
 | 라이선스 | MIT (4개 전부) |
 
+**커뮤니티**: SQLAlchemy Korea 운영 (2020.10~, Mike Bayer와 Gitter 논의 후 개설)
+
 ## 차별점
 
 1. **세계 유일**의 순수 Python CUBRID 드라이버 (C 확장 없음)

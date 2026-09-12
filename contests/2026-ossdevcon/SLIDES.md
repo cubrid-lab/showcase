@@ -11,29 +11,31 @@
 
 **2020 오픈소스 컨트리뷰톤 (CNBT-41) — 멘토와 멘티로 만났다**
 
-**→ SQLAlchemy · sqlalchemy-hana에 기여**
+**→ SQLAlchemy · sqlalchemy-hana 기여**
 
-**→ SQLAlchemy 창시자 Mike Bayer가 CUBRID 방언을 만들었었다**
+**→ Mike Bayer (창시자)와 Gitter로 교류**
 
-**→ 2012년에 만들고... 유지보수가 끊겼다**
+**→ SQLAlchemy Korea 커뮤니티 개설 (2020.10)**
+
+**→ Mike가 2012년에 만든 CUBRID 방언... 죽어있었다**
 
 *CUBRID Lab — Yeongseon Choe & Gyeongjun Paik*
 
 ---
 
-## Slide 2: What We Learned (PT)
+## Slide 2: The Full OSS Journey (PT)
 
-### 2020: Mentor (최영선) + Mentee (백경준) → SQLAlchemy contribution team
+### 2020: One year, four roles
 
-| What we did | What we learned |
-|---|---|
-| SQLAlchemy core patches | Dialect API internals |
-| sqlalchemy-hana (SAP HANA dialect) | How to build a production dialect |
-| Mini hackathon with Mike Bayer | Direct guidance from SQLAlchemy creator |
-| Code review culture | AGENTS.md-driven AI workflow |
-| Test-driven development | 95% coverage discipline |
+| Role | What | Evidence |
+|---|---|---|
+| **Mentor** | 컨트리뷰톤 SQLAlchemy/HANA (CNBT-41) | 2020.05 접수 |
+| **Contributor** | sqlalchemy-hana (SAP)에 기여 | GitHub verified |
+| **Community builder** | SQLAlchemy Korea 그룹 개설 | 2020.10, Mike Bayer와 Gitter 논의 후 |
+| **Learner** | Mike Bayer와 직접 교류 | 미니 해커톤 + Gitter |
 
-> "기여하면서 배웠다. 이제 우리 차례."
+> "받은 것을 가르치고, 가르친 것으로 커뮤니티를 만들고,
+> 커뮤니티에서 영감을 받아 새것을 만들었다."
 
 ---
 
@@ -53,22 +55,22 @@
 
 ---
 
-## Slide 4: What We Did (PT)
-
-### Rebuild from scratch. Driver too. Then grow the ecosystem.
+## Slide 4: What We Did — 6 Year Journey (PT)
 
 ```
-2020: 오픈소스 컨트리뷰톤 멘토-멘티 (CNBT-41)
-   → SQLAlchemy · sqlalchemy-hana 기여
-   → Mike Bayer (SQLAlchemy 창시자)와 교류
+2020.05  컨트리뷰톤 멘토 (CNBT-41) — SQLAlchemy/HANA
+2020.10  SQLAlchemy Korea 개설 (Mike Bayer와 Gitter 논의)
+         sqlalchemy-hana 기여
 
-2021-22: sqlalchemy-cubrid — Mike Bayer의 원작에서 영감
-   → SQLAlchemy 2.0 기준 처음부터 작성 (신규 구현)
-   → C 확장 드라이버의 한계 발견
+2021.07  sqlalchemy-cubrid 첫 커밋
+2022.05  Google Meet 킥오프 — 방향 결정
+2022.07  본격 개발 시작 (Yeongseon + Gyeongjun)
+2022.09  리플렉션 구현 + 튜토리얼
 
-2025: pycubrid — 순수 Python 드라이버 (의존성 0, asyncio, TLS)
+2025     pycubrid — 순수 Python 드라이버 (의존성 0, asyncio, TLS)
 
-2026: 생태계 — cookbook + MCP server + AI agent
+2026     cubrid-mcp-server + cookbook + AI agent template
+         → 완전한 생태계
 ```
 
 ---
@@ -217,24 +219,26 @@ pip install pycubrid    # 2014년의 갭, 2026년에 닫았다
 
 ### 슬라이드 1-2에서 (30초)
 > "2020년 오픈소스 컨트리뷰톤에서 저(최영선)가 멘토, 경준님이 멘티로
-> 만났습니다. SQLAlchemy와 SAP HANA dialect에 함께 기여했습니다.
-> 그 과정에서 미니 해커톤으로 SQLAlchemy 창시자 Mike Bayer님과도
-> 직접 이야기할 기회가 있었습니다."
+> 만났습니다. SQLAlchemy와 SAP HANA dialect에 함께 기여했고,
+> Mike Bayer님과 Gitter로 교류하면서 SQLAlchemy Korea 커뮤니티도
+> 만들었습니다. 그 해가 저희 오픈소스 여정의 시작이었습니다."
 
 ### 슬라이드 3-4에서 (30초)
 > "Mike Bayer님이 2012년에 CUBRID 방언을 만드셨지만 방치되어 있었습니다.
-> 저희는 이것을 계승하는 게 아니라 SQLAlchemy 2.0 기준으로
-> 처음부터 다시 쓰기로 했습니다. 그런데 쓰다 보니 근본 문제가 드라이버였습니다.
-> 2014년 이후 방치된 C 확장. 그래서 드라이버를 순수 Python으로
-> 새로 만들었습니다."
+> 2021년에 저희가 새로 쓰기 시작했습니다. 2022년 5월에 방향을 정하고
+> 7월부터 본격적으로 개발했습니다. 그런데 쓰다 보니 근본 문제가
+> 드라이버였습니다 — 2014년 이후 방치된 C 확장.
+> 그래서 2025년에 드라이버를 순수 Python으로 새로 만들었습니다."
 
 ### 슬라이드 8에서 (20초)
 > "이 프로젝트의 기반은 전부 오픈소스입니다. 컨트리뷰톤에서 배웠고,
 > Mike Bayer님의 원작에서 영감을 받았고, node-cubrid의 BSD 코드가
-> 프로토콜 해석의 출발점이었습니다."
+> 프로토콜 해석의 출발점이었습니다. 받은 것을 돌려주는 것이
+> 오픈소스라고 생각합니다."
 
 ### 슬라이드 12에서 (20초 — 클로징)
-> "2020년에 멘토-멘티로 만나 6년 걸렸습니다.
-> 기여자에서 방언 제작자가 되고, 방언에서 드라이버를 만들고,
-> 드라이버에서 생태계를 만들었습니다.
+> "2020년에 멘토로 시작해서 6년이 걸렸습니다.
+> 기여자에서 커뮤니티 빌더가 되고, 방언을 만들고,
+> 드라이버를 만들고, 결국 생태계를 만들었습니다.
+> SQLAlchemy Korea 커뮤니티도 계속 운영하고 있습니다.
 > 다음 컨트리뷰톤에서 누군가 저희 프로젝트를 이어가 주길 기다립니다."

@@ -16,6 +16,18 @@ stack — driver, ORM, examples, and AI/MCP server.
 
 ---
 
+## Q0.5: "You mentioned SQLAlchemy Korea — tell us about that."
+
+**A:** In October 2020, after discussing with Mike Bayer via Gitter, I opened
+the SQLAlchemy Korea Facebook group to build a local community for Korean
+SQLAlchemy users. It's still active today. That experience — building a
+community around an open source tool — directly informed how we structured
+the CUBRID ecosystem: documentation in Korean, translation sync CI, and
+good-first-issues for newcomers. Community isn't an afterthought; it's
+designed into our workflow.
+
+---
+
 ## Q1: "Why not just use the official CUBRID Python driver?"
 
 **A:** The official driver's last PyPI release was **May 2014** — 12 years ago.

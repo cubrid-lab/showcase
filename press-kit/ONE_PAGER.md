@@ -35,6 +35,8 @@ cubrid-mcp-server   AI/LLM access (12 tools, read-only whitelist, domain knowled
 | Documentation | 4 sites, 33 Korean pages |
 | License | MIT (all 4 repos) |
 
+**Community**: SQLAlchemy Korea organizer (since Oct 2020, after Gitter discussion with Mike Bayer)
+
 ## What Makes It Different
 
 1. **World's only** pure Python CUBRID driver (no C extensions)
