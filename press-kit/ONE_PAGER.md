@@ -2,7 +2,7 @@
 
 ## Our Story
 
-We met at an OSS contribution hackathon as mentor and mentee.
+We met at the 2020 OSS Contribution Hackathon (CNBT-41) as mentor and mentee.
 Contributed to SQLAlchemy and sqlalchemy-hana.
 Found Mike Bayer's CUBRID dialect (2012) unmaintained.
 Rebuilt from scratch for SQLAlchemy 2.0, then built the driver too.

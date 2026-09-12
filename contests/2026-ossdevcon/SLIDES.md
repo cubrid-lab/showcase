@@ -9,7 +9,7 @@
 
 # From Contributors to Maintainers
 
-**오픈소스 컨트리뷰톤 — 멘토와 멘티로 만났다**
+**2020 오픈소스 컨트리뷰톤 (CNBT-41) — 멘토와 멘티로 만났다**
 
 **→ SQLAlchemy · sqlalchemy-hana에 기여**
 
@@ -23,7 +23,7 @@
 
 ## Slide 2: What We Learned (PT)
 
-### Contributing to SQLAlchemy & sqlalchemy-hana
+### 2020: Mentor (최영선) + Mentee (백경준) → SQLAlchemy contribution team
 
 | What we did | What we learned |
 |---|---|
@@ -58,16 +58,17 @@
 ### Rebuild from scratch. Driver too. Then grow the ecosystem.
 
 ```
-2021-22: sqlalchemy-cubrid — Mike Bayer의 작품에서 영감을 받아
-   → SQLAlchemy 2.0 기준 처음부터 작성 (포크가 아닌 신규 구현)
-   → C 확장 드라이버의 한계 발견 (컴파일, asyncio 불가)
+2020: 오픈소스 컨트리뷰톤 멘토-멘티 (CNBT-41)
+   → SQLAlchemy · sqlalchemy-hana 기여
+   → Mike Bayer (SQLAlchemy 창시자)와 교류
 
-2025: pycubrid — 드라이버를 순수 Python으로 새로 작성
-   → 의존성 0, asyncio 네이티브, TLS, pip install 한 줄
+2021-22: sqlalchemy-cubrid — Mike Bayer의 원작에서 영감
+   → SQLAlchemy 2.0 기준 처음부터 작성 (신규 구현)
+   → C 확장 드라이버의 한계 발견
 
-2026: 생태계 확장
-   → cookbook (75 예제, 7 템플릿)
-   → cubrid-mcp-server (AI/LLM, 세계 최초)
+2025: pycubrid — 순수 Python 드라이버 (의존성 0, asyncio, TLS)
+
+2026: 생태계 — cookbook + MCP server + AI agent
 ```
 
 ---
@@ -215,25 +216,25 @@ pip install pycubrid    # 2014년의 갭, 2026년에 닫았다
 ## Appendix: Story Beats (발표 중 언급할 스크립트)
 
 ### 슬라이드 1-2에서 (30초)
-> "저희는 오픈소스 컨트리뷰톤에서 멘토-멘티로 만났습니다.
-> SQLAlchemy와 SAP HANA dialect에 기여하면서 방언 API를 배웠습니다.
-> 미니 해커톤에서 SQLAlchemy 창시자 Mike Bayer님과도 이야기할 기회가 있었습니다."
+> "2020년 오픈소스 컨트리뷰톤에서 저(최영선)가 멘토, 경준님이 멘티로
+> 만났습니다. SQLAlchemy와 SAP HANA dialect에 함께 기여했습니다.
+> 그 과정에서 미니 해커톤으로 SQLAlchemy 창시자 Mike Bayer님과도
+> 직접 이야기할 기회가 있었습니다."
 
 ### 슬라이드 3-4에서 (30초)
-> "Mike Bayer님이 2012년에 CUBRID 방언을 만드셨지만 유지보수가 끊겼습니다.
-> SQLAlchemy 2.0도 안 되고, Python 3.10+도 안 됐습니다.
-> 우리는 이것을 계승하는 게 아니라, SQLAlchemy 2.0 기준으로
+> "Mike Bayer님이 2012년에 CUBRID 방언을 만드셨지만 방치되어 있었습니다.
+> 저희는 이것을 계승하는 게 아니라 SQLAlchemy 2.0 기준으로
 > 처음부터 다시 쓰기로 했습니다. 그런데 쓰다 보니 근본 문제가 드라이버였습니다.
 > 2014년 이후 방치된 C 확장. 그래서 드라이버를 순수 Python으로
 > 새로 만들었습니다."
 
 ### 슬라이드 8에서 (20초)
-> "이 프로젝트의 기반은 전부 오픈소스입니다. SQLAlchemy를 기여하며 배웠고,
+> "이 프로젝트의 기반은 전부 오픈소스입니다. 컨트리뷰톤에서 배웠고,
 > Mike Bayer님의 원작에서 영감을 받았고, node-cubrid의 BSD 코드가
-> 프로토콜 해석의 출발점이었습니다. 오픈소스 커뮤니티에서 배워서
-> 새 생태계를 만든 것입니다."
+> 프로토콜 해석의 출발점이었습니다."
 
 ### 슬라이드 12에서 (20초 — 클로징)
-> "저희는 멘토-멘티로 만나서 기여자가 되었고, Mike Bayer님의 작품에서
-> 영감을 받아 새로 썼고, 결국 생태계 전체를 만들었습니다.
+> "2020년에 멘토-멘티로 만나 6년 걸렸습니다.
+> 기여자에서 방언 제작자가 되고, 방언에서 드라이버를 만들고,
+> 드라이버에서 생태계를 만들었습니다.
 > 다음 컨트리뷰톤에서 누군가 저희 프로젝트를 이어가 주길 기다립니다."
