@@ -37,6 +37,17 @@ cubrid-mcp-server   AI/LLM access (12 tools, read-only whitelist, domain knowled
 
 **Community**: SQLAlchemy Korea organizer (since Oct 2020, after Gitter chat with Mike Bayer)
 
+## Performance (Benchmark-Driven)
+
+| Optimization | Result |
+|---|---|
+| Native ping (CHECK_CAS) | **+280% throughput** vs SELECT 1 |
+| SQLAlchemy pool_pre_ping | **+588% throughput** |
+| Bulk insert (1000 rows) | **12.3% faster** |
+| Query select-all | **19.9% faster** |
+
+Reproducible benchmarks at [cubrid-benchmark](https://github.com/cubrid-lab/cubrid-benchmark).
+
 ## What Makes It Different
 
 1. **World's only** pure Python CUBRID driver (no C extensions)

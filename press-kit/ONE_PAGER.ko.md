@@ -38,6 +38,17 @@ cubrid-mcp-server   AI/LLM 접근 (12개 도구, 읽기 전용 화이트리스�
 
 **커뮤니티**: SQLAlchemy Korea 운영 (2020.10~, Gitter에서 Mike Bayer와 논의 후 개설)
 
+## 성능 최적화 (벤치마킹 기반)
+
+| 최적화 | 결과 |
+|---|---|
+| Native ping (CHECK_CAS) | SELECT 1 대비 **+280% 처리량** |
+| SQLAlchemy pool_pre_ping | **+588% 처리량** |
+| 대량 INSERT (1000행) | **12.3% faster** |
+| 쿼리 select-all | **19.9% faster** |
+
+벤치마크 저장소(cubrid-benchmark)에서 재현 가능한 비교 환경 제공.
+
 ## 차별점
 
 1. **세계 유일**의 순수 Python CUBRID 드라이버 (C 확장 없음)
