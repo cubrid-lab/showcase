@@ -48,6 +48,18 @@ cubrid-mcp-server   AI/LLM access (12 tools, read-only whitelist, domain knowled
 
 Reproducible benchmarks at [cubrid-benchmark](https://github.com/cubrid-lab/cubrid-benchmark).
 
+## Ecosystem Expansion (4 Languages)
+
+| Language | Driver | ORM | Status |
+|---|---|---|---|
+| Python | pycubrid v1.7.0 | sqlalchemy-cubrid v1.7.0 | **Complete** |
+| TypeScript | cubrid-client v1.1.0 | drizzle-cubrid v0.2.1 | In progress |
+| Go | cubrid-go v0.2.1 | gorm-cubrid v0.1.0 | In progress |
+| Rust | cubrid-rs v0.1.0 | sea-orm-cubrid v0.1.0 | In progress |
+
+Community: Led by SQLAlchemy Korea organizer (since 2020).
+Same playbook (driver -> ORM -> examples -> AI) for each language.
+
 ## What Makes It Different
 
 1. **World's only** pure Python CUBRID driver (no C extensions)

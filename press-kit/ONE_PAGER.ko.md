@@ -1,5 +1,16 @@
 # CUBRID Python 생태계 — 원페이저
 
+## Ecosystem Expansion (4 Languages)
+
+| Language | Driver | ORM | Status |
+|---|---|---|---|
+| Python | pycubrid v1.7.0 | sqlalchemy-cubrid v1.7.0 | **Complete** |
+| TypeScript | cubrid-client v1.1.0 | drizzle-cubrid v0.2.1 | In progress |
+| Go | cubrid-go v0.2.1 | gorm-cubrid v0.1.0 | In progress |
+| Rust | cubrid-rs v0.1.0 | sea-orm-cubrid v0.1.0 | In progress |
+
+Community: SQLAlchemy Korea organizer (2020~) same playbook.
+
 ## 우리의 이야기
 
 2020년 오픈소스 컨트리뷰톤(CNBT-41)에서 멘토-멘티로 만났습니다.

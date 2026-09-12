@@ -140,6 +140,20 @@ ecosystem → open the door for the next contributor.
 
 ---
 
+## Q10.5: Is this just for Python?
+
+cubrid-lab has 4 language ecosystems: Python (complete, contest entry), TypeScript, Go, Rust.
+Python is the reference implementation. Same playbook applies to each.
+
+## Q10.7: How will you grow the community?
+
+We run SQLAlchemy Korea (since 2020). Same methodology:
+1. Code accessibility: 4 docs sites, 34 Korean pages, demo GIFs
+2. Cookbook as onboarding: 75 examples = start here
+3. Good-first-issues: 5 seeded with mentoring
+4. Community: same playbook as SQLAlchemy Korea
+5. Full circle: we were mentees, now we mentor
+
 ## Q11: "What's your sustainability plan after the contest?"
 
 **A:** The infrastructure is built for longevity: translation sync CI,
