@@ -1,8 +1,7 @@
-"""Seed demo data — On-nara style document/approval system (행안부 전자결재).
+"""Seed demo data — On-nara style e-approval (행안부 전자결재 시나리오).
 
-Simulates the type of data found in CUBRID government deployments
-(47 ministries, e-approval workflow, records management). All Java(JDBC)
-in production — our ecosystem makes it accessible from Python for the first time.
+Simulates the type of data in CUBRID government deployments.
+Oracle-reviewed: added current_step, due_date, updated_at for bottleneck queries.
 """
 
 import pycubrid
@@ -14,7 +13,7 @@ cur.execute("DROP TABLE IF EXISTS approvals")
 cur.execute("DROP TABLE IF EXISTS documents")
 cur.execute("DROP TABLE IF EXISTS agencies")
 
-# ── 기관 (47개 부처 중 대표 12개) ──
+# ── 기관 ──
 cur.execute("""
     CREATE TABLE agencies (
         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -38,26 +37,29 @@ agencies = [
     ("법무부", "법무", "세종"),
     ("문화체육관광부", "문체", "세종"),
 ]
-
 cur.executemany(
     "INSERT INTO agencies (name, category, region) VALUES (?, ?, ?)", agencies
 )
 
-# ── 문서 (전자결재) ──
+# ── 문서 (Oracle review: current_step, due_date, updated_at 추가) ──
 cur.execute("""
     CREATE TABLE documents (
         id INT AUTO_INCREMENT PRIMARY KEY,
         title VARCHAR(200) NOT NULL,
         doc_type ENUM('policy','budget','personnel','report','approval','directive'),
         agency_id INT NOT NULL,
-        status ENUM('draft','pending','approved','rejected','archived'),
-        security_level ENUM('public','internal','confidential') DEFAULT 'internal',
+        status ENUM('draft','pending','in_review','approved','rejected','archived'),
+        security_level ENUM('public','internal','restricted','confidential'),
+        current_step INT DEFAULT 1,
+        due_date DATE,
         created_at DATETIME DEFAULT SYS_DATETIME,
+        updated_at DATETIME DEFAULT SYS_DATETIME,
         FOREIGN KEY (agency_id) REFERENCES agencies(id)
     )
 """)
 
 import random
+from datetime import datetime, timedelta
 
 doc_templates = [
     ("{dept} 2026년 예산안 편성 방침", "budget"),
@@ -70,21 +72,53 @@ doc_templates = [
     ("{dept} 재난 안전 대응 매뉴얼 개정", "report"),
 ]
 
-statuses = ["approved"] * 4 + ["pending"] * 3 + ["draft", "rejected", "archived"]
+# Status distribution: more pending/in_review for bottleneck queries
+status_weights = (
+    ["approved"] * 30
+    + ["pending"] * 25
+    + ["in_review"] * 20
+    + ["draft"] * 10
+    + ["rejected"] * 10
+    + ["archived"] * 5
+)
+security_levels = ["public", "internal", "internal", "restricted", "confidential"]
 
 for i in range(300):
     template, doc_type = random.choice(doc_templates)
     dept = random.choice(agencies)[0]
     title = template.format(dept=dept)
     agency_id = random.randint(1, 12)
-    status = random.choice(statuses)
+    status = random.choice(status_weights)
+    security = random.choice(security_levels)
+    current_step = (
+        random.randint(1, 4)
+        if status in ("pending", "in_review")
+        else random.randint(1, 4)
+    )
     days_ago = random.randint(0, 180)
-    security = random.choices(
-        ["public", "internal", "confidential"], weights=[5, 3, 2]
-    )[0]
+    due_in = random.randint(-30, 60)  # some overdue
+    created = datetime.now() - timedelta(days=days_ago)
+    due = created + timedelta(days=30 + due_in // 4)
+    updated = created + timedelta(
+        days=random.randint(0, days_ago) if days_ago > 0 else 0
+    )
+
     cur.execute(
-        "INSERT INTO documents (title, doc_type, agency_id, status, security_level, created_at) VALUES (?, ?, ?, ?, ?, SYS_DATETIME - INTERVAL ? DAY)",
-        [title, doc_type, agency_id, status, security, days_ago],
+        """INSERT INTO documents
+           (title, doc_type, agency_id, status, security_level,
+            current_step, due_date, created_at, updated_at)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+        [
+            title,
+            doc_type,
+            agency_id,
+            status,
+            security,
+            current_step,
+            due.strftime("%Y-%m-%d"),
+            created.strftime("%Y-%m-%d %H:%M:%S"),
+            updated.strftime("%Y-%m-%d %H:%M:%S"),
+        ],
     )
 
 # ── 결재 이력 ──
@@ -101,29 +135,32 @@ cur.execute("""
     )
 """)
 
+actors = ["과장", "부장", "실장", "국장", "차관", "장관"]
+comments = [
+    "검토 완료. 승인합니다.",
+    "예산 반영 필요. 보완 후 재상신 바랍니다.",
+    "협조 부처 의견 확인 요청.",
+    "규정 위배 사항 없음.",
+    "법제처 협의 완료.",
+    None,
+]
 actions = ["submit", "review", "approve", "approve", "reject", "return"]
+
 for doc_id in range(1, 301):
     steps = random.randint(1, 4)
     for step in range(1, steps + 1):
         action = random.choice(actions)
-        actor = random.choice(["과장", "부장", "실장", "국장", "차관", "장관"])
-        comment = random.choice(
-            [
-                "검토 완료. 승인합니다.",
-                "예산 반영 필요. 보완 후 재상신 바랍니다.",
-                "협조 부처 의견 확인 요청.",
-                "규정 위배 사항 없음.",
-                "법제처 협의 완료.",
-                None,
-            ]
-        )
+        actor = random.choice(actors)
+        comment = random.choice(comments)
+        hours_ago = random.randint(1, 4320)
         cur.execute(
             "INSERT INTO approvals (document_id, step, action, actor, comment, acted_at) VALUES (?, ?, ?, ?, ?, SYS_DATETIME - INTERVAL ? HOUR)",
-            [doc_id, step, action, actor, comment, random.randint(1, 720)],
+            [doc_id, step, action, actor, comment, hours_ago],
         )
 
 conn.commit()
 
+# Summary for presenter
 cur.execute("SELECT COUNT(*) FROM agencies")
 print(f"Agencies: {cur.fetchone()[0]}")
 cur.execute("SELECT COUNT(*) FROM documents")
@@ -131,21 +168,44 @@ print(f"Documents: {cur.fetchone()[0]}")
 cur.execute("SELECT COUNT(*) FROM approvals")
 print(f"Approvals: {cur.fetchone()[0]}")
 
-# Demo queries that will be asked via Claude
-cur.execute("""
-    SELECT a.name, COUNT(*) as cnt, SUM(CASE WHEN d.status='pending' THEN 1 ELSE 0 END) as pending
-    FROM documents d JOIN agencies a ON d.agency_id = a.id
-    GROUP BY a.name ORDER BY cnt DESC LIMIT 5
-""")
-print("\nTop 5 agencies by document count:")
-for row in cur:
-    print(f"  {row[0]}: {row[1]} docs ({row[2]} pending)")
+print("\n── Demo query previews ──")
 
-cur.execute("SELECT status, COUNT(*) FROM documents GROUP BY status")
-print("\nDocument status:")
-for row in cur:
-    print(f"  {row[0]}: {row[1]}")
+# Q3: 부처별 처리 현황
+cur.execute("""
+    SELECT a.name, d.status, COUNT(*) as cnt
+    FROM documents d JOIN agencies a ON d.agency_id = a.id
+    GROUP BY a.name, d.status ORDER BY a.name, d.status
+""")
+print("Q3 sample (ministry × status):")
+for row in cur.fetchall()[:4]:
+    print(f"  {row[0]} | {row[1]} | {row[2]}")
+
+# Q4: 결재 지연 TOP 5 (병목)
+cur.execute("""
+    SELECT a.name, COUNT(*) as pending_count,
+           AVG(TIMESTAMPDIFF(SQL_TSI_DAY, d.created_at, SYS_DATETIME)) as avg_days
+    FROM documents d JOIN agencies a ON d.agency_id = a.id
+    WHERE d.status IN ('pending','in_review')
+    GROUP BY a.name ORDER BY pending_count DESC LIMIT 5
+""")
+print("\nQ4 sample (bottleneck):")
+for row in cur.fetchall():
+    print(f"  {row[0]}: {row[1]} pending, avg {row[2]:.1f} days")
+
+# Q5: 기밀 문서 집계 (내용 안 보이고)
+cur.execute("""
+    SELECT a.name, COUNT(*) as confidential_count
+    FROM documents d JOIN agencies a ON d.agency_id = a.id
+    WHERE d.security_level IN ('restricted','confidential')
+    GROUP BY a.name ORDER BY confidential_count DESC LIMIT 5
+""")
+print("\nQ5 sample (confidential count only):")
+for row in cur.fetchall():
+    print(f"  {row[0]}: {row[1]} restricted/confidential")
+
+# Q6: 승인 처리 시도 → REJECTED (execute_query는 SELECT만 허용)
+print("\nQ6: 'UPDATE documents SET status=approved' → REJECTED (read-only whitelist)")
 
 cur.close()
 conn.close()
-print("\n✓ On-nara demo data ready")
+print("\n✓ On-nara demo data ready (Oracle-reviewed)")

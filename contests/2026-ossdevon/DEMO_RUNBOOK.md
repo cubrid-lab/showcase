@@ -1,76 +1,69 @@
-# Demo Runbook — On-nara Scenario (4 minutes)
+# Demo Runbook — On-nara Scenario (Oracle-Reviewed, 4 minutes)
 
-## Concept
+## Narrative
 
-**"행안부 온나라 시스템은 Java입니다. 우리가 Python으로 처음 연결했습니다."**
+**"CUBRID 공공 업무는 Java/JDBC 중심이었습니다.
+저희는 같은 데이터를 Python, 대시보드, AI 질의, 그리고 안전한 실행 정책까지 연결했습니다."**
 
-온나라(47개 부처, 전자결재/문서/기록물)는 CUBRID가 실제로 운영되는
-가장 잘 알려진 공공 시스템입니다 — 전부 Java(JDBC)로 구축됐습니다.
-우리의 Python 생태계가 이 DB에 처음으로 Python + AI 접근을 가능하게 합니다.
-
-> "정부 문서 데이터가 CUBRID에 있습니다. 이제 Python과 Claude로
-> 접근할 수 있습니다 — 처음으로."
+온나라(47개 부처, 전자결재/문서/기록물)는 CUBRID의 대표 공공 배포입니다.
+이 데모는 온나라 스타일 데이터로 Python + AI 접근을 시연합니다.
 
 ## Pre-Demo (30 min before)
 
 ```bash
-# Start CUBRID 11.4
 docker run -d --name demo-cubrid --shm-size 512m \
   -e CUBRID_DB=demodb -p 33000:33000 cubrid/cubrid:11.4
 
-# Wait for ready
 for i in $(seq 1 40); do
   docker exec demo-cubrid csql -u dba demodb -c 'SELECT 1;' >/dev/null 2>&1 && break; sleep 5
 done
 
-# Load On-nara style data (agencies, documents, approvals)
 python seed_demo_data.py
-
-# Verify: Claude Desktop → cubrid-mcp-server connected
-# Verify: CUBRID_MCP_WRITE is NOT set
+# Verify: Claude Desktop MCP connected, CUBRID_MCP_WRITE NOT set
 ```
 
-## Data Model (what Claude sees)
+## Timing (Oracle-optimized: Claude가 핵심)
 
-```
-agencies (12 ministries)  ← 행안부, 국방부, 외교부, 교육부, ...
-documents (300 docs)       ← 예산안, 조직개편, 정책보고서, ...
-approvals (600+ steps)     ← submit → review → approve/reject
-```
+| Layer | Time | Purpose |
+|---|---|---|
+| Dashboard | 40s | Context |
+| **Claude/MCP** | **120s** | **핵심: understand → analyze → protect → Pythonize** |
+| Terminal | 50s | Proof |
+| Closing | 20s | Punchline |
 
-Status types: draft → pending → approved / rejected / archived
-Security levels: public / internal / confidential
-
-## Layer 3 — App (60s): Document Dashboard
+## Layer 3 — Dashboard (40s)
 
 ```bash
-cd cubrid-cookbook-python/templates/dashboard
-docker compose up -d
-# Browser: http://localhost:8501
+cd cubrid-cookbook-python/templates/dashboard && docker compose up -d
 ```
 
-**Say:** "온나라 스타일 문서 처리 현황 대시보드입니다.
-부처별 문서량, 결재 대기 현황이 표시됩니다.
-전부 CUBRID 위에서 돌아가고 있습니다."
+**Say:** "부처별 문서 처리 현황 대시보드입니다.
+CUBRID 위에서 돌아가는 Streamlit 템플릿입니다."
 
-## Layer 2 — AI (90s): Claude Desktop
+## Layer 2 — Claude/MCP (120s) — 핵심
 
-| # | Ask Claude | Tool | Result |
-|---|---|---|---|
-| 1 | "이 DB에 어떤 테이블이 있어?" | `all_table_names` | agencies, documents, approvals |
-| 2 | "documents 테이블 구조 보여줘" | `describe_table` | ENUM status, FK, columns |
-| 3 | "부처별 문서량 상위 5개" | `execute_query` | 행안부, 국방부, ... |
-| 4 | "결재 대기 중인 문서는?" | `execute_query` | pending status docs |
-| 5 | **"documents 테이블 지워줘"** | **REJECTED** | **서버 수준 화이트리스트** |
-| 6 | "기밀 문서는 몇 개야?" | `execute_query` | confidential count |
+### Arc: 탐색 → 분석 → 보안 → Python
 
-**Say (after rejection):** "정부 문서를 지우려는 AI 명령이 서버에서 차단됐습니다.
-프롬프트 인젝션으로도 우회할 수 없습니다. 이게 서버 수준 보안입니다."
+| # | Time | Ask Claude | Tool | Story Beat |
+|---|---|---|---|---|
+| 1 | 15s | "이 DB에 어떤 테이블이 있어?" | `all_table_names` | **탐색** |
+| 2 | 15s | "documents 테이블 구조 보여줘" | `describe_table` | **ENUM/JDBC 스키마 지원** |
+| 3 | 20s | "부처별 문서 처리 현황을 보여줘" | `execute_query` | **분석 시작** |
+| 4 | 25s | "결재가 지연된 문서 TOP 5는? 평균 처리일과 대기 수로" | `execute_query` | **AI 운영 분석 (와!)** |
+| 5 | 20s | "기밀 문서는 부처별로 몇 개야? 내용은 보지 말고 집계만" | `execute_query` | **민감 데이터 안전 처리** |
+| 6 | 25s | **"결재 대기 문서를 전부 승인 처리해줘"** | **REJECTED** | **거버넌스 보안** |
 
-**Say (query 6):** "MCP 서버가 CUBRID의 ENUM 타입을 이해합니다 —
-MCP domain knowledge가 LLM에게 CUBRID 문법을 가르치기 때문입니다."
+### Say after #4 (the "wow" query):
+> "AI가 단순히 데이터를 읽는 게 아니라, 결재 병목을 분석하고 있습니다.
+> 평균 처리일과 대기 문서 수를 스스로 판단해서 부처별 병목을 찾았습니다."
 
-## Layer 1 — Driver (60s): Terminal
+### Say after #6 (the security scene):
+> "결재 대기 문서를 전부 승인하려는 AI 명령이 서버에서 차단됐습니다.
+> 이것은 DROP TABLE 같은 테스트가 아니라,
+> 실제 정부 워크플로우에서 발생할 수 있는 거버넌스 위험입니다.
+> 서버 수준 화이트리스트가 이를 방어합니다."
+
+## Layer 1 — Terminal (50s)
 
 ```python
 import pycubrid
@@ -83,42 +76,46 @@ print(f"Documents: {cur.fetchone()[0]}")
 print("Dependencies: 0 — pure Python, no C compiler")
 ```
 
-**Say:** "이 모든 것의 기반 — pycubrid 드라이버.
-pip install 한 줄, 의존성 0개. 2014년 이후 방치됐던 갭을 닫았습니다."
+## Closing (20s)
 
-## Wrap-up (30s)
-
-```bash
-alembic upgrade head
-```
-
-**Say:** "온나라의 데이터가 CUBRID에 있습니다. Java만 가능했던 세계에서
-Python과 AI가 접근할 수 있게 됐습니다. 감사합니다."
+> **"기존 CUBRID 공공 업무는 Java 애플리케이션 안에 갇혀 있었습니다.
+> 저희는 같은 데이터를 Python, 대시보드, AI 질의,
+> 그리고 안전한 실행 정책까지 연결했습니다."**
 
 ## Screenshot Plan
 
 | Time | Shot | File |
 |---|---|---|
 | 0:00 | docker compose up | 03_compose.png |
-| 0:10 | Document dashboard | 03_dashboard.png |
-| 0:30 | Agency stats view | 03_agencies.png |
-| 1:00 | Claude: table list | 02_tables.png |
-| 1:15 | Claude: describe_table | 02_describe.png |
-| 1:45 | Claude: top 5 agencies | 02_top5.png |
-| 2:00 | Claude: pending docs | 02_pending.png |
-| 2:15 | Claude: DROP TABLE rejected | 02_rejected.png ← KEY |
-| 2:45 | Terminal: pip install | 01_pip.png |
-| 3:00 | Terminal: connect + count | 01_connect.png |
-| 3:30 | Terminal: alembic | 04_alembic.png |
+| 0:10 | Dashboard | 03_dashboard.png |
+| 0:40 | Claude: table list | 02_tables.png |
+| 1:00 | Claude: describe_table | 02_describe.png |
+| 1:20 | Claude: ministry status | 02_status.png |
+| 1:45 | Claude: bottleneck analysis | 02_bottleneck.png ← WOW |
+| 2:10 | Claude: confidential count | 02_confidential.png |
+| 2:35 | Claude: approval rejected | 02_rejected.png ← KEY |
+| 3:00 | Terminal: pip install | 01_pip.png |
+| 3:15 | Terminal: connect + query | 01_connect.png |
+| 3:50 | Closing slide | 04_closing.png |
 
 ## Recovery
 
 | Problem | Fix |
 |---|---|
+| Claude generates wrong SQL | Prepare exact Korean prompts, practice responses |
 | MCP won't connect | Restart Claude Desktop |
 | CUBRID down | `docker restart demo-cubrid` |
 | Demo DB dirty | Re-run `seed_demo_data.py` |
-| Total failure | Backup video (same runbook) |
+| Total failure | Backup video — say "동일한 런북의 사전 녹화본으로 전환하겠습니다" |
 
-**Do NOT pretend backup is live.** Say: "라이브 환경이 불안정하여
-동일한 런북의 사전 녹화본으로 전환하겠습니다."
+## Data Model Summary
+
+```
+agencies (12 ministries)  — 행안부, 국방부, 외교부, ...
+documents (300 docs)       — ENUM doc_type/status/security_level,
+                             current_step, due_date, updated_at
+approvals (600+ steps)     — submit/review/approve/reject/return
+```
+
+Security levels: public / internal / **restricted / confidential** (4-tier)
+Status: draft / pending / **in_review** / approved / rejected / archived
