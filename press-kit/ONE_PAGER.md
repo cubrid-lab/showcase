@@ -4,7 +4,8 @@
 
 We met at an OSS contribution hackathon as mentor and mentee.
 Contributed to SQLAlchemy and sqlalchemy-hana.
-Asked "why doesn't CUBRID have this?" — and built it.
+Found CUBRID's existing dialect unmaintained. Revived it,
+then built the missing driver from scratch.
 
 ## The Problem
 

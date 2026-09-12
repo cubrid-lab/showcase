@@ -7,13 +7,13 @@
 
 ## Slide 1: We Met at a Hackathon (PT)
 
-# From Mentees to Creators
+# From Contributors to Maintainers
 
 **오픈소스 컨트리뷰톤 — 멘토와 멘티로 만났다**
 
 **→ SQLAlchemy · sqlalchemy-hana에 기여**
 
-**→ "우리 DB는 왜 없지?"**
+**→ CUBRID에도 방언이 있었다. 죽어가고 있었다.**
 
 *CUBRID Lab — Yeongseon Choe & Gyeongjun Paik*
 
@@ -34,34 +34,35 @@
 
 ---
 
-## Slide 3: The Gap We Found (PT + 활용성)
+## Slide 3: What We Found (PT + 활용성)
 
-### Korean public sector DBMS: **10.6%** is CUBRID
+### CUBRID had a SQLAlchemy dialect — but it was dying
 
 | | |
 |---|---|
-| G-Cloud standard DBMS | 600+ government systems |
-| Defense, MoIAC, local govts | 1,500+ systems |
-| **Official Python driver** | **Last release: 2014-05-15** |
+| **cubrid-sqlalchemy** existed | Created by a SQLAlchemy developer |
+| Status | **Unmaintained** — no SQLAlchemy 2.x, no Python 3.10+ |
+| Official Python driver | **Last release: 2014-05-15** |
+| CUBRID market | **10.6%** of Korean public sector DBMS |
 
-> SQLAlchemy 지식이 있는데, CUBRID엔 dialect조차 없었다.
-> dialect를 만들려니 — 드라이버부터 없었다.
+> 방언도 죽어가고, 드라이버도 죽어있었다.
+> 방언을 살리려니 — 드라이버를 새로 만들어야 했다.
 
 ---
 
-## Slide 4: So We Built Both (PT)
+## Slide 4: What We Did (PT)
 
-### The journey: ORM → Driver → Ecosystem
+### Revive the dialect. Rebuild the driver. Grow the ecosystem.
 
 ```
-2021: sqlalchemy-cubrid 시작
-   → C 확장 드라이버의 한계 발견 (컴파일, 플랫폼 제약)
-   
-2025: pycubrid 탄생
-   → 순수 Python, asyncio, TLS, 의존성 0
-   → "pip install 한 줄"로 해결
-   
-2026: 생태계 완성
+2021: sqlalchemy-cubrid — cubrid-sqlalchemy를 이어받아 현대화
+   → SQLAlchemy 2.0 지원, async, Alembic, native ENUM
+   → C 확장 드라이버의 한계 발견 (컴파일, asyncio 불가)
+
+2025: pycubrid — 드라이버를 순수 Python으로 새로 작성
+   → 의존성 0, asyncio 네이티브, TLS, pip install 한 줄
+
+2026: 생태계 확장
    → cookbook (75 예제, 7 템플릿)
    → cubrid-mcp-server (AI/LLM, 세계 최초)
 ```
@@ -80,7 +81,7 @@ sqlalchemy-cubrid          ← ORM (SQLAlchemy 2.0-2.2, native ENUM)
 pycubrid                   ← Driver (pure Python, asyncio, TLS, zero deps)
 ```
 
-**The mentor-mentee pair became a builder team.**
+**죽어가던 방언에서, 완전한 생태계로.**
 
 ---
 
@@ -123,20 +124,19 @@ pycubrid                   ← Driver (pure Python, asyncio, TLS, zero deps)
 
 ## Slide 8: The OSS Stack We Stand On (OSS 적절성)
 
-**We didn't build from scratch — we stand on the shoulders of:**
+**We stand on the shoulders of giants — including the ones who came before us:**
 
 | Layer | OSS | License | How we use it |
 |---|---|---|---|
 | ORM framework | SQLAlchemy | MIT | Dialect API (learned by contributing) |
-| Async framework | asyncio | PSF | Native driver support |
+| Predecessor | cubrid-sqlalchemy | MIT | Starting point — we modernized it |
+| Protocol reference | node-cubrid | BSD | CAS wire protocol decoding |
 | MCP protocol | Model Context Protocol | MIT | AI/LLM access (world's first for CUBRID) |
 | Testing | pytest, hypothesis | MIT/MPL | 2,200 tests |
-| Type safety | mypy strict | MIT | 0 errors |
 | CI/CD | CodeQL, Dependabot | GitHub | 20-combination matrix |
-| Protocol reference | node-cubrid | BSD | CAS wire protocol decoding |
-| Benchmark target | cubrid/cubrid Docker | CUBRID | Live DB testing 10.2–11.4 |
+| Benchmark | cubrid/cubrid Docker | CUBRID | Live DB testing 10.2–11.4 |
 
-> "오픈소스 기여로 배워서, 오픈소스로 갚았다."
+> "오픈소스 기여로 배우고, 죽은 프로젝트를 살리고, 새 생태계를 만들었다."
 
 ---
 
@@ -157,7 +157,7 @@ pycubrid                   ← Driver (pure Python, asyncio, TLS, zero deps)
 
 ## Slide 10: How We Work — AI + Human (커뮤니티)
 
-### The workflow we built (learned from OSS contribution culture):
+### The workflow we built (from OSS contribution culture):
 
 ```
 AGENTS.md (rules) → AI implements → Human reviews → CI gates → Human releases
@@ -193,7 +193,8 @@ hosted MCP, Windows CI
 ## Slide 12: The Flywheel (PT)
 
 # 컨트리뷰톤에서 배웠다
-# → CUBRID 생태계를 만들었다
+# → 죽은 프로젝트를 살렸다
+# → 새 생태계를 만들었다
 # → 다음 기여자를 기다린다
 
 ```
@@ -207,26 +208,28 @@ pip install pycubrid    # 2014년의 갭, 2026년에 닫았다
 ---
 ---
 
-## Appendix: Story Beats (발표 중 언급할 스토리 포인트)
+## Appendix: Story Beats (발표 중 언급할 스크립트)
 
 ### 슬라이드 1-2에서 (30초)
-> "저희는 작년 오픈소스 컨트리뷰톤에서 멘토-멘티로 만났습니다.
+> "저희는 오픈소스 컨트리뷰톤에서 멘토-멘티로 만났습니다.
 > SQLAlchemy와 SAP HANA dialect에 기여하면서 방언 API를 배웠습니다.
-> 그런데 '우리가 쓰는 CUBRID에는 왜 dialect가 없지?'라는 질문이
-> 이 프로젝트의 시작이었습니다."
+> 그때 CUBRID에도 SQLAlchemy 방언이 있다는 걸 알았는데,
+> 유지보수가 되고 있지 않았습니다."
 
-### 슬라이드 4에서 (30초)
-> "sqlalchemy-cubrid를 만들다가 C 확장 드라이버의 한계를 발견했습니다.
-> 컴파일러가 필요하고, asyncio가 없고, Python 3.10+이 안 됐습니다.
-> 그래서 드라이버부터 다시 만들기로 했습니다 — 순수 Python으로."
+### 슬라이드 3-4에서 (30초)
+> "cubrid-sqlalchemy는 SQLAlchemy 개발자가 만든 프로젝트였지만
+> 방치되어 있었습니다. SQLAlchemy 2.0도 안 되고, Python 3.10+도 안 됐습니다.
+> 우리가 이걸 이어받아 현대화했습니다. 그런데 현대화하다 보니
+> 근본 문제가 드라이버였습니다 — 2014년 이후 방치된 C 확장.
+> 그래서 드라이버부터 순수 Python으로 새로 만들었습니다."
 
 ### 슬라이드 8에서 (20초)
-> "이 프로젝트의 모든 기술은 오픈소스에서 왔습니다.
-> SQLAlchemy를 기여하며 배운 지식, node-cubrid의 BSD 코드가
-> 프로토콜 해석의 출발점이었습니다. 오픈소스 기여로 배워서
-> 오픈소스로 갚은 것입니다."
+> "이 프로젝트의 기반은 전부 오픈소스입니다. SQLAlchemy를 기여하며 배웠고,
+> cubrid-sqlalchemy를 살렸고, node-cubrid의 BSD 코드가 프로토콜 해석의
+> 출발점이었습니다. 오픈소스 기여로 배워서, 죽은 프로젝트를 살리고,
+> 새 생태계를 만든 것입니다."
 
 ### 슬라이드 12에서 (20초 — 클로징)
-> "저희는 멘토-멘티로 만나서 기여자가 되었고, 기여자에서
-> 생태계를 만드는 크리에이터가 되었습니다. 다음 컨트리뷰톤에서
-> 누군가 저희 프로젝트에 기여해주길 기다립니다."
+> "저희는 멘토-멘티로 만나서 죽은 프로젝트를 살렸고, 살리다가
+> 드라이버를 만들게 되었고, 결국 생태계 전체를 만들었습니다.
+> 다음 컨트리뷰톤에서 누군가 저희 프로젝트를 이어가 주길 기다립니다."
