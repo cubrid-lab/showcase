@@ -1,85 +1,69 @@
 # CUBRID Python Ecosystem — Showcase
 
 Contest entries, presentations, demo materials, and promotional content
-for the cubrid-lab Python ecosystem (pycubrid · sqlalchemy-cubrid ·
-cubrid-cookbook-python · cubrid-mcp-server).
+for the [cubrid-lab](https://github.com/cubrid-lab) Python ecosystem.
 
-## Why This Repo Exists
+## Our Story
 
-Code repositories stay code-focused. This is where we put everything
-that **shows** the work — slides, demo runbooks, metrics, contest
-submissions, and brand assets. Judges, reviewers, and the curious
-should be able to understand the full story from here without reading
-source code.
+In 2020, we joined the OSS Contribution Hackathon (컨트리뷰톤, CNBT-41) as
+mentor (Yeongseon) and mentee (Gyeongjun). We contributed to SQLAlchemy
+and sqlalchemy-hana, connected with SQLAlchemy creator Mike Bayer via
+Gitter, and started the SQLAlchemy Korea community. Then we asked:
+"Why is CUBRID's Python ecosystem dead?" — and built the answer.
 
-## Structure
+## 2026 OSS Developer Contest
 
-```
-showcase/
-├── README.md                     # You are here
-├── contests/                      # 대회·공모전 (연도별)
-│   ├── 2026-ossdevcon/           # 2026 오픈소스 개발자대회
-│   │   ├── SUBMISSION.md          # 출품 신청서 (개발보고서)
-│   │   ├── SLIDES.md              # 발표 슬라이드 (12장)
-│   │   ├── DEMO_RUNBOOK.md        # 데모 시나리오 + 체크리스트
-│   │   ├── EXPECTED_QA.md         # 예상 질문과 답변
-│   │   └── metrics/               # 발표용 지표
-│   └── archive/                   # 과거 대회 자료 (회고 포함)
-├── programs/                      # 지원사업·그랜트 신청
-│   ├── README.md                  # 신청 가능 프로그램 목록
-│   └── templates/                 # 재사용 신청서·발표 템플릿
-├── press-kit/                     # 로고·원페이저 (모든 신청에 재사용)
-│   ├── ONE_PAGER.md               # 영문 한장 요약
-│   └── ONE_PAGER.ko.md            # 국문 한장 요약
-├── demo-videos/                   # 녹화 데모 (git-lfs 권장)
-└── archive/                       # 레거시 자료
-```
-
-### 장기 운영 원칙
-- **연도별 폴더**: 대회 종료 → `contests/archive/`로 이동 + 회고 작성
-- **템플릿 재사용**: `programs/templates/`에 신청서 골격 유지 → 매년 숫자만 갱신
-- **지표는 스냅샷**: `metrics/`에 측정일자와 함께 저장 → 추세 비교 가능
-- **프레스 킷은 상시 갱신**: 로고·원페이저는 최신 상태 유지 → 어떤 신청에도 즉시 사용
-
-In 2020, we joined the OSS Contribution Hackathon (컨트리뷰톤, CNBT-41)
-as mentor and mentee, contributing to SQLAlchemy and sqlalchemy-hana.
-We connected with Mike Bayer via Gitter, found his CUBRID
-dialect (2012) unmaintained, and rebuilt from scratch for SQLAlchemy 2.0
-— then built the pure Python driver too.
-
-## 2026 오픈소스 개발자대회
-
-| 항목 | 상태 |
+| | |
 |---|---|
-| 출품작 | pycubrid · sqlalchemy-cubrid · cubrid-cookbook-python · cubrid-mcp-server |
-| 조직 | [cubrid-lab](https://github.com/cubrid-lab) |
-| 일정 | 1차 서면 통과 → 2차 발표 (2026 Q4) |
-| 배점 | 활용성 15 · OSS적절성 15 · PT 10 · 데모 10 · 기능테스트 10 · 커뮤니티 5 · 라이선스 5 |
+| Entry | pycubrid · sqlalchemy-cubrid · cubrid-cookbook-python · cubrid-mcp-server |
+| Status | Round 1 passed → Finals presentation (Q4 2026) |
+| Scoring | Usability 15 · OSS 15 · PT 10 · Demo 10 · Testing 10 · Community 5 · License 5 |
 
-### 핵심 스토리
+### Contest Materials → [`contests/2026-ossdevcon/`](contests/2026-ossdevcon/)
 
-> **한국 공공부문 DBMS 10.6%가 CUBRID인데, Python 드라이버는 2014년에 죽었습니다.**
-> **국방·행안부·지자체에서 일하는 수천 명의 개발자가 갇혀 있었습니다.**
-> **우리는 더 나은 DB를 만든 게 아닙니다. 갇힌 개발자들을 꺼내줬습니다.**
-
-### 생태계 지표 (2026-09-12 기준)
-
-| 지표 | 값 |
+| File | Purpose |
 |---|---|
-| GitHub 클론 유니크 (14일) | 647명 |
-| 병합된 PR | 432개 |
-| PyPI 릴리스 | 35회 (v1.7.0) |
-| 문서 사이트 | 4/4 라이브 |
-| CI 통합테스트 | Python 5 × CUBRID 4 = 20 조합 |
-| 한국어 문서 | 33페이지 |
+| [SLIDES.md](contests/2026-ossdevon/SLIDES.md) | 12-slide presentation (Oracle-optimized) |
+| [APPENDIX.md](contests/2026-ossdevon/APPENDIX.md) | Technical reference for Q&A |
+| [EXPECTED_QA.md](contests/2026-ossdevon/EXPECTED_QA.md) | 12 anticipated questions + answers |
+| [DEMO_RUNBOOK.md](contests/2026-ossdevon/DEMO_RUNBOOK.md) | 4-minute demo script + checklist |
+| [VERIFY.md](contests/2026-ossdevon/VERIFY.md) | Judge verification guide |
+| [metrics/SNAPSHOT.md](contests/2026-ossdevcon/metrics/SNAPSHOT.md) | Verified metrics (re-measure on presentation day) |
 
-## Related
+## Quick Numbers (2026-09-12)
 
-- [pycubrid](https://github.com/cubrid-lab/pycubrid) — Pure Python DB-API 2.0 driver
-- [sqlalchemy-cubrid](https://github.com/cubrid-lab/sqlalchemy-cubrid) — SQLAlchemy 2.0–2.1 dialect
-- [cubrid-cookbook-python](https://github.com/cubrid-lab/cubrid-cookbook-python) — 68 examples + 7 templates
-- [cubrid-mcp-server](https://github.com/cubrid-lab/cubrid-mcp-server) — MCP server for AI/LLM
+| Metric | Value |
+|---|---|
+| GitHub stars | 119 |
+| Unique clones (14d) | 926 developers |
+| Merged PRs | 450 |
+| PyPI releases | 35 |
+| Tests | 2,200 (CI-enforced) |
+| CI combinations | Python 5 × CUBRID 4 = 20 |
+| Docs sites | 4/4 live |
+| Korean docs | 34 pages |
+
+## Ecosystem
+
+| Language | Driver | ORM | Status |
+|---|---|---|---|
+| **Python** | pycubrid v1.7.0 | sqlalchemy-cubrid v1.7.0 | **Complete** |
+| TypeScript | cubrid-client v1.1.0 | drizzle-cubrid v0.2.1 | In progress |
+| Go | cubrid-go v0.2.1 | gorm-cubrid v0.1.0 | In progress |
+| Rust | cubrid-rs v0.1.0 | sea-orm-cubrid v0.1.0 | In progress |
+
+## Press Kit → [`press-kit/`](press-kit/)
+
+- [ONE_PAGER.md](press-kit/ONE_PAGER.md) — English one-pager
+- [ONE_PAGER.ko.md](press-kit/ONE_PAGER.ko.md) — Korean one-pager
+
+## Future Programs → [`programs/`](programs/)
+
+Reusable templates for future contest/grant applications:
+- [APPLICATION_TEMPLATE.md](programs/templates/APPLICATION_TEMPLATE.md)
+- [PITCH_TEMPLATE.md](programs/templates/PITCH_TEMPLATE.md)
+- [DEMO_TEMPLATE.md](programs/templates/DEMO_TEMPLATE.md)
 
 ## License
 
-Content in this repository is MIT licensed (same as the code projects).
+MIT (same as the code projects).
