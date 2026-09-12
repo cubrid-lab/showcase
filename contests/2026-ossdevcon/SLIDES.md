@@ -13,7 +13,9 @@
 
 **→ SQLAlchemy · sqlalchemy-hana에 기여**
 
-**→ CUBRID에도 방언이 있었다. 죽어가고 있었다.**
+**→ SQLAlchemy 창시자 Mike Bayer가 CUBRID 방언을 만들었었다**
+
+**→ 2012년에 만들고... 유지보수가 끊겼다**
 
 *CUBRID Lab — Yeongseon Choe & Gyeongjun Paik*
 
@@ -27,6 +29,7 @@
 |---|---|
 | SQLAlchemy core patches | Dialect API internals |
 | sqlalchemy-hana (SAP HANA dialect) | How to build a production dialect |
+| Mini hackathon with Mike Bayer | Direct guidance from SQLAlchemy creator |
 | Code review culture | AGENTS.md-driven AI workflow |
 | Test-driven development | 95% coverage discipline |
 
@@ -36,27 +39,27 @@
 
 ## Slide 3: What We Found (PT + 활용성)
 
-### CUBRID had a SQLAlchemy dialect — but it was dying
+### Mike Bayer created a CUBRID dialect in 2012. Then abandoned it.
 
 | | |
 |---|---|
-| **cubrid-sqlalchemy** existed | Created by a SQLAlchemy developer |
-| Status | **Unmaintained** — no SQLAlchemy 2.x, no Python 3.10+ |
+| **zzzeek/sqlalchemy_cubrid** | Created 2012 by SQLAlchemy author Mike Bayer |
+| Status | **Unmaintained** — old SQLAlchemy, no Python 3.10+ |
 | Official Python driver | **Last release: 2014-05-15** |
-| CUBRID market | **10.6%** of Korean public sector DBMS |
+| CUBRID market | **10.6%** of Korean public sector DBMS (1,500+ systems) |
 
-> 방언도 죽어가고, 드라이버도 죽어있었다.
-> 방언을 살리려니 — 드라이버를 새로 만들어야 했다.
+> SQL 창시자도 만들었던 방언이 죽어있었다.
+> 우리는 처음부터 다시 만들기로 했다 — SQLAlchemy 2.0 기준으로.
 
 ---
 
 ## Slide 4: What We Did (PT)
 
-### Revive the dialect. Rebuild the driver. Grow the ecosystem.
+### Rebuild from scratch. Driver too. Then grow the ecosystem.
 
 ```
-2021: sqlalchemy-cubrid — cubrid-sqlalchemy를 이어받아 현대화
-   → SQLAlchemy 2.0 지원, async, Alembic, native ENUM
+2021-22: sqlalchemy-cubrid — Mike Bayer의 작품에서 영감을 받아
+   → SQLAlchemy 2.0 기준 처음부터 작성 (포크가 아닌 신규 구현)
    → C 확장 드라이버의 한계 발견 (컴파일, asyncio 불가)
 
 2025: pycubrid — 드라이버를 순수 Python으로 새로 작성
@@ -129,7 +132,7 @@ pycubrid                   ← Driver (pure Python, asyncio, TLS, zero deps)
 | Layer | OSS | License | How we use it |
 |---|---|---|---|
 | ORM framework | SQLAlchemy | MIT | Dialect API (learned by contributing) |
-| Predecessor | cubrid-sqlalchemy | MIT | Starting point — we modernized it |
+| Predecessor | zzzeek/sqlalchemy_cubrid (Mike Bayer) | MIT | Inspiration — we rebuilt from scratch for SA 2.0 |
 | Protocol reference | node-cubrid | BSD | CAS wire protocol decoding |
 | MCP protocol | Model Context Protocol | MIT | AI/LLM access (world's first for CUBRID) |
 | Testing | pytest, hypothesis | MIT/MPL | 2,200 tests |
@@ -193,8 +196,9 @@ hosted MCP, Windows CI
 ## Slide 12: The Flywheel (PT)
 
 # 컨트리뷰톤에서 배웠다
-# → 죽은 프로젝트를 살렸다
-# → 새 생태계를 만들었다
+# → Mike Bayer를 만났다
+# → 죽은 방언에서 영감을 받아 새로 썼다
+# → 드라이버부터 생태계까지 만들었다
 # → 다음 기여자를 기다린다
 
 ```
@@ -213,23 +217,23 @@ pip install pycubrid    # 2014년의 갭, 2026년에 닫았다
 ### 슬라이드 1-2에서 (30초)
 > "저희는 오픈소스 컨트리뷰톤에서 멘토-멘티로 만났습니다.
 > SQLAlchemy와 SAP HANA dialect에 기여하면서 방언 API를 배웠습니다.
-> 그때 CUBRID에도 SQLAlchemy 방언이 있다는 걸 알았는데,
-> 유지보수가 되고 있지 않았습니다."
+> 미니 해커톤에서 SQLAlchemy 창시자 Mike Bayer님과도 이야기할 기회가 있었습니다."
 
 ### 슬라이드 3-4에서 (30초)
-> "cubrid-sqlalchemy는 SQLAlchemy 개발자가 만든 프로젝트였지만
-> 방치되어 있었습니다. SQLAlchemy 2.0도 안 되고, Python 3.10+도 안 됐습니다.
-> 우리가 이걸 이어받아 현대화했습니다. 그런데 현대화하다 보니
-> 근본 문제가 드라이버였습니다 — 2014년 이후 방치된 C 확장.
-> 그래서 드라이버부터 순수 Python으로 새로 만들었습니다."
+> "Mike Bayer님이 2012년에 CUBRID 방언을 만드셨지만 유지보수가 끊겼습니다.
+> SQLAlchemy 2.0도 안 되고, Python 3.10+도 안 됐습니다.
+> 우리는 이것을 계승하는 게 아니라, SQLAlchemy 2.0 기준으로
+> 처음부터 다시 쓰기로 했습니다. 그런데 쓰다 보니 근본 문제가 드라이버였습니다.
+> 2014년 이후 방치된 C 확장. 그래서 드라이버를 순수 Python으로
+> 새로 만들었습니다."
 
 ### 슬라이드 8에서 (20초)
 > "이 프로젝트의 기반은 전부 오픈소스입니다. SQLAlchemy를 기여하며 배웠고,
-> cubrid-sqlalchemy를 살렸고, node-cubrid의 BSD 코드가 프로토콜 해석의
-> 출발점이었습니다. 오픈소스 기여로 배워서, 죽은 프로젝트를 살리고,
+> Mike Bayer님의 원작에서 영감을 받았고, node-cubrid의 BSD 코드가
+> 프로토콜 해석의 출발점이었습니다. 오픈소스 커뮤니티에서 배워서
 > 새 생태계를 만든 것입니다."
 
 ### 슬라이드 12에서 (20초 — 클로징)
-> "저희는 멘토-멘티로 만나서 죽은 프로젝트를 살렸고, 살리다가
-> 드라이버를 만들게 되었고, 결국 생태계 전체를 만들었습니다.
+> "저희는 멘토-멘티로 만나서 기여자가 되었고, Mike Bayer님의 작품에서
+> 영감을 받아 새로 썼고, 결국 생태계 전체를 만들었습니다.
 > 다음 컨트리뷰톤에서 누군가 저희 프로젝트를 이어가 주길 기다립니다."

@@ -4,8 +4,9 @@
 
 오픈소스 컨트리뷰톤에서 멘토-멘티로 만났습니다.
 SQLAlchemy와 sqlalchemy-hana에 기여하며 방언 API를 배웠습니다.
-CUBRID에는 이미 방언(cubrid-sqlalchemy)이 있었지만 유지보수가 안 되고 있었습니다.
-이를 이어받아 현대화했고, 근본 원인인 드라이버부터 새로 만들었습니다.
+SQLAlchemy 창시자 Mike Bayer가 2012년에 CUBRID 방언을 만들었지만 유지보수가 끊겼습니다.
+해커톤에서 Mike를 만난 후, SQLAlchemy 2.0 기준으로 처음부터 다시 쓰고
+드라이버도 순수 Python으로 새로 만들었습니다.
 
 ## 문제
 

@@ -4,8 +4,8 @@
 
 We met at an OSS contribution hackathon as mentor and mentee.
 Contributed to SQLAlchemy and sqlalchemy-hana.
-Found CUBRID's existing dialect unmaintained. Revived it,
-then built the missing driver from scratch.
+Found Mike Bayer's CUBRID dialect (2012) unmaintained.
+Rebuilt from scratch for SQLAlchemy 2.0, then built the driver too.
 
 ## The Problem
 
