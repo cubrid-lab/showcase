@@ -160,37 +160,33 @@ print(cur.fetchone())  # (1,)
 
 ---
 
-## Slide 8: Demo — Public Service Dashboard (데모 10점 · 7:30-9:30)
+## Slide 8: Demo — On-nara Meets Python + AI (데모 10점 · 7:30-9:30)
 
-**4 minutes · 3 layers · "공공 행정 시스템" 시나리오**
+### "CUBRID 공공 업무는 Java 중심이었습니다.
+### 저희가 Python, 대시보드, AI 질의, 안전한 실행 정책까지 연결했습니다."
 
-### Layer 3 — App (60s): Streamlit 대시보드
+**4 min · 3 layers · 온나라(행안부 전자결재) 시나리오**
 
-```bash
-cd templates/dashboard && docker compose up -d
-```
+| Time | Layer | What |
+|---|---|---|
+| 40s | Dashboard | 부처별 문서 처리 현황 (Streamlit) |
+| **120s** | **Claude/MCP** | **탐색 → 분석 → 병목 → 기밀 → 거부** |
+| 50s | Terminal | pip install → connect → "Dependencies: 0" |
 
-**지역별 민원 처리 현황 대시보드** (공공부문 CUBRID 실제 사용 패턴)
+### Claude 질의 아치 (Oracle-reviewed)
 
-### Layer 2 — AI (90s): Claude Desktop
+| # | Ask | Story |
+|---|---|---|
+| 1 | "테이블 목록 보여줘" | 탐색 |
+| 2 | "documents 구조 보여줘" | ENUM/JDBC 스키마 |
+| 3 | "부처별 문서 처리 현황?" | 분석 시작 |
+| 4 | **"결재 병목 TOP 5? 평균 처리일로 판단해"** | ★ **AI 운영 분석** |
+| 5 | "기밀 문서 집계만 (내용 안 보이게)" | 민감 데이터 안전 |
+| 6 | **"결재 대기 문서 전부 승인 처리해줘"** | ★★ **거버넌스 거부** |
 
-1. *"이 DB에 어떤 테이블이 있어?"* → `all_table_names`
-2. *"민원 데이터 구조 보여줘"* → `describe_table`
-3. *"지역별 민원 상위 5개"* → `execute_query` (SELECT)
-4. **"민원 테이블 지워줘"** → **거부** ← 서버 수준 화이트리스트
-5. *"긴급 민원만 보여줘"* → SET 타입 (MCP가 CUBRID 타입 가르침)
-
-### Layer 3 — Driver (60s): 터미널
-
-```python
-import pycubrid  # pip install 한 줄, C 컴파일러 불필요
-conn = pycubrid.connect(host="localhost", port=33000,
-                        database="demodb", user="dba")
-```
-
-*(백업 영상 준비 — 동일 런북 사전 녹화)*
-
----
+> **"결재 대기 문서를 전부 승인하려는 AI 명령이 서버에서 차단됐습니다.
+> 실제 정부 워크플로우에서 발생할 수 있는 거버넌스 위험입니다.
+> 서버 수준 화이트리스트가 이를 방어합니다."**
 
 ## Slide 9: How We Work — AI + Human (커뮤니티 5점 · 9:30-10:15)
 
@@ -314,10 +310,11 @@ pip install pycubrid    # 2014년의 갭, 2026년에 닫았다
 > 45개 골든 테스트는 매일 밤 실서버 CUBRID에서 실행됩니다.
 > AI가 작성한 코드가 이 모든 게이트를 통과해야 머지됩니다."
 
-### 슬라이드 8 (데모 소개, 15초)
-> "공공 행정 시스템 시나리오로 데모하겠습니다.
-> CUBRID가 가장 많이 쓰이는 실제 사용 패턴입니다.
-> 민원 처리 현황 대시보드부터 시작합니다."
+### 슬라이드 8 (데모 소개, 20초)
+> "온나라 시나리오로 데모하겠습니다. 행안부 온나라는 47개 부처가 쓰는
+> CUBRID 기반 전자결재 시스템입니다 — 전부 Java로 구축됐습니다.
+> 저희가 이 데이터를 Python과 AI에서 다룰 수 있게 만들었습니다.
+> 문서 처리 현황 대시보드부터 시작합니다."
 
 ### 슬라이드 14 (클로징, 20초)
 > "2020년에 멘토로 시작해서 6년이 걸렸습니다.
