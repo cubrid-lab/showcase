@@ -41,6 +41,12 @@ showcase/
 - **지표는 스냅샷**: `metrics/`에 측정일자와 함께 저장 → 추세 비교 가능
 - **프레스 킷은 상시 갱신**: 로고·원페이저는 최신 상태 유지 → 어떤 신청에도 즉시 사용
 
+## Our Story
+
+We met at an OSS contribution hackathon as mentor and mentee, contributed to
+SQLAlchemy and sqlalchemy-hana, then asked "why doesn't CUBRID have this?"
+This project is the answer.
+
 ## 2026 오픈소스 개발자대회
 
 | 항목 | 상태 |

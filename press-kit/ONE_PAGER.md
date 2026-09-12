@@ -1,5 +1,11 @@
 # CUBRID Python Ecosystem — One-Pager
 
+## Our Story
+
+We met at an OSS contribution hackathon as mentor and mentee.
+Contributed to SQLAlchemy and sqlalchemy-hana.
+Asked "why doesn't CUBRID have this?" — and built it.
+
 ## The Problem
 
 Korean public sector DBMS market: **10.6% is CUBRID** (1,500+ systems, 2,300+ DB instances). The official Python driver's last release was **May 2014** — no asyncio, no SQLAlchemy 2.x, no modern Python. Thousands of developers locked into a database with dead tooling.
