@@ -3,29 +3,29 @@
 > 발표 시 배점: 데모 10점 + 기능테스트 10점 직결
 > 실패 대비: 전 구간 백업 영상 필수, 원커맨드 복구 스크립트 포함
 
-## 사전 준비 (발표 30분 전)
+## Pre-Demo Setup (30 min before presentation)
 
 ```bash
-# ── 체크리스트 ──
-[ ] 도커 이미지 전부 로컬 캐시 확인
+# -- Checklist --
+[ ] All Docker images cached locally
     docker images | grep cubrid
-[ ] CUBRID 11.4 컨테이너 미리 기동 (10분 전)
+[ ] Start CUBRID 11.4 container 10 min early
     docker run -d --name demo-cubrid --shm-size 512m -e CUBRID_DB=demodb -p 33000:33000 cubrid/cubrid:11.4
-[ ] 컨테이너 헬스 확인
+[ ] Verify container health
     docker exec demo-cubrid csql -u dba demodb -c 'SELECT 1;'
-[ ] 시드 데이터 로드 (아래 스크립트)
+[ ] Load seed data (script below)
     python seed_demo_data.py
-[ ] Claude Desktop MCP 연결 확인
+[ ] Verify Claude Desktop MCP connection
     → cubrid-mcp-server가 목록에 있는지
     → health_check 도구 호출해서 "OK" 확인
-[ ] CUBRID_MCP_WRITE 미설정 확인 (거부 시연 필수)
+[ ] Verify CUBRID_MCP_WRITE is NOT set (rejection demo required)
     → claude_desktop_config.json에 CUBRID_MCP_WRITE 없는지
-[ ] 터미널 폰트 18pt+, 라이트 테마 (프로젝터)
-[ ] 브라우저 탭 준비: http://localhost:8501 (대시보드)
-[ ] 백업 영상 재생 가능 상태 (전체 4분 + 층별 클립)
+[ ] Terminal font 18pt+, light theme (for projector)
+[ ] Browser tab ready: http://localhost:8501 (dashboard)
+[ ] Backup video ready to play (full 4 min + layer clips)
 ```
 
-## 시드 데이터 스크립트
+## Seed Data Script
 
 ```python
 # seed_demo_data.py — 발표 전 실행
@@ -100,7 +100,7 @@ print("✓ Seed data ready")
 
 ---
 
-## 층 3 — 앱 (60초) — "이게 실제로 돌아갑니다"
+## Layer 3 — App (60s) — "This actually runs"
 
 ### 화면: 브라우저 → http://localhost:8501
 
@@ -122,7 +122,7 @@ print("✓ Seed data ready")
 
 ---
 
-## 층 2 — LLM (90초) — "AI가 안전하게 조회합니다"
+## Layer 2 — LLM (90s) — "AI queries safely"
 
 ### 화면: Claude Desktop
 
@@ -158,7 +158,7 @@ print("✓ Seed data ready")
 
 ---
 
-## 층 1 — 드라이버 (60초) — "그 밑에는 이게 있습니다"
+## Layer 1 — Driver (60s) — "Underneath, this is what powers it"
 
 ### 화면: 터미널 → Python REPL 또는 스크립트
 
@@ -207,7 +207,7 @@ conn.close()
 
 ---
 
-## 마무리 (30초) — "스키마 변경도 표준 도구로"
+## Wrap-up (30s) — "Schema changes with standard tools too"
 
 ### 화면: 터미널
 
@@ -223,7 +223,7 @@ alembic upgrade head
 
 ---
 
-## 캡처 파일 정리
+## Capture Files
 
 ```
 showcase/contests/2026-ossdevcon/captures/
@@ -248,7 +248,7 @@ showcase/contests/2026-ossdevcon/captures/
 └── backup_layer3.mp4        # 백업: 층 3 클립
 ```
 
-## 캡처 도구
+## Capture Tools
 
 ```bash
 # 스크린샷 (전체 화면)
@@ -267,7 +267,7 @@ showcase/contests/2026-ossdevcon/captures/
 # 3. 불필요한 프롬프트/경로 숨기기 (PS1 단순화)
 ```
 
-## 실패 시 복구 절차
+## Recovery Procedures
 
 | 증상 | 복구 |
 |---|---|
@@ -276,7 +276,7 @@ showcase/contests/2026-ossdevcon/captures/
 | 데모 DB 오염 | `seed_demo_data.py` 재실행 |
 | 전체 실패 | **백업 영상 재생** (층별 클립 → 순서대로) |
 
-## 발표 시간 배분 요약
+## Presentation Time Allocation
 
 | 구간 | 시간 | 누적 |
 |---|---|---|

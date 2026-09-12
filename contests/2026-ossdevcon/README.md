@@ -13,3 +13,22 @@ pycubrid · sqlalchemy-cubrid · cubrid-cookbook-python · cubrid-mcp-server
 - [ ] DEMO_RUNBOOK.md — 데모 시나리오 + 리허설 체크리스트
 - [ ] EXPECTED_QA.md — 예상 질문과 답변 (§4-4 참고)
 - [ ] metrics/ — 발표용 지표 스냅샷 (측정일 기준)
+
+## VHS Demo Scripts
+
+Terminal demo GIFs are generated from VHS (.tape) scripts in each repo:
+
+| Repo | Script | Renders |
+|---|---|---|
+| pycubrid | `demos/pycubrid-demo.tape` | `docs/demo.gif` |
+| sqlalchemy-cubrid | `demos/orm-demo.tape` | `docs/demo.gif` |
+| cubrid-mcp-server | `demos/mcp-demo.tape` | `docs/demo.gif` |
+| cubrid-cookbook | `demos/agent-state.tape` | `docs/demo-agent-state.gif` |
+| cubrid-cookbook | `demos/mcp-toolchain.tape` | `docs/demo-mcp-toolchain.gif` |
+
+To render on desktop:
+```bash
+brew install vhs  # or: go install github.com/charmbracelet/vhs@latest
+cd <repo>
+vhs demos/<script>.tape
+```
