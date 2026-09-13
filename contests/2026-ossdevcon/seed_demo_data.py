@@ -1,12 +1,26 @@
-"""Seed demo data for the contest presentation — run before the demo."""
+"""Seed demo data for the contest presentation — run before the demo.
+
+Idempotent: drops and recreates the demo tables (resets AUTO_INCREMENT
+serials) and reloads deterministic content on every run.
+"""
+
+from __future__ import annotations
+
+import datetime
+import random
 
 import pycubrid
 
 conn = pycubrid.connect(host="localhost", port=33000, database="demodb", user="dba")
 cur = conn.cursor()
 
+# Idempotent reset — DROP (not DELETE) so AUTO_INCREMENT serials restart at 1;
+# a partially-failed earlier run leaves serials advanced otherwise.
+for t in ("orders", "products"):
+    cur.execute(f"DROP TABLE IF EXISTS {t}")
+
 cur.execute("""
-    CREATE TABLE IF NOT EXISTS products (
+    CREATE TABLE products (
         id INT AUTO_INCREMENT PRIMARY KEY,
         name VARCHAR(100) NOT NULL,
         category VARCHAR(50),
@@ -30,16 +44,19 @@ products = [
     ("4K Webcam", "Accessories", 129000, 56, set()),
 ]
 
-cur.executemany(
-    "INSERT INTO products (name, category, price, stock, tags) VALUES (?, ?, ?, ?, ?)",
-    [
-        (n, c, p, s, "{" + ", ".join(f"'{t}'" for t in t2) + "}")
-        for n, c, p, s, t2 in products
-    ],
-)
+# SET columns take SQL collection literals (cookbook fundamentals pattern:
+# fundamentals/pycubrid/10_collection_columns.py) — binding a string for a
+# SET column raises "Casting ... to type set is not supported".
+for n, c, p, s, t2 in products:
+    tags_sql = "SET{" + ", ".join(f"'{t}'" for t in sorted(t2)) + "}"
+    cur.execute(
+        f"INSERT INTO products (name, category, price, stock, tags) "
+        f"VALUES (?, ?, ?, ?, {tags_sql})",
+        (n, c, p, s),
+    )
 
 cur.execute("""
-    CREATE TABLE IF NOT EXISTS orders (
+    CREATE TABLE orders (
         id INT AUTO_INCREMENT PRIMARY KEY,
         product_id INT NOT NULL,
         quantity INT NOT NULL,
@@ -49,18 +66,18 @@ cur.execute("""
     )
 """)
 
-import random, datetime
+# Fetch id/price pairs by query — immune to any serial drift.
+cur.execute("SELECT id, price FROM products")
+catalog = [(r[0], r[1]) for r in cur.fetchall()]
 
-for i in range(200):
-    pid = random.randint(1, 10)
+for _ in range(200):
+    pid, price = random.choice(catalog)
     qty = random.randint(1, 5)
-    cur.execute("SELECT price FROM products WHERE id = ?", [pid])
-    price = cur.fetchone()[0]
     days_ago = random.randint(0, 90)
     dt = datetime.datetime.now() - datetime.timedelta(days=days_ago)
     cur.execute(
         "INSERT INTO orders (product_id, quantity, total_price, order_date) VALUES (?, ?, ?, ?)",
-        [pid, qty, price * qty, dt],
+        (pid, qty, price * qty, dt),
     )
 
 conn.commit()
