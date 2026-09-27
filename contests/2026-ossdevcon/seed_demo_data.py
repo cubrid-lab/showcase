@@ -4,6 +4,9 @@ Simulates the type of data in CUBRID government deployments.
 Oracle-reviewed: added current_step, due_date, updated_at for bottleneck queries.
 """
 
+import random
+from datetime import datetime, timedelta
+
 import pycubrid
 
 conn = pycubrid.connect(host="localhost", port=33000, database="demodb", user="dba")
@@ -58,8 +61,9 @@ cur.execute("""
     )
 """)
 
-import random
-from datetime import datetime, timedelta
+# Look up ids instead of assuming 1..N (robust to AUTO_INCREMENT drift)
+cur.execute("SELECT id, name FROM agencies ORDER BY id")
+agency_rows = cur.fetchall()
 
 doc_templates = [
     ("{dept} 2026년 예산안 편성 방침", "budget"),
@@ -85,9 +89,8 @@ security_levels = ["public", "internal", "internal", "restricted", "confidential
 
 for i in range(300):
     template, doc_type = random.choice(doc_templates)
-    dept = random.choice(agencies)[0]
+    agency_id, dept = random.choice(agency_rows)
     title = template.format(dept=dept)
-    agency_id = random.randint(1, 12)
     status = random.choice(status_weights)
     security = random.choice(security_levels)
     current_step = (
@@ -127,9 +130,9 @@ cur.execute("""
         id INT AUTO_INCREMENT PRIMARY KEY,
         document_id INT NOT NULL,
         step INT NOT NULL,
-        action ENUM('submit','review','approve','reject','return'),
+        act_type ENUM('submit','review','approve','reject','return'),
         actor VARCHAR(50) NOT NULL,
-        comment TEXT,
+        comment VARCHAR(500),
         acted_at DATETIME DEFAULT SYS_DATETIME,
         FOREIGN KEY (document_id) REFERENCES documents(id)
     )
@@ -146,7 +149,10 @@ comments = [
 ]
 actions = ["submit", "review", "approve", "approve", "reject", "return"]
 
-for doc_id in range(1, 301):
+cur.execute("SELECT id FROM documents ORDER BY id")
+doc_ids = [row[0] for row in cur.fetchall()]
+
+for doc_id in doc_ids:
     steps = random.randint(1, 4)
     for step in range(1, steps + 1):
         action = random.choice(actions)
@@ -154,8 +160,17 @@ for doc_id in range(1, 301):
         comment = random.choice(comments)
         hours_ago = random.randint(1, 4320)
         cur.execute(
-            "INSERT INTO approvals (document_id, step, action, actor, comment, acted_at) VALUES (?, ?, ?, ?, ?, SYS_DATETIME - INTERVAL ? HOUR)",
-            [doc_id, step, action, actor, comment, hours_ago],
+            "INSERT INTO approvals (document_id, step, act_type, actor, comment, acted_at) VALUES (?, ?, ?, ?, ?, ?)",
+            [
+                doc_id,
+                step,
+                action,
+                actor,
+                comment,
+                (datetime.now() - timedelta(hours=hours_ago)).strftime(
+                    "%Y-%m-%d %H:%M:%S"
+                ),
+            ],
         )
 
 conn.commit()
@@ -183,7 +198,7 @@ for row in cur.fetchall()[:4]:
 # Q4: 결재 지연 TOP 5 (병목)
 cur.execute("""
     SELECT a.name, COUNT(*) as pending_count,
-           AVG(TIMESTAMPDIFF(SQL_TSI_DAY, d.created_at, SYS_DATETIME)) as avg_days
+           AVG(DATEDIFF(SYS_DATETIME, d.created_at)) as avg_days
     FROM documents d JOIN agencies a ON d.agency_id = a.id
     WHERE d.status IN ('pending','in_review')
     GROUP BY a.name ORDER BY pending_count DESC LIMIT 5
