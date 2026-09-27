@@ -8,7 +8,7 @@
 |---|---:|---:|---:|---:|---:|
 | GitHub stars | 29 | 36 | 29 | 25 | **119** |
 | Merged PRs | 159 | 151 | 84 | 56 | **450** |
-| Unique clones (14d, per-repo)¹ | 363 | 268 | ~200 | ~95 | **~926**² |
+| Unique clones (14d, per-repo, **CI-dominated**)¹ | 363 | 268 | ~200 | ~95 | ~926² |
 | PyPI releases | 16 | 19 | — | — | **35** |
 | Tests | 1,147 | 769 | 284 | — | **2,200** |
 | Docs pages | 20 | 14 | 7 | 22 | **63** |
@@ -35,15 +35,31 @@
 | Bulk insert (1000 rows) | **12.3% faster** |
 | Query select-all | **19.9% faster** |
 
-¹ Per-repo unique clones reported by GitHub Traffic API individually.
+¹ Per-repo unique clones reported by GitHub Traffic API individually. Mostly CI
+  runners — see "Clone traffic is CI" below. Not used as an adoption metric.
 ² Sum of per-repo figures; the same person cloning multiple repos is counted
   once per repo, so cross-repo overlap is **not removed** from this total.
 
-## ⚠️ PyPI Download Caveat
+## ⚠️ Clone traffic is CI (measured 2026-09-27)
 
-Our CI generates ~20-50 downloads/day. Prefer "GitHub unique clones" (per-repo
-figures above) over PyPI counts for adoption signals — GitHub Actions' checkout
-uses the tarball API and is automatically excluded from traffic stats.
+`actions/checkout` does a real git fetch and each hosted runner is a distinct
+cloner, so clone counts track CI activity, not users. (An earlier version of
+this file claimed CI was excluded; that was wrong.)
+
+| Repo | Unique cloners (14d) | Total clones (14d) | CI workflow runs (14d) |
+|---|---:|---:|---:|
+| pycubrid | 495 | 4,969 | 700 |
+| sqlalchemy-cubrid | 547 | 5,742 | 1,103 |
+| cubrid-mcp-server | 277 | 1,493 | 96 |
+| cubrid-cookbook-python | 184 | 1,018 | 335 |
+
+PyPI downloads also include CI (~20-50/day). For adoption, cite merged PRs,
+releases, and stars.
+
+```bash
+# CI runs in the same 14-day window
+gh api "repos/cubrid-lab/$r/actions/runs?created=>=$(date -u -d '14 days ago' +%F)&per_page=1" --jq .total_count
+```
 
 ## Re-measurement Commands
 

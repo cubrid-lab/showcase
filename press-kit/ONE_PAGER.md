@@ -9,7 +9,7 @@ Rebuilt from scratch for SQLAlchemy 2.0, then built the driver too.
 
 ## The Problem
 
-Korean public sector DBMS market: **10.6% is CUBRID** (1,500+ systems, 2,300+ DB instances). The official Python driver's last release was **May 2014** — no asyncio, no SQLAlchemy 2.x, no modern Python. Thousands of developers locked into a database with dead tooling.
+CUBRID is **#2 in the Korean public sector DBMS market — 13.24%, 2,367 installations**, second only to Oracle (end of 2025, MOIS/NIA public sector information resources report). The official Python driver's last release was **May 2014** — no asyncio, no SQLAlchemy 2.x, no modern Python. Teams running those systems had no maintained Python path.
 
 ## The Solution
 
@@ -18,21 +18,20 @@ Four packages, pure Python, `pip install` — done.
 ```
 pycubrid            Driver (DB-API 2.0, asyncio, TLS, zero deps)
 sqlalchemy-cubrid   ORM (SQLAlchemy 2.0-2.2, Alembic, ENUM)
-cubrid-cookbook     75 examples + 7 templates (FastAPI to AI agent)
+cubrid-cookbook     68 examples + 7 templates (FastAPI to AI agent)
 cubrid-mcp-server   AI/LLM access (12 tools, read-only whitelist, domain knowledge)
 ```
 
-## Key Metrics (2026-09)
+## Key Metrics (2026-09-12)
 
 | | |
 |---|---|
-| GitHub stars | 111 |
-| Unique clones (14d) | 822 developers |
+| GitHub stars | 119 |
 | Merged PRs | 450 |
 | PyPI releases | 35 |
-| Tests | 1,916 (CI-enforced) |
+| Tests | 2,200 (CI-enforced) |
 | CI combinations | Python 5 × CUBRID 4 = 20 |
-| Documentation | 4 sites, 33 Korean pages |
+| Documentation | 4 sites, 34 Korean pages |
 | License | MIT (all 4 repos) |
 
 **Community**: SQLAlchemy Korea organizer (since Oct 2020, after Gitter chat with Mike Bayer)
@@ -52,7 +51,7 @@ Reproducible benchmarks at [cubrid-benchmark](https://github.com/cubrid-lab/cubr
 
 | Language | Driver | ORM | Status |
 |---|---|---|---|
-| Python | pycubrid v1.7.0 | sqlalchemy-cubrid v1.7.0 | **Complete** |
+| Python | pycubrid v1.7.1 | sqlalchemy-cubrid v1.7.1 | **Complete** |
 | TypeScript | cubrid-client v1.1.0 | drizzle-cubrid v0.2.1 | In progress |
 | Go | cubrid-go v0.2.1 | gorm-cubrid v0.1.0 | In progress |
 | Rust | cubrid-rs v0.1.0 | sea-orm-cubrid v0.1.0 | In progress |
