@@ -1,18 +1,38 @@
-# 2026 오픈소스 개발자대회
+# 2026 OSS Developer Contest
 
-## 출품작
+## Entry
+
 pycubrid · sqlalchemy-cubrid · cubrid-cookbook-python · cubrid-mcp-server
 
-## 일정
-- 1차 서면: 통과 ✅
-- 2차 발표: 2026 Q4 예정
+## Schedule
 
-## 이 폴더에 넣을 것
-- [ ] SUBMISSION.md — 개발보고서 (1차 제출본)
-- [ ] SLIDES.md — 발표 슬라이드 12장 (마크다운 → PPTX/Reveal.js 변환)
-- [ ] DEMO_RUNBOOK.md — 데모 시나리오 + 리허설 체크리스트
-- [ ] EXPECTED_QA.md — 예상 질문과 답변 (§4-4 참고)
-- [ ] metrics/ — 발표용 지표 스냅샷 (측정일 기준)
+- Round 1 (written): Passed
+- Round 2 (presentation): Q4 2026
+
+## Contents
+
+| File | Purpose |
+|---|---|
+| SLIDES.md | 14-slide presentation (Oracle-reviewed, On-nara demo) |
+| APPENDIX.md | Technical reference for Q&A |
+| EXPECTED_QA.md | 12 anticipated questions + answers |
+| DEMO_RUNBOOK.md | On-nara demo script (4 min) + checklist |
+| VERIFY.md | Judge verification guide |
+| seed_demo_data.py | On-nara e-approval demo data (agencies/documents/approvals) |
+| seed_demo_data_products.py | Alternative product catalog demo data |
+| cubrid-corp-outreach.md | CUBRID Corp outreach email draft |
+| blog-post-draft.md | Tech blog post draft |
+| metrics/SNAPSHOT.md | Verified metrics snapshot (re-measure on presentation day) |
+| captures/ | Demo rehearsal scripts + backup recording |
+
+## Consolidation Note
+
+This folder was consolidated from two earlier versions:
+- `2026-ossdevcon/` (original, product-based demo)
+- `2026-ossdevon/` (evolved, Oracle-reviewed On-nara demo)
+
+The On-nara version (14 slides) is now canonical. The product-based seed
+script is preserved as `seed_demo_data_products.py`.
 
 ## VHS Demo Scripts
 
@@ -25,10 +45,3 @@ Terminal demo GIFs are generated from VHS (.tape) scripts in each repo:
 | cubrid-mcp-server | `demos/mcp-demo.tape` | `docs/demo.gif` |
 | cubrid-cookbook | `demos/agent-state.tape` | `docs/demo-agent-state.gif` |
 | cubrid-cookbook | `demos/mcp-toolchain.tape` | `docs/demo-mcp-toolchain.gif` |
-
-To render on desktop:
-```bash
-brew install vhs  # or: go install github.com/charmbracelet/vhs@latest
-cd <repo>
-vhs demos/<script>.tape
-```
