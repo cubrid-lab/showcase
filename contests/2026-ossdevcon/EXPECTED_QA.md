@@ -1,7 +1,7 @@
 # Expected Q&A — 2026 OSS Developer Contest Finals
 
-> 12 anticipated questions with prepared answers (30-60 seconds each).
-> Numbers verified 2026-09-12.
+> 18 anticipated questions with prepared answers (30-60 seconds each).
+> Numbers verified 2026-09-12; market share and clone/CI figures 2026-09-27.
 
 ---
 
@@ -26,17 +26,19 @@ support the old driver via `cubrid+cubriddb://` URLs in our dialect.
 
 We built a system where AI agents write code and humans review it —
 the same mentor-mentee model we learned from OSS contribution culture.
-AGENTS.md defines the rules, every PR passes 20-combination live DB
-tests with 95% coverage, and only humans push release tags. 450 merged
-PRs prove the system works.
+AGENTS.md defines the rules, every PR is merged only after CI gates pass
+(driver and dialect PRs run the 20-combination live DB matrix with a 95%
+coverage floor), and only humans push release tags. 450 merged PRs
+prove the system works.
 
 ## Q3: Stars are low — is anyone actually using this?
 
-We're early. But our repos had ~926 per-repo unique clones in the last
-14 days (GitHub Traffic API, CI actions excluded; cross-repo overlap not
-removed). We're the only modern Python
-driver for a database with 10.6% of Korean public sector market share.
-The market exists — 1,500+ systems are waiting for this tooling.
+We're early, and we don't inflate it. We deliberately don't quote clone
+counts: GitHub clone traffic is dominated by our own CI runners (pycubrid:
+~700 workflow runs vs ~5,000 clones in the same 14 days). What we can show
+is 450 merged PRs, 35 PyPI releases, 119 stars — and a real market: CUBRID
+is #2 in Korean public-sector DBMS (13.24%, 2,367 installations at end of
+2025, MOIS/NIA report), and before us it had no maintained Python driver.
 
 ## Q4: Isn't CUBRID GPL? Does your MIT license conflict?
 
@@ -72,10 +74,12 @@ server releases.
 
 ## Q8: Is the MCP write mode dangerous?
 
-It's off by default and requires explicit opt-in. Even then, only single
-DML statements in atomic transactions — no DDL. We demonstrate the
-safety live: asking Claude to "approve all pending documents" (On-nara
-demo) or "DROP TABLE" gets rejected by the server-level whitelist.
+It's off by default. In default mode the `execute_write` tool isn't even
+registered, and any non-read statement sent to `execute_query` is rejected
+by a keyword whitelist — that's the rejection you saw in the demo. Write
+mode needs an explicit per-connection opt-in (`CUBRID_MCP_WRITE=1`) and then
+allows only a single INSERT/UPDATE/DELETE — no DDL, no multi-statement.
+Audit logging is available (`CUBRID_MCP_AUDIT_LOG=1`).
 
 ## Q9: How do you handle CUBRID-specific SQL differences?
 
@@ -108,3 +112,26 @@ Infrastructure is built for longevity: translation sync CI, label
 taxonomy, SBOM automation, API compatibility gates, 5 good-first-issues.
 MIT licensed — anyone can continue. We hope the next contribution
 hackathon mentee finds our project and continues the cycle.
+
+## Q12: So if write mode is on, could the AI mass-approve documents?
+
+Yes — a single `UPDATE ... WHERE status='pending'` is one statement, so write
+mode would allow it. The MCP whitelist controls *what kind* of statement
+runs; it is not a business-rule engine. The real boundary is the database
+account: connect the MCP server with a CUBRID user that has only SELECT
+grants, and keep write mode off in production. That's our recommendation.
+
+## Q13: Can a read-only query still expose confidential rows?
+
+Yes. Read-only is not row-level security. In the demo Claude aggregated
+because we *asked* it to; the server doesn't mask rows. For sensitive data,
+use CUBRID's own privileges — a dedicated user granted SELECT only on views
+that expose aggregates. The MCP server limits statement types; the
+database decides what data is visible.
+
+## Q14: Isn't the CUBRID market figure just vendor marketing?
+
+It's from the government's own statistics: MOIS/NIA's 2026 government-wide
+EA public-sector information resources report (end-2025 data) — CUBRID
+13.24%, 2,367 installations, second only to Oracle. The previous edition
+had it at 10.58%, third.

@@ -38,19 +38,20 @@ routerMode: hash
 
 ## The Gap — Why This Matters
 
-### 한국 공공부문 DBMS 10.6%가 CUBRID — 그런데 Python은 죽어있었다
+### 한국 공공부문 DBMS 2위 CUBRID (13.24%) — 그런데 Python은 죽어있었다
 
 | | |
 |---|---|
 | **zzzeek/sqlalchemy_cubrid** | Mike Bayer가 2012년 제작 → 방치 |
 | **공식 Python 드라이버** | 마지막 릴리스 2014-05-15 |
-| **G-Cloud 표준 DBMS** | 600+ 시스템 · 국방·행안부·지자체 |
-| **영향받는 개발자** | 1,500+ 시스템 유지보수 인력 |
+| **공공 DBMS 점유율** | 13.24% · 2,367개 설치 · Oracle 다음 2위 (2025년 말) |
+
+<sub>출처: 행정안전부·NIA 「2026년도 범정부EA기반 공공부문 정보자원 현황 통계보고서」 (2025년 말 기준)</sub>
 
 > **"방언도 죽어가고, 드라이버도 죽어있었다.
 > 방언을 살리려니 — 드라이버부터 새로 만들어야 했다."**
 
-<EvidenceFooter claim="official-driver-2014" />
+<EvidenceFooter claim="cubrid-public-sector, official-driver-2014" />
 
 ---
 
@@ -62,7 +63,7 @@ routerMode: hash
 
 **② pycubrid (2025)** — 순수 Python 드라이버, CAS 프로토콜 해독, 의존성 0
 
-**③ cubrid-cookbook (2026)** — 75 예제 + 7 템플릿, dogfooding 플랫폼
+**③ cubrid-cookbook (2026)** — 68 예제 + 7 템플릿, dogfooding 플랫폼
 
 **④ cubrid-mcp-server (2026)** — 세계 최초 CUBRID MCP, AI/LLM 접근
 
@@ -199,34 +200,26 @@ AI가 작성한 코드가 이 모든 게이트를 통과해야 머지됩니다.
 ### "CUBRID 공공 업무는 Java 중심이었습니다.
 ### 저희가 Python, 대시보드, AI 질의, 안전한 실행 정책까지 연결했습니다."
 
-**4 min · 3 layers · 온나라(행안부 전자결재) 시나리오**
-
-| Time | Layer | What |
-|---|---|---|
-| 40s | Dashboard | 부처별 문서 처리 현황 (Streamlit) |
-| **120s** | **Claude/MCP** | **탐색 → 분석 → 병목 → 기밀 → 거부** |
-| 50s | Terminal | pip install → connect → "Dependencies: 0" |
-
-### Claude 질의 아치 (Oracle-reviewed)
+**2 min · 온나라(행안부 전자결재) 시나리오** — Dashboard 15s · **Claude/MCP 90s** · Terminal 15s
 
 | # | Ask | Story |
 |---|---|---|
-| 1 | "테이블 목록 보여줘" | 탐색 |
-| 2 | "documents 구조 보여줘" | ENUM/JDBC 스키마 |
-| 3 | "부처별 문서 처리 현황?" | 분석 시작 |
-| 4 | **"결재 병목 TOP 5? 평균 처리일로 판단해"** | ★ **AI 운영 분석** |
-| 5 | "기밀 문서 집계만 (내용 안 보이게)" | 민감 데이터 안전 |
-| 6 | **"결재 대기 문서 전부 승인 처리해줘"** | ★★ **거버넌스 거부** |
+| 1 | "이 DB에 어떤 테이블이 있어?" | 탐색 |
+| 2 | **"결재가 지연된 문서 TOP 5는? 평균 처리일과 대기 수로"** | ★ **AI 운영 분석** |
+| 3 | "기밀 문서는 부처별로 몇 개야? 내용은 보지 말고 집계만" | 집계만 질의 |
+| 4 | **"결재 대기 문서를 전부 승인 처리해줘"** | ★★ **쓰기 차단** |
 
-> **"결재 대기 문서를 전부 승인하려는 AI 명령이 서버에서 차단됐습니다.
-> 실제 정부 워크플로우에서 발생할 수 있는 거버넌스 위험입니다.
-> 서버 수준 화이트리스트가 이를 방어합니다."**
+> **기본 읽기 전용** — 쓰기 도구는 노출되지 않고, 쓰기 SQL은 화이트리스트에서 거부
 
 <!--
 온나라 시나리오로 데모하겠습니다. 행안부 온나라는 47개 부처가 쓰는
 CUBRID 기반 전자결재 시스템입니다 — 전부 Java로 구축됐습니다.
 저희가 이 데이터를 Python과 AI에서 다룰 수 있게 만들었습니다.
 문서 처리 현황 대시보드부터 시작합니다.
+
+(#4 차단 후) 결재 대기 문서를 전부 승인하려는 AI 명령이 서버에서 차단됐습니다.
+MCP 서버는 기본이 읽기 전용입니다 — 쓰기 도구는 노출조차 되지 않고,
+쓰기 SQL은 화이트리스트에서 거부됩니다. 쓰기는 운영자가 연결별로 명시적으로 켤 때만 가능합니다.
 -->
 
 ---
@@ -237,7 +230,7 @@ CUBRID 기반 전자결재 시스템입니다 — 전부 Java로 구축됐습니
 AGENTS.md (rules) → AI implements → Human reviews → CI gates → Human releases
 ```
 
-- **450 PRs** — 모두 20조합 CI 통과
+- **450 PRs** — CI 게이트 통과 후 병합 (드라이버·방언: 20조합 라이브 DB)
 - Translation sync CI (한국어 하드 게이트)
 - Label taxonomy + weekly drift audit
 - SBOM + SPDX on every release
@@ -262,7 +255,7 @@ Our packages: 독립 wire-protocol 클라이언트 — 서버 코드 포함 안 
 
 | Language | Driver | ORM | Status |
 |---|---|---|---|
-| **Python** | pycubrid v1.7.0 | sqlalchemy-cubrid v1.7.0 | **완성** |
+| **Python** | pycubrid v1.7.1 | sqlalchemy-cubrid v1.7.1 | **완성** |
 | TypeScript | cubrid-client v1.1.0 | drizzle-cubrid v0.2.1 | 진행 |
 | Go | cubrid-go v0.2.1 | gorm-cubrid v0.1.0 | 진행 |
 | Rust | cubrid-rs v0.1.0 | sea-orm-cubrid v0.1.0 | 진행 |
@@ -276,7 +269,7 @@ Our packages: 독립 wire-protocol 클라이언트 — 서버 코드 포함 안 
 ## Judge Verification
 
 ```bash
-uvx cubrid-mcp-server          # PyPI (등록 후)
+uvx cubrid-mcp-server          # PyPI (v0.4.0)
 # or
 docker compose up && make verify   # GitHub Release (지금)
 ```
@@ -288,8 +281,6 @@ docker compose up && make verify   # GitHub Release (지금)
 ## Adoption Metrics
 
 <SnapshotMetrics category="adoption" />
-
-<EvidenceFooter claim="clone-api-limitation" />
 
 ---
 
@@ -305,7 +296,7 @@ docker compose up && make verify   # GitHub Release (지금)
 pip install pycubrid    # 2014년의 갭, 2026년에 닫았다
 ```
 
-**Driver · ORM · 75 Examples · 7 Templates · AI/MCP · 2,200 Tests · 450 PRs**
+**Driver · ORM · 68 Examples · 7 Templates · AI/MCP · 2,200 Tests · 450 PRs**
 
 *오픈소스는 선순환한다 — CUBRID Lab*
 

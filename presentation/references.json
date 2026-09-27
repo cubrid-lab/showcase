@@ -19,11 +19,10 @@
       "verified": true
     },
     "cubrid-public-sector": {
-      "claim": "CUBRID holds 10.6% of Korean public sector DBMS market",
-      "source": "G-Cloud statistics",
-      "evidence": "Public procurement data",
-      "verified": false,
-      "note": "Needs primary source citation"
+      "claim": "CUBRID is #2 in Korean public sector DBMS: 13.24%, 2,367 installations (end of 2025)",
+      "source": "https://www.mois.go.kr/frt/bbs/type010/commonSelectBoardArticle.do?bbsId=BBSMSTR_000000000008&nttId=129225",
+      "evidence": "MOIS/NIA 2026 government-wide EA public sector information resources statistics report (end-2025 data); previous edition: 10.58%, 3rd",
+      "verified": true
     },
     "mcp-world-first": {
       "claim": "World's first CUBRID MCP server",
@@ -33,11 +32,11 @@
       "note": "Verified by searching npm, PyPI, and GitHub for 'cubrid mcp'"
     },
     "clone-api-limitation": {
-      "claim": "GitHub clone API provides per-repo 14-day unique counts",
+      "claim": "GitHub clone traffic is dominated by CI and is not an adoption metric",
       "source": "https://docs.github.com/en/rest/metrics/traffic",
-      "evidence": "API documentation states per-repo, last 14 days only",
+      "evidence": "2026-09-27, 14-day window: pycubrid 700 workflow runs vs 4,969 clones (495 unique); sqlalchemy-cubrid 1,103 runs vs 5,742 clones (547 unique)",
       "verified": true,
-      "note": "Cross-repo deduplication not possible via this API"
+      "note": "actions/checkout performs a real git fetch; each hosted runner counts as a unique cloner"
     }
   }
 }

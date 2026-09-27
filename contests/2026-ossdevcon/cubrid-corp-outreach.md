@@ -20,9 +20,9 @@ sqlalchemy-hana에 기여하면서 데이터베이스 방언 개발을 시작했
 
 | 패키지 | 설명 | PyPI |
 |---|---|---|
-| pycubrid | 순수 Python DB-API 2.0 드라이버 (asyncio, TLS) | v1.7.0, 16 releases |
-| sqlalchemy-cubrid | SQLAlchemy 2.0 방언 (ORM, Alembic, ENUM) | v1.7.0, 19 releases |
-| cubrid-cookbook-python | 75 예제 + 7 템플릿 (FastAPI~AI Agent) | — |
+| pycubrid | 순수 Python DB-API 2.0 드라이버 (asyncio, TLS) | v1.7.1 |
+| sqlalchemy-cubrid | SQLAlchemy 2.0 방언 (ORM, Alembic, ENUM) | v1.7.1 |
+| cubrid-cookbook-python | 68 예제 + 7 템플릿 (FastAPI~AI Agent) | — |
 | cubrid-mcp-server | **세계 최초 CUBRID MCP 서버** (AI/LLM 접근) | v0.4.0 |
 
 ## 요청 사항
@@ -41,7 +41,7 @@ sqlalchemy-hana에 기여하면서 데이터베이스 방언 개발을 시작했
 
 - GitHub: https://github.com/cubrid-lab
 - Documentation: https://cubrid-lab.github.io/pycubrid/
-- PyPI: https://pypi.org/project/pycubrid/ (v1.7.0)
+- PyPI: https://pypi.org/project/pycubrid/ (v1.7.1)
 - MCP Server: https://pypi.org/project/cubrid-mcp-server/ (v0.4.0)
 - 테스트: 2,200개 (Python 5 × CUBRID 4 = 20 CI 조합)
 - 오픈소스 개발자대회 출품작 (2026, 1차 통과)
@@ -57,7 +57,7 @@ Python 개발자들이 CUBRID를 사용하기 어려웠습니다. 저희 생태�
 - MCP를 통한 AI/LLM 접근 (세계 최초)
 - 95% 커버리지 + 2,200 테스트로 검증
 
-이것이 공공부문 CUBRID 사용자(10.6%)에게 Python + AI 접근 경로를
+이것이 공공부문 CUBRID 사용자(점유율 13.24%, 2025년 말)에게 Python + AI 접근 경로를
 열어줄 것이라 믿습니다.
 
 감사합니다.

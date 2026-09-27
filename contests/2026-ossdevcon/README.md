@@ -13,10 +13,10 @@ pycubrid · sqlalchemy-cubrid · cubrid-cookbook-python · cubrid-mcp-server
 
 | File | Purpose |
 |---|---|
-| SLIDES.md | 14-slide presentation (Oracle-reviewed, On-nara demo) |
+| SLIDES.md | 14-slide presentation (On-nara demo) |
 | APPENDIX.md | Technical reference for Q&A |
 | EXPECTED_QA.md | 12 anticipated questions + answers |
-| DEMO_RUNBOOK.md | On-nara demo script (4 min) + checklist |
+| DEMO_RUNBOOK.md | On-nara demo script (2 min) + checklist |
 | VERIFY.md | Judge verification guide |
 | seed_demo_data.py | On-nara e-approval demo data (agencies/documents/approvals) |
 | seed_demo_data_products.py | Alternative product catalog demo data |
@@ -29,7 +29,7 @@ pycubrid · sqlalchemy-cubrid · cubrid-cookbook-python · cubrid-mcp-server
 
 This folder was consolidated from two earlier versions:
 - `2026-ossdevcon/` (original, product-based demo)
-- `2026-ossdevon/` (evolved, Oracle-reviewed On-nara demo)
+- `2026-ossdevon/` (evolved, reviewed On-nara demo)
 
 The On-nara version (14 slides) is now canonical. The product-based seed
 script is preserved as `seed_demo_data_products.py`.

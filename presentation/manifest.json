@@ -2,8 +2,8 @@
   "presentationCommit": null,
   "snapshot": "2026-09-12",
   "demoVersions": {
-    "pycubrid": "v1.7.0",
-    "sqlalchemy-cubrid": "v1.7.0",
+    "pycubrid": "v1.7.1",
+    "sqlalchemy-cubrid": "v1.7.1",
     "cubrid-mcp-server": "v0.4.0",
     "cubrid-cookbook-python": "v0.1.0"
   },
