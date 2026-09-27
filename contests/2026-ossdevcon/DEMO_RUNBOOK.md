@@ -109,6 +109,7 @@ print("Dependencies: 0 — pure Python, no C compiler")
 | CUBRID down | `docker restart demo-cubrid` |
 | Demo DB dirty | Re-run `seed_demo_data.py` |
 | Total failure | Backup video — say "동일한 런북의 사전 녹화본으로 전환하겠습니다" |
+| Terminal-only fallback | `asciinema play -i 1 captures/demo_backup.cast` (On-nara, seed + L2 + L1; same output as live, `random.seed(2026)`) |
 
 ## Data Model Summary
 

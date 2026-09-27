@@ -9,6 +9,9 @@ from datetime import datetime, timedelta
 
 import pycubrid
 
+# Fixed seed: stage output must match rehearsal runs and screenshots
+random.seed(2026)
+
 conn = pycubrid.connect(host="localhost", port=33000, database="demodb", user="dba")
 cur = conn.cursor()
 
@@ -87,17 +90,13 @@ status_weights = (
 )
 security_levels = ["public", "internal", "internal", "restricted", "confidential"]
 
-for i in range(300):
+for _ in range(300):
     template, doc_type = random.choice(doc_templates)
     agency_id, dept = random.choice(agency_rows)
     title = template.format(dept=dept)
     status = random.choice(status_weights)
     security = random.choice(security_levels)
-    current_step = (
-        random.randint(1, 4)
-        if status in ("pending", "in_review")
-        else random.randint(1, 4)
-    )
+    current_step = random.randint(1, 4)
     days_ago = random.randint(0, 180)
     due_in = random.randint(-30, 60)  # some overdue
     created = datetime.now() - timedelta(days=days_ago)
@@ -223,4 +222,4 @@ print("\nQ6: 'UPDATE documents SET status=approved' → REJECTED (read-only whit
 
 cur.close()
 conn.close()
-print("\n✓ On-nara demo data ready (Oracle-reviewed)")
+print("\n✓ On-nara demo data ready")

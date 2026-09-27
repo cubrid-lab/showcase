@@ -27,7 +27,18 @@ fi
 
 # Step 2: Build static HTML
 echo "Building static HTML..."
-npx slidev build slides.md --base /showcase/ --out dist
+# Base "/" so `python3 -m http.server` from dist/ resolves assets (no Pages deploy)
+npx slidev build slides.md --base / --out dist
+
+# Offline guard: finals must not load anything from the network
+if grep -rEoh '(href|src)="https?://[^"]+"' dist --include='*.html' --include='*.css'; then
+    echo "ERROR: external resources in dist/ (listed above) — build is not offline-safe" >&2
+    exit 1
+fi
+if grep -rEoh 'url\((https?:)?//[^)]+\)|@import ["'"'"']?https?://' dist --include='*.css' --include='*.js'; then
+    echo "ERROR: external CSS resources in dist/ (listed above)" >&2
+    exit 1
+fi
 
 # Step 3: If finals variant, stamp manifest
 if [[ "$VARIANT" == "finals" ]]; then

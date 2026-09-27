@@ -6,6 +6,12 @@ author: "CUBRID Lab — Yeongseon Choe & Gyeongjun Paik"
 drawings:
   persist: false
 transition: fade
+# Finals run offline: no Google Fonts / CDN favicon
+fonts:
+  provider: none
+favicon: /favicon.svg
+# Hash routes (/#/5) survive a refresh on any static server, no SPA fallback needed
+routerMode: hash
 ---
 
 # 2020년, 두 사람이 만났다
