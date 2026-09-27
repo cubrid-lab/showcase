@@ -47,7 +47,7 @@ proc = subprocess.Popen(
     [sys.executable, "-m", "cubrid_mcp_server"],
     stdin=subprocess.PIPE,
     stdout=subprocess.PIPE,
-    stderr=subprocess.PIPE,
+    stderr=subprocess.DEVNULL,  # an unread PIPE can fill and hang the server
     text=True,
     env=env,
 )
@@ -62,7 +62,15 @@ def rpc(method: str, params: dict | None = None) -> dict:
         req["params"] = params
     proc.stdin.write(json.dumps(req) + "\n")
     proc.stdin.flush()
-    return json.loads(proc.stdout.readline() or "{}")
+    # Skip notifications / stray output until the matching response arrives
+    while line := proc.stdout.readline():
+        try:
+            msg = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        if isinstance(msg, dict) and msg.get("id") == _id:
+            return msg
+    raise RuntimeError(f"MCP server exited (code {proc.wait(timeout=1)}) during {method}")
 
 
 def text(r: dict) -> str:
@@ -136,12 +144,20 @@ try:
         "UPDATE documents SET status = 'approved' "
         "WHERE status IN ('pending','in_review')"
     )
-    rejected = r.get("result", {}).get("isError", False)
-    print(f"Bulk approve → {'REJECTED ✓' if rejected else 'ALLOWED (!!!)'}")
+    # Require the whitelist message so an unrelated error can't pass as a rejection
+    rejected = r.get("result", {}).get("isError", False) and (
+        "not permitted in read-only mode" in text(r)
+    )
+    print(f"Bulk approve → {'REJECTED ✓' if rejected else 'NOT REJECTED BY WHITELIST (!!!)'}")
     print(f"  server message: {text(r)[:120]}")
     mark("L2 #6 bulk-approve rejection (the key scene)", t0)
 finally:
     proc.terminate()
+    try:
+        proc.wait(timeout=5)
+    except subprocess.TimeoutExpired:
+        proc.kill()
+        proc.wait()
 
 # ---------- Layer 1: Terminal ----------
 print("\n--- L1: pycubrid driver ---")
@@ -176,5 +192,5 @@ total = 0.0
 for label, dt in T:
     print(f"  {dt:6.2f}s  {label}")
     total += dt
-print(f"  ------")
+print("  ------")
 print(f"  {total:6.2f}s  TOTAL (runbook budget: 120s L2 + 50s L1)")
