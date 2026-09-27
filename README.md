@@ -23,11 +23,11 @@ Gitter, and started the SQLAlchemy Korea community. Then we asked:
 
 | File | Purpose |
 |---|---|
-| [SLIDES.md](contests/2026-ossdevon/SLIDES.md) | 12-slide presentation (Oracle-optimized) |
-| [APPENDIX.md](contests/2026-ossdevon/APPENDIX.md) | Technical reference for Q&A |
-| [EXPECTED_QA.md](contests/2026-ossdevon/EXPECTED_QA.md) | 12 anticipated questions + answers |
-| [DEMO_RUNBOOK.md](contests/2026-ossdevon/DEMO_RUNBOOK.md) | 4-minute demo script + checklist |
-| [VERIFY.md](contests/2026-ossdevon/VERIFY.md) | Judge verification guide |
+| [SLIDES.md](contests/2026-ossdevcon/SLIDES.md) | 14-slide presentation (Oracle-reviewed) |
+| [APPENDIX.md](contests/2026-ossdevcon/APPENDIX.md) | Technical reference for Q&A |
+| [EXPECTED_QA.md](contests/2026-ossdevcon/EXPECTED_QA.md) | 12 anticipated questions + answers |
+| [DEMO_RUNBOOK.md](contests/2026-ossdevcon/DEMO_RUNBOOK.md) | On-nara demo script + checklist |
+| [VERIFY.md](contests/2026-ossdevcon/VERIFY.md) | Judge verification guide |
 | [metrics/SNAPSHOT.md](contests/2026-ossdevcon/metrics/SNAPSHOT.md) | Verified metrics (re-measure on presentation day) |
 
 ## Quick Numbers (2026-09-12)
@@ -35,7 +35,7 @@ Gitter, and started the SQLAlchemy Korea community. Then we asked:
 | Metric | Value |
 |---|---|
 | GitHub stars | 119 |
-| Unique clones (14d) | 926 developers |
+| Unique clones (14d, per-repo sum) | ~926 |
 | Merged PRs | 450 |
 | PyPI releases | 35 |
 | Tests | 2,200 (CI-enforced) |
