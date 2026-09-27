@@ -1,0 +1,13 @@
+{
+  "presentationCommit": null,
+  "snapshot": "2026-09-12",
+  "demoVersions": {
+    "pycubrid": "v1.7.0",
+    "sqlalchemy-cubrid": "v1.7.0",
+    "cubrid-mcp-server": "v0.4.0",
+    "cubrid-cookbook-python": "v0.1.0"
+  },
+  "builtAt": null,
+  "variant": "preparation",
+  "notes": "Set variant to 'finals' and fill presentationCommit + builtAt when freezing for submission"
+}
