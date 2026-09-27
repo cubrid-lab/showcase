@@ -90,10 +90,40 @@ SQLAlchemy Korea라는 커뮤니티도 만들었습니다. 오늘 이야기는 �
 
 ---
 
+<p class="kicker">sqlalchemy-hana에 기여하며 dialect를 공부하다 발견한 것</p>
+<h2>CUBRID dialect는 있었지만,<br><span class="seal">멈춰 있었습니다.</span></h2>
+
+<div class="repo">
+  <div class="repo-head"><b>zzzeek/sqlalchemy_cubrid</b><span>2012년 생성 · 커밋 4개 · 코드 변경은 2012년이 마지막</span></div>
+  <div class="readme">
+    "…there is not actually anything working here. … if someone were to be interested in this, i will gladly transfer this repo over to them."
+    <span class="cite">— Mike Bayer, README (2019)</span>
+  </div>
+</div>
+<p class="small">여기엔 실제로 동작하는 게 없다. 관심 있는 사람이 있다면 기꺼이 이 저장소를 넘기겠다.</p>
+
+<style>
+.repo { border: 1.5px solid var(--line); border-radius: 12px; overflow: hidden; }
+.repo-head { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; padding: 10px 18px; background: #f6f8fa; border-bottom: 1px solid var(--line); }
+.repo-head b { font-family: var(--mono); font-size: 0.95rem; }
+.repo-head span { font-size: 0.78rem; color: var(--muted); }
+.readme { padding: 18px 22px; font-size: 1.2rem; line-height: 1.55; display: grid; gap: 10px; }
+.readme .cite { font-size: 0.85rem; color: var(--muted); }
+</style>
+
+<!--
+[25초 · 활용성 · 커뮤니티]
+sqlalchemy-hana에 기여하면서 dialect를 공부하다가, Mike Bayer의 저장소에서 CUBRID dialect를 발견했습니다.
+2012년에 만들어진 뒤 멈춰 있었고, README에는 Mike가 직접 이렇게 적어 두었습니다.
+"여기엔 실제로 동작하는 게 없다. 관심 있는 사람이 있다면 기꺼이 넘기겠다."
+-->
+
+---
+
 <div class="split even">
   <div class="stack">
-    <p class="kicker">한국 공공부문 DBMS 점유율</p>
-    <h2>CUBRID는 이제<br><span class="accent">공공 DBMS 2위</span>입니다</h2>
+    <p class="kicker">그리고 찾아보니</p>
+    <h2>CUBRID는<br><span class="accent">공공 DBMS 2위</span>였습니다</h2>
     <ul class="explain">
       <li><b>13.24%</b> — 공공기관 2,367곳에 설치 (2025년 말)</li>
       <li><b>Microsoft를 넘었습니다</b> — 국산 DBMS로는 처음</li>
@@ -122,36 +152,18 @@ SQLAlchemy Korea라는 커뮤니티도 만들었습니다. 오늘 이야기는 �
 </style>
 
 <!--
-[25초 · 활용성]
-그러다 한 가지를 알게 됐습니다. CUBRID는 지금 한국 공공부문 DBMS 점유율 2위입니다.
-2025년 말 기준 13.24%, 2천 3백 곳이 넘는 공공기관에서 쓰고, 국산 DBMS로는 처음으로 Microsoft를 앞질렀습니다.
-그리고 5년째 계속 오르고 있습니다.
+[20초 · 활용성]
+그래서 CUBRID가 어떤 데이터베이스인지 찾아봤습니다. 한국 공공부문 DBMS 점유율 2위, 2025년 말 기준 13.24%,
+2천 3백 곳이 넘는 공공기관에서 쓰고, 5년째 오르고 있었습니다. 쓰는 곳은 이렇게 많은데, Python에서 쓸 길은 멈춰 있었던 겁니다.
 -->
-
 ---
 
-<p class="kicker">그런데 Python에서는</p>
-<h1><span class="seal">2014년 5월 15일.</span></h1>
-<p class="sub">공식 Python 드라이버의 마지막 릴리스입니다.</p>
-<ul class="explain">
-  <li><b>C 확장</b> — 설치하려면 컴파일러와 빌드 도구가 필요</li>
-  <li><b>asyncio 없음</b> — FastAPI 같은 비동기 서버에서 쓰기 어려움</li>
-  <li><b>SQLAlchemy 2 없음</b> — Mike Bayer의 2012년 dialect도 멈춰 있었음</li>
-</ul>
 
-<!--
-[15초 · 활용성]
-그런데 Python에서 이 데이터베이스를 쓰려고 하니, 공식 드라이버의 마지막 릴리스가 2014년 5월이었습니다.
-C 확장이라 설치부터 어렵고, asyncio도, SQLAlchemy 2도 쓸 수 없었습니다.
--->
-
----
-
-<h1>그래서,<br><span class="accent">고쳐보기로 했습니다.</span></h1>
+<h1>그래서,<br><span class="accent">저희가 이어가기로 했습니다.</span></h1>
 
 <!--
 [5초 · PT]
-그래서 저희가 고쳐보기로 했습니다.
+"관심 있는 사람이 있다면" — 그래서 저희가 이어가기로 했습니다.
 -->
 
 ---
@@ -212,7 +224,7 @@ AI는 저희 MCP 서버를 거쳐 같은 드라이버로 닿습니다. 모든 �
 <div class="split even">
   <div class="stack">
     <p class="kicker">프로젝트 1 · sqlalchemy-cubrid · 2021–22</p>
-    <h2>Mike Bayer의 dialect를<br>처음부터 다시 썼습니다</h2>
+    <h2>멈춰 있던 dialect를<br>처음부터 다시 썼습니다</h2>
     <p class="sub">dialect는 SQLAlchemy가 CUBRID에 맞는 SQL을 만들고 결과를 읽게 해 주는 연결 계층입니다.</p>
   </div>
   <ul class="explain">
@@ -226,7 +238,7 @@ AI는 저희 MCP 서버를 거쳐 같은 드라이버로 닿습니다. 모든 �
 <!--
 [25초 · OSS 적절성]
 첫 번째는 sqlalchemy-cubrid입니다. dialect는 SQLAlchemy가 CUBRID에 맞는 SQL을 만들고 결과를 읽게 해 주는 연결 계층입니다.
-Mike Bayer의 2012년 dialect를 가져다 고친 게 아니라, SQLAlchemy 2.0 기준으로 처음부터 다시 썼습니다.
+2012년 코드를 고친 게 아니라 — Mike도 동작하는 게 없다고 적어 둘 정도였으니까요 — SQLAlchemy 2.0 기준으로 처음부터 다시 썼습니다.
 SQLAlchemy 공식 테스트 스위트를 붙였고, schema reflection과 CUBRID 전용 MERGE 문, Alembic 마이그레이션까지 지원합니다.
 -->
 
@@ -247,7 +259,7 @@ with engine.connect() as conn:
     print(conn.execute(stmt).all())   # [('서울', 2), ('세종', 10)]
 ```
 
-<p class="then">그런데 dialect 밑의 드라이버가 <span class="seal">2014년에 멈춘 C 확장</span>이었습니다.</p>
+<p class="then">그런데 이 코드가 기대는 <span class="seal">드라이버</span>가 문제였습니다.</p>
 
 <style>
 .then { font-size: 1.35rem; font-weight: 700; line-height: 1.4; border-left: 4px solid var(--seal); padding-left: 16px; }
@@ -257,7 +269,24 @@ pre.slidev-code { font-size: 0.9rem !important; }
 <!--
 [15초 · 활용성]
 쓰는 법은 다른 데이터베이스와 똑같습니다. URL 하나 바꾸면 SQLAlchemy 코드가 그대로 CUBRID에서 돕니다.
-그런데 문제가 있었습니다. dialect 밑의 드라이버가 2014년에 멈춘 C 확장이었습니다.
+그런데 문제가 있었습니다. 이 코드가 기대는 드라이버였습니다.
+-->
+
+---
+
+<p class="kicker">dialect를 올릴 드라이버를 찾아보니</p>
+<h1><span class="seal">2014년 5월 15일.</span></h1>
+<p class="sub">공식 Python 드라이버의 마지막 릴리스였습니다.</p>
+<ul class="explain">
+  <li><b>C 확장</b> — 설치하려면 컴파일러와 빌드 도구가 필요</li>
+  <li><b>asyncio 없음</b> — FastAPI 같은 비동기 서버에서 쓰기 어려움</li>
+  <li><b>그 뒤 12년 동안 새 릴리스 없음</b> — dialect만 새로 써서는 해결되지 않았습니다</li>
+</ul>
+
+<!--
+[15초 · 활용성]
+그런데 dialect가 올라설 드라이버를 찾아보니, 공식 Python 드라이버의 마지막 릴리스가 2014년 5월이었습니다.
+C 확장이라 설치부터 어렵고 asyncio도 없었습니다. dialect만 새로 써서는 해결이 안 되는 문제였습니다.
 -->
 
 ---

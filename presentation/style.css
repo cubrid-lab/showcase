@@ -134,3 +134,6 @@
 .node.ours { border-color: var(--blue); background: var(--blue-soft); color: var(--blue); }
 .node.db { border-color: var(--ink); }
 .down { text-align: center; color: var(--muted); font-size: 0.7rem; line-height: 1; }
+
+/* never let flex squeeze a block (overflow:hidden boxes would clip) — overflow should be visible and fixed */
+.slidev-layout > * { flex-shrink: 0; }

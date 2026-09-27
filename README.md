@@ -23,7 +23,7 @@ Gitter, and started the SQLAlchemy Korea community. Then we asked:
 
 | File | Purpose |
 |---|---|
-| [SLIDES.md](contests/2026-ossdevcon/SLIDES.md) | 34-slide talk script |
+| [SLIDES.md](contests/2026-ossdevcon/SLIDES.md) | 35-slide talk script |
 | [APPENDIX.md](contests/2026-ossdevcon/APPENDIX.md) | Technical reference for Q&A |
 | [EXPECTED_QA.md](contests/2026-ossdevcon/EXPECTED_QA.md) | 12 anticipated questions + answers |
 | [DEMO_RUNBOOK.md](contests/2026-ossdevcon/DEMO_RUNBOOK.md) | On-nara demo script + checklist |
