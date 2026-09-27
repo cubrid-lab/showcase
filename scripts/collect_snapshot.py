@@ -13,7 +13,6 @@ Requires GITHUB_TOKEN with repo scope for traffic API (unique clones).
 from __future__ import annotations
 
 import json
-import os
 import subprocess
 import sys
 from datetime import datetime, timezone
