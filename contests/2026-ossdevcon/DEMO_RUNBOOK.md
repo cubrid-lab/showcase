@@ -1,4 +1,4 @@
-# Demo Runbook — On-nara Scenario (2 minutes, Slides 20–21 · 6:05-8:10)
+# Demo Runbook — On-nara Scenario (2 minutes, Slide 25 · 6:26-8:26)
 
 ## Narrative
 
