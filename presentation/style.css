@@ -1,0 +1,134 @@
+/* Deck design system — loaded automatically by Slidev.
+   Offline: the only font is bundled in public/fonts (SIL OFL, see LICENSE-Pretendard.txt). */
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("/fonts/PretendardVariable.woff2") format("woff2-variations");
+  font-weight: 45 920;
+  font-display: block;
+}
+
+:root {
+  --ink: #0f1b2d;
+  --paper: #f6f8fb;
+  --card: #ffffff;
+  --muted: #5b6b82;
+  --line: #d8dee8;
+  --blue: #1f4e8c;
+  --blue-soft: #e6eef8;
+  --seal: #c23b2e;
+  --navy: #0b1626;
+  --navy-2: #15263d;
+  --on-navy: #e8eef6;
+  --on-navy-muted: #8fa3be;
+  --sans: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+  --mono: ui-monospace, "SFMono-Regular", "D2Coding", Menlo, Consolas, monospace;
+}
+
+/* ── Canvas ─────────────────────────────────────────── */
+.slidev-layout {
+  font-family: var(--sans);
+  color: var(--ink);
+  background: var(--paper);
+  padding: 40px 56px 44px;
+  font-feature-settings: "tnum" 1;
+  word-break: keep-all;          /* Korean: break between words, not inside them */
+  overflow-wrap: anywhere;
+  letter-spacing: -0.01em;
+}
+/* Title block stays at the top; a slide's main block (.mid) takes the space below it */
+.slidev-layout { display: flex !important; flex-direction: column; height: 100%; }
+/* doubled class outranks per-slide scoped styles ([data-v]) that set margin-top */
+.slidev-layout.slidev-layout > .mid { margin-top: auto; margin-bottom: auto; }
+/* default theme dims the paragraph after an h1 — our ledes carry content */
+.slidev-layout h1 + p { opacity: 1; margin-top: 0; }
+.slidev-layout h1,
+.slidev-layout h2,
+.slidev-layout h3 { font-family: var(--sans); text-wrap: balance; }
+.slidev-layout h1 { font-size: 2.3rem; font-weight: 750; line-height: 1.2; margin: 0; letter-spacing: -0.03em; }
+.slidev-layout h2 { font-size: 1.75rem; font-weight: 720; line-height: 1.25; margin: 0; letter-spacing: -0.025em; }
+.slidev-layout p { margin: 0; }
+.slidev-layout code { font-family: var(--mono); }
+
+/* Scoring criterion + section label above each title */
+.eyebrow {
+  display: flex; gap: 10px; align-items: center;
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--blue); margin-bottom: 10px;
+}
+.eyebrow .crit {
+  letter-spacing: 0; text-transform: none; font-weight: 600;
+  color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 1px 9px;
+}
+.lede { font-size: 1.05rem; color: var(--muted); margin-top: 8px; line-height: 1.5; }
+.muted { color: var(--muted); }
+.accent { color: var(--blue); }
+.seal { color: var(--seal); }
+.src { font-size: 0.62rem; color: var(--muted); line-height: 1.4; }
+
+/* ── Dark (navy) slides: cover, demo, closing ───────── */
+.slidev-layout.navy { background: var(--navy); color: var(--on-navy); }
+.navy .eyebrow { color: #7fb0ec; }
+.navy .eyebrow .crit { color: var(--on-navy-muted); border-color: #2a3d58; }
+.navy .lede, .navy .muted { color: var(--on-navy-muted); }
+.navy .accent { color: #7fb0ec; }
+
+/* ── Big numbers ────────────────────────────────────── */
+.num { font-weight: 800; letter-spacing: -0.04em; line-height: 1; font-variant-numeric: tabular-nums; }
+.stats { display: grid; gap: 14px; }
+.stat { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; display: grid; gap: 6px; align-content: start; }
+.stat .num { font-size: 2.1rem; color: var(--ink); }
+.stat .k { font-size: 0.82rem; font-weight: 650; }
+.stat .v { font-size: 0.72rem; color: var(--muted); line-height: 1.45; }
+.stat.hl { background: var(--blue); border-color: var(--blue); }
+.stat.hl .num, .stat.hl .k { color: #fff; }
+.stat.hl .v { color: #c9dbf2; }
+
+/* ── Timeline (slide 3) ─────────────────────────────── */
+.timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 34px; position: relative; }
+.timeline::before { content: ""; position: absolute; left: 0; right: 0; top: 11px; height: 2px; background: var(--line); }
+.tl { position: relative; padding-right: 18px; display: grid; gap: 8px; align-content: start; }
+.tl .dot { width: 24px; height: 24px; border-radius: 50%; background: var(--paper); border: 2px solid var(--blue); display: grid; place-items: center; font-size: 0.68rem; font-weight: 700; color: var(--blue); position: relative; }
+.tl.now .dot { background: var(--blue); color: #fff; }
+.tl .yr { font-size: 0.78rem; font-weight: 700; color: var(--blue); margin-top: 6px; }
+.tl .name { font-size: 1.02rem; font-weight: 750; font-family: var(--mono); letter-spacing: -0.02em; }
+.tl .what { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
+.tl .leads { font-size: 0.7rem; color: var(--blue); font-weight: 600; }
+
+/* ── Flow (slide 9) ─────────────────────────────────── */
+.flow { display: flex; align-items: stretch; gap: 0; margin-top: 26px; }
+.flow .step { flex: 1; background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 12px; display: grid; gap: 4px; align-content: start; }
+.flow .step.human { border-color: var(--blue); background: var(--blue-soft); }
+.flow .step .who { font-size: 0.64rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.flow .step.human .who { color: var(--blue); }
+.flow .step .t { font-size: 0.92rem; font-weight: 700; }
+.flow .step .d { font-size: 0.7rem; color: var(--muted); line-height: 1.4; }
+.flow .arrow { display: grid; place-items: center; width: 22px; color: var(--muted); font-size: 0.9rem; }
+
+/* ── Chips / tags ───────────────────────────────────── */
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font-size: 0.72rem; font-weight: 600; padding: 4px 10px; border-radius: 999px; background: var(--card); border: 1px solid var(--line); }
+.chip.on { background: var(--blue-soft); border-color: #bcd0ea; color: var(--blue); }
+
+/* ── Code panes ─────────────────────────────────────── */
+.slidev-layout pre.slidev-code { border-radius: 10px !important; font-size: 0.78rem !important; line-height: 1.55 !important; padding: 14px 16px !important; }
+.navy pre.slidev-code { background: var(--navy-2) !important; }
+
+/* ── Demo: approval list + stamp (slide 8) ──────────── */
+.asks { display: grid; gap: 8px; margin-top: 18px; }
+.ask { display: grid; grid-template-columns: 30px 1fr auto; gap: 14px; align-items: center; background: var(--navy-2); border: 1px solid #22385a; border-radius: 10px; padding: 10px 14px; }
+.ask .n { font-weight: 800; font-size: 1rem; color: #7fb0ec; font-variant-numeric: tabular-nums; }
+.ask .q { font-size: 0.95rem; font-weight: 600; color: var(--on-navy); }
+.ask .beat { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.04em; color: var(--on-navy-muted); text-transform: uppercase; }
+.ask.star { border-color: #3d6aa6; }
+.ask.reject { border-color: var(--seal); }
+.stamp {
+  display: inline-grid; place-items: center; width: 64px; height: 64px; border-radius: 50%;
+  border: 3px solid var(--seal); color: var(--seal); font-weight: 800; font-size: 1.05rem;
+  transform: rotate(-12deg); letter-spacing: 0.02em; background: rgba(194, 59, 46, 0.08);
+}
+.timing { display: grid; grid-template-columns: 15fr 90fr 15fr; gap: 4px; margin-top: 14px; font-size: 0.66rem; font-weight: 700; }
+.timing span { padding: 5px 8px; border-radius: 6px; background: var(--navy-2); color: var(--on-navy-muted); white-space: nowrap; overflow: hidden; }
+.timing span.core { background: #1f4e8c; color: #fff; }
+
+/* ── Evidence footer positioning stays in its component ── */
