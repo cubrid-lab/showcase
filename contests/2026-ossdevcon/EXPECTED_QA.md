@@ -32,8 +32,9 @@ PRs prove the system works.
 
 ## Q3: Stars are low — is anyone actually using this?
 
-We're early. But 926 developers cloned our repos in the last 14 days
-(GitHub Traffic API, CI actions excluded). We're the only modern Python
+We're early. But our repos had ~926 per-repo unique clones in the last
+14 days (GitHub Traffic API, CI actions excluded; cross-repo overlap not
+removed). We're the only modern Python
 driver for a database with 10.6% of Korean public sector market share.
 The market exists — 1,500+ systems are waiting for this tooling.
 
