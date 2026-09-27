@@ -47,7 +47,7 @@
 .slidev-layout h3 { font-family: var(--sans); text-wrap: balance; }
 .slidev-layout h1 { font-size: 2.3rem; font-weight: 750; line-height: 1.2; margin: 0; letter-spacing: -0.03em; }
 .slidev-layout h2 { font-size: 1.75rem; font-weight: 720; line-height: 1.25; margin: 0; letter-spacing: -0.025em; }
-.slidev-layout p { margin: 0; }
+.slidev-layout p { margin: 0; line-height: 1.5; }  /* theme sets a fixed 1.5rem, which overlaps large text */
 .slidev-layout code { font-family: var(--mono); }
 
 /* Scoring criterion + section label above each title */
@@ -74,7 +74,7 @@
 .navy .accent { color: #7fb0ec; }
 
 /* ── Big numbers ────────────────────────────────────── */
-.num { font-weight: 800; letter-spacing: -0.04em; line-height: 1; font-variant-numeric: tabular-nums; }
+.num { white-space: nowrap; font-weight: 800; letter-spacing: -0.04em; line-height: 1; font-variant-numeric: tabular-nums; }
 .stats { display: grid; gap: 14px; }
 .stat { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; display: grid; gap: 6px; align-content: start; }
 .stat .num { font-size: 2.1rem; color: var(--ink); }
@@ -132,3 +132,32 @@
 .timing span.core { background: #1f4e8c; color: #fff; }
 
 /* ── Evidence footer positioning stays in its component ── */
+
+/* ── Talk-style statement slides (one message per slide) ── */
+.slidev-layout .say { font-size: 2.05rem; font-weight: 750; line-height: 1.25; letter-spacing: -0.03em; text-wrap: balance; }
+.say .accent, .say .seal { font-weight: 800; }
+.aside { font-size: 1rem; color: var(--muted); line-height: 1.6; max-width: 46ch; }
+
+/* ── Wire packet diagram (protocol story) ── */
+.packet { display: grid; grid-template-columns: 1fr 1fr 3.2fr; border: 2px solid var(--ink); border-radius: 8px; overflow: hidden; font-family: var(--mono); }
+.packet > div { padding: 14px 16px; display: grid; gap: 4px; border-right: 2px solid var(--ink); }
+.packet > div:last-child { border-right: 0; background: var(--blue-soft); }
+.packet b { font-size: 1.05rem; }
+.packet span { font-size: 0.72rem; color: var(--muted); font-family: var(--sans); }
+.sources { display: grid; grid-template-columns: 1fr auto 1fr; gap: 14px; align-items: center; }
+.sources .src-card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; display: grid; gap: 2px; }
+.sources .src-card b { font-family: var(--mono); font-size: 0.92rem; }
+.sources .src-card span { font-size: 0.74rem; color: var(--muted); }
+.sources .x { font-size: 1.2rem; color: var(--muted); }
+
+/* ── Checklist (quality gates) ── */
+.checks { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 6px 28px; }
+.checks li { margin: 0; padding: 0 0 6px; border-bottom: 1px solid var(--line); display: grid; grid-template-columns: 18px 1fr; gap: 8px; align-items: baseline; }
+.checks li::before { content: "✓"; color: var(--blue); font-weight: 800; }
+.checks li > div { line-height: 1.35; }
+.checks b { font-size: 0.9rem; }
+.checks span { display: block; font-size: 0.72rem; color: var(--muted); }
+
+/* ── Links row on the last slide ── */
+.links { display: grid; gap: 6px; font-family: var(--mono); font-size: 0.8rem; color: var(--on-navy); }
+.links span { color: var(--on-navy-muted); font-family: var(--sans); font-size: 0.7rem; display: inline-block; min-width: 64px; }
