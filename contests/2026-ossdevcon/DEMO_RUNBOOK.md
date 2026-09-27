@@ -11,6 +11,8 @@
 ## Pre-Demo (30 min before)
 
 ```bash
+# Fresh container: a leftover demo-cubrid breaks `docker run` and leaks old tables
+docker rm -f demo-cubrid 2>/dev/null
 docker run -d --name demo-cubrid --shm-size 512m \
   -e CUBRID_DB=demodb -p 33000:33000 cubrid/cubrid:11.4
 
