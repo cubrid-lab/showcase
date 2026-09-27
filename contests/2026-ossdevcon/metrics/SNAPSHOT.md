@@ -8,7 +8,7 @@
 |---|---:|---:|---:|---:|---:|
 | GitHub stars | 29 | 36 | 29 | 25 | **119** |
 | Merged PRs | 159 | 151 | 84 | 56 | **450** |
-| Unique clones (14d) | 363 | 268 | ~200 | ~95 | **~926** |
+| Unique clones (14d, per-repo)¹ | 363 | 268 | ~200 | ~95 | **~926**² |
 | PyPI releases | 16 | 19 | — | — | **35** |
 | Tests | 1,147 | 769 | 284 | — | **2,200** |
 | Docs pages | 20 | 14 | 7 | 22 | **63** |
@@ -35,10 +35,15 @@
 | Bulk insert (1000 rows) | **12.3% faster** |
 | Query select-all | **19.9% faster** |
 
+¹ Per-repo unique clones reported by GitHub Traffic API individually.
+² Sum of per-repo figures; the same person cloning multiple repos is counted
+  once per repo, so cross-repo overlap is **not removed** from this total.
+
 ## ⚠️ PyPI Download Caveat
 
-Our CI generates ~20-50 downloads/day. Use "GitHub unique clones" (926/14d)
-as the primary adoption metric — GitHub Actions' checkout is excluded.
+Our CI generates ~20-50 downloads/day. Prefer "GitHub unique clones" (per-repo
+figures above) over PyPI counts for adoption signals — GitHub Actions' checkout
+uses the tarball API and is automatically excluded from traffic stats.
 
 ## Re-measurement Commands
 

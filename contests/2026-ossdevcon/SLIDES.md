@@ -245,7 +245,7 @@ docker compose up && make verify   # GitHub Release (지금)
 | Metric | Value | Meaning |
 |---|---|---|
 | Stars | 119 | Community interest |
-| **Unique clones** (14d) | **926** | **Developers downloading code** |
+| **Unique clones** (14d, per-repo sum) | **~926** | **Per-repo unique clones (cross-repo overlap not removed)** |
 | **Merged PRs** | **450** | **Validated AI+Human workflow** |
 | PyPI releases | 35 | Sustained maintenance |
 | **Tests** | **2,200** | **Quality gate** |

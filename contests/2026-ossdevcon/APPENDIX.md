@@ -160,13 +160,17 @@
 
 ### Unique Clones (14-day, GitHub Traffic API)
 
-| Repo | Unique Cloners | Trend |
+> Per-repo unique clones reported individually by GitHub Traffic API.
+> The same person cloning multiple repos is counted once per repo —
+> cross-repo overlap is **not removed** from the sum total.
+
+| Repo | Unique Clones (14d) | Trend |
 |---|---|---|
 | pycubrid | **363** | ↑ from 305 last week |
 | sqlalchemy-cubrid | **268** | ↑ from 225 |
 | cubrid-mcp-server | ~200 | stable |
 | cubrid-cookbook-python | ~95 | stable |
-| **Total** | **~926** | **↑ 14% week-over-week** |
+| **Per-repo sum** | **~926** | **↑ 14% week-over-week** |
 
 ### PyPI Downloads
 
