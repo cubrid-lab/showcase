@@ -1,0 +1,51 @@
+{
+  "snapshotDate": "2026-09-12",
+  "collectedAt": "2026-09-12T00:00:00Z",
+  "repos": ["pycubrid", "sqlalchemy-cubrid", "cubrid-mcp-server", "cubrid-cookbook-python"],
+  "metrics": {
+    "stars": {
+      "perRepo": {"pycubrid": 29, "sqlalchemy-cubrid": 36, "cubrid-mcp-server": 29, "cubrid-cookbook-python": 25},
+      "total": 119,
+      "unit": "stars",
+      "source": "GitHub API"
+    },
+    "mergedPRs": {
+      "perRepo": {"pycubrid": 159, "sqlalchemy-cubrid": 151, "cubrid-mcp-server": 84, "cubrid-cookbook-python": 56},
+      "total": 450,
+      "unit": "merged PRs",
+      "source": "GitHub API"
+    },
+    "uniqueClones14d": {
+      "perRepo": {"pycubrid": 363, "sqlalchemy-cubrid": 268, "cubrid-mcp-server": 200, "cubrid-cookbook-python": 95},
+      "total": 926,
+      "unit": "per-repo unique clones (cross-repo overlap not removed)",
+      "period": "last 14 days",
+      "source": "GitHub Traffic API",
+      "note": "Requires push access. Same user cloning multiple repos is counted in each."
+    },
+    "pypiReleases": {
+      "perRepo": {"pycubrid": 16, "sqlalchemy-cubrid": 19},
+      "total": 35,
+      "unit": "releases",
+      "source": "PyPI JSON API"
+    },
+    "tests": {
+      "perRepo": {"pycubrid": 1147, "sqlalchemy-cubrid": 769, "cubrid-mcp-server": 284},
+      "total": 2200,
+      "unit": "tests",
+      "source": "CI test results"
+    }
+  },
+  "performance": {
+    "nativePing": {"improvement": "+280%", "description": "CHECK_CAS vs SELECT 1"},
+    "poolPrePing": {"improvement": "+588%", "description": "SA pool_pre_ping optimization"},
+    "bulkInsert1000": {"improvement": "12.3%", "before": "2865ms", "after": "2512ms"},
+    "querySelectAll": {"improvement": "19.9%", "before": "39.8ms", "after": "31.8ms"}
+  },
+  "qualityGates": {
+    "ciMatrix": "Python 5 x CUBRID 4 = 20 combinations",
+    "coverageFloor": "95%",
+    "typeSafety": "mypy strict, 0 errors",
+    "apiCompat": "api-baseline.json gate"
+  }
+}
