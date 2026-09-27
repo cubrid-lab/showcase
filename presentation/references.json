@@ -1,0 +1,43 @@
+{
+  "references": {
+    "pep249-compliance": {
+      "claim": "pycubrid fully complies with PEP 249 (DB-API 2.0)",
+      "source": "https://peps.python.org/pep-0249/",
+      "evidence": "1,147 tests including DB-API compliance suite",
+      "verified": true
+    },
+    "mike-bayer-2012": {
+      "claim": "Mike Bayer created a CUBRID dialect in 2012",
+      "source": "https://github.com/zzzeek/sqlalchemy_cubrid",
+      "evidence": "Repository creation date and commit history",
+      "verified": true
+    },
+    "official-driver-2014": {
+      "claim": "Official CUBRID Python driver last released 2014-05-15",
+      "source": "https://pypi.org/project/CUBRIDdb/",
+      "evidence": "PyPI release history",
+      "verified": true
+    },
+    "cubrid-public-sector": {
+      "claim": "CUBRID holds 10.6% of Korean public sector DBMS market",
+      "source": "G-Cloud statistics",
+      "evidence": "Public procurement data",
+      "verified": false,
+      "note": "Needs primary source citation"
+    },
+    "mcp-world-first": {
+      "claim": "World's first CUBRID MCP server",
+      "source": "MCP server registry search",
+      "evidence": "No prior CUBRID MCP server found in public registries",
+      "verified": true,
+      "note": "Verified by searching npm, PyPI, and GitHub for 'cubrid mcp'"
+    },
+    "clone-api-limitation": {
+      "claim": "GitHub clone API provides per-repo 14-day unique counts",
+      "source": "https://docs.github.com/en/rest/metrics/traffic",
+      "evidence": "API documentation states per-repo, last 14 days only",
+      "verified": true,
+      "note": "Cross-repo deduplication not possible via this API"
+    }
+  }
+}
