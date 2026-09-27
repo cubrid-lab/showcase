@@ -22,11 +22,11 @@
 
 **① sqlalchemy-cubrid** (2021-22)
 
-SQLAlchemy 창시자 Mike Bayer가 2012년에 만든 CUBRID 방언이 죽어있었다. 우리가 SQLAlchemy 2.0 기준으로 처음부터 재작성했다. 스키마 리플렉션, MERGE, ON DUPLICATE KEY UPDATE, native ENUM 지원.
+SQLAlchemy 창시자 Mike Bayer가 2012년에 만든 CUBRID dialect가 멈춰 있었다. 우리가 SQLAlchemy 2.0 기준으로 처음부터 재작성했다. schema reflection, MERGE, ON DUPLICATE KEY UPDATE, native ENUM 지원.
 
 **② pycubrid** (2025)
 
-방언을 만들다 보니 드라이버가 문제였다. 2014년 이후 방치된 C 확장. 그래서 순수 Python으로 새로 만들었다. CAS 바이너리 프로토콜 문서가 없어서 node-cubrid(BSD)와 공식 C 드라이버 소스를 교차 분석해 해독했다. 18개 패킷 타입, 27개 데이터 타입.
+dialect를 만들다 보니 드라이버가 문제였다. 2014년 이후 방치된 C 확장. 그래서 순수 Python으로 새로 만들었다. CAS 바이너리 프로토콜 문서가 없어서 node-cubrid(BSD)와 공식 C 드라이버 소스를 교차 분석해 해독했다. 18개 패킷 타입, 27개 데이터 타입.
 
 ```bash
 pip install pycubrid  # 한 줄, C 컴파일러 불필요, 의존성 0개

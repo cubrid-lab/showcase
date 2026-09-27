@@ -22,7 +22,7 @@ const tiles = computed(() => {
   if (props.category === 'performance') {
     const p = snapshot.performance
     return [
-      { num: p.poolPrePing.improvement, k: 'SQLAlchemy pool_pre_ping', v: '처리량 · 연결 확인 최적화', hl: true },
+      { num: p.poolPrePing.improvement, k: 'SQLAlchemy pool_pre_ping', v: '처리량 · ping 최적화', hl: true },
       { num: p.nativePing.improvement, k: 'Native ping (CHECK_CAS)', v: '처리량 · SELECT 1 대비' },
       { num: p.bulkInsert1000.improvement, k: 'Bulk insert 1,000행', v: `${p.bulkInsert1000.before} → ${p.bulkInsert1000.after}` },
       { num: p.querySelectAll.improvement, k: 'Query select-all', v: `${p.querySelectAll.before} → ${p.querySelectAll.after}` },
