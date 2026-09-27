@@ -13,7 +13,7 @@ pycubrid · sqlalchemy-cubrid · cubrid-cookbook-python · cubrid-mcp-server
 
 | File | Purpose |
 |---|---|
-| SLIDES.md | 15-slide talk script (storyline + speaker notes) |
+| SLIDES.md | 30-slide talk script (storyline + speaker notes) |
 | APPENDIX.md | Technical reference for Q&A |
 | EXPECTED_QA.md | 12 anticipated questions + answers |
 | DEMO_RUNBOOK.md | On-nara demo script (2 min) + checklist |

@@ -1,8 +1,8 @@
 ---
 theme: default
-title: "CUBRID Python Ecosystem — From Contributors to Maintainers"
-info: "2026 OSS Developer Contest Finals"
-author: "CUBRID Lab — Yeongseon Choe & Gyeongjun Paik"
+title: "공공 DBMS에 Python 문을 열다 — CUBRID Python 생태계"
+info: "2026 오픈소스 개발자대회 본선"
+author: "CUBRID Lab — 최영선 · 백경준"
 drawings:
   persist: false
 transition: fade
@@ -15,587 +15,470 @@ routerMode: hash
 # 840 instead of 980: same 16:9 slide, everything ~17% larger on screen
 canvasWidth: 840
 layout: default
-class: navy
 ---
 
-<Act :n="1" />
-
-<div class="eyebrow">2026 OSS 개발자대회 본선 <span class="crit">CUBRID Lab</span></div>
-
-<div class="cover mid">
-  <h1>2020년,<br>두 사람이 만났다</h1>
-  <p class="lede">멘토 최영선 × 멘티 백경준 — 오픈소스 컨트리뷰톤 CNBT-41</p>
-
-  <div class="facts">
-    <div><span class="muted">함께 배운 것</span><b>SQLAlchemy</b></div>
-    <div><span class="muted">대화한 사람</span><b>Mike Bayer <small>창시자 · Gitter</small></b></div>
-    <div><span class="muted">함께 만든 것</span><b>SQLAlchemy Korea</b></div>
+<div class="cover">
+  <p class="kicker">2026 오픈소스 개발자대회 본선</p>
+  <h1>공공 DBMS에<br>Python 문을 열다</h1>
+  <p class="sub">CUBRID Python 생태계 — 기여자에서 메인테이너로</p>
+  <div class="who">
+    <b>최영선 · 백경준</b>
+    <span>CUBRID Lab</span>
   </div>
-
-  <p class="then"><span class="accent">6년 후,</span> 그때 받은 것을 돌려주러 왔습니다</p>
 </div>
 
 <style>
-.cover { display: grid; gap: 18px; }
-.cover h1 { font-size: 3.1rem; line-height: 1.12; }
-.facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: #22385a; border: 1px solid #22385a; border-radius: 10px; overflow: hidden; margin-top: 8px; }
-.facts > div { background: var(--navy); padding: 12px 16px; display: grid; gap: 4px; }
-.facts span { font-size: 0.7rem; font-weight: 600; }
-.facts b { font-size: 1.05rem; font-weight: 700; }
-.facts small { font-size: 0.72rem; font-weight: 500; color: var(--on-navy-muted); }
-.then { font-size: 1.45rem; font-weight: 700; margin-top: 10px; letter-spacing: -0.02em; }
+.cover { display: grid; gap: 22px; }
+.cover h1 { font-size: 3.8rem; line-height: 1.12; }
+.cover .sub { max-width: none; }
+.who { display: flex; gap: 14px; align-items: baseline; margin-top: 26px; padding-top: 18px; border-top: 2px solid var(--ink); width: fit-content; }
+.who b { font-size: 1.1rem; }
+.who span { font-size: 0.9rem; color: var(--muted); }
 </style>
 
 <!--
-[0:00–0:45 · 45초]
-안녕하세요, CUBRID Lab의 최영선, 백경준입니다.
+[0:00–0:10 · 10초 · PT]
+안녕하세요. "공공 DBMS에 Python 문을 열다", CUBRID Lab의 최영선, 백경준입니다.
+-->
+
+---
+
+<div class="chapter"><span class="no">01</span><h1>만남과 발견</h1><span class="of">왜 만들었나</span></div>
+
+<!--
+[0:10–0:15 · 5초] (넘기면서) 먼저, 저희가 왜 이걸 만들었는지부터 말씀드리겠습니다.
+-->
+
+---
+
+<div class="split even">
+  <div class="stack">
+    <p class="kicker">2020년, 오픈소스 컨트리뷰톤</p>
+    <h1>두 사람이<br>만났습니다</h1>
+    <p class="sub">멘토 최영선, 멘티 백경준.</p>
+  </div>
+  <div class="frame"><Photo src="/photos/team-2020.jpg" label="2020 컨트리뷰톤 사진" /></div>
+</div>
+
+<style>
+.frame { height: 380px; }
+</style>
+
+<!--
+[0:15–0:35 · 20초 · PT · 커뮤니티]
 저희 둘은 2020년, NIPA 오픈소스 컨트리뷰톤에서 멘토와 멘티로 처음 만났습니다.
-그때 SQLAlchemy에 기여하면서 오픈소스를 배웠고,
-Gitter에서 창시자 Mike Bayer와 대화하면서 SQLAlchemy Korea 커뮤니티도 만들었습니다.
-오늘은 그 뒤 6년 동안 저희가 무엇을 만들었는지, 이야기로 들려드리겠습니다.
 -->
 
 ---
 
-<Act :n="2" />
-
-<div class="eyebrow">발견 <span class="crit">활용성</span></div>
-
-<div class="gap mid">
-  <div class="share">
-    <span class="num">13.24<small>%</small></span>
-    <p class="big">한국 공공부문 DBMS 점유율 <b>2위</b></p>
-    <p class="muted">2,367개 설치 · Oracle 다음 · 2025년 말</p>
-    <p class="src">행정안전부·NIA 「2026년도 범정부EA기반 공공부문 정보자원 현황 통계보고서」</p>
-  </div>
-
-  <div class="dead">
-    <h2>그런데 Python으로 가는 길은<br><span class="seal">2014년에 멈춰 있었습니다</span></h2>
-    <div class="row"><span class="d seal">2012</span><div><b>zzzeek/sqlalchemy_cubrid</b><p class="muted">Mike Bayer가 만든 방언 — 이후 방치</p></div></div>
-    <div class="row"><span class="d seal">2014-05-15</span><div><b>공식 Python 드라이버</b><p class="muted">마지막 릴리스 — C 확장 · asyncio · SQLAlchemy 2.x 미지원</p></div></div>
-  </div>
-</div>
-
-<EvidenceFooter claim="cubrid-public-sector, official-driver-2014" />
+<ul class="lines big-lines">
+  <li>SQLAlchemy에 기여하며 오픈소스를 배웠고,</li>
+  <li>Gitter에서 창시자 <span class="accent">Mike Bayer</span>와 대화했고,</li>
+  <li><span class="accent">SQLAlchemy Korea</span> 커뮤니티를 만들었습니다.</li>
+</ul>
 
 <style>
-.gap { display: grid; grid-template-columns: 1fr 1.15fr; gap: 44px; align-items: start; }
-.share { display: grid; gap: 8px; padding-top: 6px; }
-.share .num { font-size: 5.6rem; color: var(--blue); }
-.share .num small { font-size: 0.45em; margin-left: 4px; letter-spacing: 0; }
-.share .big { font-size: 1.25rem; font-weight: 650; }
-.share .src { margin-top: 10px; max-width: 30ch; }
-.dead { display: grid; gap: 14px; }
-.dead h2 { font-size: 1.75rem; line-height: 1.25; margin-bottom: 4px; }
-.row { display: grid; grid-template-columns: 104px 1fr; gap: 14px; align-items: baseline; border-top: 1px solid var(--line); padding-top: 12px; }
-.row .d { font-weight: 800; font-size: 0.95rem; font-variant-numeric: tabular-nums; }
-.row b { font-size: 0.95rem; }
-.row p { font-size: 0.8rem; margin-top: 2px; }
+.big-lines li { font-size: 2rem; }
 </style>
 
 <!--
-[0:45–1:30 · 45초]
-그러다 이상한 걸 하나 발견했습니다.
-CUBRID는 한국 공공부문 DBMS 점유율 2위입니다. 13.24%, 2천 3백 개가 넘게 설치돼 있습니다.
-그런데 Python에서 이 데이터베이스를 쓰려고 하니,
-Mike Bayer가 2012년에 만든 방언은 멈춰 있었고, 공식 드라이버의 마지막 릴리스는 2014년이었습니다.
-asyncio도, SQLAlchemy 2도 쓸 수 없었습니다. 그래서, 저희가 고쳐보기로 했습니다.
+[0:35–0:55 · 20초 · 커뮤니티]
+그때 SQLAlchemy에 기여하면서 오픈소스를 배웠고, Gitter에서 창시자 Mike Bayer와 대화했고,
+SQLAlchemy Korea라는 커뮤니티도 만들었습니다. 오늘 이야기는 여기서 시작합니다.
 -->
 
 ---
 
-<Act :n="3" />
-
-<div class="eyebrow">만들기 <span class="crit">PT</span></div>
-
-## 방언을 고치려다, 드라이버부터 다시 만들게 됐습니다
-
-<div class="chain mid">
-  <div class="tl"><span class="dot">1</span><span class="yr">2021–22</span><span class="name">sqlalchemy-cubrid</span><span class="what">2012년 방언을 SQLAlchemy 2.0 기준으로 처음부터 다시 썼습니다</span><span class="why">그런데 밑의 드라이버가 멈춰 있었고 →</span></div>
-  <div class="tl"><span class="dot">2</span><span class="yr">2025</span><span class="name">pycubrid</span><span class="what">순수 Python 드라이버 · 의존성 0</span><span class="why">만들고 나니 쓰는 법을 보여줘야 했고 →</span></div>
-  <div class="tl"><span class="dot">3</span><span class="yr">2026</span><span class="name">cubrid-cookbook</span><span class="what">68 예제 + 7 템플릿 · 매일 밤 실서버에서 실행</span><span class="why">그리고 AI가 데이터를 묻는 시대가 왔습니다 →</span></div>
-  <div class="tl now"><span class="dot">4</span><span class="yr">2026</span><span class="name">cubrid-mcp-server</span><span class="what">AI가 자연어로 CUBRID에 질의 · 세계 최초 CUBRID MCP</span></div>
-</div>
-
-<EvidenceFooter claim="mcp-world-first" />
-
-<style>
-.chain { display: grid; grid-template-columns: repeat(4, 1fr); position: relative; }
-.chain::before { content: ""; position: absolute; left: 0; right: 0; top: 11px; height: 2px; background: var(--line); }
-.chain .why { font-size: 0.74rem; font-weight: 650; color: var(--blue); margin-top: 6px; line-height: 1.45; }
-</style>
+<p class="kicker">한국 공공부문 DBMS 점유율 2위</p>
+<p class="huge">13.24%</p>
+<p class="sub">CUBRID — 공공기관 2,367곳에 설치, Oracle 다음.</p>
+<p class="small">출처: 행정안전부·NIA 「2026년도 범정부EA기반 공공부문 정보자원 현황 통계보고서」(2025년 말 기준)</p>
 
 <!--
-[1:30–2:30 · 60초]
-처음엔 방언 하나만 고치려고 했습니다. Mike Bayer의 2012년 방언을 SQLAlchemy 2.0 기준으로 처음부터 다시 썼죠.
-그런데 방언 밑에 있는 드라이버가 2014년에 멈춘 C 확장이었습니다. 그래서 드라이버부터 새로 만들었습니다.
-드라이버를 만들고 나니, 사람들이 실제로 쓰는 법을 보여줘야 했습니다. 그게 cookbook이고, 매일 밤 실서버에서 돌면서 드라이버 버그를 가장 먼저 잡습니다.
-그리고 AI가 데이터를 묻는 시대가 와서, 세계 최초의 CUBRID MCP 서버까지 만들었습니다.
-하나를 고치면 다음 문제가 보였고, 그걸 따라가다 보니 생태계가 됐습니다.
+[0:55–1:20 · 25초 · 활용성]
+그러다 한 가지를 알게 됐습니다. CUBRID는 한국 공공부문 DBMS 점유율 2위입니다.
+2025년 말 기준 13.24%, 2천 3백 곳이 넘는 공공기관에서 쓰고 있습니다.
 -->
 
 ---
 
-<Act :n="3" />
+<p class="kicker">그런데 Python에서는</p>
+<h1><span class="seal">2014년 5월 15일.</span></h1>
+<p class="sub">공식 Python 드라이버의 마지막 릴리스.<br>asyncio도, SQLAlchemy 2도 쓸 수 없었습니다.</p>
 
-<div class="eyebrow">만들기 — 가장 어려웠던 순간</div>
+<!--
+[1:20–1:40 · 20초 · 활용성]
+그런데 Python에서 이 데이터베이스를 쓰려고 하니, 공식 드라이버의 마지막 릴리스가 2014년 5월이었습니다.
+그 사이 Python은 asyncio와 SQLAlchemy 2의 시대가 됐는데, CUBRID는 그대로 멈춰 있었습니다.
+-->
 
-<p class="say">문서가 없었습니다.<br><span class="accent">그래서 두 드라이버의 소스를 나란히 놓고 읽었습니다.</span></p>
+---
 
-<div class="proto mid">
-  <div class="sources">
-    <div class="src-card"><b>node-cubrid</b><span>Node.js 드라이버 · BSD</span></div>
-    <span class="x">×</span>
-    <div class="src-card"><b>공식 C 드라이버</b><span>CAS 클라이언트 소스</span></div>
+<h1>그래서,<br><span class="accent">고쳐보기로 했습니다.</span></h1>
+
+<!--
+[1:40–1:45 · 5초 · PT]
+그래서 저희가 고쳐보기로 했습니다.
+-->
+
+---
+
+<div class="chapter"><span class="no">02</span><h1>만든 것</h1><span class="of">하나를 고치면 다음 문제가 보였습니다</span></div>
+
+<!--
+[1:45–1:50 · 5초] (넘기면서) 하나를 고치면 다음 문제가 보였습니다.
+-->
+
+---
+
+<div class="split even">
+  <div class="stack">
+    <p class="kicker">첫 번째 · 2021–22</p>
+    <h2>Mike Bayer의 2012년 방언을<br>처음부터 다시 썼습니다</h2>
+    <p class="sub"><code>sqlalchemy-cubrid</code> — SQLAlchemy 2.0 방언, 공식 테스트 스위트 통합</p>
   </div>
-
-  <div class="packet">
-    <div><b>4B</b><span>length</span></div>
-    <div><b>4B</b><span>cas_info</span></div>
-    <div><b>payload</b><span>CAS 바이너리 프로토콜 v8 · TCP 33000</span></div>
-  </div>
-
-  <div class="stats three">
-    <div class="stat"><span class="num">18</span><span class="k">패킷 타입</span></div>
-    <div class="stat"><span class="num">27</span><span class="k">데이터 타입</span></div>
-    <div class="stat hl"><span class="num">0</span><span class="k">런타임 의존성</span></div>
+  <div class="stack">
+    <p class="then">그런데 그 밑의 드라이버가<br><span class="seal">2014년에 멈춘 C 확장</span>이었습니다.</p>
   </div>
 </div>
 
 <style>
-.proto { display: grid; gap: 18px; }
-.stats.three { grid-template-columns: repeat(3, 1fr); }
-.stats.three .num { font-size: 2.2rem; }
+.then { font-size: 1.5rem; font-weight: 700; line-height: 1.4; border-left: 4px solid var(--seal); padding-left: 18px; }
 </style>
 
 <!--
-[2:30–3:00 · 30초]
-드라이버를 만들 때 가장 어려웠던 건, CUBRID의 CAS 프로토콜 문서가 없다는 점이었습니다.
+[1:50–2:15 · 25초 · OSS 적절성]
+처음엔 방언 하나만 고치려고 했습니다. Mike Bayer가 2012년에 만든 CUBRID 방언을
+SQLAlchemy 2.0 기준으로 처음부터 다시 썼고, SQLAlchemy 공식 테스트 스위트도 붙였습니다.
+그런데 방언 밑에 있는 드라이버가 2014년에 멈춘 C 확장이었습니다.
+-->
+
+---
+
+<h1>드라이버를 만들려고 보니,<br><span class="seal">프로토콜 문서가 없었습니다.</span></h1>
+
+<!--
+[2:15–2:25 · 10초 · PT]
+그래서 드라이버를 새로 만들기로 했는데, 가장 큰 벽은 CUBRID 통신 프로토콜 문서가 없다는 것이었습니다.
+-->
+
+---
+
+<p class="kicker">node-cubrid (BSD) 와 공식 C 드라이버 소스를 나란히 놓고 읽었습니다</p>
+
+<div class="packet">
+  <div><b>4B</b><span>length</span></div>
+  <div><b>4B</b><span>cas_info</span></div>
+  <div><b>payload</b><span>CAS 바이너리 프로토콜 · TCP 33000</span></div>
+</div>
+
+<div class="figures">
+  <div><b>18</b><span>패킷 타입</span></div>
+  <div><b>27</b><span>데이터 타입</span></div>
+  <div><b class="accent">0</b><span>런타임 의존성</span></div>
+</div>
+
+<!--
+[2:25–2:50 · 25초 · OSS 적절성 · 라이선스]
 그래서 BSD 라이선스인 node-cubrid와 공식 C 드라이버 소스를 나란히 놓고 한 줄씩 비교했습니다.
-그렇게 18개 패킷 타입과 27개 데이터 타입을 해독했고, 결과물은 의존성이 하나도 없는 순수 Python 드라이버입니다.
+그렇게 18개 패킷 타입과 27개 데이터 타입을 해독했고, 의존성이 하나도 없는 순수 Python 드라이버를 만들었습니다.
 -->
 
 ---
-
-<Act :n="4" />
-
-<div class="eyebrow">방법 <span class="crit">커뮤니티 5점</span></div>
-
-## 두 사람이 어떻게 4개를? — AI가 쓰고, 사람이 책임집니다
-
-<div class="flow mid">
-  <div class="step human"><span class="who">사람</span><span class="t">AGENTS.md</span><span class="d">규칙을 씁니다</span></div>
-  <div class="arrow">→</div>
-  <div class="step"><span class="who">AI</span><span class="t">구현</span><span class="d">코드 · 테스트 · 문서</span></div>
-  <div class="arrow">→</div>
-  <div class="step human"><span class="who">사람</span><span class="t">리뷰</span><span class="d">모든 PR을 읽습니다</span></div>
-  <div class="arrow">→</div>
-  <div class="step"><span class="who">CI</span><span class="t">게이트</span><span class="d">타입 · 커버리지 · 라이브 DB</span></div>
-  <div class="arrow">→</div>
-  <div class="step human"><span class="who">사람</span><span class="t">릴리스</span><span class="d">태그는 사람만</span></div>
-</div>
-
-<div class="work">
-  <div class="stat hl"><span class="num">450</span><span class="k">Merged PRs</span><span class="v">CI 게이트 통과 후 병합</span></div>
-  <p class="aside">컨트리뷰톤에서 배운 멘토–멘티 방식 그대로입니다. AI가 멘티처럼 구현하고, 저희가 멘토처럼 리뷰합니다. 한국어 문서 동기화, 릴리스마다 SBOM까지 CI가 지킵니다.</p>
-</div>
-
-<style>
-.work { display: grid; grid-template-columns: 200px 1fr; gap: 28px; align-items: center; margin-top: 22px; }
-.work .num { font-size: 2.6rem; }
-</style>
-
-<!--
-[3:00–4:00 · 60초]
-여기서 이런 질문이 드실 겁니다. 두 사람이 어떻게 4개 프로젝트를 만들었냐고요.
-답은, AI가 쓰고 사람이 책임지는 구조입니다.
-사람이 AGENTS.md에 규칙을 쓰고, AI가 구현하고, 모든 PR은 사람이 리뷰하고, CI 게이트를 통과해야만 병합됩니다. 릴리스 태그는 사람만 찍습니다.
-사실 이건 저희가 컨트리뷰톤에서 배운 멘토-멘티 방식 그대로입니다. 이렇게 450개 PR이 병합됐습니다.
--->
-
----
-
-<Act :n="4" />
-
-<div class="eyebrow">방법 <span class="crit">기능테스트 10점</span></div>
-
-## "AI가 쓴 코드를 믿을 수 있나요?" — 통과 못 하면 머지되지 않습니다
-
-<div class="qa mid">
-  <div class="lead">
-    <span class="num">2,200</span>
-    <p class="big">개의 테스트</p>
-    <p class="muted">품질은 목표가 아니라 전제 조건입니다.</p>
-  </div>
-  <ul class="checks">
-    <li><div><b>mypy --strict</b><span>타입 오류 0</span></div></li>
-    <li><div><b>Coverage ≥ 95%</b><span>미달이면 머지 불가</span></div></li>
-    <li><div><b>hypothesis</b><span>랜덤 입력으로 엣지 케이스 탐색</span></div></li>
-    <li><div><b>api-baseline.json</b><span>공개 API가 몰래 바뀌면 실패</span></div></li>
-    <li><div><b>Golden tests · 45</b><span>매일 밤 CUBRID 11.2 + 11.4 실서버</span></div></li>
-    <li><div><b>SQLAlchemy 공식 스위트 · 720</b><span>방언 호환성</span></div></li>
-    <li><div><b>CodeQL</b><span>모든 PR 보안 스캔</span></div></li>
-    <li><div><b>Python 5 × CUBRID 4</b><span>20조합 라이브 DB (드라이버·방언)</span></div></li>
-  </ul>
-</div>
-
-<style>
-.qa { display: grid; grid-template-columns: 0.7fr 1.5fr; gap: 36px; align-items: center; }
-.qa .lead { display: grid; gap: 8px; }
-.qa .lead .num { font-size: 4.4rem; color: var(--blue); }
-.qa .big { font-size: 1.3rem; font-weight: 700; margin-top: -4px; }
-.qa .muted { font-size: 0.88rem; line-height: 1.5; }
-</style>
-
-<!--
-[4:00–5:00 · 60초]
-그러면 당연히 다음 질문이 나옵니다. AI가 쓴 코드를 믿을 수 있냐.
-그래서 저희는 믿지 않아도 되게 만들었습니다. 테스트가 2,200개이고, 이 게이트들을 통과하지 못하면 머지 자체가 안 됩니다.
-타입 검사, 커버리지 95%, 랜덤 입력 테스트, 공개 API 변경 감지,
-그리고 매일 밤 실제 CUBRID 서버에서 45개 예제를 돌립니다.
-품질은 목표가 아니라, 머지의 전제 조건입니다.
--->
-
----
-
-<Act :n="4" />
-
-<div class="eyebrow">방법 <span class="crit">기능테스트</span></div>
-
-## 니치 시장에는 성능을 알려줄 사용자가 없습니다. 그래서 직접 쟀습니다.
-
-<div class="perf mid"><SnapshotMetrics category="performance" /></div>
-
-<p class="repro">재현: <b>github.com/cubrid-lab/cubrid-benchmark</b></p>
-
-<style>
-.perf .stat .num { font-size: 2.6rem; }
-.repro { font-size: 0.8rem; color: var(--muted); }
-.repro b { color: var(--ink); font-family: var(--mono); font-weight: 600; }
-</style>
-
-<!--
-[5:00–5:45 · 45초]
-큰 오픈소스는 사용자가 성능 문제를 알려줍니다. 니치 시장은 그렇지 않습니다.
-그래서 벤치마크 저장소를 따로 만들고, 프로파일링으로 병목을 직접 찾았습니다.
-연결 확인은 기존 SELECT 1 방식보다 처리량이 280%, SQLAlchemy 풀 체크는 588% 늘었고,
-대량 INSERT와 조회도 각각 12%, 20% 빨라졌습니다. 모두 저장소에서 재현할 수 있습니다.
--->
-
----
-
-<Act :n="5" />
-
-<div class="eyebrow">증명 <span class="crit">활용성 15점</span></div>
-
-## 쓰는 사람에게는 5분이면 충분해야 합니다
-
-<div class="dx mid">
-<div>
 
 ```bash
-pip install pycubrid      # C 컴파일러 불필요
+pip install pycubrid
 ```
 
-```python
-import pycubrid
-
-conn = pycubrid.connect(host="localhost", port=33000,
-                        database="demodb", user="dba")
-cur = conn.cursor()
-cur.execute("SELECT 1")
-print(cur.fetchone())     # (1,)
-```
-
-</div>
-<div class="side">
-  <p class="h">7개 프로덕션 템플릿 <span class="muted">— 복사해서 바로 수정</span></p>
-  <div class="chips">
-    <span class="chip on">FastAPI</span>
-    <span class="chip on">Django</span>
-    <span class="chip on">Streamlit 대시보드</span>
-    <span class="chip on">AI 에이전트 · MCP</span>
-    <span class="chip">Celery</span>
-    <span class="chip">Pandas ETL</span>
-    <span class="chip">Flask</span>
-  </div>
-  <div class="docs">
-    <div><span class="num">4</span><span class="muted">문서 사이트</span></div>
-    <div><span class="num">34</span><span class="muted">한국어 페이지</span></div>
-  </div>
-</div>
-</div>
-
-<style>
-.dx { display: grid; grid-template-columns: 1.25fr 1fr; gap: 28px; align-items: center; }
-.dx .side { display: grid; gap: 14px; }
-.dx .h { font-size: 0.95rem; font-weight: 700; }
-.docs { display: flex; gap: 28px; }
-.docs div { display: grid; gap: 2px; }
-.docs .num { font-size: 2.2rem; color: var(--blue); }
-.docs .muted { font-size: 0.75rem; }
-</style>
+<h2>C 컴파일러 없이, 한 줄이면 끝납니다.</h2>
+<p class="sub">두 번째 · 2025 — <code>pycubrid</code>, 순수 Python · PEP 249 · asyncio · TLS</p>
 
 <!--
-[5:45–6:30 · 45초]
-이제 쓰는 사람 입장에서 보겠습니다. pip install 한 줄이면 끝납니다. C 컴파일러도 필요 없습니다.
-FastAPI, Django, Streamlit 대시보드, AI 에이전트까지 7개 템플릿을 복사해서 바로 시작할 수 있고,
-문서는 4개 사이트, 한국어로 34페이지를 준비했습니다.
-그럼, 실제로 어떻게 쓰이는지 직접 보여드리겠습니다.
+[2:50–3:10 · 20초 · 활용성]
+그 결과가 pycubrid입니다. pip install 한 줄이면 끝나고, C 컴파일러도 필요 없습니다.
+Python 표준 DB-API를 따르고, asyncio와 TLS도 지원합니다.
 -->
 
 ---
-class: navy
----
 
-<Act :n="5" />
-
-<div class="eyebrow">증명 · Live Demo <span class="crit">데모 10점 · 2분</span></div>
-
-## 직접 보여드리겠습니다 — 온나라 데이터로
-
-<p class="lede">행안부 전자결재(온나라) 시나리오 — CUBRID 위의 공공 업무 데이터, 지금까지는 Java 중심.</p>
-
-<div class="timing"><span>대시보드 15s</span><span class="core">Claude + MCP 90s</span><span>터미널 15s</span></div>
-
-<div class="asks mid">
-  <div class="ask"><span class="n">1</span><span class="q">"이 DB에 어떤 테이블이 있어?"</span><span class="beat">탐색</span></div>
-  <div class="ask star"><span class="n">2</span><span class="q">"결재가 지연된 문서 TOP 5는? 평균 처리일과 대기 수로"</span><span class="beat">AI 운영 분석</span></div>
-  <div class="ask"><span class="n">3</span><span class="q">"기밀 문서는 부처별로 몇 개야? 내용은 보지 말고 집계만"</span><span class="beat">집계만 질의</span></div>
-  <div class="ask reject"><span class="n">4</span><span class="q">"결재 대기 문서를 전부 승인 처리해줘"</span><span class="stamp">반려</span></div>
+<div class="split">
+  <div class="stack">
+    <p class="kicker">세 번째 · 2026</p>
+    <h2>만들고 나니,<br>쓰는 법을 보여줘야 했습니다</h2>
+    <p class="sub">68 예제 · 7 템플릿 · 문서 4개 사이트 · 한국어 34페이지</p>
+  </div>
+  <figure class="shot clip"><img src="/shots/docs-pycubrid.jpg" alt="pycubrid 문서 사이트"></figure>
 </div>
 
-<p class="note">MCP 서버는 기본이 읽기 전용 — 쓰기 도구는 노출되지 않고, 쓰기 SQL은 화이트리스트에서 거부됩니다.</p>
+<!--
+[3:10–3:35 · 25초 · 활용성]
+드라이버를 만들고 나니, 사람들이 실제로 쓰는 법을 보여줘야 했습니다.
+그래서 cookbook에 68개 예제와 FastAPI, Django, 대시보드 같은 7개 템플릿을 만들었고,
+문서는 4개 사이트, 한국어로 34페이지를 썼습니다. 이 예제들은 매일 밤 실서버에서 돌면서 드라이버 버그를 가장 먼저 잡습니다.
+-->
+
+---
+
+<div class="split">
+  <div class="stack">
+    <p class="kicker">네 번째 · 2026</p>
+    <h2>그리고 AI가<br>데이터를 묻기 시작했습니다</h2>
+    <p class="sub"><code>cubrid-mcp-server</code> — 세계 최초의 CUBRID MCP 서버</p>
+  </div>
+  <figure class="shot clip"><img src="/shots/repo-mcp.jpg" alt="cubrid-mcp-server 저장소"></figure>
+</div>
+
+<!--
+[3:35–4:00 · 25초 · 활용성 · OSS 적절성]
+그리고 AI가 데이터를 묻는 시대가 왔습니다. 그래서 Claude 같은 AI가 자연어로 CUBRID에 질의할 수 있는
+MCP 서버를 만들었습니다. 저희가 찾아본 범위에서, 세계 최초의 CUBRID MCP 서버입니다.
+-->
+
+---
+
+<div class="chapter"><span class="no">03</span><h1>만든 방법</h1><span class="of">두 사람이, 어떻게 네 개를?</span></div>
+
+<!--
+[4:00–4:10 · 10초 · PT]
+여기서 이런 질문이 드실 겁니다. 두 사람이 어떻게 이걸 다 만들었냐고요.
+-->
+
+---
+
+<div class="split">
+  <div class="stack">
+    <h2>AI가 쓰고,<br><span class="accent">사람이 책임집니다</span></h2>
+    <ul class="lines small-lines">
+      <li>규칙은 사람이 <code>AGENTS.md</code>에</li>
+      <li>구현은 AI가</li>
+      <li>리뷰는 사람이, 모든 PR</li>
+      <li>릴리스 태그는 사람만</li>
+    </ul>
+  </div>
+  <figure class="shot clip"><img src="/shots/merged-prs.jpg" alt="병합된 PR 목록 — 모든 PR에 CI 30/30 통과"></figure>
+</div>
 
 <style>
-.asks { margin-top: 0; }
-.asks .ask:last-child { padding-block: 4px; }
-.note { font-size: 0.78rem; color: var(--on-navy-muted); }
+.small-lines li { font-size: 1.15rem; font-weight: 600; }
 </style>
 
 <!--
-[6:30–8:30 · 2분 · DEMO_RUNBOOK.md]
+[4:10–4:50 · 40초 · 커뮤니티]
+답은 AI가 쓰고, 사람이 책임지는 구조입니다.
+사람이 AGENTS.md에 규칙을 쓰고, AI가 구현하고, 모든 PR은 사람이 리뷰하고, 릴리스 태그는 사람만 찍습니다.
+오른쪽이 실제 PR 목록인데, 하나하나 CI 30개 검사를 통과한 뒤에야 병합됐습니다.
+사실 이건 저희가 컨트리뷰톤에서 배운 멘토-멘티 방식 그대로입니다. AI가 멘티처럼 구현하고, 저희가 멘토처럼 리뷰합니다.
+-->
+
+---
+
+<h1>"AI가 쓴 코드를<br>믿을 수 있나요?"</h1>
+
+<!--
+[4:50–5:00 · 10초 · 기능테스트]
+그럼 당연히 다음 질문이 나옵니다. AI가 쓴 코드를 믿을 수 있냐.
+-->
+
+---
+
+<p class="kicker">믿지 않아도 되게 만들었습니다</p>
+<p class="huge">2,200</p>
+<h2>개의 테스트를 통과하지 못하면, 머지되지 않습니다.</h2>
+<p class="sub gates">타입 오류 0 · 커버리지 95% · 랜덤 입력 테스트 · 공개 API 변경 감지 · 매일 밤 실서버 45개 예제 · Python 5 × CUBRID 4 = 20개 조합</p>
+
+<style>
+.gates { max-width: 52ch; font-size: 1rem; }
+</style>
+
+<!--
+[5:00–5:35 · 35초 · 기능테스트]
+저희는 믿지 않아도 되게 만들었습니다. 테스트가 2,200개이고, 통과하지 못하면 머지 자체가 안 됩니다.
+타입 오류 0, 커버리지 95%, 랜덤 입력 테스트, 공개 API가 몰래 바뀌면 실패하는 검사,
+그리고 매일 밤 실제 CUBRID 서버에서 45개 예제를 돌리고, Python 5개 버전과 CUBRID 4개 버전, 20개 조합으로 검증합니다.
+-->
+
+---
+
+<p class="kicker">니치 시장엔 성능을 알려줄 사용자가 없습니다. 그래서 직접 쟀습니다.</p>
+
+<div class="figures grid2">
+  <div><b class="accent">+588%</b><span>SQLAlchemy 연결 풀 체크 처리량</span></div>
+  <div><b>+280%</b><span>연결 확인 처리량 (SELECT 1 대비)</span></div>
+  <div><b>12.3%</b><span>대량 INSERT 1,000행</span></div>
+  <div><b>19.9%</b><span>전체 조회</span></div>
+</div>
+
+<p class="small">재현: github.com/cubrid-lab/cubrid-benchmark</p>
+
+<!--
+[5:35–6:05 · 30초 · 기능테스트]
+큰 오픈소스는 사용자가 성능 문제를 알려주지만, 니치 시장은 그렇지 않습니다. 그래서 벤치마크 저장소를 따로 만들어 직접 쟀습니다.
+SQLAlchemy 연결 풀 체크 처리량이 588%, 연결 확인은 280% 늘었고, 대량 INSERT와 전체 조회도 각각 12%, 20% 빨라졌습니다.
+모두 저장소에서 재현할 수 있습니다.
+-->
+
+---
+
+<div class="chapter"><span class="no">04</span><h1>직접 보여드리겠습니다</h1><span class="of">행안부 전자결재(온나라) 데이터로</span></div>
+
+<!--
+[6:05–6:10 · 5초] (넘기면서) 그럼, 실제로 어떻게 쓰이는지 직접 보여드리겠습니다.
+-->
+
+---
+
+<p class="kicker">라이브 데모 · 온나라 시나리오 · 대시보드 → Claude → 터미널</p>
+
+<ol class="asks">
+  <li><span>"이 DB에 어떤 테이블이 있어?"</span></li>
+  <li><span>"결재가 지연된 문서 TOP 5는? 평균 처리일과 대기 수로"</span></li>
+  <li><span>"기밀 문서는 부처별로 몇 개야? 내용은 보지 말고 집계만"</span></li>
+  <li><span>"결재 대기 문서를 전부 승인 처리해줘"</span><span class="stamp">반려</span></li>
+</ol>
+
+<!--
+[6:10–8:10 · 2분 · 데모 · DEMO_RUNBOOK.md]
 행안부 온나라는 47개 부처가 쓰는 CUBRID 기반 전자결재 시스템입니다. 지금까지는 Java 중심이었습니다.
-이 데이터를 Python과 AI로 다뤄보겠습니다. 대시보드부터 보시죠.
+이 데이터를 Python과 AI로 다뤄보겠습니다. 대시보드부터 보시죠. (대시보드 15초 → Claude 90초 → 터미널 15초)
 (#2 후) AI가 데이터를 읽기만 하는 게 아니라, 평균 처리일과 대기 수로 결재 병목을 스스로 분석했습니다.
-(#4 후) 결재 대기 문서를 전부 승인하라는 AI 명령이 서버에서 반려됐습니다.
-MCP 서버는 기본이 읽기 전용이라 쓰기 도구가 노출조차 되지 않고, 쓰기 SQL은 화이트리스트에서 거부됩니다.
+(#4 후) 결재 대기 문서를 전부 승인하라는 명령은, 서버에서 반려됐습니다.
 -->
 
 ---
 
-<Act :n="6" />
+<h1>기본은 <span class="accent">읽기 전용</span>입니다.</h1>
+<p class="sub">쓰기 도구는 보이지도 않고, 쓰기 SQL은 거부됩니다.<br>쓰기는 운영자가 연결별로 직접 켤 때만 가능합니다.</p>
 
-<div class="eyebrow">신뢰 <span class="crit">OSS 적절성 15점</span></div>
+<!--
+[8:10–8:25 · 15초 · 데모 · 기능테스트]
+방금 보신 것처럼, MCP 서버는 기본이 읽기 전용입니다. 쓰기 도구는 AI에게 보이지도 않고, 쓰기 SQL은 거부됩니다.
+쓰기는 운영자가 연결별로 직접 켤 때만 가능합니다.
+-->
 
-## 저희끼리 정한 규칙이 아니라, 표준 위에 올렸습니다
+---
 
-<div class="std mid">
-  <div class="stat"><span class="k accent">PEP 249 · DB-API 2.0</span><span class="t">pycubrid 완전 준수</span><span class="v">1,147 테스트</span></div>
-  <div class="stat"><span class="k accent">PEP 561 · 타입</span><span class="t">py.typed · mypy strict 0</span><span class="v">CI 강제</span></div>
-  <div class="stat"><span class="k accent">SQLAlchemy Dialect API</span><span class="t">공식 테스트 스위트 통합</span><span class="v">53 feature flags</span></div>
-  <div class="stat"><span class="k accent">Model Context Protocol</span><span class="t">Tools · Resources · Prompts</span><span class="v">세계 최초 CUBRID MCP</span></div>
-</div>
+<div class="chapter"><span class="no">05</span><h1>믿을 수 있는 이유</h1><span class="of">표준 · 라이선스 · 검증 · 숫자</span></div>
 
-<p class="stackh">어깨를 빌린 오픈소스</p>
-<div class="chips">
-  <span class="chip">SQLAlchemy · MIT</span>
-  <span class="chip">zzzeek/sqlalchemy_cubrid · MIT</span>
-  <span class="chip">node-cubrid · BSD</span>
-  <span class="chip">MCP · MIT</span>
-  <span class="chip">pytest · hypothesis</span>
-  <span class="chip">CodeQL · Dependabot</span>
-</div>
+<!--
+[8:25–8:30 · 5초] (넘기면서) 이제, 이걸 믿고 쓰셔도 되는 이유입니다.
+-->
 
-<EvidenceFooter claim="pep249-compliance" />
+---
+
+<h2>저희끼리 정한 규칙이 아니라,<br><span class="accent">표준 위에 올렸습니다</span></h2>
+
+<ul class="lines std">
+  <li>PEP 249 <span class="muted">— Python 표준 DB-API, 드라이버 테스트 1,147개</span></li>
+  <li>SQLAlchemy Dialect API <span class="muted">— 공식 테스트 스위트 통과</span></li>
+  <li>Model Context Protocol <span class="muted">— Tools · Resources · Prompts</span></li>
+  <li>PEP 561 <span class="muted">— 타입 정보 제공, mypy strict 오류 0</span></li>
+</ul>
 
 <style>
-.std { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-.std .t { font-size: 0.95rem; font-weight: 700; line-height: 1.35; }
-.std .k { font-size: 0.7rem; letter-spacing: 0.02em; }
-.stackh { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin: 0 0 8px; }
+.std li { font-size: 1.3rem; }
 </style>
 
 <!--
-[8:30–9:30 · 60초]
+[8:30–9:00 · 30초 · OSS 적절성]
 저희가 만든 건 저희끼리만 통하는 규칙이 아닙니다.
-드라이버는 Python 표준인 PEP 249를 완전히 따르고, 타입 정보도 표준대로 제공합니다.
-방언은 SQLAlchemy 공식 테스트 스위트를 통과하고, AI 서버는 MCP 표준을 따릅니다.
+드라이버는 Python 표준 DB-API인 PEP 249를 따르고, 방언은 SQLAlchemy 공식 테스트 스위트를 통과하고, AI 서버는 MCP 표준을 따릅니다.
 그리고 저희도 SQLAlchemy, node-cubrid 같은 오픈소스의 어깨 위에서 만들었습니다.
 -->
 
 ---
 
-<Act :n="6" />
-
-<div class="eyebrow">신뢰 <span class="crit">라이선스 5점</span></div>
-
-<div class="lic mid">
-  <div>
-    <p class="say">누구나 가져다 쓸 수 있게</p>
-    <span class="num">MIT × 4</span>
-    <p class="muted">4개 패키지 모두 MIT · 의존성 트리에도 GPL 없음</p>
-  </div>
-  <div class="cards">
-    <div class="stat"><span class="k">우리 패키지</span><span class="v">독립 wire-protocol 클라이언트 — CUBRID 서버 코드를 포함하지 않음</span></div>
-    <div class="stat"><span class="k">CUBRID 서버</span><span class="v">Apache-2.0 엔진 · BSD 커넥터 — 업스트림 COPYING 직접 확인</span></div>
-    <div class="stat"><span class="k">배포물</span><span class="v">THIRD_PARTY_LICENSES · NOTICE · SPDX SBOM</span></div>
-  </div>
-</div>
-
-<style>
-.lic { display: grid; grid-template-columns: 1fr 1.2fr; gap: 44px; align-items: center; }
-.lic .say { font-size: 1.4rem; margin-bottom: 8px; }
-.lic .num { font-size: 4.4rem; color: var(--blue); }
-.lic .muted { font-size: 0.85rem; margin-top: 10px; }
-.lic .cards { display: grid; gap: 10px; }
-</style>
+<p class="huge">MIT × 4</p>
+<h2>누구나 가져다 쓸 수 있게.</h2>
+<p class="sub">의존성 어디에도 GPL은 없습니다. CUBRID 서버(Apache-2.0 · BSD) 라이선스도 원문으로 확인했고, 모든 릴리스에 SBOM을 붙입니다.</p>
 
 <!--
-[9:30–9:50 · 20초]
-라이선스는 짧게 말씀드리겠습니다. 4개 모두 MIT이고, 의존성 어디에도 GPL은 없습니다.
-CUBRID 서버의 라이선스도 업스트림 원문을 직접 확인했습니다.
+[9:00–9:15 · 15초 · 라이선스]
+4개 패키지 모두 MIT입니다. 의존성 어디에도 GPL은 없고, CUBRID 서버 라이선스도 원문으로 확인했습니다.
+모든 릴리스에는 SBOM을 붙입니다.
 -->
 
 ---
 
-<Act :n="6" />
-
-<div class="eyebrow">신뢰 <span class="crit">기능테스트</span></div>
-
-## 저희 말 대신, 직접 확인해 보세요
-
-<div class="ver mid">
+<h2>저희 말 대신,<br><span class="accent">직접 확인해 보세요</span></h2>
 
 ```bash
-# 1) AI 접근 — PyPI 배포본 (v0.4.0)
-uvx cubrid-mcp-server
-
-# 2) 전체 스택 — GitHub Release
-docker compose up && make verify
+uvx cubrid-mcp-server             # PyPI v0.4.0
+docker compose up && make verify  # 전체 스택
 ```
 
-<div class="steps">
-  <p class="h">VERIFY.md — 단계별 검증 가이드</p>
-  <p class="muted">드라이버 연결 → ORM → MCP 서버 → 실서버 골든 테스트, 그리고 SBOM·라이선스 확인까지 명령어와 기대 출력을 함께 제공합니다.</p>
-</div>
-
-</div>
-
-<style>
-.ver { display: grid; grid-template-columns: 1.2fr 1fr; gap: 28px; align-items: center; }
-.ver pre.slidev-code { font-size: 0.9rem !important; }
-.steps { display: grid; gap: 8px; }
-.steps .h { font-size: 1rem; font-weight: 700; }
-.steps .muted { font-size: 0.85rem; line-height: 1.55; }
-</style>
+<p class="sub">단계별 명령과 기대 결과는 <b>VERIFY.md</b>에 모두 적어 두었습니다.</p>
 
 <!--
-[9:50–10:10 · 20초]
-오늘 말씀드린 내용은 심사위원분들이 직접 확인하실 수 있습니다.
-명령어 한 줄로 AI 서버를 띄울 수 있고, VERIFY.md에 단계별 명령과 기대 결과를 모두 적어 두었습니다.
+[9:15–9:35 · 20초 · 기능테스트]
+오늘 말씀드린 내용은 직접 확인하실 수 있습니다. 명령어 한 줄로 AI 서버를 띄울 수 있고,
+VERIFY.md에 단계별 명령과 기대 결과를 모두 적어 두었습니다.
 -->
 
 ---
 
-<Act :n="6" />
+<p class="kicker">부풀리지 않은 숫자만 가져왔습니다</p>
 
-<div class="eyebrow">신뢰 <span class="crit">활용성</span></div>
+<div class="figures">
+  <div><b class="accent">450</b><span>병합된 PR</span></div>
+  <div><b>2,200</b><span>테스트</span></div>
+  <div><b>35</b><span>PyPI 릴리스</span></div>
+  <div><b>119</b><span>GitHub 스타</span></div>
+</div>
 
-## 부풀리지 않은 숫자만 가져왔습니다
-
-<div class="adopt mid"><SnapshotMetrics category="adoption" /></div>
-
-<p class="honest">GitHub 클론 수는 CI 러너의 checkout이 대부분이라, 채택 지표로 쓰지 않았습니다.</p>
-
-<style>
-.adopt .stat .num { font-size: 2.5rem; }
-.honest { font-size: 0.78rem; color: var(--muted); }
-</style>
+<p class="sub">클론 수는 뺐습니다. 재 보니 대부분 저희 CI였거든요.</p>
 
 <!--
-[10:10–10:40 · 30초]
-숫자는 검증할 수 있는 것만 가져왔습니다. 병합된 PR 450개, 테스트 2,200개, 20개 조합의 CI, 릴리스 35번.
+[9:35–10:05 · 30초 · 활용성]
+숫자는 검증할 수 있는 것만 가져왔습니다. 병합된 PR 450개, 테스트 2,200개, PyPI 릴리스 35번.
 사실 클론 수가 더 커 보이는 숫자였는데, 측정해 보니 대부분 저희 CI였습니다. 그래서 뺐습니다.
 -->
 
 ---
 
-<Act :n="7" />
-
-<div class="eyebrow">다음 <span class="crit">커뮤니티 + 발전가능성</span></div>
-
-## Python에서 검증한 순서를, 다른 언어로
-
-<div class="langs mid">
-  <div class="stat hl"><span class="k">Python · 완성</span><span class="t">pycubrid v1.7.1</span><span class="t">sqlalchemy-cubrid v1.7.1</span></div>
-  <div class="stat"><span class="k">TypeScript · 진행</span><span class="t">cubrid-client v1.1.0</span><span class="t">drizzle-cubrid v0.2.1</span></div>
-  <div class="stat"><span class="k">Go · 진행</span><span class="t">cubrid-go v0.2.1</span><span class="t">gorm-cubrid v0.1.0</span></div>
-  <div class="stat"><span class="k">Rust · 진행</span><span class="t">cubrid-rs v0.1.0</span><span class="t">sea-orm-cubrid v0.1.0</span></div>
-</div>
-
-<p class="aside">드라이버 → ORM → 예제 → AI. 그리고 SQLAlchemy Korea를 6년째 운영해 온 방식 그대로 — 문서, 예제, 멘토링이 붙은 good-first-issue로 사람을 모읍니다.</p>
-
-<style>
-.langs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-.langs .t { font-family: var(--mono); font-size: 0.78rem; font-weight: 600; }
-.langs .stat.hl .t { color: #fff; }
-.aside { max-width: none; }
-</style>
+<div class="chapter"><span class="no">06</span><h1>다음</h1><span class="of">Python에서 검증한 순서를, 다른 언어로</span></div>
 
 <!--
-[10:40–11:10 · 30초]
-Python은 끝이 아니라 레퍼런스입니다. 드라이버, ORM, 예제, AI로 이어지는 같은 순서를
-TypeScript, Go, Rust에서도 진행하고 있습니다.
+[10:05–10:10 · 5초] (넘기면서) 마지막으로, 다음 이야기입니다.
+-->
+
+---
+
+<h2>드라이버 → ORM → 예제 → AI</h2>
+
+<ul class="lines">
+  <li>Python에서 검증한 이 순서를 <span class="accent">TypeScript · Go · Rust</span>에서 진행 중입니다.</li>
+  <li class="muted">문서 · 예제 · 멘토링이 붙은 good-first-issue로 다음 기여자를 모읍니다.</li>
+</ul>
+
+<!--
+[10:10–10:35 · 25초 · 커뮤니티 · 발전가능성]
+Python은 끝이 아니라 레퍼런스입니다. 드라이버, ORM, 예제, AI로 이어지는 같은 순서를 TypeScript, Go, Rust에서도 진행하고 있습니다.
 커뮤니티는 SQLAlchemy Korea를 운영해 온 방식 그대로, 문서와 예제, 멘토링이 붙은 이슈로 키우겠습니다.
 -->
 
 ---
-class: navy
----
 
-<Act :n="7" />
-
-<div class="eyebrow">다음</div>
-
-<div class="close mid">
-  <div>
-    <h1>6년 전 저희가 받은 것을,<br><span class="accent">다음 사람에게</span></h1>
-    <ol class="wheel">
-      <li>컨트리뷰톤에서 배웠고</li>
-      <li>Mike Bayer와 대화했고</li>
-      <li>멈춘 방언에서 다시 시작해</li>
-      <li>드라이버부터 생태계까지 만들었습니다</li>
-      <li class="next">이제 다음 기여자를 기다립니다</li>
-    </ol>
-  </div>
-  <div class="right">
-    <p class="thanks">감사합니다</p>
+<div class="split even">
+  <div class="stack">
+    <h1>6년 전 받은 것을,<br><span class="accent">다음 사람에게.</span></h1>
+    <p class="sub">다음 컨트리뷰톤에서, 저희 프로젝트를 이어갈 누군가를 기다립니다.</p>
     <div class="links">
       <div><span>GitHub</span>github.com/cubrid-lab</div>
       <div><span>설치</span>pip install pycubrid</div>
       <div><span>AI</span>uvx cubrid-mcp-server</div>
-      <div><span>문서</span>cubrid-lab.github.io/pycubrid</div>
     </div>
-    <p class="sig">CUBRID Lab — 최영선 · 백경준</p>
+    <p class="thanks">감사합니다 — 최영선 · 백경준</p>
   </div>
+  <div class="frame"><Photo src="/photos/team-now.jpg" label="지금의 두 사람 사진" /></div>
 </div>
 
 <style>
-.close { display: grid; grid-template-columns: 1.25fr 1fr; gap: 40px; align-items: center; }
-.close h1 { font-size: 2.4rem; line-height: 1.2; }
-.wheel { list-style: none; padding: 0; margin: 22px 0 0; display: grid; gap: 8px; counter-reset: w; }
-.wheel li { counter-increment: w; margin: 0; padding: 0; font-size: 1rem; font-weight: 600; display: grid; grid-template-columns: 26px 1fr; align-items: baseline; color: var(--on-navy); }
-.wheel li::before { content: counter(w); font-size: 0.75rem; font-weight: 800; color: #7fb0ec; }
-.wheel li.next { color: #7fb0ec; }
-.close .right { display: grid; gap: 18px; }
-.thanks { font-size: 2rem; font-weight: 800; letter-spacing: -0.03em; }
-.sig { font-size: 0.8rem; color: var(--on-navy-muted); }
+.frame { height: 400px; }
+.thanks { font-size: 1.2rem; font-weight: 700; margin-top: 8px; }
 </style>
 
 <!--
-[11:10–11:40 · 30초]
-6년 전 컨트리뷰톤에서, 저희는 오픈소스로부터 많은 것을 받았습니다.
-오늘은 그때 받은 것을 생태계로 돌려드리러 왔습니다.
+[10:35–11:05 · 30초 · PT · 커뮤니티]
+6년 전 저희는 컨트리뷰톤에서 오픈소스로부터 많은 것을 받았습니다. 오늘은 그걸 생태계로 돌려드리러 왔습니다.
 다음 컨트리뷰톤 어딘가에서, 저희 프로젝트를 이어갈 누군가를 기다리겠습니다. 감사합니다.
 -->
