@@ -1,7 +1,7 @@
 ---
 theme: default
-title: "공공 DBMS에 Python 문을 열다 — CUBRID Python 생태계"
-info: "2026 오픈소스 개발자대회 본선"
+title: "If someone were interested — CUBRID Python 생태계"
+info: "2026 오픈소스 개발자대회"
 author: "CUBRID Lab — 최영선 · 백경준"
 drawings:
   persist: false
@@ -18,9 +18,10 @@ layout: default
 ---
 
 <div class="cover">
-  <p class="kicker">2026 오픈소스 개발자대회 본선</p>
-  <h1>공공 DBMS에<br>Python 문을 열다</h1>
-  <p class="sub">CUBRID Python 생태계 — pycubrid · sqlalchemy-cubrid · cubrid-cookbook · cubrid-mcp-server</p>
+  <p class="kicker">2026 오픈소스 개발자대회</p>
+  <h1>If someone were<br>interested</h1>
+  <p class="lead">멈춰 있던 CUBRID dialect를 이어받아 생태계가 되기까지</p>
+  <p class="sub">pycubrid · sqlalchemy-cubrid · cubrid-cookbook · cubrid-mcp-server</p>
   <div class="who">
     <b>최영선 · 백경준</b>
     <span>CUBRID Lab</span>
@@ -30,7 +31,8 @@ layout: default
 <style>
 .cover { display: grid; gap: 22px; }
 .cover h1 { font-size: 3.8rem; line-height: 1.12; }
-.cover .sub { max-width: none; font-size: 1.05rem; }
+.cover .lead { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; }
+.cover .sub { max-width: none; font-size: 1rem; }
 .who { display: flex; gap: 14px; align-items: baseline; margin-top: 26px; padding-top: 18px; border-top: 2px solid var(--ink); width: fit-content; }
 .who b { font-size: 1.1rem; }
 .who span { font-size: 0.9rem; color: var(--muted); }
@@ -38,7 +40,7 @@ layout: default
 
 <!--
 [10초 · PT]
-안녕하세요. "공공 DBMS에 Python 문을 열다", CUBRID Lab의 최영선, 백경준입니다.
+안녕하세요. CUBRID Lab의 최영선, 백경준입니다. 제목은 한 README에 적혀 있던 문장입니다. 왜 이 문장인지는 곧 보여드리겠습니다.
 -->
 
 ---
@@ -71,21 +73,27 @@ layout: default
 
 ---
 
-<ul class="lines big-lines">
-  <li>SQLAlchemy에 기여하며 오픈소스를 배웠고,</li>
-  <li>Gitter에서 창시자 <span class="accent">Mike Bayer</span>와 대화했고,</li>
-  <li><span class="accent">SQLAlchemy Korea</span> 커뮤니티를 만들었습니다.</li>
-</ul>
-<p class="note-line">이 경험이 뒤에 나올 모든 것 — dialect, 드라이버, 리뷰 방식, 커뮤니티 — 의 출발점입니다.</p>
+<div class="split">
+  <div class="stack">
+    <ul class="lines big-lines">
+      <li>SQLAlchemy에 기여하며 오픈소스를 배웠고,</li>
+      <li>Gitter에서 창시자 <span class="accent">Mike Bayer</span>와 대화했고,</li>
+      <li><span class="accent">SQLAlchemy Korea</span> 페이스북 커뮤니티를 만들었습니다.</li>
+    </ul>
+    <p class="note-line">이 경험이 뒤에 나올 모든 것 — dialect, 드라이버, 리뷰 방식, 커뮤니티 — 의 출발점입니다.</p>
+  </div>
+  <div class="community"><Photo src="/photos/sqlalchemy-korea.png" label="SQLAlchemy Korea 페이스북 그룹 화면" /></div>
+</div>
 
 <style>
-.big-lines li { font-size: 2rem; }
+.big-lines li { font-size: 1.55rem; }
+.community { height: 320px; }
 </style>
 
 <!--
 [15초 · 커뮤니티]
 그때 SQLAlchemy에 기여하면서 오픈소스를 배웠고, Gitter에서 창시자 Mike Bayer와 대화했고,
-SQLAlchemy Korea라는 커뮤니티도 만들었습니다. 오늘 이야기는 여기서 시작합니다.
+SQLAlchemy Korea라는 페이스북 커뮤니티도 만들었습니다. 오늘 이야기는 여기서 시작합니다.
 -->
 
 ---
@@ -118,44 +126,6 @@ sqlalchemy-hana에 기여하면서 dialect를 공부하다가, Mike Bayer의 저
 "여기엔 실제로 동작하는 게 없다. 관심 있는 사람이 있다면 기꺼이 넘기겠다."
 -->
 
----
-
-<div class="split even">
-  <div class="stack">
-    <p class="kicker">그리고 찾아보니</p>
-    <h2>CUBRID는<br><span class="accent">공공 DBMS 2위</span>였습니다</h2>
-    <ul class="explain">
-      <li><b>13.24%</b> — 공공기관 2,367곳에 설치 (2025년 말)</li>
-      <li><b>Microsoft를 넘었습니다</b> — 국산 DBMS로는 처음</li>
-      <li><b>5년째 상승</b> — 7.80% → 13.24%</li>
-    </ul>
-    <p class="small">출처: 행정안전부·NIA 「범정부EA기반 공공부문 정보자원 현황 통계보고서」 (각 전년 말 기준) · 2021–2023년 값은 큐브리드 보도자료 인용</p>
-  </div>
-  <div class="stack charts">
-    <BarChart :width="400" :label-width="100" :rows="[
-      { label: 'Oracle', value: 59.87, text: '59.87%' },
-      { label: 'CUBRID', value: 13.24, text: '13.24%', hl: true },
-      { label: 'Microsoft', value: 12.59, text: '12.59%' },
-      { label: 'Tmax', value: 9.62, text: '9.62%' },
-      { label: 'MariaDB', value: 4.67, text: '4.67%' },
-    ]" />
-    <p class="chart-cap">CUBRID 점유율 추이</p>
-    <TrendColumns :width="380" :height="150" unit="%" :points="[
-      { x: '2021', y: 7.80 }, { x: '2022', y: 8.27 }, { x: '2023', y: 9.13 }, { x: '2024', y: 10.58 }, { x: '2025', y: 13.24 },
-    ]" />
-  </div>
-</div>
-
-<style>
-.charts { gap: 12px; }
-.chart-cap { font-size: 0.8rem; font-weight: 700; color: var(--muted); margin-top: 10px; }
-</style>
-
-<!--
-[20초 · 활용성]
-그래서 CUBRID가 어떤 데이터베이스인지 찾아봤습니다. 한국 공공부문 DBMS 점유율 2위, 2025년 말 기준 13.24%,
-2천 3백 곳이 넘는 공공기관에서 쓰고, 5년째 오르고 있었습니다. 쓰는 곳은 이렇게 많은데, Python에서 쓸 길은 멈춰 있었던 겁니다.
--->
 ---
 
 
@@ -451,6 +421,30 @@ CUBRID 문법의 차이를 domain knowledge 문서로, 자주 하는 작업을 e
 
 ---
 
+<p class="kicker">프로젝트 4 · cubrid-mcp-server — AI에게 DB를 열어 줄 때 첫 질문</p>
+<h1>"지워버리면요?"<br>기본은 <span class="accent">읽기 전용</span>입니다</h1>
+
+<ul class="explain wide2">
+  <li><b>write tool은 보이지도 않습니다</b> — 기본 모드에서는 AI에게 <code>execute_write</code> 자체가 등록되지 않습니다</li>
+  <li><b>whitelist</b> — <code>execute_query</code>는 SELECT · SHOW · DESC · EXPLAIN · WITH만 실행하고, multi-statement는 거부합니다</li>
+  <li><b>쓰기는 운영자가 연결별로 직접 켤 때만</b> — 그때도 INSERT · UPDATE · DELETE 한 문장씩만, DDL은 불가</li>
+</ul>
+<p class="note-line">실제 운영에서는 SELECT 권한만 가진 DB 계정으로 연결하기를 권합니다.</p>
+
+<style>
+.wide2 { max-width: 66ch; }
+.wide2 li { font-size: 1.1rem; }
+</style>
+
+<!--
+[20초 · 활용성 · 기능테스트]
+AI에게 데이터베이스를 열어 주면 제일 먼저 나오는 질문이 "지워버리면 어떡하냐"입니다.
+그래서 기본은 읽기 전용입니다. 기본 모드에서는 write tool이 AI에게 보이지도 않고, query tool은 조회 문장만 허용합니다.
+쓰기는 운영자가 연결별로 직접 켤 때만 가능하고, 그때도 한 문장씩만입니다. 실제 운영에서는 조회 권한만 가진 계정을 권합니다.
+-->
+
+---
+
 <div class="chapter"><span class="no">03</span><h1>만든 방법</h1><span class="of">두 사람이, 어떻게 네 개를?</span></div>
 
 <!--
@@ -467,7 +461,7 @@ CUBRID 문법의 차이를 domain knowledge 문서로, 자주 하는 작업을 e
       <li><b>규칙</b>은 사람이 <code>AGENTS.md</code>에 씁니다</li>
       <li><b>구현</b>은 AI가 — 코드 · 테스트 · 문서</li>
       <li><b>리뷰</b>는 사람이 — 모든 PR</li>
-      <li><b>병합</b>은 CI 검사를 모두 통과한 뒤에만</li>
+      <li><b>병합</b>은 CI 검사를 모두 통과한 뒤에만 — 지금까지 596개</li>
       <li><b>릴리스 태그</b>는 사람만</li>
     </ul>
     <p class="small">컨트리뷰톤에서 배운 멘토–멘티 방식 그대로: AI가 구현하고, 저희가 리뷰합니다.</p>
@@ -564,69 +558,7 @@ ping을 SELECT 1 대신 CAS protocol 수준으로 바꿔 처리량이 3.8배, SQ
 
 ---
 
-<div class="chapter"><span class="no">04</span><h1>직접 보여드리겠습니다</h1><span class="of">행안부 전자결재(온나라) 데이터로</span></div>
-
-<!--
-[4초] (넘기면서) 그럼, 실제로 어떻게 쓰이는지 직접 보여드리겠습니다.
--->
-
----
-
-<div class="split even">
-  <div class="stack">
-    <p class="kicker">라이브 데모 · 2분</p>
-    <h2>온나라형 데이터에<br>AI로 묻습니다</h2>
-    <ul class="explain">
-      <li><b>데이터</b> — 기관 12 · 결재 문서 300 · 결재 이력 753건</li>
-      <li><b>경로</b> — Claude → cubrid-mcp-server → pycubrid → CUBRID</li>
-      <li><b>순서</b> — 대시보드 15초 → Claude 90초 → 터미널 15초</li>
-    </ul>
-  </div>
-  <ol class="asks">
-    <li><span>"이 DB에 어떤 테이블이 있어?"</span></li>
-    <li><span>"결재가 지연된 문서 TOP 5는? 평균 처리일과 대기 수로"</span></li>
-    <li><span>"기밀 문서는 부처별로 몇 개야? 내용은 보지 말고 집계만"</span></li>
-    <li><span>"결재 대기 문서를 전부 승인 처리해줘"</span><span class="stamp">반려</span></li>
-  </ol>
-</div>
-
-<style>
-.asks li { font-size: 1.05rem; }
-</style>
-
-<!--
-[2분 · 데모 · DEMO_RUNBOOK.md]
-행안부 온나라는 47개 부처가 쓰는 CUBRID 기반 전자결재 시스템입니다. 지금까지는 Java 중심이었습니다.
-이 데이터를 Python과 AI로 다뤄보겠습니다. 대시보드부터 보시죠. (대시보드 15초 → Claude 90초 → 터미널 15초)
-(#2 후) AI가 데이터를 읽기만 하는 게 아니라, 평균 처리일과 대기 수로 결재 병목을 스스로 분석했습니다.
-(#4 후) 결재 대기 문서를 전부 승인하라는 명령은, 서버에서 반려됐습니다.
--->
-
----
-
-<h1>기본은 <span class="accent">읽기 전용</span>입니다</h1>
-
-<ul class="explain wide2">
-  <li><b>write tool은 보이지도 않습니다</b> — 기본 모드에서는 AI에게 <code>execute_write</code> 자체가 등록되지 않습니다</li>
-  <li><b>whitelist</b> — <code>execute_query</code>는 SELECT · SHOW · DESC · EXPLAIN · WITH만 실행하고, multi-statement는 거부합니다</li>
-  <li><b>쓰기는 운영자가 연결별로 직접 켤 때만</b> — 그때도 INSERT · UPDATE · DELETE 한 문장씩만, DDL은 불가</li>
-</ul>
-<p class="note-line">실제 운영에서는 SELECT 권한만 가진 DB 계정으로 연결하기를 권합니다.</p>
-
-<style>
-.wide2 { max-width: 66ch; }
-.wide2 li { font-size: 1.1rem; }
-</style>
-
-<!--
-[15초 · 데모 · 기능테스트]
-방금 보신 반려는 이렇게 동작합니다. 기본 모드에서는 write tool이 AI에게 보이지도 않고, query tool은 조회 문장만 허용합니다.
-쓰기는 운영자가 연결별로 직접 켤 때만 가능하고, 그때도 한 문장씩만입니다. 실제 운영에서는 조회 권한만 가진 계정을 권합니다.
--->
-
----
-
-<div class="chapter"><span class="no">05</span><h1>믿을 수 있는 이유</h1><span class="of">표준 · 라이선스 · 검증 · 숫자</span></div>
+<div class="chapter"><span class="no">04</span><h1>믿을 수 있는 이유</h1><span class="of">표준 · 라이선스 · 검증 · 숫자</span></div>
 
 <!--
 [4초] (넘기면서) 이제, 이걸 믿고 쓰셔도 되는 이유입니다.
@@ -688,44 +620,62 @@ VERIFY.md에 단계별 명령과 기대 결과를 모두 적어 두었습니다.
 
 ---
 
-<p class="kicker">부풀리지 않은 숫자만 가져왔습니다 · 2026-09-12 기준</p>
+<p class="kicker">부풀리지 않은 숫자만 가져왔습니다 · GitHub · PyPI, 2026-09-28 기준</p>
 
-<div class="split even nums">
+<div class="grid4">
   <div class="stack">
-    <p class="chart-cap">merged PR — 총 450개</p>
-    <BarChart :width="380" :label-width="150" :bar="20" :gap="12" :rows="[
-      { label: 'pycubrid', value: 159, hl: true },
-      { label: 'sqlalchemy-cubrid', value: 151 },
-      { label: 'cubrid-mcp-server', value: 84 },
-      { label: 'cubrid-cookbook', value: 56 },
+    <p class="chart-cap">GitHub star — 총 129</p>
+    <BarChart :width="370" :label-width="150" :bar="14" :gap="8" :rows="[
+      { label: 'sqlalchemy-cubrid', value: 38, hl: true },
+      { label: 'cubrid-mcp-server', value: 32 },
+      { label: 'pycubrid', value: 31 },
+      { label: 'cubrid-cookbook', value: 28 },
     ]" />
   </div>
   <div class="stack">
-    <p class="chart-cap">PyPI 릴리스 — 총 35번</p>
-    <BarChart :width="380" :label-width="150" :bar="20" :gap="12" :rows="[
-      { label: 'sqlalchemy-cubrid', value: 19, hl: true },
-      { label: 'pycubrid', value: 16 },
+    <p class="chart-cap">fork — 총 36</p>
+    <BarChart :width="370" :label-width="150" :bar="14" :gap="8" :rows="[
+      { label: 'sqlalchemy-cubrid', value: 13, hl: true },
+      { label: 'pycubrid', value: 11 },
+      { label: 'cubrid-cookbook', value: 7 },
+      { label: 'cubrid-mcp-server', value: 5 },
     ]" />
-    <p class="small">GitHub 스타 119 (네 저장소 합계)</p>
+  </div>
+  <div class="stack">
+    <p class="chart-cap">merged PR — 총 596</p>
+    <BarChart :width="370" :label-width="150" :bar="14" :gap="8" :rows="[
+      { label: 'sqlalchemy-cubrid', value: 225, hl: true },
+      { label: 'pycubrid', value: 202 },
+      { label: 'cubrid-mcp-server', value: 95 },
+      { label: 'cubrid-cookbook', value: 74 },
+    ]" />
+  </div>
+  <div class="stack">
+    <p class="chart-cap">PyPI 릴리스 — 총 38</p>
+    <BarChart :width="370" :label-width="150" :bar="14" :gap="8" :rows="[
+      { label: 'sqlalchemy-cubrid', value: 20, hl: true },
+      { label: 'pycubrid', value: 17 },
+      { label: 'cubrid-mcp-server', value: 1 },
+    ]" />
   </div>
 </div>
 
 <p class="note-line">클론 수는 뺐습니다. 재 보니 대부분 저희 CI였습니다 — 14일간 pycubrid는 클론 4,969회, 같은 기간 CI 실행 700회(실행 한 번에 여러 잡이 저장소를 받습니다).</p>
 
 <style>
+.grid4 { display: grid; grid-template-columns: 1fr 1fr; gap: 22px 40px; }
 .chart-cap { font-size: 0.85rem; font-weight: 700; }
-.nums { align-items: start; }
 </style>
 
 <!--
 [25초 · 활용성]
-숫자는 검증할 수 있는 것만 가져왔습니다. merged PR 450개, PyPI 릴리스 35번.
+숫자는 검증할 수 있는 것만, 오늘 기준으로 가져왔습니다. GitHub star 129개, fork 36개, merged PR 596개, PyPI 릴리스 38번.
 사실 클론 수가 더 커 보이는 숫자였는데, 측정해 보니 대부분 저희 CI였습니다. 그래서 뺐습니다.
 -->
 
 ---
 
-<div class="chapter"><span class="no">06</span><h1>다음</h1><span class="of">Python에서 검증한 순서를, 다른 언어로</span></div>
+<div class="chapter"><span class="no">05</span><h1>다음</h1><span class="of">Python에서 검증한 순서를, 다른 언어로</span></div>
 
 <!--
 [4초] (넘기면서) 마지막으로, 다음 이야기입니다.
@@ -758,8 +708,9 @@ Python은 끝이 아니라 레퍼런스입니다. 드라이버, ORM, 예제, AI�
 
 <div class="split even">
   <div class="stack">
-    <h1>6년 전 받은 것을,<br><span class="accent">다음 사람에게.</span></h1>
-    <p class="sub">다음 컨트리뷰톤에서, 저희 프로젝트를 이어갈 누군가를 기다립니다.</p>
+    <p class="kicker">6년 전 받은 것을, 다음 사람에게</p>
+    <h1>If <span class="accent">you</span> are<br>interested.</h1>
+    <p class="sub">이번엔 저희가 말할 차례입니다. 네 저장소 모두, 이어갈 누군가에게 열려 있습니다.</p>
     <div class="links">
       <div><span>GitHub</span>github.com/cubrid-lab</div>
       <div><span>설치</span>pip install pycubrid</div>
@@ -777,6 +728,7 @@ Python은 끝이 아니라 레퍼런스입니다. 드라이버, ORM, 예제, AI�
 
 <!--
 [25초 · PT · 커뮤니티]
-6년 전 저희는 컨트리뷰톤에서 오픈소스로부터 많은 것을 받았습니다. 오늘은 그걸 생태계로 돌려드리러 왔습니다.
-다음 컨트리뷰톤 어딘가에서, 저희 프로젝트를 이어갈 누군가를 기다리겠습니다. 감사합니다.
+처음에 보여드린 README의 한 줄, "관심 있는 사람이 있다면"을 저희가 이어받았습니다.
+6년 전 컨트리뷰톤에서 저희는 오픈소스로부터 많은 것을 받았고, 이번엔 저희가 말할 차례입니다.
+If you are interested — 네 저장소 모두 열려 있습니다. 다음 컨트리뷰톤 어딘가에서, 이어갈 누군가를 기다리겠습니다. 감사합니다.
 -->
