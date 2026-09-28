@@ -1,4 +1,6 @@
-# Demo Runbook — On-nara Scenario (2 minutes, Slide 8 · 7:30-9:30)
+# Demo Runbook — On-nara Scenario (backup only)
+
+> The talk no longer includes a live demo (decided 2026-09-28). Keep this for Q&A or if the organisers ask to see it running.
 
 ## Narrative
 
