@@ -1,3 +1,5 @@
+@import "./operator.css";
+
 /* Deck design system — loaded automatically by Slidev.
    Keynote style: one idea per slide, large type, lots of air.
    Offline: the only font is bundled in public/fonts (SIL OFL, see LICENSE-Pretendard.txt). */
@@ -9,7 +11,7 @@
   font-display: block;
 }
 
-.slidev-layout.contest-deck {
+.slidev-layout:is(.contest-deck, .showcase-deck) {
   --ink: #0f1b2d;
   --paper: #ffffff;
   --muted: #5b6b82;
@@ -27,7 +29,7 @@
 }
 
 /* ── Canvas: content sits vertically centred, left-aligned ── */
-.slidev-layout.contest-deck {
+.slidev-layout:is(.contest-deck, .showcase-deck) {
   font-family: var(--sans);
   color: var(--ink);
   background: var(--paper);
@@ -42,103 +44,103 @@
   word-break: keep-all;          /* Korean: break between words, not inside them */
   overflow-wrap: anywhere;
 }
-.slidev-layout.contest-deck h1, .slidev-layout.contest-deck h2, .slidev-layout.contest-deck h3 { font-family: var(--sans); margin: 0; text-wrap: balance; }
+.slidev-layout:is(.contest-deck, .showcase-deck) h1, .slidev-layout:is(.contest-deck, .showcase-deck) h2, .slidev-layout:is(.contest-deck, .showcase-deck) h3 { font-family: var(--sans); margin: 0; text-wrap: balance; }
 /* theme defaults: fixed 1.5rem line-height and a dimmed paragraph after h1 — both fight large type */
-.slidev-layout.contest-deck p { margin: 0; line-height: 1.45; }
-.slidev-layout.contest-deck h1 + p { opacity: 1; margin: 0; }
-.slidev-layout.contest-deck code { font-family: var(--mono); }
+.slidev-layout:is(.contest-deck, .showcase-deck) p { margin: 0; line-height: 1.45; }
+.slidev-layout:is(.contest-deck, .showcase-deck) h1 + p { opacity: 1; margin: 0; }
+.slidev-layout:is(.contest-deck, .showcase-deck) code { font-family: var(--mono); }
 
 /* ── Type scale ── */
-.slidev-layout.contest-deck h1 { font-size: 3rem; font-weight: 780; line-height: 1.18; letter-spacing: -0.035em; }
-.slidev-layout.contest-deck h2 { font-size: 2.2rem; font-weight: 760; line-height: 1.25; letter-spacing: -0.03em; }
-.slidev-layout.contest-deck .kicker { font-size: 0.9rem; font-weight: 650; color: var(--blue); letter-spacing: 0; }
-.slidev-layout.contest-deck .sub { font-size: 1.25rem; color: var(--muted); line-height: 1.55; max-width: 44ch; }
-.slidev-layout.contest-deck .small { font-size: 0.78rem; color: var(--muted); }
-.slidev-layout.contest-deck .huge { font-size: 7.5rem; font-weight: 820; line-height: 1; letter-spacing: -0.05em; white-space: nowrap; color: var(--blue); font-variant-numeric: tabular-nums; }
-.slidev-layout.contest-deck .accent { color: var(--blue); }
-.slidev-layout.contest-deck .seal { color: var(--seal); }
-.slidev-layout.contest-deck .muted { color: var(--muted); }
+.slidev-layout:is(.contest-deck, .showcase-deck) h1 { font-size: 3rem; font-weight: 780; line-height: 1.18; letter-spacing: -0.035em; }
+.slidev-layout:is(.contest-deck, .showcase-deck) h2 { font-size: 2.2rem; font-weight: 760; line-height: 1.25; letter-spacing: -0.03em; }
+.slidev-layout:is(.contest-deck, .showcase-deck) .kicker { font-size: 0.9rem; font-weight: 650; color: var(--blue); letter-spacing: 0; }
+.slidev-layout:is(.contest-deck, .showcase-deck) .sub { font-size: 1.25rem; color: var(--muted); line-height: 1.55; max-width: 44ch; }
+.slidev-layout:is(.contest-deck, .showcase-deck) .small { font-size: 0.78rem; color: var(--muted); }
+.slidev-layout:is(.contest-deck, .showcase-deck) .huge { font-size: 7.5rem; font-weight: 820; line-height: 1; letter-spacing: -0.05em; white-space: nowrap; color: var(--blue); font-variant-numeric: tabular-nums; }
+.slidev-layout:is(.contest-deck, .showcase-deck) .accent { color: var(--blue); }
+.slidev-layout:is(.contest-deck, .showcase-deck) .seal { color: var(--seal); }
+.slidev-layout:is(.contest-deck, .showcase-deck) .muted { color: var(--muted); }
 
 /* ── Text + image split ── */
-.slidev-layout.contest-deck .split { display: grid; grid-template-columns: 1.15fr 1fr; gap: 36px; align-items: center; }
-.slidev-layout.contest-deck .split.even { grid-template-columns: 1fr 1fr; }
-.slidev-layout.contest-deck .stack { display: grid; gap: 14px; align-content: center; }
+.slidev-layout:is(.contest-deck, .showcase-deck) .split { display: grid; grid-template-columns: 1.15fr 1fr; gap: 36px; align-items: center; }
+.slidev-layout:is(.contest-deck, .showcase-deck) .split.even { grid-template-columns: 1fr 1fr; }
+.slidev-layout:is(.contest-deck, .showcase-deck) .stack { display: grid; gap: 14px; align-content: center; }
 
 /* ── Screenshots ── */
-.slidev-layout.contest-deck .shot { margin: 0; border-radius: 12px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 18px 40px -18px rgba(15, 27, 45, 0.35); background: #fff; }
-.slidev-layout.contest-deck .shot img { display: block; width: 100%; }
-.slidev-layout.contest-deck .shot.clip { max-height: 360px; }
-.slidev-layout.contest-deck .shot.clip img { object-fit: cover; object-position: left top; height: 360px; }
+.slidev-layout:is(.contest-deck, .showcase-deck) .shot { margin: 0; border-radius: 12px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 18px 40px -18px rgba(15, 27, 45, 0.35); background: #fff; }
+.slidev-layout:is(.contest-deck, .showcase-deck) .shot img { display: block; width: 100%; }
+.slidev-layout:is(.contest-deck, .showcase-deck) .shot.clip { max-height: 360px; }
+.slidev-layout:is(.contest-deck, .showcase-deck) .shot.clip img { object-fit: cover; object-position: left top; height: 360px; }
 
 /* ── Code in keynote size ── */
-.slidev-layout.contest-deck pre.slidev-code { border-radius: 12px !important; font-size: 1.05rem !important; line-height: 1.6 !important; padding: 18px 22px !important; }
+.slidev-layout:is(.contest-deck, .showcase-deck) pre.slidev-code { border-radius: 12px !important; font-size: 1.05rem !important; line-height: 1.6 !important; padding: 18px 22px !important; }
 
 /* ── Numbers in a row (said aloud, shown big) ── */
-.slidev-layout.contest-deck .figures { display: flex; gap: 48px; flex-wrap: wrap; align-items: flex-end; }
-.slidev-layout.contest-deck .figures div { display: grid; gap: 6px; }
-.slidev-layout.contest-deck .figures b { font-size: 3.4rem; font-weight: 800; letter-spacing: -0.04em; line-height: 1; font-variant-numeric: tabular-nums; }
-.slidev-layout.contest-deck .figures span { font-size: 0.9rem; color: var(--muted); }
+.slidev-layout:is(.contest-deck, .showcase-deck) .figures { display: flex; gap: 48px; flex-wrap: wrap; align-items: flex-end; }
+.slidev-layout:is(.contest-deck, .showcase-deck) .figures div { display: grid; gap: 6px; }
+.slidev-layout:is(.contest-deck, .showcase-deck) .figures b { font-size: 3.4rem; font-weight: 800; letter-spacing: -0.04em; line-height: 1; font-variant-numeric: tabular-nums; }
+.slidev-layout:is(.contest-deck, .showcase-deck) .figures span { font-size: 0.9rem; color: var(--muted); }
 
 /* ── Plain lists that read like speech ── */
-.slidev-layout.contest-deck .lines { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
-.slidev-layout.contest-deck .lines li { margin: 0; padding: 0; font-size: 1.5rem; font-weight: 650; line-height: 1.35; }
-.slidev-layout.contest-deck .lines li .muted { font-weight: 500; }
+.slidev-layout:is(.contest-deck, .showcase-deck) .lines { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.slidev-layout:is(.contest-deck, .showcase-deck) .lines li { margin: 0; padding: 0; font-size: 1.5rem; font-weight: 650; line-height: 1.35; }
+.slidev-layout:is(.contest-deck, .showcase-deck) .lines li .muted { font-weight: 500; }
 
 /* ── Demo: requests + 반려 stamp ── */
-.slidev-layout.contest-deck .asks { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; counter-reset: q; }
-.slidev-layout.contest-deck .asks li { margin: 0; padding: 0; counter-increment: q; display: grid; grid-template-columns: 34px 1fr auto; align-items: center; gap: 12px; font-size: 1.2rem; font-weight: 600; }
-.slidev-layout.contest-deck .asks li::before { content: counter(q); color: var(--blue); font-weight: 800; }
-.slidev-layout.contest-deck .stamp {
+.slidev-layout:is(.contest-deck, .showcase-deck) .asks { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; counter-reset: q; }
+.slidev-layout:is(.contest-deck, .showcase-deck) .asks li { margin: 0; padding: 0; counter-increment: q; display: grid; grid-template-columns: 34px 1fr auto; align-items: center; gap: 12px; font-size: 1.2rem; font-weight: 600; }
+.slidev-layout:is(.contest-deck, .showcase-deck) .asks li::before { content: counter(q); color: var(--blue); font-weight: 800; }
+.slidev-layout:is(.contest-deck, .showcase-deck) .stamp {
   display: inline-grid; place-items: center; width: 70px; height: 70px; border-radius: 50%;
   border: 3px solid var(--seal); color: var(--seal); font-weight: 800; font-size: 1.1rem;
   transform: rotate(-12deg); background: rgba(194, 59, 46, 0.1);
 }
 
 /* ── Wire packet diagram ── */
-.slidev-layout.contest-deck .packet { display: grid; grid-template-columns: 1fr 1fr 3fr; border: 2px solid var(--ink); border-radius: 10px; overflow: hidden; font-family: var(--mono); }
-.slidev-layout.contest-deck .packet > div { padding: 16px 18px; display: grid; gap: 4px; border-right: 2px solid var(--ink); }
-.slidev-layout.contest-deck .packet > div:last-child { border-right: 0; background: var(--blue-soft); }
-.slidev-layout.contest-deck .packet b { font-size: 1.2rem; }
-.slidev-layout.contest-deck .packet span { font-size: 0.78rem; color: var(--muted); font-family: var(--sans); }
+.slidev-layout:is(.contest-deck, .showcase-deck) .packet { display: grid; grid-template-columns: 1fr 1fr 3fr; border: 2px solid var(--ink); border-radius: 10px; overflow: hidden; font-family: var(--mono); }
+.slidev-layout:is(.contest-deck, .showcase-deck) .packet > div { padding: 16px 18px; display: grid; gap: 4px; border-right: 2px solid var(--ink); }
+.slidev-layout:is(.contest-deck, .showcase-deck) .packet > div:last-child { border-right: 0; background: var(--blue-soft); }
+.slidev-layout:is(.contest-deck, .showcase-deck) .packet b { font-size: 1.2rem; }
+.slidev-layout:is(.contest-deck, .showcase-deck) .packet span { font-size: 0.78rem; color: var(--muted); font-family: var(--sans); }
 
 /* ── Closing links ── */
-.slidev-layout.contest-deck .links { display: grid; gap: 8px; font-family: var(--mono); font-size: 0.95rem; }
-.slidev-layout.contest-deck .links span { font-family: var(--sans); font-size: 0.75rem; color: var(--muted); display: inline-block; min-width: 64px; }
+.slidev-layout:is(.contest-deck, .showcase-deck) .links { display: grid; gap: 8px; font-family: var(--mono); font-size: 0.95rem; }
+.slidev-layout:is(.contest-deck, .showcase-deck) .links span { font-family: var(--sans); font-size: 0.75rem; color: var(--muted); display: inline-block; min-width: 64px; }
 
 /* ── Chapter title slides ── */
-.slidev-layout.contest-deck .chapter { display: grid; gap: 14px; }
-.slidev-layout.contest-deck .chapter .no { font-size: 1.1rem; font-weight: 800; color: var(--blue); letter-spacing: 0.02em; font-variant-numeric: tabular-nums; }
-.slidev-layout.contest-deck .chapter h1 { font-size: 3.4rem; }
-.slidev-layout.contest-deck .chapter .of { font-size: 1rem; color: var(--muted); }
-.slidev-layout.contest-deck .chapter::after { content: ""; width: 72px; height: 4px; background: var(--blue); border-radius: 2px; margin-top: 8px; }
+.slidev-layout:is(.contest-deck, .showcase-deck) .chapter { display: grid; gap: 14px; }
+.slidev-layout:is(.contest-deck, .showcase-deck) .chapter .no { font-size: 1.1rem; font-weight: 800; color: var(--blue); letter-spacing: 0.02em; font-variant-numeric: tabular-nums; }
+.slidev-layout:is(.contest-deck, .showcase-deck) .chapter h1 { font-size: 3.4rem; }
+.slidev-layout:is(.contest-deck, .showcase-deck) .chapter .of { font-size: 1rem; color: var(--muted); }
+.slidev-layout:is(.contest-deck, .showcase-deck) .chapter::after { content: ""; width: 72px; height: 4px; background: var(--blue); border-radius: 2px; margin-top: 8px; }
 
 /* theme lists: square bullets + indented li — our lists are plain lines */
-.slidev-layout.contest-deck ul.lines, .slidev-layout.contest-deck ol.asks { list-style: none; padding: 0; margin: 0; }
-.slidev-layout.contest-deck ul.lines > li, .slidev-layout.contest-deck ol.asks > li { margin-left: 0; padding-left: 0; }
-.slidev-layout.contest-deck .figures.grid2 { display: grid; grid-template-columns: repeat(2, max-content); gap: 30px 72px; }
+.slidev-layout:is(.contest-deck, .showcase-deck) ul.lines, .slidev-layout:is(.contest-deck, .showcase-deck) ol.asks { list-style: none; padding: 0; margin: 0; }
+.slidev-layout:is(.contest-deck, .showcase-deck) ul.lines > li, .slidev-layout:is(.contest-deck, .showcase-deck) ol.asks > li { margin-left: 0; padding-left: 0; }
+.slidev-layout:is(.contest-deck, .showcase-deck) .figures.grid2 { display: grid; grid-template-columns: repeat(2, max-content); gap: 30px 72px; }
 
 /* ── Explanation block under a headline: short lines, bold lead + plain text ── */
-.slidev-layout.contest-deck ul.explain { list-style: none; margin: 4px 0 0; padding: 0; display: grid; gap: 9px; max-width: 60ch; }
-.slidev-layout.contest-deck ul.explain > li { margin: 0; padding: 0 0 0 16px; position: relative; font-size: 1.02rem; line-height: 1.5; color: var(--ink); }
-.slidev-layout.contest-deck ul.explain > li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 6px; height: 6px; border-radius: 50%; background: var(--blue); }
-.slidev-layout.contest-deck .explain b { font-weight: 700; }
-.slidev-layout.contest-deck .explain .muted { color: var(--muted); }
-.slidev-layout.contest-deck .note-line { font-size: 0.9rem; color: var(--muted); border-top: 1px solid var(--line); padding-top: 10px; max-width: 64ch; }
+.slidev-layout:is(.contest-deck, .showcase-deck) ul.explain { list-style: none; margin: 4px 0 0; padding: 0; display: grid; gap: 9px; max-width: 60ch; }
+.slidev-layout:is(.contest-deck, .showcase-deck) ul.explain > li { margin: 0; padding: 0 0 0 16px; position: relative; font-size: 1.02rem; line-height: 1.5; color: var(--ink); }
+.slidev-layout:is(.contest-deck, .showcase-deck) ul.explain > li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 6px; height: 6px; border-radius: 50%; background: var(--blue); }
+.slidev-layout:is(.contest-deck, .showcase-deck) .explain b { font-weight: 700; }
+.slidev-layout:is(.contest-deck, .showcase-deck) .explain .muted { color: var(--muted); }
+.slidev-layout:is(.contest-deck, .showcase-deck) .note-line { font-size: 0.9rem; color: var(--muted); border-top: 1px solid var(--line); padding-top: 10px; max-width: 64ch; }
 
 /* ── Architecture: two request paths into the same driver ── */
-.slidev-layout.contest-deck .arch { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
-.slidev-layout.contest-deck .path { display: grid; gap: 3px; align-content: start; }
-.slidev-layout.contest-deck .path .label { font-size: 0.8rem; font-weight: 700; color: var(--muted); }
-.slidev-layout.contest-deck .node { border: 1.5px solid var(--line); border-radius: 10px; padding: 6px 14px; font-size: 0.95rem; font-weight: 650; display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
-.slidev-layout.contest-deck .node small { font-size: 0.75rem; font-weight: 500; color: var(--muted); }
-.slidev-layout.contest-deck .node.ours { border-color: var(--blue); background: var(--blue-soft); color: var(--blue); }
-.slidev-layout.contest-deck .node.db { border-color: var(--ink); }
-.slidev-layout.contest-deck .down { text-align: center; color: var(--muted); font-size: 0.7rem; line-height: 1; }
+.slidev-layout:is(.contest-deck, .showcase-deck) .arch { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+.slidev-layout:is(.contest-deck, .showcase-deck) .path { display: grid; gap: 3px; align-content: start; }
+.slidev-layout:is(.contest-deck, .showcase-deck) .path .label { font-size: 0.8rem; font-weight: 700; color: var(--muted); }
+.slidev-layout:is(.contest-deck, .showcase-deck) .node { border: 1.5px solid var(--line); border-radius: 10px; padding: 6px 14px; font-size: 0.95rem; font-weight: 650; display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
+.slidev-layout:is(.contest-deck, .showcase-deck) .node small { font-size: 0.75rem; font-weight: 500; color: var(--muted); }
+.slidev-layout:is(.contest-deck, .showcase-deck) .node.ours { border-color: var(--blue); background: var(--blue-soft); color: var(--blue); }
+.slidev-layout:is(.contest-deck, .showcase-deck) .node.db { border-color: var(--ink); }
+.slidev-layout:is(.contest-deck, .showcase-deck) .down { text-align: center; color: var(--muted); font-size: 0.7rem; line-height: 1; }
 
 /* never let flex squeeze a block (overflow:hidden boxes would clip) — overflow should be visible and fixed */
-.slidev-layout.contest-deck > * { flex-shrink: 0; }
+.slidev-layout:is(.contest-deck, .showcase-deck) > * { flex-shrink: 0; }
 
 /* Line breaks: balance short text, avoid orphans in body text, keep names/terms together */
-.slidev-layout.contest-deck .sub, .slidev-layout.contest-deck .lead, .slidev-layout.contest-deck .kicker, .slidev-layout.contest-deck .note-line { text-wrap: balance; }
-.slidev-layout.contest-deck li, .slidev-layout.contest-deck p { text-wrap: pretty; }
-.slidev-layout.contest-deck .nw { white-space: nowrap; }
+.slidev-layout:is(.contest-deck, .showcase-deck) .sub, .slidev-layout:is(.contest-deck, .showcase-deck) .lead, .slidev-layout:is(.contest-deck, .showcase-deck) .kicker, .slidev-layout:is(.contest-deck, .showcase-deck) .note-line { text-wrap: balance; }
+.slidev-layout:is(.contest-deck, .showcase-deck) li, .slidev-layout:is(.contest-deck, .showcase-deck) p { text-wrap: pretty; }
+.slidev-layout:is(.contest-deck, .showcase-deck) .nw { white-space: nowrap; }
