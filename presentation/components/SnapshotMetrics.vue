@@ -11,10 +11,10 @@ const data = computed(() => {
     const m = snapshot.metrics
     return [
       { label: 'GitHub stars (4 repos)', value: m.stars.total },
-      { label: 'Unique clones (14d, per-repo sum)', value: `~${m.uniqueClones14d.total}`, note: m.uniqueClones14d.note },
       { label: 'Merged PRs', value: m.mergedPRs.total },
       { label: 'PyPI releases', value: m.pypiReleases.total },
       { label: 'Tests (CI-enforced)', value: m.tests.total.toLocaleString() },
+      { label: 'CI combinations (live DB)', value: '20 (Python 5 × CUBRID 4)' },
     ]
   }
   if (props.category === 'performance') {

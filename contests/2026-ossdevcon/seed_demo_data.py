@@ -1,7 +1,7 @@
 """Seed demo data — On-nara style e-approval (행안부 전자결재 시나리오).
 
 Simulates the type of data in CUBRID government deployments.
-Oracle-reviewed: added current_step, due_date, updated_at for bottleneck queries.
+current_step, due_date, updated_at support the bottleneck query (demo step #2).
 """
 
 import random
@@ -47,7 +47,7 @@ cur.executemany(
     "INSERT INTO agencies (name, category, region) VALUES (?, ?, ?)", agencies
 )
 
-# ── 문서 (Oracle review: current_step, due_date, updated_at 추가) ──
+# ── 문서 (병목 분석용 current_step, due_date, updated_at) ──
 cur.execute("""
     CREATE TABLE documents (
         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -184,17 +184,7 @@ print(f"Approvals: {cur.fetchone()[0]}")
 
 print("\n── Demo query previews ──")
 
-# Q3: 부처별 처리 현황
-cur.execute("""
-    SELECT a.name, d.status, COUNT(*) as cnt
-    FROM documents d JOIN agencies a ON d.agency_id = a.id
-    GROUP BY a.name, d.status ORDER BY a.name, d.status
-""")
-print("Q3 sample (ministry × status):")
-for row in cur.fetchall()[:4]:
-    print(f"  {row[0]} | {row[1]} | {row[2]}")
-
-# Q4: 결재 지연 TOP 5 (병목)
+# #2: 결재 지연 TOP 5 (병목)
 cur.execute("""
     SELECT a.name, COUNT(*) as pending_count,
            AVG(DATEDIFF(SYS_DATETIME, d.created_at)) as avg_days
@@ -202,7 +192,7 @@ cur.execute("""
     WHERE d.status IN ('pending','in_review')
     GROUP BY a.name ORDER BY pending_count DESC LIMIT 5
 """)
-print("\nQ4 sample (bottleneck):")
+print("#2 bottleneck TOP 5:")
 for row in cur.fetchall():
     print(f"  {row[0]}: {row[1]} pending, avg {row[2]:.1f} days")
 
@@ -213,12 +203,12 @@ cur.execute("""
     WHERE d.security_level IN ('restricted','confidential')
     GROUP BY a.name ORDER BY confidential_count DESC LIMIT 5
 """)
-print("\nQ5 sample (confidential count only):")
+print("\n#3 confidential count only:")
 for row in cur.fetchall():
     print(f"  {row[0]}: {row[1]} restricted/confidential")
 
 # Q6: 승인 처리 시도 → REJECTED (execute_query는 SELECT만 허용)
-print("\nQ6: 'UPDATE documents SET status=approved' → REJECTED (read-only whitelist)")
+print("\n#4 'UPDATE documents SET status=approved' → REJECTED (read-only whitelist)")
 
 cur.close()
 conn.close()

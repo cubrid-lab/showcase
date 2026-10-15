@@ -23,7 +23,7 @@ Gitter, and started the SQLAlchemy Korea community. Then we asked:
 
 | File | Purpose |
 |---|---|
-| [SLIDES.md](contests/2026-ossdevcon/SLIDES.md) | 14-slide presentation (Oracle-reviewed) |
+| [SLIDES.md](contests/2026-ossdevcon/SLIDES.md) | 14-slide presentation |
 | [APPENDIX.md](contests/2026-ossdevcon/APPENDIX.md) | Technical reference for Q&A |
 | [EXPECTED_QA.md](contests/2026-ossdevcon/EXPECTED_QA.md) | 12 anticipated questions + answers |
 | [DEMO_RUNBOOK.md](contests/2026-ossdevcon/DEMO_RUNBOOK.md) | On-nara demo script + checklist |
@@ -35,7 +35,6 @@ Gitter, and started the SQLAlchemy Korea community. Then we asked:
 | Metric | Value |
 |---|---|
 | GitHub stars | 119 |
-| Unique clones (14d, per-repo sum) | ~926 |
 | Merged PRs | 450 |
 | PyPI releases | 35 |
 | Tests | 2,200 (CI-enforced) |
@@ -47,7 +46,7 @@ Gitter, and started the SQLAlchemy Korea community. Then we asked:
 
 | Language | Driver | ORM | Status |
 |---|---|---|---|
-| **Python** | pycubrid v1.7.0 | sqlalchemy-cubrid v1.7.0 | **Complete** |
+| **Python** | pycubrid v1.7.1 | sqlalchemy-cubrid v1.7.1 | **Complete** |
 | TypeScript | cubrid-client v1.1.0 | drizzle-cubrid v0.2.1 | In progress |
 | Go | cubrid-go v0.2.1 | gorm-cubrid v0.1.0 | In progress |
 | Rust | cubrid-rs v0.1.0 | sea-orm-cubrid v0.1.0 | In progress |
