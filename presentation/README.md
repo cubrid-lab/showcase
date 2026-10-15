@@ -1,6 +1,11 @@
-# Presentation — CUBRID Python Ecosystem
+# 2026 OSS Developer Contest — Slidev Presentation
 
 Slidev-based presentation for the 2026 OSS Developer Contest Finals.
+
+This directory is specific to that contest. See the [showcase index](../README.md)
+for other presentations and the [Operator first-validation brief](../programs/2026-builder-season4/first-validation/)
+for the Builder Season 4 submission. Its Korean and English PPTX requirement
+needs a separate preparation workflow; this deck exports PDF.
 
 ## Development
 
