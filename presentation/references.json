@@ -19,9 +19,9 @@
       "verified": true
     },
     "cubrid-public-sector": {
-      "claim": "CUBRID is #2 in Korean public sector DBMS: 13.24%, 2,367 installations (end of 2025)",
-      "source": "https://www.mois.go.kr/frt/bbs/type010/commonSelectBoardArticle.do?bbsId=BBSMSTR_000000000008&nttId=129225",
-      "evidence": "MOIS/NIA 2026 government-wide EA public sector information resources statistics report (end-2025 data); previous edition: 10.58%, 3rd",
+      "claim": "CUBRID ranks second among the top five public-sector DBMS vendors: 2,367 installations, 13.24% of their combined 17,883 installations (end of 2025)",
+      "source": "https://www.data.go.kr/data/3038513/fileData.do",
+      "evidence": "MOIS/NIA 2026 government-wide EA public-sector information resources statistics report, printed page 57, table 46 (top-five vendors). The percentage denominator is the top-five total, not all DBMS installations.",
       "verified": true
     },
     "mcp-world-first": {

@@ -10,7 +10,7 @@ Gitter에서 Mike와 교류한 후, SQLAlchemy 2.0 기준으로 처음부터 다
 
 ## 문제
 
-CUBRID는 **한국 공공부문 DBMS 점유율 2위 — 13.24%, 2,367개 설치** (2025년 말, 행안부·NIA 공공부문 정보자원 현황 통계보고서). 그런데 공식 Python 드라이버의 마지막 릴리스는 **2014년 5월** — asyncio 없음, SQLAlchemy 2.x 없음, 현대 Python 미지원. 이 시스템들을 운영하는 팀에게는 유지보수되는 Python 경로가 없었습니다.
+CUBRID는 **공공부문 DBMS 상위 5개 벤더 중 2위 — 2,367개 설치, 상위 5개 합계 대비 13.24%** (2025년 말, [행안부·NIA 보고서 인쇄면 57쪽 표 46](https://www.data.go.kr/data/3038513/fileData.do)). 그런데 공식 Python 드라이버의 마지막 릴리스는 **2014년 5월** — asyncio 없음, SQLAlchemy 2.x 없음, 현대 Python 미지원. 이 시스템들을 운영하는 팀에게는 유지보수되는 Python 경로가 없었습니다.
 
 ## 해결
 

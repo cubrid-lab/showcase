@@ -9,7 +9,7 @@ Rebuilt from scratch for SQLAlchemy 2.0, then built the driver too.
 
 ## The Problem
 
-CUBRID is **#2 in the Korean public sector DBMS market — 13.24%, 2,367 installations**, second only to Oracle (end of 2025, MOIS/NIA public sector information resources report). The official Python driver's last release was **May 2014** — no asyncio, no SQLAlchemy 2.x, no modern Python. Teams running those systems had no maintained Python path.
+CUBRID ranks **second among the top five Korean public-sector DBMS vendors**, with **2,367 installations — 13.24% of the top-five total**, after Oracle (end of 2025, [MOIS/NIA report, printed page 57, table 46](https://www.data.go.kr/data/3038513/fileData.do)). The official Python driver's last release was **May 2014** — no asyncio, no SQLAlchemy 2.x, no modern Python. Teams running those systems had no maintained Python path.
 
 ## The Solution
 
