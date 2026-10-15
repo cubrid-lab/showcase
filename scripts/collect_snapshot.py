@@ -214,7 +214,8 @@ def main():
     print(f"  Stars: {snapshot['metrics']['stars']['total']}")
     print(f"  Merged PRs: {snapshot['metrics']['mergedPRs']['total']}")
     clones = snapshot['metrics']['uniqueClones14d']
-    print(f"  Unique clones (14d, per-repo sum): {clones['total']}")
+    # Clone traffic is dominated by CI runners — recorded, not an adoption metric
+    print(f"  Unique clones (14d, per-repo sum, CI-dominated): {clones['total']}")
     if clones.get('stale'):
         print("    (some clone data unavailable -- may need push access)")
 
