@@ -4,10 +4,22 @@
 
 pycubrid · sqlalchemy-cubrid · cubrid-cookbook-python · cubrid-mcp-server
 
+## Background
+
+In 2020, we joined the OSS Contribution Hackathon (컨트리뷰톤, CNBT-41) as
+mentor (Yeongseon) and mentee (Gyeongjun). We contributed to SQLAlchemy
+and sqlalchemy-hana, connected with SQLAlchemy creator Mike Bayer via
+Gitter, and started the SQLAlchemy Korea community. Then we asked:
+"Why is CUBRID's Python ecosystem dead?" — and built the answer.
+
 ## Schedule
 
 - Round 1 (written): Passed
 - Round 2 (presentation): Q4 2026
+
+## Scoring
+
+Usability 15 · OSS 15 · PT 10 · Demo 10 · Testing 10 · Community 5 · License 5
 
 ## Contents
 
@@ -51,3 +63,14 @@ Terminal demo GIFs are generated from VHS (.tape) scripts in each repo:
 | cubrid-mcp-server | `demos/mcp-demo.tape` | `docs/demo.gif` |
 | cubrid-cookbook | `demos/agent-state.tape` | `docs/demo-agent-state.gif` |
 | cubrid-cookbook | `demos/mcp-toolchain.tape` | `docs/demo-mcp-toolchain.gif` |
+
+## Presentation and supporting evidence
+
+- [Slidev presentation](../../presentation/README.md) — development and export instructions
+- [Metrics snapshot](metrics/SNAPSHOT.md) — provenance and measurement details
+- [English one-pager](../../press-kit/ONE_PAGER.md)
+- [Korean one-pager](../../press-kit/ONE_PAGER.ko.md)
+
+Historical metrics remain in the [dated snapshot](../../presentation/snapshots/2026-09-12.json).
+Clone traffic includes CI activity and is not an adoption metric; see the
+[measurement notes](metrics/SNAPSHOT.md) before reusing any traffic figures.

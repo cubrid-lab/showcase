@@ -1,67 +1,48 @@
-# CUBRID Python Ecosystem — Showcase
+# CUBRID Lab — Showcase
 
-Contest entries, presentations, demo materials, and promotional content
-for the [cubrid-lab](https://github.com/cubrid-lab) Python ecosystem.
+Presentations, contest entries, program submissions, demos, and supporting
+materials for [cubrid-lab](https://github.com/cubrid-lab) projects, including
+the CUBRID client ecosystem and the CUBRID Kubernetes Operator.
 
-## Our Story
+## Presentations and submissions
 
-In 2020, we joined the OSS Contribution Hackathon (컨트리뷰톤, CNBT-41) as
-mentor (Yeongseon) and mentee (Gyeongjun). We contributed to SQLAlchemy
-and sqlalchemy-hana, connected with SQLAlchemy creator Mike Bayer via
-Gitter, and started the SQLAlchemy Korea community. Then we asked:
-"Why is CUBRID's Python ecosystem dead?" — and built the answer.
+| Event / program | Project | Materials |
+|---|---|---|
+| 2026 OSS Developer Contest | CUBRID Python ecosystem | [Contest brief, slides, Q&A, demo, and evidence](contests/2026-ossdevcon/) · [Slidev deck](presentation/) |
+| 2026 Builder Season 4 — First Validation | CUBRID Kubernetes Operator | [Presentation brief and Korean / English web sources](events/2026-builder-season4/01-validation/) |
 
-## 2026 OSS Developer Contest
+## Repository layout
 
-| | |
+| Path | Purpose |
 |---|---|
-| Entry | pycubrid · sqlalchemy-cubrid · cubrid-cookbook-python · cubrid-mcp-server |
-| Status | Round 1 passed → Finals presentation (Q4 2026) |
-| Scoring | Usability 15 · OSS 15 · PT 10 · Demo 10 · Testing 10 · Community 5 · License 5 |
+| [events/](events/) | Event briefs and presentation milestones, regardless of event type |
+| [contests/](contests/) | Existing contest materials, with their original paths preserved |
+| [programs/](programs/) | Program submissions, validation presentations, and application examples |
+| [presentation/](presentation/) | Shared Slidev tooling and deck entry files for web, PDF, and PPTX |
+| [demo-videos/](demo-videos/) | Demo video materials |
+| [press-kit/](press-kit/) | Existing CUBRID Python ecosystem one-pagers |
+| [scripts/](scripts/) | Build, PDF export, and metrics collection for the existing contest deck |
 
-### Contest Materials → [`contests/2026-ossdevcon/`](contests/2026-ossdevcon/)
+## Adding a presentation
 
-| File | Purpose |
-|---|---|
-| [SLIDES.md](contests/2026-ossdevcon/SLIDES.md) | 32-slide talk script |
-| [APPENDIX.md](contests/2026-ossdevcon/APPENDIX.md) | Technical reference for Q&A |
-| [EXPECTED_QA.md](contests/2026-ossdevcon/EXPECTED_QA.md) | 12 anticipated questions + answers |
-| [DEMO_RUNBOOK.md](contests/2026-ossdevcon/DEMO_RUNBOOK.md) | On-nara demo script + checklist |
-| [VERIFY.md](contests/2026-ossdevcon/VERIFY.md) | Judge verification guide |
-| [metrics/SNAPSHOT.md](contests/2026-ossdevcon/metrics/SNAPSHOT.md) | Verified metrics (re-measure on presentation day) |
-
-## Quick Numbers (2026-09-12)
-
-| Metric | Value |
-|---|---|
-| GitHub stars | 119 |
-| Merged PRs | 450 |
-| PyPI releases | 35 |
-| Tests | 2,200 (CI-enforced) |
-| CI combinations | Python 5 × CUBRID 4 = 20 |
-| Docs sites | 4/4 live |
-| Korean docs | 34 pages |
-
-## Ecosystem
-
-| Language | Driver | ORM | Status |
-|---|---|---|---|
-| **Python** | pycubrid v1.7.1 | sqlalchemy-cubrid v1.7.1 | **Complete** |
-| TypeScript | cubrid-client v1.1.0 | drizzle-cubrid v0.2.1 | In progress |
-| Go | cubrid-go v0.2.1 | gorm-cubrid v0.1.0 | In progress |
-| Rust | cubrid-rs v0.1.0 | sea-orm-cubrid v0.1.0 | In progress |
-
-## Press Kit → [`press-kit/`](press-kit/)
-
-- [ONE_PAGER.md](press-kit/ONE_PAGER.md) — English one-pager
-- [ONE_PAGER.ko.md](press-kit/ONE_PAGER.ko.md) — Korean one-pager
-
-## Future Programs → [`programs/`](programs/)
-
-Reusable templates for future contest/grant applications:
-- [APPLICATION_TEMPLATE.md](programs/templates/APPLICATION_TEMPLATE.md)
-- [PITCH_TEMPLATE.md](programs/templates/PITCH_TEMPLATE.md)
-- [DEMO_TEMPLATE.md](programs/templates/DEMO_TEMPLATE.md)
+1. Add new material under `events/<year>-<event>/<milestone>/`, whether it
+   is a contest, program, conference, or meetup. Keep existing contest paths
+   intact. Use the index to identify the project and describe the event type.
+2. Include a `README.md` with the project, audience, event date, submission
+   deadline, required formats, and source of the requirements.
+3. Keep the event brief and supporting evidence in that event folder. Put
+   web slide sources in `presentation/decks/<year>-<event>/<milestone>/`
+   as `SLIDES.ko.md` and `SLIDES.en.md`, with entry files in `presentation/`.
+   This keeps imports within the Slidev project root and reuses its tooling.
+   Link the sources from the event brief, and generate PDF and PPTX from
+   those sources. Mark preparation and submission separately.
+4. Add a row to the presentation index above. Keep project-specific metrics,
+   biographies, and claims in the corresponding event materials with sources.
+5. Check the required delivery format for each event. Follow the
+   [Operator workflow](events/2026-builder-season4/01-validation/#웹-원본에서-발표와-내보내기)
+   for web preview, static builds, and Korean/English PDF and PPTX export.
+   Generated files stay out of Git; keep final submissions as event release
+   attachments, with the source commit recorded in the event brief.
 
 ## License
 
