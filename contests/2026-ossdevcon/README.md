@@ -65,28 +65,6 @@ Terminal demo GIFs are generated from VHS (.tape) scripts in each repo:
 - [English one-pager](../../press-kit/ONE_PAGER.md)
 - [Korean one-pager](../../press-kit/ONE_PAGER.ko.md)
 
-### Historical ecosystem context (2026-09-12)
-
-The following tables were moved from the showcase homepage. They preserve
-the context of this contest entry; they are not current organization-wide
-metrics or evidence for the Kubernetes Operator. Re-verify claims before reuse.
-
-| Metric | Value |
-|---|---|
-| GitHub stars | 119 |
-| Unique clones (14d, per-repo sum) | ~926 |
-| Merged PRs | 450 |
-| PyPI releases | 35 |
-| Tests | 2,200 (CI-enforced) |
-| CI combinations | Python 5 × CUBRID 4 = 20 |
-| Docs sites | 4/4 live |
-| Korean docs | 34 pages |
-
-### Ecosystem
-
-| Language | Driver | ORM | Status |
-|---|---|---|---|
-| **Python** | pycubrid v1.7.0 | sqlalchemy-cubrid v1.7.0 | **Complete** |
-| TypeScript | cubrid-client v1.1.0 | drizzle-cubrid v0.2.1 | In progress |
-| Go | cubrid-go v0.2.1 | gorm-cubrid v0.1.0 | In progress |
-| Rust | cubrid-rs v0.1.0 | sea-orm-cubrid v0.1.0 | In progress |
+Historical metrics remain in the [dated snapshot](../../presentation/snapshots/2026-09-12.json).
+Clone traffic includes CI activity and is not an adoption metric; see the
+[measurement notes](metrics/SNAPSHOT.md) before reusing any traffic figures.
