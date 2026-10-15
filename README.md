@@ -6,10 +6,15 @@ the CUBRID client ecosystem and the CUBRID Kubernetes Operator.
 
 ## Presentations and submissions
 
-| Event / program | Project | Materials |
-|---|---|---|
-| 2026 OSS Developer Contest | CUBRID Python ecosystem | [Contest brief, slides, Q&A, demo, and evidence](contests/2026-ossdevcon/) · [Slidev deck](presentation/) |
-| 2026 Builder Season 4 — First Validation | CUBRID Kubernetes Operator | [Presentation brief and Korean / English web sources](events/2026-builder-season4/01-validation/) |
+| Event / program | Project | Presentation sources | Overview |
+|---|---|---|---|
+| 2026 OSS Developer Contest | CUBRID Python ecosystem | [Slides](presentation/slides.md) · [Talk script](contests/2026-ossdevcon/SLIDES.md) | [Contest materials](contests/2026-ossdevcon/) |
+| 2026 Builder Season 4 | CUBRID Kubernetes Operator | First validation: [한국어](presentation/decks/2026-builder-season4/01-validation/SLIDES.ko.md) · [English](presentation/decks/2026-builder-season4/01-validation/SLIDES.en.md) | [Program and presentation rounds](events/2026-builder-season4/) |
+
+The links above open slide sources on GitHub. A hosted web slide viewer is
+not deployed yet. The Operator sources are seven-slide writing scaffolds;
+see the [first-validation brief](events/2026-builder-season4/01-validation/)
+for their preparation state and local preview commands.
 
 ## Repository layout
 
@@ -28,8 +33,10 @@ the CUBRID client ecosystem and the CUBRID Kubernetes Operator.
 1. Add new material under `events/<year>-<event>/<milestone>/`, whether it
    is a contest, program, conference, or meetup. Keep existing contest paths
    intact. Use the index to identify the project and describe the event type.
-2. Include a `README.md` with the project, audience, event date, submission
-   deadline, required formats, and source of the requirements.
+2. For a recurring program, include an event-level `README.md` linking its
+   presentation rounds. Each milestone gets a `README.md` with the project,
+   audience, event date, submission deadline, required formats, and source
+   of the requirements. Add future rounds when preparation starts.
 3. Keep the event brief and supporting evidence in that event folder. Put
    web slide sources in `presentation/decks/<year>-<event>/<milestone>/`
    as `SLIDES.ko.md` and `SLIDES.en.md`, with entry files in `presentation/`.
