@@ -13,7 +13,7 @@
 ## 소개
 
 2020년 NIPA 오픈소스 컨트리뷰톤에서 멘토-멘티로 만나 SQLAlchemy와
-sqlalchemy-hana에 기여하면서 데이터베이스 방언 개발을 시작했습니다.
+sqlalchemy-hana에 기여하면서 데이터베이스 dialect 개발을 시작했습니다.
 그 경험을 바탕으로 CUBRID의 Python 생태계를 구축했습니다.
 
 ## 구축한 생태계 (4개 패키지)
@@ -21,7 +21,7 @@ sqlalchemy-hana에 기여하면서 데이터베이스 방언 개발을 시작했
 | 패키지 | 설명 | PyPI |
 |---|---|---|
 | pycubrid | 순수 Python DB-API 2.0 드라이버 (asyncio, TLS) | v1.7.1 |
-| sqlalchemy-cubrid | SQLAlchemy 2.0 방언 (ORM, Alembic, ENUM) | v1.7.1 |
+| sqlalchemy-cubrid | SQLAlchemy 2.0 dialect (ORM, Alembic, ENUM) | v1.7.1 |
 | cubrid-cookbook-python | 68 예제 + 7 템플릿 (FastAPI~AI Agent) | — |
 | cubrid-mcp-server | **세계 최초 CUBRID MCP 서버** (AI/LLM 접근) | v0.4.0 |
 

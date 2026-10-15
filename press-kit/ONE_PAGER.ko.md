@@ -3,8 +3,8 @@
 ## 우리의 이야기
 
 2020년 오픈소스 컨트리뷰톤(CNBT-41)에서 멘토-멘티로 만났습니다.
-SQLAlchemy와 sqlalchemy-hana에 기여하며 방언 API를 배웠습니다.
-SQLAlchemy 창시자 Mike Bayer가 2012년에 CUBRID 방언을 만들었지만 유지보수가 끊겼습니다.
+SQLAlchemy와 sqlalchemy-hana에 기여하며 dialect API를 배웠습니다.
+SQLAlchemy 창시자 Mike Bayer가 2012년에 CUBRID dialect를 만들었지만 유지보수가 끊겼습니다.
 Gitter에서 Mike와 교류한 후, SQLAlchemy 2.0 기준으로 처음부터 다시 쓰고
 드라이버도 순수 Python으로 새로 만들었습니다.
 
