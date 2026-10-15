@@ -1,22 +1,33 @@
 <script setup>
 import references from '../references.json'
 
+// claim: one reference id, or several comma-separated (one footer per slide —
+// the footer is absolutely positioned, so separate footers would overlap)
 const props = defineProps({
   claim: { type: String, required: true }
 })
 
-const ref = references.references[props.claim]
+const entries = props.claim.split(',').map(s => s.trim()).flatMap(id => {
+  const entry = references.references[id]
+  if (!entry) {
+    console.warn(`EvidenceFooter: unknown claim id "${id}"`)
+    return []
+  }
+  return [{ id, ...entry }]
+})
 </script>
 
 <template>
-  <div v-if="ref" class="evidence-footer">
-    <span class="badge" :class="{ verified: ref.verified, unverified: !ref.verified }">
-      {{ ref.verified ? 'Verified' : 'Needs verification' }}
-    </span>
-    <a v-if="ref.source?.startsWith('http')" :href="ref.source" target="_blank" class="source-link">
-      Source
-    </a>
-    <span v-else class="source-text">{{ ref.source }}</span>
+  <div v-if="entries.length" class="evidence-footer">
+    <template v-for="entry in entries" :key="entry.id">
+      <span class="badge" :class="{ verified: entry.verified, unverified: !entry.verified }" :title="entry.claim">
+        {{ entry.verified ? 'Verified' : 'Needs verification' }}
+      </span>
+      <a v-if="entry.source?.startsWith('http')" :href="entry.source" target="_blank" class="source-link" :title="entry.claim">
+        Source
+      </a>
+      <span v-else class="source-text">{{ entry.source }}</span>
+    </template>
   </div>
 </template>
 

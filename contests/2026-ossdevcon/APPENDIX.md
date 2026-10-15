@@ -158,29 +158,29 @@
 | cubrid-cookbook-python | 2026-03 | ⭐25 | 6 months |
 | **Total** | — | **⭐119** | — |
 
-### Unique Clones (14-day, GitHub Traffic API)
+### GitHub Clone Traffic — not an adoption metric
 
-> Per-repo unique clones reported individually by GitHub Traffic API.
-> The same person cloning multiple repos is counted once per repo —
-> cross-repo overlap is **not removed** from the sum total.
+> Measured 2026-09-27. `actions/checkout` performs a real git fetch, and every
+> GitHub-hosted runner counts as a distinct cloner, so clone traffic is
+> dominated by our own CI (matrix jobs × runs). We no longer quote it as
+> adoption. Earlier drafts claimed CI was excluded — that was wrong.
 
-| Repo | Unique Clones (14d) | Trend |
-|---|---|---|
-| pycubrid | **363** | ↑ from 305 last week |
-| sqlalchemy-cubrid | **268** | ↑ from 225 |
-| cubrid-mcp-server | ~200 | stable |
-| cubrid-cookbook-python | ~95 | stable |
-| **Per-repo sum** | **~926** | **↑ 14% week-over-week** |
+| Repo | Unique cloners (14d) | Total clones (14d) | CI workflow runs (14d) |
+|---|---:|---:|---:|
+| pycubrid | 495 | 4,969 | 700 |
+| sqlalchemy-cubrid | 547 | 5,742 | 1,103 |
+| cubrid-mcp-server | 277 | 1,493 | 96 |
+| cubrid-cookbook-python | 184 | 1,018 | 335 |
 
 ### PyPI Downloads
 
 | Package | Day | Week | Month | Note |
 |---|---:|---:|---:|---|
-| pycubrid | 129 | 653 | **3,778** | ~125/day organic |
-| sqlalchemy-cubrid | 0* | 84 | **420** | *CI-inflated excluded |
-| cubrid-mcp-server | — | — | — | Pending PyPI (#154) |
+| pycubrid | 129 | 653 | **3,778** | includes CI installs |
+| sqlalchemy-cubrid | 0 | 84 | **420** | includes CI installs |
+| cubrid-mcp-server | — | — | — | Published on PyPI (v0.4.0); stats not yet collected |
 
-*Note: Our CI (cookbook smoke + integration tests) generates ~20-50 downloads/day. Use "GitHub unique clones" as the primary adoption metric — GitHub Actions' checkout uses tarball API and is automatically excluded.*
+*Note: Our CI (cookbook smoke + integration tests) generates ~20-50 downloads/day, so PyPI counts include CI. Neither PyPI downloads nor clone traffic is a clean adoption signal; we cite merged PRs, releases, and stars instead.*
 
 ### Merged PRs (Collaboration Evidence)
 
@@ -198,7 +198,7 @@
 
 | Language | Driver | Version | ORM | Version | Status |
 |---|---|---|---|---|---|
-| **Python** | pycubrid | v1.7.0 | sqlalchemy-cubrid | v1.7.0 | **Complete** |
+| **Python** | pycubrid | v1.7.1 | sqlalchemy-cubrid | v1.7.1 | **Complete** |
 | TypeScript | cubrid-client | v1.1.0 | drizzle-cubrid | v0.2.1 | In progress |
 | Go | cubrid-go | v0.2.1 | gorm-cubrid | v0.1.0 | In progress |
 | Rust | cubrid-rs | v0.1.0 | sea-orm-cubrid | v0.1.0 | In progress |

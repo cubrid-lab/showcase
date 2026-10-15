@@ -25,26 +25,32 @@ Usability 15 · OSS 15 · PT 10 · Demo 10 · Testing 10 · Community 5 · Licen
 
 | File | Purpose |
 |---|---|
-| SLIDES.md | 14-slide presentation (Oracle-reviewed, On-nara demo) |
+| SLIDES.md | Current 32-slide talk script, generated from `presentation/slides.md` |
 | APPENDIX.md | Technical reference for Q&A |
 | EXPECTED_QA.md | 12 anticipated questions + answers |
-| DEMO_RUNBOOK.md | On-nara demo script (4 min) + checklist |
+| DEMO_RUNBOOK.md | Historical On-nara demo script (2 min) + checklist |
 | VERIFY.md | Judge verification guide |
 | seed_demo_data.py | On-nara e-approval demo data (agencies/documents/approvals) |
 | seed_demo_data_products.py | Alternative product catalog demo data |
 | cubrid-corp-outreach.md | CUBRID Corp outreach email draft |
 | blog-post-draft.md | Tech blog post draft |
 | metrics/SNAPSHOT.md | Verified metrics snapshot (re-measure on presentation day) |
-| captures/ | Demo rehearsal scripts + backup recording |
+| captures/ | Historical demo rehearsal scripts + backup recording |
 
 ## Consolidation Note
 
 This folder was consolidated from two earlier versions:
 - `2026-ossdevcon/` (original, product-based demo)
-- `2026-ossdevon/` (evolved, Oracle-reviewed On-nara demo)
+- `2026-ossdevon/` (evolved, reviewed On-nara demo)
 
-The On-nara version (14 slides) is now canonical. The product-based seed
-script is preserved as `seed_demo_data_products.py`.
+The current canonical presentation is the 32-slide story in
+[`presentation/slides.md`](../../presentation/slides.md), with its generated
+speaker script in [SLIDES.md](SLIDES.md). It uses code, documentation, repository,
+and PR screenshots without a live demo. Adoption charts follow the recorded
+snapshot selected by [`presentation/deck.json`](../../presentation/deck.json).
+
+The earlier On-nara and product demos remain reference resources; the demo
+runbook, captures, and both seed scripts are preserved for rehearsal and reuse.
 
 ## VHS Demo Scripts
 

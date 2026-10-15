@@ -1,9 +1,9 @@
 """Contest demo flow — timed rehearsal of the DEMO_RUNBOOK terminal segments.
 
 On-nara scenario (seed_demo_data.py), in runbook order:
-Layer 2 (Claude/MCP, 120s budget): tables → describe → ministry status →
-    bottleneck TOP 5 → confidential count → bulk-approve REJECTED
-Layer 1 (Terminal, 50s budget): connect, version, async document count
+Layer 2 (Claude/MCP, 90s budget): tables → bottleneck TOP 5 →
+    confidential count → bulk-approve REJECTED
+Layer 1 (Terminal, 15s budget): connect, version, async document count
 """
 
 from __future__ import annotations
@@ -102,23 +102,6 @@ try:
     mark("L2 #1 'what tables exist?'", t0)
 
     t0 = time.perf_counter()
-    r = rpc(
-        "tools/call",
-        {"name": "describe_table", "arguments": {"table_name": "documents"}},
-    )
-    print(f"documents schema: {text(r)[:120]}")
-    mark("L2 #2 describe documents (ENUM)", t0)
-
-    t0 = time.perf_counter()
-    r = call(
-        "SELECT a.name, d.status, COUNT(*) AS cnt "
-        "FROM documents d JOIN agencies a ON d.agency_id = a.id "
-        "GROUP BY a.name, d.status ORDER BY a.name, d.status"
-    )
-    print(f"Ministry × status: {text(r)[:120]}")
-    mark("L2 #3 ministry status", t0)
-
-    t0 = time.perf_counter()
     r = call(
         "SELECT a.name, COUNT(*) AS pending_count, "
         "AVG(DATEDIFF(SYS_DATETIME, d.created_at)) AS avg_days "
@@ -127,7 +110,7 @@ try:
         "GROUP BY a.name ORDER BY pending_count DESC LIMIT 5"
     )
     print(f"Bottleneck TOP 5:\n{text(r)}")
-    mark("L2 #4 bottleneck TOP 5 (the wow)", t0)
+    mark("L2 #2 bottleneck TOP 5 (the wow)", t0)
 
     t0 = time.perf_counter()
     r = call(
@@ -137,7 +120,7 @@ try:
         "GROUP BY a.name ORDER BY confidential_count DESC LIMIT 5"
     )
     print(f"Confidential count only: {text(r)[:120]}")
-    mark("L2 #5 confidential aggregate", t0)
+    mark("L2 #3 confidential aggregate", t0)
 
     t0 = time.perf_counter()
     r = call(
@@ -150,7 +133,7 @@ try:
     )
     print(f"Bulk approve → {'REJECTED ✓' if rejected else 'NOT REJECTED BY WHITELIST (!!!)'}")
     print(f"  server message: {text(r)[:120]}")
-    mark("L2 #6 bulk-approve rejection (the key scene)", t0)
+    mark("L2 #4 bulk-approve rejection (the key scene)", t0)
 finally:
     proc.terminate()
     try:
@@ -193,4 +176,4 @@ for label, dt in T:
     print(f"  {dt:6.2f}s  {label}")
     total += dt
 print("  ------")
-print(f"  {total:6.2f}s  TOTAL (runbook budget: 120s L2 + 50s L1)")
+print(f"  {total:6.2f}s  TOTAL (runbook budget: 90s L2 + 15s L1)")
