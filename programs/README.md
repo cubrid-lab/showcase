@@ -8,7 +8,7 @@
 | 프로그램 / 발표 | 프로젝트 | 자료 |
 |---|---|---|
 | 2026 오픈소스 개발자대회 | CUBRID Python 생태계 | [대회 자료](../contests/2026-ossdevcon/) |
-| 2026 빌더 시즌4 · 1차 검증 | CUBRID Kubernetes Operator | [일정·제출 요건·한영 구성안](2026-builder-season4/first-validation/) |
+| 2026 빌더 시즌4 · 1차 검증 | CUBRID Kubernetes Operator | [일정·제출 요건·한영 웹 발표 원본](../events/2026-builder-season4/01-validation/) |
 
 빌더 프로그램의 공식 명칭은 확인 후 보완합니다. 후속 검증 발표는 같은
 프로그램 아래 별도 폴더에 추가해 각 발표의 요구사항과 제출본을 보존합니다.
