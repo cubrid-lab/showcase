@@ -33,15 +33,15 @@
 
 - Presentation index → event/program → presentation round → language-specific HTML deck.
 - Source and evidence remain accessible from the event brief.
-- Talk hierarchy: opening/team → operating problem → current approaches → declarative proposal → architecture/safety → evidence → season plan/roles/release → discussion/closing.
+- The supplied seven-item agenda is the presentation outline: project/team → problem/users → current approaches/limitations → solution → draft architecture/flow → twelve-week roadmap/roles/first release → discussion. Use ten slides; no extra governance or closing section.
 
 ## Design principles
 
-- One claim or question per slide; the headline should carry its meaning.
+- Use plain descriptive headings matching the announced items. Keep each page to the information needed for first validation.
 - Show relationships with diagrams and timelines instead of dense bullet lists.
 - Separate intended design, documented Kind observations and unvalidated release gates.
 - Reuse the contest's typography/tokens/layout vocabulary with an explicit Operator class. Preserve the existing contest rendering.
-- Use more slides with fewer ideas, while keeping the total speaker budget at 600 seconds.
+- Keep a concise ten-slide deck within a 600-second speaker budget. Remove rhetorical transitions, marketing taglines and internal contribution-process instruction.
 
 ## Visual language
 
@@ -84,7 +84,7 @@
 
 ## Content voice
 
-- Korean talk: natural spoken sentences. English: equivalent claims and diagrams, not literal cramped translation.
+- Korean talk: short, neutral spoken sentences. English: equivalent claims and diagrams. Avoid speeches about working rules, slogans, evaluation strategy or the act of preparing the presentation.
 - Keep CUBRID's master/slave terminology when discussing engine roles, and distinguish it from Kubernetes readiness.
 - Acknowledge the existing official Operator and its actual role/health capabilities.
 - Target dates are targets; Kind evidence is not VM, zone or production validation.
@@ -100,6 +100,7 @@
 
 ## Open questions
 
-- [ ] Confirm personal team names and per-member assignments; use the documented two-maintainer collaboration model until confirmed.
+- [x] Team identities checked against the repository collaborators, public profiles and existing contest introduction: Yeongseon Choe / 최영선 and Gyeongjun Paik / 백경준.
+- [ ] Fixed feature-to-person assignments are not confirmed; present shared maintainer roles and season work areas without inventing ownership.
 - [ ] Confirm official external program display name; current notice says Builder Season 4 and the project roadmap says STP IV.
 - [ ] A pinned reference lab's final platform/storage inventory and release evidence remain project work, not presentation assumptions.

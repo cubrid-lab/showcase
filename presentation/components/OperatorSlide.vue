@@ -2,7 +2,7 @@
 defineProps({
   section: { type: String, required: true },
   index: { type: String, required: true },
-  total: { type: String, default: '17' },
+  total: { type: String, default: '10' },
   source: { type: String, default: '' },
   sourceUrl: { type: String, default: '' },
 })
