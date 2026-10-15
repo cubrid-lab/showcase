@@ -6,12 +6,12 @@
 
 ## 발표자료 바로 열기
 
-- [한국어 슬라이드 원본](../../../presentation/decks/2026-builder-season4/01-validation/SLIDES.ko.md)
-- [English slide source](../../../presentation/decks/2026-builder-season4/01-validation/SLIDES.en.md)
+- [한국어 HTML 발표](https://cubrid-lab.github.io/showcase/events/2026-builder-season4/01-validation/ko/)
+- [English HTML presentation](https://cubrid-lab.github.io/showcase/events/2026-builder-season4/01-validation/en/)
 - [시즌4 전체 발표 목록](../README.md)
 
-현재는 GitHub에서 읽는 원본이며, 내용 작성 전 7장 골격입니다.
-웹 슬라이드 미리보기는 아직 배포하지 않았습니다.
+브라우저에서 바로 넘겨 볼 수 있는 HTML 발표입니다. 현재 내용은 작성 전
+7장 골격이며, Markdown 원본은 아래 자료 표에서 확인할 수 있습니다.
 
 ## 일정과 제출 요건
 

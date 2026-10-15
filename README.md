@@ -4,17 +4,18 @@ Presentations, contest entries, program submissions, demos, and supporting
 materials for [cubrid-lab](https://github.com/cubrid-lab) projects, including
 the CUBRID client ecosystem and the CUBRID Kubernetes Operator.
 
+**[Open HTML presentations](https://cubrid-lab.github.io/showcase/)**
+
 ## Presentations and submissions
 
-| Event / program | Project | Presentation sources | Overview |
+| Event / program | Project | HTML presentations | Overview |
 |---|---|---|---|
-| 2026 OSS Developer Contest | CUBRID Python ecosystem | [Slides](presentation/slides.md) · [Talk script](contests/2026-ossdevcon/SLIDES.md) | [Contest materials](contests/2026-ossdevcon/) |
-| 2026 Builder Season 4 | CUBRID Kubernetes Operator | First validation: [한국어](presentation/decks/2026-builder-season4/01-validation/SLIDES.ko.md) · [English](presentation/decks/2026-builder-season4/01-validation/SLIDES.en.md) | [Program and presentation rounds](events/2026-builder-season4/) |
+| 2026 OSS Developer Contest | CUBRID Python ecosystem | [발표 보기](https://cubrid-lab.github.io/showcase/contests/2026-ossdevcon/) | [Contest materials](contests/2026-ossdevcon/) |
+| 2026 Builder Season 4 | CUBRID Kubernetes Operator | First validation: [한국어](https://cubrid-lab.github.io/showcase/events/2026-builder-season4/01-validation/ko/) · [English](https://cubrid-lab.github.io/showcase/events/2026-builder-season4/01-validation/en/) | [Program and presentation rounds](events/2026-builder-season4/) |
 
-The links above open slide sources on GitHub. A hosted web slide viewer is
-not deployed yet. The Operator sources are seven-slide writing scaffolds;
-see the [first-validation brief](events/2026-builder-season4/01-validation/)
-for their preparation state and local preview commands.
+The presentation links open HTML slides in your browser. The Operator decks
+are seven-slide writing scaffolds. Source files, preparation state, and export
+commands are linked from each event brief.
 
 ## Repository layout
 

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="CUBRID Lab의 행사·프로그램별 웹 발표자료">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <title>CUBRID Lab — Showcase</title>
+  <style>
+    :root { color-scheme: light; font-family: system-ui, -apple-system, "Malgun Gothic", sans-serif; color: #12243c; background: #f4f7fb; }
+    * { box-sizing: border-box; }
+    body { max-width: 1080px; margin: 0 auto; padding: 64px 24px; line-height: 1.65; }
+    header { margin-bottom: 36px; }
+    h1 { margin: 0 0 8px; font-size: clamp(2rem, 5vw, 3rem); letter-spacing: -.04em; }
+    h2 { font-size: 1.35rem; margin: 0 0 12px; line-height: 1.35; }
+    p { margin: 8px 0 20px; }
+    .intro, .meta { color: #52647b; }
+    main { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: 24px; }
+    section { background: white; border: 1px solid #d8e1ed; border-radius: 16px; padding: 28px; }
+    .label { font-size: .8rem; font-weight: 700; color: #1f4e8c; letter-spacing: .04em; }
+    .links { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
+    .button { display: inline-block; color: white; background: #1f4e8c; border-radius: 8px; padding: 10px 18px; text-decoration: none; font-weight: 650; }
+    .button:hover { background: #143964; }
+    a:focus-visible { outline: 3px solid #d17300; outline-offset: 4px; }
+    .draft { display: inline-block; color: #784600; background: #fff2d5; border-radius: 4px; padding: 2px 8px; font-size: .8rem; }
+    footer { margin-top: 36px; font-size: .9rem; }
+    footer a { color: #1f4e8c; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>CUBRID Lab — Showcase</h1>
+    <p class="intro">행사·프로그램별 발표자료입니다. 발표를 선택하면 브라우저에서 슬라이드가 열립니다.</p>
+  </header>
+  <main>
+    <section aria-labelledby="contest">
+      <p class="label">2026 OSS DEVELOPER CONTEST</p>
+      <h2 id="contest">If someone were interested</h2>
+      <p>CUBRID Python ecosystem</p>
+      <p class="meta">멈춰 있던 CUBRID dialect를 이어받아 생태계가 되기까지 · 32장</p>
+      <div class="links">
+        <a class="button" href="contests/2026-ossdevcon/">발표 보기</a>
+      </div>
+    </section>
+    <section aria-labelledby="operator">
+      <p class="label">2026 BUILDER SEASON 4</p>
+      <h2 id="operator">CUBRID Kubernetes Operator</h2>
+      <p>1차 검증 · 2026년 10월 31일</p>
+      <p class="meta">프로젝트 방향성과 아이디어 검증 · 한·영 각 7장</p>
+      <span class="draft">내용 작성 전 골격</span>
+      <div class="links">
+        <a class="button" href="events/2026-builder-season4/01-validation/ko/" lang="ko">한국어 발표</a>
+        <a class="button" href="events/2026-builder-season4/01-validation/en/" lang="en">English slides</a>
+      </div>
+    </section>
+  </main>
+  <footer><a href="https://github.com/cubrid-lab/showcase">발표 원본·제출 안내 · GitHub</a></footer>
+</body>
+</html>
