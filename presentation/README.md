@@ -72,7 +72,7 @@ formats use `--with-clicks false` so one source slide becomes one exported page.
 Slidev 53 also supports `--format pptx-editable` when native text/shapes are
 needed, with separate layout review. See the [official export guide](https://sli.dev/guide/exporting).
 
-The current Operator content is a 17-slide working draft. Successful
+The current Operator content is a 10-slide working draft. Successful
 build/export checks do not make it a final or submitted presentation.
 
 ## Development
