@@ -1,0 +1,127 @@
+/* Operator talks share the contest typography and tokens in style.css.
+   All additions stay under the explicit Operator canvas class. */
+.slidev-layout.showcase-deck.operator-deck {
+  padding: 25px 54px 22px;
+  gap: 0;
+}
+
+.slidev-layout.showcase-deck.operator-deck .op-frame {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  row-gap: 18px;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  flex: 1 1 auto;
+}
+.slidev-layout.showcase-deck.operator-deck .op-header,
+.slidev-layout.showcase-deck.operator-deck .op-footer {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+  font-size: 0.72rem;
+  line-height: 1.4;
+  letter-spacing: 0;
+  color: var(--muted);
+}
+.slidev-layout.showcase-deck.operator-deck .op-header {
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+}
+.slidev-layout.showcase-deck.operator-deck .op-project { color: var(--blue); font-weight: 700; }
+.slidev-layout.showcase-deck.operator-deck .op-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  gap: 22px;
+  min-width: 0;
+  min-height: 0;
+}
+.slidev-layout.showcase-deck.operator-deck .op-body > * { flex-shrink: 0; }
+.slidev-layout.showcase-deck.operator-deck .op-footer { font-size: 0.63rem; }
+.slidev-layout.showcase-deck.operator-deck .op-footer > :first-child { min-width: 0; }
+.slidev-layout.showcase-deck.operator-deck .op-footer a { color: var(--muted); text-decoration: none; border: 0; }
+.slidev-layout.showcase-deck.operator-deck .op-footer a:hover { text-decoration: underline; }
+.slidev-layout.showcase-deck.operator-deck a:focus-visible { outline: 2px solid var(--blue); outline-offset: 4px; }
+.slidev-layout.showcase-deck.operator-deck .op-page { white-space: nowrap; color: var(--blue); font-weight: 750; font-variant-numeric: tabular-nums; }
+.slidev-layout.showcase-deck.operator-deck .op-page > span { color: var(--muted); font-weight: 400; }
+
+/* Headlines carry the claim; supporting copy remains a short spoken line. */
+.slidev-layout.showcase-deck.operator-deck h1,
+.slidev-layout.showcase-deck.operator-deck .op-title { font-size: 2.75rem; line-height: 1.16; font-weight: 780; letter-spacing: -0.035em; }
+.slidev-layout.showcase-deck.operator-deck h2 { font-size: 1.9rem; line-height: 1.23; }
+.slidev-layout.showcase-deck.operator-deck h3 { font-size: 1.24rem; font-weight: 750; line-height: 1.3; }
+.slidev-layout.showcase-deck.operator-deck .op-kicker { color: var(--blue); font-size: 0.86rem; font-weight: 700; letter-spacing: 0.02em; }
+.slidev-layout.showcase-deck.operator-deck .op-lead { color: var(--muted); font-size: 1.25rem; line-height: 1.5; text-wrap: balance; }
+.slidev-layout.showcase-deck.operator-deck .op-meta { display: flex; flex-wrap: wrap; gap: 10px 24px; padding-top: 16px; border-top: 2px solid var(--ink); font-size: 0.95rem; color: var(--muted); }
+.slidev-layout.showcase-deck.operator-deck .op-meta b { color: var(--ink); }
+.slidev-layout.showcase-deck.operator-deck .op-cover { display: grid; gap: 22px; }
+.slidev-layout.showcase-deck.operator-deck .op-cover .op-title { font-size: 3.65rem; line-height: 1.1; }
+.slidev-layout.showcase-deck.operator-deck .op-cover .op-meta { margin-top: 12px; }
+.slidev-layout.showcase-deck.operator-deck .op-caption { font-size: 0.88rem; line-height: 1.45; color: var(--muted); }
+
+/* Open compositions, with rules where relationships need separation. */
+.slidev-layout.showcase-deck.operator-deck .op-two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 36px; align-items: center; }
+.slidev-layout.showcase-deck.operator-deck .op-stack { display: grid; align-content: center; gap: 15px; min-width: 0; }
+.slidev-layout.showcase-deck.operator-deck .op-row { display: flex; align-items: center; gap: 18px; min-width: 0; }
+.slidev-layout.showcase-deck.operator-deck .op-list { display: grid; gap: 13px; padding: 0; margin: 0; list-style: none; }
+.slidev-layout.showcase-deck.operator-deck .op-list > li { margin: 0; padding: 0; font-size: 1.18rem; line-height: 1.4; }
+.slidev-layout.showcase-deck.operator-deck .op-list > li > b { color: var(--blue); }
+.slidev-layout.showcase-deck.operator-deck .op-list > li > small { display: block; font-size: 0.9rem; font-weight: 400; line-height: 1.45; color: var(--muted); margin-top: 4px; }
+
+/* Diagrams use native text and explicit arrows, so they survive all exports. */
+.slidev-layout.showcase-deck.operator-deck .op-path { display: flex; align-items: stretch; gap: 10px; }
+.slidev-layout.showcase-deck.operator-deck .op-path > .op-node { flex: 1 1 0; min-width: 0; }
+.slidev-layout.showcase-deck.operator-deck .op-node {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  padding: 16px 18px;
+  border: 1.5px solid var(--line);
+  border-radius: 8px;
+  color: var(--ink);
+  font-size: 1.12rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+.slidev-layout.showcase-deck.operator-deck .op-node small { display: block; color: var(--muted); font-size: 0.8rem; font-weight: 400; line-height: 1.4; }
+.slidev-layout.showcase-deck.operator-deck .op-node.project { color: var(--blue); border-color: var(--blue); background: var(--blue-soft); }
+.slidev-layout.showcase-deck.operator-deck .op-node.engine { border-color: var(--ink); }
+.slidev-layout.showcase-deck.operator-deck .op-node.storage { border-style: dashed; }
+.slidev-layout.showcase-deck.operator-deck .op-arrow { display: flex; align-items: center; justify-content: center; flex: 0 0 auto; font-size: 1.35rem; color: var(--muted); line-height: 1; }
+.slidev-layout.showcase-deck.operator-deck .op-boundary { padding: 17px 0 0; border-top: 2px solid var(--blue); font-size: 1.05rem; line-height: 1.45; }
+.slidev-layout.showcase-deck.operator-deck .op-boundary b { color: var(--blue); }
+
+/* Time, evidence and release scope are lines of argument, not dashboard cards. */
+.slidev-layout.showcase-deck.operator-deck .op-timeline { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
+.slidev-layout.showcase-deck.operator-deck .op-timeline > * { display: grid; align-content: start; gap: 10px; padding-top: 15px; border-top: 3px solid var(--blue); min-width: 0; }
+.slidev-layout.showcase-deck.operator-deck .op-timeline b { font-size: 1.16rem; line-height: 1.3; }
+.slidev-layout.showcase-deck.operator-deck .op-timeline p { font-size: 0.98rem; color: var(--muted); }
+.slidev-layout.showcase-deck.operator-deck .op-timeline small { font-size: 0.76rem; color: var(--blue); font-weight: 650; }
+.slidev-layout.showcase-deck.operator-deck .op-evidence { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; }
+.slidev-layout.showcase-deck.operator-deck .op-evidence > * { display: grid; align-content: start; gap: 15px; padding-top: 15px; border-top: 2px solid var(--line); }
+.slidev-layout.showcase-deck.operator-deck .op-evidence > :first-child { border-color: var(--blue); }
+.slidev-layout.showcase-deck.operator-deck .op-release { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 26px; }
+.slidev-layout.showcase-deck.operator-deck .op-release > * { display: grid; align-content: start; gap: 12px; border-top: 2px solid var(--blue); padding-top: 14px; }
+.slidev-layout.showcase-deck.operator-deck .op-release .op-list > li { font-size: 1rem; }
+.slidev-layout.showcase-deck.operator-deck .op-questions { list-style: none; counter-reset: discussion; display: grid; gap: 20px; margin: 0; padding: 0; }
+.slidev-layout.showcase-deck.operator-deck .op-questions > li { counter-increment: discussion; display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 14px; margin: 0; padding: 0; font-size: 1.22rem; font-weight: 650; line-height: 1.4; }
+.slidev-layout.showcase-deck.operator-deck .op-questions > li::before { content: counter(discussion, decimal-leading-zero); color: var(--blue); font-weight: 800; }
+.slidev-layout.showcase-deck.operator-deck .op-code { font-family: var(--mono); font-size: 0.9rem; line-height: 1.55; white-space: pre; padding: 18px 20px; margin: 0; background: #f5f7fa; border-left: 3px solid var(--blue); border-radius: 0; }
+.slidev-layout.showcase-deck.operator-deck .op-compact { gap: 14px; }
+.slidev-layout.showcase-deck.operator-deck .op-compact .op-title { font-size: 2.4rem; }
+.slidev-layout.showcase-deck.operator-deck .op-compact .op-list > li { font-size: 1.05rem; }
+
+.slidev-layout.showcase-deck.operator-deck .op-architecture { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, .75fr); gap: 22px; align-items: start; }
+.slidev-layout.showcase-deck.operator-deck .op-architecture .op-node { padding: 10px 12px; font-size: 1rem; }
+.slidev-layout.showcase-deck.operator-deck .op-comparison { width: 100%; font-size: 1rem; line-height: 1.4; border-collapse: collapse; }
+.slidev-layout.showcase-deck.operator-deck .op-comparison th { color: var(--blue); text-align: left; font-size: .9rem; }
+.slidev-layout.showcase-deck.operator-deck .op-comparison th,
+.slidev-layout.showcase-deck.operator-deck .op-comparison td { padding: 10px 14px 10px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+.slidev-layout.showcase-deck.operator-deck .op-comparison td:first-child { font-weight: 700; width: 23%; }
+.slidev-layout.showcase-deck.operator-deck .op-frame.op-compact .op-body { gap: 16px; }
+
+.slidev-layout.showcase-deck.operator-deck .op-peer-group { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
