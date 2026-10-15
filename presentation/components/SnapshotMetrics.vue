@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from 'vue'
-import snapshot from '../snapshots/2026-09-12.json'
+import { snapshot } from '../selectedSnapshot.js'
 
 const props = defineProps({
   category: { type: String, required: true }
@@ -41,7 +41,7 @@ const tiles = computed(() => {
         <span class="v">{{ t.v }}</span>
       </div>
     </div>
-    <p class="src">Snapshot {{ snapshot.snapshotDate }} · GitHub / PyPI API · 발표 당일 재측정</p>
+    <p class="src">Snapshot {{ snapshot.snapshotDate }} · GitHub / PyPI API · deck.json 선택값</p>
   </div>
 </template>
 

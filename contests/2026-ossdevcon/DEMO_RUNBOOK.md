@@ -1,5 +1,9 @@
 # Demo Runbook — On-nara Scenario (backup only)
 
+> Historical optional rehearsal material. The current 32-slide presentation
+> has no live demo; slide numbers and timing below describe the earlier
+> On-nara scenario. See [SLIDES.md](SLIDES.md) for the current talk script.
+
 > The talk no longer includes a live demo (decided 2026-09-28). Keep this for Q&A or if the organisers ask to see it running.
 
 ## Narrative

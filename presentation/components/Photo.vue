@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 
 // Team photo slot. Drop the file into public/photos/ under the given name;
 // until it exists the slide shows a quiet frame instead of a broken image.
@@ -7,12 +7,14 @@ const props = defineProps({
   src: { type: String, required: true },
   label: { type: String, default: '' },
 })
+const photos = import.meta.glob('../public/photos/*.{jpg,jpeg,png,webp,avif}', { eager: true, query: '?url', import: 'default' })
+const source = computed(() => photos[`../public${props.src}`])
 const ok = ref(true)
 </script>
 
 <template>
   <figure class="photo">
-    <img v-if="ok" :src="props.src" :alt="props.label" @error="ok = false">
+    <img v-if="ok && source" :src="source" :alt="props.label" @error="ok = false">
     <div v-else class="empty">
       <span>{{ props.label }}</span>
       <code>public{{ props.src }}</code>

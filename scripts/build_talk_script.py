@@ -1,6 +1,7 @@
 """Regenerate contests/2026-ossdevcon/SLIDES.md (talk script) from the speaker
 notes in presentation/slides.md. Each note starts with "[N초 · criteria]" or
 "[N분 · ...]"; slide time ranges are computed cumulatively from those."""
+import json
 import re
 from pathlib import Path
 
@@ -17,11 +18,11 @@ TITLE_OVERRIDES = {
     23: "2,200개의 테스트를 통과 못 하면, 머지되지 않습니다 (패키지별 차트)",
     24: "직접 쟀습니다 — 성능 비교 차트",
     27: "MIT × 4 — 누구나 가져다 쓸 수 있게",
-    29: "부풀리지 않은 숫자만 가져왔습니다 (star · fork · PR · 릴리스 차트)",
+    29: "부풀리지 않은 숫자만 가져왔습니다 (star · PR · 릴리스 차트)",
 }
 
 CRITERIA = [
-    "| 활용성 | 15 | 멈춰 있던 dialect 발견 (5) → 한 장 구조도 (8) → SQLAlchemy 코드 (10) → 2014년에 멈춘 드라이버 (11) → pip install (14) → cookbook (15) → AI 접근 (17–19) → star·fork·PR·릴리스 차트 (29) |",
+    "| 활용성 | 15 | 멈춰 있던 dialect 발견 (5) → 한 장 구조도 (8) → SQLAlchemy 코드 (10) → 2014년에 멈춘 드라이버 (11) → pip install (14) → cookbook (15) → AI 접근 (17–19) → star·PR·릴리스 차트 (29) |",
     "| OSS 적절성 | 15 | Mike Bayer의 README에 응답해 dialect 재작성·공식 test suite (5, 9) → 오픈소스 소스를 읽어 프로토콜 해독 (13) → 표준 위에 (26) |",
     "| PT | 10 | 표지 (1) · 장 제목 5개 · 전환 문장 (6, 12, 22) · 제목 \"If someone were interested\"가 README (5)와 마지막 장 (32)을 잇는 구조 |",
     "| 데모 | 10 | 라이브 데모 없음 — 실행해 본 코드 (10), 실제 문서·저장소·PR 화면 (15, 17, 21)으로 대신 |",
@@ -56,6 +57,11 @@ def fmt(t):
 
 
 def main():
+    deck = json.loads((ROOT / "presentation/deck.json").read_text())
+    snapshot = json.loads((ROOT / "presentation/snapshots" / f"{deck['snapshot']}.json").read_text())
+    if snapshot["snapshotDate"] != deck["snapshot"]:
+        raise ValueError("Snapshot date does not match presentation/deck.json")
+    metrics = snapshot["metrics"]
     parts = re.split(r"\n---\n", SRC.read_text().split("\n---\n", 1)[1])
     t, rows, demo = 0, [], ""
     for i, part in enumerate(parts, 1):
@@ -73,7 +79,8 @@ def main():
         "# 발표 대본 — 2026 오픈소스 개발자대회", "",
         f"> 「If someone were interested — 멈춰 있던 CUBRID dialect를 이어받아 생태계가 되기까지」 · {len(parts)}장 · 약 {fmt(t)} (12분 슬롯). 화면은 `presentation/slides.md`, 이 문서는 그 발표자 노트를 모은 대본입니다 (`scripts/build_talk_script.py`로 생성).",
         "> 심사 기준은 화면에 표시하지 않고 이야기 흐름 안에 녹였습니다. 각 장면이 채우는 기준은 대본 머리와 맨 끝 표에 적었습니다.",
-        "> 숫자는 2026-09-12 스냅숏 기준이며 발표 당일 재측정합니다. 사진 두 장(`presentation/public/photos/team-2020.jpg`, `team-now.jpg`)은 받는 대로 넣습니다.", "",
+        f"> 채택 지표는 `presentation/deck.json`이 선택한 {snapshot['snapshotDate']} 스냅숏 기준입니다: GitHub stars {metrics['stars']['total']:,}개, merged PRs {metrics['mergedPRs']['total']:,}개, PyPI releases {metrics['pypiReleases']['total']:,}회. fork는 기록되지 않아 제외했습니다. 최신 수치를 뜻하지 않습니다.",
+        "> 사진 두 장(`presentation/public/photos/team-2020.jpg`, `team-now.jpg`)은 받는 대로 넣습니다.", "",
     ]
     for i, title, chapter, meta, body in rows:
         out += [("## " if chapter else "### ") + f"{i}. {title}", "", f"`{meta}`", ""]

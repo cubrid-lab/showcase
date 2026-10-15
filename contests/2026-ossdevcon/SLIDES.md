@@ -2,7 +2,8 @@
 
 > 「If someone were interested — 멈춰 있던 CUBRID dialect를 이어받아 생태계가 되기까지」 · 32장 · 약 8:47 (12분 슬롯). 화면은 `presentation/slides.md`, 이 문서는 그 발표자 노트를 모은 대본입니다 (`scripts/build_talk_script.py`로 생성).
 > 심사 기준은 화면에 표시하지 않고 이야기 흐름 안에 녹였습니다. 각 장면이 채우는 기준은 대본 머리와 맨 끝 표에 적었습니다.
-> 숫자는 2026-09-12 스냅숏 기준이며 발표 당일 재측정합니다. 사진 두 장(`presentation/public/photos/team-2020.jpg`, `team-now.jpg`)은 받는 대로 넣습니다.
+> 채택 지표는 `presentation/deck.json`이 선택한 2026-09-12 스냅숏 기준입니다: GitHub stars 119개, merged PRs 450개, PyPI releases 35회. fork는 기록되지 않아 제외했습니다. 최신 수치를 뜻하지 않습니다.
+> 사진 두 장(`presentation/public/photos/team-2020.jpg`, `team-now.jpg`)은 받는 대로 넣습니다.
 
 ### 1. If someone were interested
 
@@ -201,12 +202,12 @@
 > 오늘 말씀드린 내용은 직접 확인하실 수 있습니다. 명령어 한 줄로 AI 서버를 띄울 수 있고,
 > VERIFY.md에 단계별 명령과 기대 결과를 모두 적어 두었습니다.
 
-### 29. 부풀리지 않은 숫자만 가져왔습니다 (star · fork · PR · 릴리스 차트)
+### 29. 부풀리지 않은 숫자만 가져왔습니다 (star · PR · 릴리스 차트)
 
 `7:33–7:58 · 25초 · 활용성`
 
-> 숫자는 검증할 수 있는 것만, 오늘 기준으로 가져왔습니다. GitHub star 129개, fork 36개, merged PR 596개, PyPI 릴리스 38번.
-> 사실 클론 수가 더 커 보이는 숫자였는데, 측정해 보니 대부분 저희 CI였습니다. 그래서 뺐습니다.
+> 숫자는 화면에 표시한 스냅숏 기준으로 검증된 값만 가져왔습니다. GitHub star, merged PR, PyPI 릴리스 수를 저장소별로 보여드립니다.
+> fork는 이 스냅숏에 기록되지 않아 제외했습니다. 클론 수는 CI와 실제 사용자를 구분할 수 없어 사용자 수로 제시하지 않습니다.
 
 ## 30. 〔05〕 다음
 
@@ -235,7 +236,7 @@
 
 | 기준 | 배점 | 이야기 속 장면 (슬라이드 번호) |
 |---|---|---|
-| 활용성 | 15 | 멈춰 있던 dialect 발견 (5) → 한 장 구조도 (8) → SQLAlchemy 코드 (10) → 2014년에 멈춘 드라이버 (11) → pip install (14) → cookbook (15) → AI 접근 (17–19) → star·fork·PR·릴리스 차트 (29) |
+| 활용성 | 15 | 멈춰 있던 dialect 발견 (5) → 한 장 구조도 (8) → SQLAlchemy 코드 (10) → 2014년에 멈춘 드라이버 (11) → pip install (14) → cookbook (15) → AI 접근 (17–19) → star·PR·릴리스 차트 (29) |
 | OSS 적절성 | 15 | Mike Bayer의 README에 응답해 dialect 재작성·공식 test suite (5, 9) → 오픈소스 소스를 읽어 프로토콜 해독 (13) → 표준 위에 (26) |
 | PT | 10 | 표지 (1) · 장 제목 5개 · 전환 문장 (6, 12, 22) · 제목 "If someone were interested"가 README (5)와 마지막 장 (32)을 잇는 구조 |
 | 데모 | 10 | 라이브 데모 없음 — 실행해 본 코드 (10), 실제 문서·저장소·PR 화면 (15, 17, 21)으로 대신 |

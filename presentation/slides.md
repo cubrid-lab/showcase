@@ -15,6 +15,11 @@ routerMode: hash
 # 840 instead of 980: same 16:9 slide, everything ~17% larger on screen
 canvasWidth: 840
 layout: default
+# Optional photo slots are absent until supplied; avoid prefetching missing files.
+preloadImages: false
+class: contest-deck
+defaults:
+  class: contest-deck
 ---
 
 <div class="cover">
@@ -462,7 +467,7 @@ AI에게 데이터베이스를 열어 주면 제일 먼저 나오는 질문이 "
       <li><b>규칙</b>은 사람이 <code>AGENTS.md</code>에 씁니다</li>
       <li><b>구현</b>은 AI가 — 코드 · 테스트 · 문서</li>
       <li><b>리뷰</b>는 사람이 — 모든 PR</li>
-      <li><b>병합</b>은 CI를 모두 통과한 뒤에만 (지금까지 596개)</li>
+      <li><b>병합</b>은 CI를 모두 통과한 뒤에만</li>
       <li><b>릴리스 태그</b>는 사람만</li>
     </ul>
     <p class="small">컨트리뷰톤에서 배운 멘토–멘티 방식 그대로: AI가 구현하고, 저희가 리뷰합니다.</p>
@@ -621,57 +626,12 @@ VERIFY.md에 단계별 명령과 기대 결과를 모두 적어 두었습니다.
 
 ---
 
-<p class="kicker">부풀리지 않은 숫자만 가져왔습니다 · GitHub · PyPI, 2026-09-28 기준</p>
-
-<div class="grid4">
-  <div class="stack">
-    <p class="chart-cap">GitHub star — 총 129</p>
-    <BarChart :width="370" :label-width="150" :bar="14" :gap="8" :rows="[
-      { label: 'sqlalchemy-cubrid', value: 38, hl: true },
-      { label: 'cubrid-mcp-server', value: 32 },
-      { label: 'pycubrid', value: 31 },
-      { label: 'cubrid-cookbook', value: 28 },
-    ]" />
-  </div>
-  <div class="stack">
-    <p class="chart-cap">fork — 총 36</p>
-    <BarChart :width="370" :label-width="150" :bar="14" :gap="8" :rows="[
-      { label: 'sqlalchemy-cubrid', value: 13, hl: true },
-      { label: 'pycubrid', value: 11 },
-      { label: 'cubrid-cookbook', value: 7 },
-      { label: 'cubrid-mcp-server', value: 5 },
-    ]" />
-  </div>
-  <div class="stack">
-    <p class="chart-cap">merged PR — 총 596</p>
-    <BarChart :width="370" :label-width="150" :bar="14" :gap="8" :rows="[
-      { label: 'sqlalchemy-cubrid', value: 225, hl: true },
-      { label: 'pycubrid', value: 202 },
-      { label: 'cubrid-mcp-server', value: 95 },
-      { label: 'cubrid-cookbook', value: 74 },
-    ]" />
-  </div>
-  <div class="stack">
-    <p class="chart-cap">PyPI 릴리스 — 총 38</p>
-    <BarChart :width="370" :label-width="150" :bar="14" :gap="8" :rows="[
-      { label: 'sqlalchemy-cubrid', value: 20, hl: true },
-      { label: 'pycubrid', value: 17 },
-      { label: 'cubrid-mcp-server', value: 1 },
-    ]" />
-  </div>
-</div>
-
-<p class="note-line">클론 수는 뺐습니다. 재 보니 대부분 저희 CI였습니다 — 14일간 pycubrid는 클론 4,969회, 같은 기간 CI 실행 700회(실행 한 번에 여러 잡이 저장소를 받습니다).</p>
-
-<style>
-.grid4 { display: grid; grid-template-columns: 1fr 1fr; gap: 22px 40px; }
-.chart-cap { font-size: 0.85rem; font-weight: 700; }
-</style>
+<SnapshotAdoptionCharts />
 
 <!--
 [25초 · 활용성]
-숫자는 검증할 수 있는 것만, 오늘 기준으로 가져왔습니다. GitHub star 129개, fork 36개, merged PR 596개, PyPI 릴리스 38번.
-사실 클론 수가 더 커 보이는 숫자였는데, 측정해 보니 대부분 저희 CI였습니다. 그래서 뺐습니다.
+숫자는 화면에 표시한 스냅숏 기준으로 검증된 값만 가져왔습니다. GitHub star, merged PR, PyPI 릴리스 수를 저장소별로 보여드립니다.
+fork는 이 스냅숏에 기록되지 않아 제외했습니다. 클론 수는 CI와 실제 사용자를 구분할 수 없어 사용자 수로 제시하지 않습니다.
 -->
 
 ---
