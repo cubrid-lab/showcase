@@ -37,7 +37,8 @@ We're early, and we don't inflate it. We deliberately don't quote clone
 counts: GitHub clone traffic is dominated by our own CI runners (pycubrid:
 ~700 workflow runs vs ~5,000 clones in the same 14 days). What we can show
 is 450 merged PRs, 35 PyPI releases, 119 stars — and a real market: CUBRID
-is #2 in Korean public-sector DBMS (13.24%, 2,367 installations at end of
+ranks second among the top five Korean public-sector DBMS vendors
+(2,367 installations; 13.24% of their combined total at end of
 2025, MOIS/NIA report), and before us it had no maintained Python driver.
 
 ## Q4: Isn't CUBRID GPL? Does your MIT license conflict?
@@ -133,5 +134,7 @@ database decides what data is visible.
 
 It's from the government's own statistics: MOIS/NIA's 2026 government-wide
 EA public-sector information resources report (end-2025 data) — CUBRID
-13.24%, 2,367 installations, second only to Oracle. The previous edition
-had it at 10.58%, third.
+2,367 installations, second among the top five vendors after Oracle.
+The reported 13.24% is CUBRID's share of those five vendors' combined
+17,883 installations, not of all public-sector DBMS installations.
+See [printed page 57, table 46](https://www.data.go.kr/data/3038513/fileData.do).
