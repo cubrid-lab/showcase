@@ -12,6 +12,25 @@ See the [event brief](../events/2026-builder-season4/01-validation/) for
 requirements. Edit the deck sources for content
 and the entry frontmatter for presentation configuration.
 
+## Published HTML presentations
+
+Open the [showcase viewer](https://cubrid-lab.github.io/showcase/) to select a
+presentation. The root README and event briefs link directly to each HTML deck.
+
+```bash
+npm ci
+npm run build:site
+```
+
+This builds all three decks into `../site-dist/` with their own URL base paths,
+plus a landing page. `PAGES_BASE_PATH` defaults to `/showcase`; set it to an
+empty string for a domain-root deployment. Slide navigation uses hash routes.
+
+The Pages workflow rebuilds and deploys when presentation sources or site
+build files change on `main`, and supports manual dispatch. It uses the
+existing package lock; no additional npm dependency is required. PDFs and
+PPTX remain separate exports from the same web sources.
+
 ## Operator: web → PDF / PPTX
 
 Run these commands from `presentation/` with Node.js 22.12 or newer:

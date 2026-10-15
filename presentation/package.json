@@ -10,7 +10,8 @@
     "dev:operator:en": "slidev operator-first-validation.en.md --open",
     "build:operator": "slidev build operator-first-validation.ko.md operator-first-validation.en.md --out dist/operator-first-validation",
     "export:operator:pdf": "slidev export operator-first-validation.ko.md operator-first-validation.en.md --format pdf --with-clicks false --timeout 60000",
-    "export:operator:pptx": "slidev export operator-first-validation.ko.md operator-first-validation.en.md --format pptx --with-clicks false --timeout 60000"
+    "export:operator:pptx": "slidev export operator-first-validation.ko.md operator-first-validation.en.md --format pptx --with-clicks false --timeout 60000",
+    "build:site": "node ../scripts/build_site.mjs"
   },
   "dependencies": {
     "@slidev/cli": "^53.0.0",
