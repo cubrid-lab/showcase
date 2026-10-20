@@ -14,7 +14,7 @@ the CUBRID client ecosystem and the CUBRID Kubernetes Operator.
 | 2026 Builder Season 4 | CUBRID Kubernetes Operator | First validation: [한국어](https://cubrid-lab.github.io/showcase/events/2026-builder-season4/01-validation/ko/) · [English](https://cubrid-lab.github.io/showcase/events/2026-builder-season4/01-validation/en/) | [Program and presentation rounds](events/2026-builder-season4/) |
 
 The presentation links open HTML slides in your browser. The Operator decks
-are 10-slide working drafts. Source files, preparation state, and export
+contain ten matched slides per language, speaker notes, and Q&A material. Source files, verification records, and export
 commands are linked from each event brief.
 
 ## Repository layout

@@ -3,7 +3,7 @@
 ## Source of truth
 
 - Status: Active
-- Last refreshed: 2026-10-15
+- Last refreshed: 2026-10-20
 - Primary product surfaces: HTML presentations, matching PDF/PPTX exports, presentation index.
 - Evidence reviewed: `presentation/slides.md`, `presentation/style.css`, `presentation/components/`, the published contest deck, the Builder first-validation notice, and the Operator README/DESIGN/ROADMAP/ADRs pinned in the event's `SOURCES.md`.
 - Existing evidence: the contest uses white backgrounds, bundled Pretendard, blue emphasis, chapter transitions, diagrams, screenshots, and speaker notes. Design decision: extend that language to the Operator talk rather than shipping a bullet outline.
@@ -39,7 +39,7 @@
 
 - Use plain descriptive headings matching the announced items. Keep each page to the information needed for first validation.
 - Show relationships with diagrams and timelines instead of dense bullet lists.
-- Separate intended design, documented Kind observations and unvalidated release gates.
+- Separate intended design, pinned Kind/VM observations and unvalidated release gates. A normal VM SQL connection check is not VM-fault or CSI qualification.
 - Reuse the contest's typography/tokens/layout vocabulary with an explicit Operator class. Preserve the existing contest rendering.
 - Keep a concise ten-slide deck within a 600-second speaker budget. Remove rhetorical transitions, marketing taglines and internal contribution-process instruction.
 
@@ -87,7 +87,7 @@
 - Korean talk: short, neutral spoken sentences. English: equivalent claims and diagrams. Avoid speeches about working rules, slogans, evaluation strategy or the act of preparing the presentation.
 - Keep CUBRID's master/slave terminology when discussing engine roles, and distinguish it from Kubernetes readiness.
 - Acknowledge the existing official Operator and its actual role/health capabilities.
-- Target dates are targets; Kind evidence is not VM, zone or production validation.
+- Target dates are targets; Kind and bounded VM connection evidence are not VM-fault, CSI, zone or production qualification.
 - Mandatory release safety gates cannot be reduced to fit the calendar.
 
 ## Implementation constraints
@@ -101,6 +101,6 @@
 ## Open questions
 
 - [x] Team identities checked against the repository collaborators, public profiles and existing contest introduction: Yeongseon Choe / 최영선 and Gyeongjun Paik / 백경준.
-- [ ] Fixed feature-to-person assignments are not confirmed; present shared maintainer roles and season work areas without inventing ownership.
+- [x] Present confirmed shared maintainer roles and season work areas without inventing fixed personal feature ownership.
 - [ ] Confirm official external program display name; current notice says Builder Season 4 and the project roadmap says STP IV.
 - [ ] A pinned reference lab's final platform/storage inventory and release evidence remain project work, not presentation assumptions.
