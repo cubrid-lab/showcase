@@ -1,7 +1,7 @@
 ---
 theme: default
 title: "CUBRID Kubernetes Operator — First Validation"
-info: "Builder Season 4 · 2026-10-31 · Working draft"
+info: "Builder Season 4 · 2026-10-31 · Evidence as of 2026-10-20"
 author: CUBRID Lab
 fonts:
   provider: none

@@ -72,8 +72,11 @@ formats use `--with-clicks false` so one source slide becomes one exported page.
 Slidev 53 also supports `--format pptx-editable` when native text/shapes are
 needed, with separate layout review. See the [official export guide](https://sli.dev/guide/exporting).
 
-The current Operator content is a 10-slide working draft. Successful
-build/export checks do not make it a final or submitted presentation.
+The Operator talk contains ten matched slides per language, speaker notes and
+[event Q&A preparation](../events/2026-builder-season4/01-validation/EXPECTED_QA.ko.md).
+The [delivery record](../events/2026-builder-season4/01-validation/DELIVERY.md)
+records exported artifacts and checks. Build/export checks do not certify a
+human rehearsal, desktop PowerPoint inspection or Discord submission.
 
 ## Development
 
