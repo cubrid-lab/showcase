@@ -3,7 +3,7 @@
 ## Source of truth
 
 - Status: Active
-- Last refreshed: 2026-10-20
+- Last refreshed: 2026-10-21
 - Primary product surfaces: HTML presentations, matching PDF/PPTX exports, presentation index.
 - Evidence reviewed: `presentation/slides.md`, `presentation/style.css`, `presentation/components/`, the published contest deck, the Builder first-validation notice, and the Operator README/DESIGN/ROADMAP/ADRs pinned in the event's `SOURCES.md`.
 - Existing evidence: the contest uses white backgrounds, bundled Pretendard, blue emphasis, chapter transitions, diagrams, screenshots, and speaker notes. Design decision: extend that language to the Operator talk rather than shipping a bullet outline.
@@ -20,7 +20,7 @@
 - Make all seven requested topics understandable without a live demo.
 - Publish the HTML decks and derive PDF/PPTX from the same sources.
 - Non-goals: a production-readiness claim, a database demo, or a pixel copy of the contest narrative.
-- Success: a viewer can explain the problem, architecture, authority boundary, first-release target and feedback request after the talk.
+- Success: a viewer can explain the problem, architecture, authority boundary, first-release target, rough post-v0.1 direction and feedback request after the talk.
 
 ## Personas and jobs
 
@@ -33,15 +33,15 @@
 
 - Presentation index → event/program → presentation round → language-specific HTML deck.
 - Source and evidence remain accessible from the event brief.
-- The supplied seven-item agenda is the presentation outline: project/team → problem/users → current approaches/limitations → solution → draft architecture/flow → twelve-week roadmap/roles/first release → discussion. Use ten slides; no extra governance or closing section.
+- The supplied seven-item agenda is the presentation outline: project/team → problem/users → current approaches/limitations → solution → draft architecture/flow → twelve-week roadmap/roles/first release/post-v0.1 direction → discussion. Use eleven slides; no extra governance or closing section.
 
 ## Design principles
 
-- Use plain descriptive headings matching the announced items. Keep each page to the information needed for first validation.
+- Use concise headings that state the operational question, design choice or outcome within the announced items. Keep each page to the information needed for first validation.
 - Show relationships with diagrams and timelines instead of dense bullet lists.
 - Separate intended design, pinned Kind/VM observations and unvalidated release gates. A normal VM SQL connection check is not VM-fault or CSI qualification.
 - Reuse the contest's typography/tokens/layout vocabulary with an explicit Operator class. Preserve the existing contest rendering.
-- Keep a concise ten-slide deck within a 600-second speaker budget. Remove rhetorical transitions, marketing taglines and internal contribution-process instruction.
+- Keep eleven slides within a 600-second speaker budget. Use the concrete recovery question to connect the problem, design and acceptance; remove empty transitions and marketing taglines. Explain team accountability through deliverables and review rather than internal tooling.
 
 ## Visual language
 
@@ -89,6 +89,7 @@
 - Acknowledge the existing official Operator and its actual role/health capabilities.
 - Target dates are targets; Kind and bounded VM connection evidence are not VM-fault, CSI, zone or production qualification.
 - Mandatory release safety gates cannot be reduced to fit the calendar.
+- Post-v0.1 content is a direction proposal gated by first-release evidence and user feedback, not a committed version/date or supported-production promise.
 
 ## Implementation constraints
 

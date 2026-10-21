@@ -1,7 +1,7 @@
 ---
 theme: default
 title: "CUBRID Kubernetes Operator — 1차 검증"
-info: "Builder Season 4 · 2026-10-31 · Evidence as of 2026-10-20"
+info: "Builder Season 4 · 2026-10-31 · Content 2026-10-21 · Evidence 2026-10-20"
 author: CUBRID Lab
 fonts:
   provider: none
