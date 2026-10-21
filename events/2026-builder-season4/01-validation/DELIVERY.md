@@ -1,54 +1,61 @@
-# 1차 검증 발표자료 — 출력·검수 기록
+# 1차 검증 발표자료 — 내용 보강·출력 기록
 
-작성·근거 기준: **2026-10-20 KST**. 한국어 발표와 영어 제출용 자료를 같은
-Slidev 원본에서 생성했습니다. 발표·제출 완료 기록과 구분합니다.
+내용 보강: **2026-10-21 KST**. 실행 근거는 **2026-10-20**에 고정했습니다.
+운영자의 장애 복귀 판단을 중심으로 설명을 연결하고, 소스에 근거한 설계 비교,
+팀의 책임 구조, v0.1 공개 기준과 **v0.1 이후 방향안**을 보강했습니다.
 
-## 발표 파일
+## 현재 발표 파일
 
-[검수본 전체](https://github.com/cubrid-lab/showcase/releases/tag/builder-season4-validation-2026-10-20)에서
-출력 파일, 대본·Q&A, 원본 커밋과 SHA256 목록을 받습니다.
+[11장 검수본 전체](https://github.com/cubrid-lab/showcase/releases/tag/builder-season4-validation-2026-10-21)에서
+한영 출력물과 대본·Q&A·근거·파일 식별 기록을 받습니다.
 
 | 언어 | PowerPoint | PDF | 구성 |
 |---|---|---|---|
-| 한국어 | [한국어 PPTX](https://github.com/cubrid-lab/showcase/releases/download/builder-season4-validation-2026-10-20/operator-first-validation.ko.pptx) | [한국어 PDF](https://github.com/cubrid-lab/showcase/releases/download/builder-season4-validation-2026-10-20/operator-first-validation.ko.pdf) | 10장 · 슬라이드별 발표자 메모 |
-| English | [English PPTX](https://github.com/cubrid-lab/showcase/releases/download/builder-season4-validation-2026-10-20/operator-first-validation.en.pptx) | [English PDF](https://github.com/cubrid-lab/showcase/releases/download/builder-season4-validation-2026-10-20/operator-first-validation.en.pdf) | 10 slides · speaker notes per slide |
+| 한국어 | [한국어 PPTX](https://github.com/cubrid-lab/showcase/releases/download/builder-season4-validation-2026-10-21/operator-first-validation.ko.pptx) | [한국어 PDF](https://github.com/cubrid-lab/showcase/releases/download/builder-season4-validation-2026-10-21/operator-first-validation.ko.pdf) | 11장 · 슬라이드별 발표자 메모 |
+| English | [English PPTX](https://github.com/cubrid-lab/showcase/releases/download/builder-season4-validation-2026-10-21/operator-first-validation.en.pptx) | [English PDF](https://github.com/cubrid-lab/showcase/releases/download/builder-season4-validation-2026-10-21/operator-first-validation.en.pdf) | 11 slides · notes per slide |
 
-[전체 패키지 ZIP](https://github.com/cubrid-lab/showcase/releases/download/builder-season4-validation-2026-10-20/builder-season4-validation-materials.zip)에는
-두 언어의 PPTX·PDF, 한국어 대본, Q&A, 근거 목록과 파일 식별 기록을 담습니다.
-`presentation-manifest.json`의 `sourceCommit`은 실제 출력에 사용한 showcase 원본
-커밋이며, `operatorCommit`은 발표에서 설명하는 Operator 코드 기준입니다.
-두 커밋은 서로 다른 저장소의 식별자입니다. `SHA256SUMS`로 파일을 확인할 수 있습니다.
+[패키지 ZIP](https://github.com/cubrid-lab/showcase/releases/download/builder-season4-validation-2026-10-21/builder-season4-validation-materials.zip)에는
+네 출력물, 한국어 대본, Q&A, 근거 목록과 검수·파일 식별 기록을 담습니다.
+`presentation-manifest.json`의 `sourceCommit`과 원본별 해시로 출력 원본을 확인합니다.
+`operatorCommit`은 발표의 기술 근거이며 showcase 원본 커밋과 다릅니다.
+`SHA256SUMS`로 개별 파일을, `ZIP_SHA256.txt`로 ZIP을 확인합니다.
+이 배포는 **발표자료의 개정판**이며 Operator v0.1 소프트웨어 릴리스가 아닙니다.
 
-PPTX는 각 슬라이드의 화면을 이미지로 담는 Slidev 기본 형식입니다. 발표자 메모는
-텍스트로 들어가며, 슬라이드 본문 텍스트를 PowerPoint에서 직접 편집하는 형식은 아닙니다.
-수정은 [한국어](../../../presentation/decks/2026-builder-season4/01-validation/SLIDES.ko.md)·
-[영어 원본](../../../presentation/decks/2026-builder-season4/01-validation/SLIDES.en.md)에 반영하고 다시 출력합니다.
+PPTX는 Slidev 기본 출력으로 각 슬라이드 화면을 이미지로 담습니다. 발표자 메모는
+텍스트이며, 본문을 PowerPoint에서 직접 편집하는 형식은 아닙니다. 수정은
+[한국어](../../../presentation/decks/2026-builder-season4/01-validation/SLIDES.ko.md)·
+[영어 원본](../../../presentation/decks/2026-builder-season4/01-validation/SLIDES.en.md)에 반영해 다시 출력합니다.
 
-## 확인한 항목
+## 검수 범위
 
-- 공지의 7개 항목, 두 언어 각 10장, 동일한 600초 **계획**과 대응하는 주장·수치.
-- 한국어 별도 대본과 원본 발표자 메모의 일치, PPTX별 메모 10개 포함.
-- 고정 lockfile의 Slidev 53.0.0으로 전체 사이트 빌드와 두 언어 PPTX·PDF 출력.
-  내보내기용 선택 도구는 별도로 사용했으며 프로젝트 manifest·lockfile은 바꾸지 않았습니다.
-- Chrome 145.0.7632.67에서 한국어·영어 정적 웹 20장 확인. 텍스트 경계 넘침 0건,
-  처리되지 않은 페이지 오류 0건, 외부 자산 요청 0건. 로컬 Pretendard 로드 확인.
-- ZIP/XML·내부 참조, 각 파일의 10장/10페이지와 16:9 비율, 모든 페이지의 비어 있지 않은
-  이미지·본문, PDF의 자체 포함 글리프와 한영 문서 제목 확인.
-- 기존 흰 바탕·파란 강조·서체를 유지한 시각 검수. 기존 대회 원본·공통 테마는 수정하지 않았습니다.
-- 원본 첫 슬라이드의 제목 메타데이터를 보완해 PPTX의 기본 생성기 제목을 교체했습니다.
-  보완 전후 20개 슬라이드 PNG는 바이트 단위로 같아 레이아웃 변경이 없었습니다.
+- 공지의 7개 항목을 두 언어 **각 11장**에 반영. 후속 방향은 10장, 의견 요청은 11장입니다.
+- 두 언어의 슬라이드 순서·주장·범위와 600초 **계획**을 대조했습니다. 실측 발표 시간이 아닙니다.
+- 한국어 별도 대본은 원본 메모와 일치하며, PPTX 두 파일의 11개 메모는 시간 표기를 포함해 원본과 대조했습니다.
+- 기존 lockfile의 Slidev 53.0.0과 Chrome 145.0.7632.67로 전체 사이트 빌드와 한영 PPTX·PDF를 생성했습니다.
+  기존 도구를 재사용하며 manifest·lockfile·의존성을 바꾸지 않았습니다.
+- 실제 정적 웹 22장을 확인했습니다. 본문·표 셀과 패딩·도식 범위 넘침 0건,
+  처리되지 않은 페이지 오류 0건, 외부 자산 요청 0건이며 로컬 Pretendard를 확인했습니다.
+- 초기 화면 검수에서 발견한 긴 제목·표의 넘침을 수정하고 재검수했습니다.
+  기존 Operator compact 레이아웃과 제한된 표 간격만 조정했으며 공통 테마·대회 원본은 유지했습니다.
+- PPTX의 ZIP CRC/XML/내부 참조·11개 이미지 슬라이드·메모, PDF의 11페이지·16:9·본문·자체 포함 폰트와
+  비어 있지 않은 렌더를 검수했습니다. 세부 결과와 해시는 배포 패키지에 포함합니다.
 
-기존 공개본과 같은 선택적 Twoslash/FloatingVue 툴팁 초기화 콘솔 경고가 있습니다.
-예외는 라이브러리 내부에서 처리되며, 위의 웹 렌더·폰트·본문·내보내기 검사는
-통과했습니다. 이 자료 완성 작업에서 공통 도구 의존성을 변경하지 않았습니다.
+기존 공개본과 같은 선택적 Twoslash/FloatingVue 초기화 콘솔 경고가 있습니다.
+처리되지 않은 페이지 오류와는 구분하며, 이 내용 개정에서 라이브러리 의존성은 변경하지 않았습니다.
+
+## 이전 검수본 보존
+
+[2026-10-20의 10장 검수본](https://github.com/cubrid-lab/showcase/releases/tag/builder-season4-validation-2026-10-20)과
+[당시 출력·검수 기록](https://github.com/cubrid-lab/showcase/blob/22d1fadcaa94bdabbdcd7478fa8f541d2406ccff/events/2026-builder-season4/01-validation/DELIVERY.md)은
+별도로 보존합니다. 기존 태그나 첨부 파일을 덮어쓰지 않습니다.
 
 ## 실제 발표·제출 전에 남은 항목
 
-- 한국어 실제 발표 리허설로 10분 이내인지 측정. 600초 시간표는 실측 기록이 아닙니다.
-- 두 PPTX를 실제 PowerPoint에서 열어 발표 장비·화면 비율·메모 표시 최종 확인.
-- 공지의 공식 프로그램명 확인. 본문은 전달받은 “빌더 시즌4” 표기를 사용합니다.
-- **2026-10-29 23:59 KST까지** 팀 디스코드 채널에 한국어·영어 PPTX를 각각 제출하고,
-  실제 제출 시각과 메시지 링크를 기록. 디스코드 전송은 이 작업에 포함하지 않았습니다.
+- 한국어 실제 리허설로 10분 이내인지 측정. 600초는 시간 배분입니다.
+- 두 PPTX를 실제 PowerPoint에서 열어 발표 장비·화면 비율·메모 표시 확인.
+- 공식 프로그램명 확인. 전달받은 “빌더 시즌4” 표기를 사용합니다.
+- **2026-10-29 23:59 KST까지** 팀 디스코드 채널에 한영 PPTX 각각 제출하고 시각·메시지 링크 기록.
+  디스코드 전송은 수행하지 않았습니다.
 
-VM SQL 연결 결과는 [고정 근거](SOURCES.md)에서 확인합니다. VM 전원 장애·네트워크
-분할·CSI·전체 S00–S15·장시간 부하 검증 완료나 운영 준비 완료를 주장하지 않습니다.
+v0.1 이후 내용은 방향안이며 후속 버전·완료일·운영 지원을 확약하지 않습니다.
+VM 전원 장애·네트워크 분할·CSI·전체 S00–S15·장시간 부하 검증 완료나 운영 준비 완료를 주장하지 않습니다.

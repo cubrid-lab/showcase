@@ -1,6 +1,6 @@
 # First-validation presentation — sources
 
-Updated on **2026-10-20 (KST)**. The main deck follows the seven items in the supplied
+Content revised on **2026-10-21 (KST)**; execution evidence remains fixed to **2026-10-20**. The main deck follows the seven items in the supplied
 Builder notice. Detailed source checks stay here and in speaker notes rather
 than becoming extra presentation sections.
 
@@ -8,14 +8,14 @@ than becoming extra presentation sections.
 
 | Announced item | Slides | Seconds |
 |---|---|---|
-| 1. Project and team introduction | 1 | 60 |
-| 2. Problem and affected users | 2 | 60 |
-| 3. Current approaches and existing open-source limitations | 3 | 75 |
+| 1. Project and team introduction | 1 | 40 |
+| 2. Problem and affected users | 2 | 65 |
+| 3. Current approaches and existing open-source limitations | 3 | 65 |
 | 4. Proposed solution | 4 | 60 |
-| 5. Draft architecture, components and information flow | 5–6 | 135 |
-| 6. Twelve-week roadmap, team roles and first public release scope | 7–9 | 180 |
-| 7. Topics for discussion | 10 | 30 |
-| Total | 10 slides | 600 |
+| 5. Draft architecture, components and information flow | 5–6 | 130 |
+| 6. Twelve-week roadmap, roles, first-release scope and post-v0.1 direction | 7–10 | 210 |
+| 7. Topics for discussion | 11 | 30 |
+| Total | 11 slides | 600 |
 
 Both languages have the same order and time budget. This is a budget for a
 ten-minute talk, not a measured rehearsal.
@@ -35,7 +35,8 @@ ten-minute talk, not a measured rehearsal.
 | 5–6 | [Architecture](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/DESIGN.md#7-high-level-architecture), [Broker/service architecture](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/DESIGN.md#10-broker-and-service-architecture), [ADR-0005](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/docs/adr/0005-failover-split-brain.md) | Integrated DB-container IM; separate Broker tier; separate SQL/control paths. CUBRID owns role transitions. No permanent ordinal-zero master or Operator-selected winner between divergent data sets |
 | 7, 9 | [ROADMAP](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/ROADMAP.md) and [season issue 77](https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/77) | Oct 05–Dec 27 targets and unchanged required/conditional/future scope. Mandatory release acceptance is not reduced by shortening the presentation |
 | 8 | Team record below and [governance](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/docs/governance.md) | Shared maintainer roles are established; fixed feature ownership is not yet confirmed |
-| 10 | Project proposal and supplied first-validation notice | Questions for feedback, not settled customer requirements |
+| 10 | Post-v0.1 direction below; pinned ROADMAP future scope and README security limits | Proposed sequence, not a scheduled release contract or support promise |
+| 11 | Project proposal and supplied first-validation notice | Requests for a recent incident walkthrough, a reference environment and independent runbook reproduction |
 
 ## Recorded execution evidence
 
@@ -65,9 +66,7 @@ On 2026-10-15 the repository collaborator metadata identifies `yeongseon` and
 records the Korean names **최영선 · 백경준**. These identities were checked rather
 than inferred from commit authorship alone.
 
-The deck presents both as co-maintainers with shared design, development and
-validation. It does not invent fixed individual feature ownership. Detailed
-per-feature assignments are not required to understand this joint working model.
+The deck presents both as co-maintainers. It makes the per-change owner/reviewer contract concrete from [CONTRIBUTING](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/CONTRIBUTING.md#development-workflow): the assigned implementer supplies reproduction, implementation, tests, documentation and execution evidence; the other maintainer reviews it. Fixed individual feature ownership is unconfirmed and is not invented. Shared-lab experiments are serialized, and non-author reproduction remains release acceptance.
 
 ## Evidence boundaries retained in the notes
 
@@ -90,3 +89,28 @@ per-feature assignments are not required to understand this joint working model.
   outside the initial scope.
 - Final speaking rehearsal, PowerPoint desktop review and submission are not
   claimed by a successful browser or export check.
+
+## Comparison boundaries
+
+Slide 3 compares inspected implementation models, not every upstream feature or deployed reliability. Source inspection was repeated against the same two pinned revisions for this content revision.
+
+| Claim | Primary source and boundary |
+|---|---|
+| Official HA status uses the first successful CMS response's node view | [status controller, lines 63–110](https://github.com/CUBRID/cubrid-operator/blob/fa7b6c2cf26096769c4404a2e2bb683f3872aa1e/internal/controller/cubriddb_controller_status.go#L63-L110). The project already supports HA observation. |
+| Our primary decision aggregates expected-member observations and leaves missing/conflicting evidence unresolved | [resolution inputs](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/internal/controller/haresolve.go#L36-L105), [decision](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/internal/controller/haresolve.go#L189-L235). This does not itself stop SQL writes. |
+| Official backup uses scheduling, Pod exec and persisted per-Pod status | [execution/status](https://github.com/CUBRID/cubrid-operator/blob/fa7b6c2cf26096769c4404a2e2bb683f3872aa1e/internal/controller/backupdb_controller.go#L317-L345), [API](https://github.com/CUBRID/cubrid-operator/blob/fa7b6c2cf26096769c4404a2e2bb683f3872aa1e/api/v1/backupdb_types.go#L23-L54). Do not say it has no backup persistence or recovery support. |
+| Our IM has a PVC-durable operation protocol; interrupted operations become Failed on restart | [opstore](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/internal/instancemanager/opstore.go#L57-L120). Durable identity is not automatic resumption or guaranteed completion. |
+| Our backup target/request identity is recorded; restore verifies manifest objects and targets a new cluster | [dispatch](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/internal/controller/cubridbackup_controller.go#L199-L207), [size/SHA-256 checks](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/internal/instancemanager/restore.go#L347-L421), [restore ADR](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/docs/adr/0008-restore-semantics.md#L47-L79). Integrated new-cluster restore remains a required verification gate. |
+| Port/Ready observations and SQL validation differ in both projects | [official endpoint check](https://github.com/CUBRID/cubrid-operator/blob/fa7b6c2cf26096769c4404a2e2bb683f3872aa1e/internal/controller/broker_endpoint_controller.go#L97-L111), [our TCP readiness](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/internal/controller/broker.go#L208-L216). Recorded VM SQL is separate evidence, not our readiness mechanism. |
+
+Both projects observe periodically. Polling is not presented as a differentiator. The hypothetical recovery scenario is an explanation of a decision, not a newly discovered customer incident. No RTO/RPO reduction, adoption, comparative stability, most-caught-up-backup selection or universal recovery guarantee is claimed.
+
+## Post-v0.1 direction
+
+Slide 10 is a **direction proposal prompted by presentation feedback**, not an approved new release plan. The first version remains the required, bounded recovery qualification described by the pinned ROADMAP; no mandatory safety condition is moved to a later version.
+
+1. Learn from independent installations and incident reproduction; improve failure diagnosis and operating procedures. Qualify DB authentication/TLS and compatible updates as adoption needs. These are not claimed supported today; IM authentication is distinct. Compatible updates remain conditional in v0.1 until their gates pass.
+2. Expand Kubernetes/CSI coverage only with per-configuration recovery evidence. Consider arm64 and multi-zone tests separately; do not generalize single-lab results.
+3. Investigate engine-version migration and additional replication topologies after the recovery foundation is established. These are explicitly future scope in the pinned ROADMAP.
+
+Dates, version numbers, implementation order and supported-production status are not promised. The next bounded release scope follows v0.1 acceptance, maintainer decisions, available validation environments and actual user feedback.

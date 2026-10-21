@@ -125,3 +125,16 @@
 .slidev-layout.showcase-deck.operator-deck .op-frame.op-compact .op-body { gap: 16px; }
 
 .slidev-layout.showcase-deck.operator-deck .op-peer-group { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+
+/* Dense comparisons use the existing compact variant with readable row breaks. */
+.slidev-layout.showcase-deck.operator-deck .op-frame.op-compact .op-comparison th,
+.slidev-layout.showcase-deck.operator-deck .op-frame.op-compact .op-comparison td {
+  padding: 7px 12px 7px 0;
+}
+.slidev-layout.showcase-deck.operator-deck .op-frame.op-compact .op-comparison td {
+  font-size: .94rem;
+}
+
+.slidev-layout.showcase-deck.operator-deck .op-comparison.op-acceptance td:first-child {
+  width: 29%;
+}
