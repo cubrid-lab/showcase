@@ -114,3 +114,7 @@ Slide 10 is a **direction proposal prompted by presentation feedback**, not an a
 3. Investigate engine-version migration and additional replication topologies after the recovery foundation is established. These are explicitly future scope in the pinned ROADMAP.
 
 Dates, version numbers, implementation order and supported-production status are not promised. The next bounded release scope follows v0.1 acceptance, maintainer decisions, available validation environments and actual user feedback.
+
+## Spoken-copy revision
+
+The 2026-10-21 wording revision keeps the same eleven slides,600-second budget, source revisions and execution evidence. Titles, captions and notes use concrete actors/actions instead of repeating abstract labels and disclaimers. Relevant limits remain beside the Kind/VM results, write-quarantine work, release/security scope and future plan. No interviews, personal incidents, fixed individual assignments, measurements or future dates were added.

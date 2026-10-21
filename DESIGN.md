@@ -84,7 +84,9 @@
 
 ## Content voice
 
-- Korean talk: short, neutral spoken sentences. English: equivalent claims and diagrams. Avoid speeches about working rules, slogans, evaluation strategy or the act of preparing the presentation.
+- Write the talk as maintainers explaining their project aloud. Prefer concrete actors and verbs to noun strings such as “operational intent”, “evidence boundaries” or “adoption requirements”. English should sound spoken too, rather than translating the Korean labels literally.
+- Keep necessary limits beside the relevant result; leave detailed source records in SOURCES.md. Do not end every slide with another disclaimer or describe writing/assignment decisions in the spoken notes.
+- Do not invent personal incidents, customer interviews or individual duties to make the talk sound human. Keep technical names where they carry real meaning; avoid forced slang and slogans.
 - Keep CUBRID's master/slave terminology when discussing engine roles, and distinguish it from Kubernetes readiness.
 - Acknowledge the existing official Operator and its actual role/health capabilities.
 - Target dates are targets; Kind and bounded VM connection evidence are not VM-fault, CSI, zone or production qualification.
