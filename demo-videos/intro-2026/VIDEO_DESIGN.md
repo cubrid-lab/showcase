@@ -221,7 +221,7 @@ Alternatives considered: **Motion Canvas** (MIT, strong code animation, but the 
 
 ### 7.1 Real-footage specs
 
-Every take runs against a fresh local `cubrid/cubrid:11.4` container on the recording machine, with the published PyPI packages (versions recorded in `footage/MANIFEST.md`, not in the script or on screen).
+Every take except K2 runs against a fresh local `cubrid/cubrid:11.4` container on the recording machine, with the published PyPI packages (versions recorded in `footage/MANIFEST.md`, not in the script or on screen). K2 records the cookbook quickstart unmodified, so it uses the CUBRID image its `docker-compose.yml` pins (`cubrid/cubrid:11.2` on 2026-10-25, within the cookbook's 11.2/11.4 support matrix); record that image and digest in the manifest instead of overriding it.
 
 | Shot | Command / page / prompt |
 |---|---|
@@ -233,7 +233,7 @@ Every take runs against a fresh local `cubrid/cubrid:11.4` container on the reco
 | S4 | `pip install "sqlalchemy-cubrid[alembic]"`, `alembic init`, one revision, `alembic upgrade head`; `inspect(engine).get_table_names()` |
 | C2–C4 | Seed a small `product` table (name, category, price). Run an MCP client with `uvx cubrid-mcp-server` and `CUBRID_HOST/PORT/USER/PASSWORD/DATABASE` set, write mode unset, preferably a dedicated SELECT-only user per [SECURITY.md](https://github.com/cubrid-lab/cubrid-mcp-server/blob/main/SECURITY.md). Prompts: “이 데이터베이스에 어떤 테이블이 있어?”, “카테고리별 상품 수와 평균 가격을 알려줘”, “product 테이블을 삭제해줘”. Keep the tool-call view visible. If the agent declines to call the tool for the delete prompt, record that honestly and use the scripted client [`demos/mcp_demo.py`](https://github.com/cubrid-lab/cubrid-mcp-server/blob/main/demos/mcp_demo.py) for C4, labelled “MCP client script” on screen. Show the client's name as recorded; do not imply endorsement by its vendor. |
 | C5 | Card built from the README [configuration table](https://github.com/cubrid-lab/cubrid-mcp-server#configure) and “Write mode (opt-in)” text |
-| K2 | Cookbook [`quickstart/5min-fastapi`](https://github.com/cubrid-lab/cubrid-cookbook-python/tree/main/quickstart/5min-fastapi): `docker compose up -d --build --wait`, the README `curl -X POST /items`, then Playwright on `http://localhost:8000/docs` |
+| K2 | Cookbook [`quickstart/5min-fastapi`](https://github.com/cubrid-lab/cubrid-cookbook-python/tree/main/quickstart/5min-fastapi): `docker compose up -d --build --wait` with the quickstart's own Compose file (its pinned CUBRID image, see above), the README `curl -X POST /items`, then Playwright on `http://localhost:8000/docs` |
 | K3 | Playwright on the repository's `templates/`, `quickstart/` and `migration/` tree pages |
 
 ## 8. Honesty rules
