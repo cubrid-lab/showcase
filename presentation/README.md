@@ -31,14 +31,21 @@ empty string for a domain-root deployment. Slide navigation uses hash routes.
 The canonical source is `slides.md`. Generate all deliverables from the same
 checkout so they use the same content and active metrics snapshot.
 
+These are the same commands the CI export workflow runs, from `presentation/`:
+
 ```bash
 npm ci
-npm run build:site
+PAGES_BASE_PATH=/showcase npm run build:site
 npm install --no-save --package-lock=false playwright-chromium@1.64.1
 npx playwright install chromium
 npm run export:ossdevcon:pdf
 npm run export:ossdevcon:pptx
+python3 -m pip install --target "${TMPDIR:-/tmp}/ossdevcon-verify-pydeps" pypdf==6.20.0
+PYTHONPATH="${TMPDIR:-/tmp}/ossdevcon-verify-pydeps" python3 scripts/verify_exports.py
 ```
+
+`PAGES_BASE_PATH` only sets the site's URL prefix; omit it for a root-hosted
+preview.
 
 Outputs:
 - HTML: `../site-dist/index.html` and the linked presentation pages
@@ -46,7 +53,12 @@ Outputs:
 - PowerPoint: `exports/ossdevcon.pptx`
 
 The export commands require Slidev's optional `playwright-chromium` peer and a
-Chromium browser. The CI export workflow installs the browser and uploads the
+Chromium browser. Slidev can exit successfully while a slide still shows its
+"Loading slide..." placeholder, so both export commands wait for network idle
+and then 5 seconds before capturing, and `scripts/verify_exports.py` fails if
+any PDF page is blank or shows the placeholder, or if the PDF page count or
+PPTX slide count differs from the slide count of `slides.md`. The PPTX holds
+images only, so inspect it visually. The CI export workflow installs the browser and uploads the
 HTML site, PDF, and PPTX together as one artifact for the same commit. Download
 the artifact from the workflow run's **Artifacts** section.
 

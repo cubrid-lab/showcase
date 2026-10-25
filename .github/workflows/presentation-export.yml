@@ -45,6 +45,8 @@ jobs:
           test -s site-dist/index.html
           test -s presentation/exports/ossdevcon.pdf
           test -s presentation/exports/ossdevcon.pptx
+          python3 -m pip install --no-cache-dir --target "$RUNNER_TEMP/verify-pydeps" pypdf==6.20.0
+          (cd presentation && PYTHONPATH="$RUNNER_TEMP/verify-pydeps" python3 scripts/verify_exports.py)
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: ossdevcon-presentation-${{ github.sha }}
