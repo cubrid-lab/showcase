@@ -9,8 +9,8 @@ The Operator uses `operator-first-validation.ko.md` and
 [event's web slide sources](decks/2026-builder-season4/01-validation/)
 inside the Slidev project root and share its installed theme and tooling.
 See the [event brief](../events/2026-builder-season4/01-validation/) for
-requirements. Edit the deck sources for content
-and the entry frontmatter for presentation configuration.
+requirements. Edit the deck sources for content and the entry frontmatter for
+presentation configuration.
 
 ## Published HTML presentations
 
@@ -28,8 +28,58 @@ empty string for a domain-root deployment. Slide navigation uses hash routes.
 
 The Pages workflow rebuilds and deploys when presentation sources or site
 build files change on `main`, and supports manual dispatch. It uses the
-existing package lock; no additional npm dependency is required. PDFs and
-PPTX remain separate exports from the same web sources.
+existing package lock; no additional npm dependency is required.
+
+## 2026 OSSDevCon deliverables: HTML, PDF, and PPTX
+
+The canonical source is `slides.md`. Generate all deliverables from the same
+checkout so they use the same content and active metrics snapshot.
+
+These are the same commands the CI export workflow runs, from `presentation/`:
+
+```bash
+npm ci
+PAGES_BASE_PATH=/showcase npm run build:site
+npm install --no-save --package-lock=false playwright-chromium@1.64.1
+npx playwright install chromium
+npm run export:ossdevcon:pdf
+npm run export:ossdevcon:pptx
+python3 -m pip install --target "${TMPDIR:-/tmp}/ossdevcon-verify-pydeps" pypdf==6.20.0
+PYTHONPATH="${TMPDIR:-/tmp}/ossdevcon-verify-pydeps" python3 scripts/verify_exports.py
+```
+
+`PAGES_BASE_PATH` only sets the site's URL prefix. It defaults to `/showcase`,
+so set it to an empty string (`PAGES_BASE_PATH=`) for a root-hosted preview.
+
+Outputs:
+- HTML: `../site-dist/index.html` and the linked presentation pages
+- PDF: `exports/ossdevcon.pdf`
+- PowerPoint: `exports/ossdevcon.pptx`
+
+The export commands require Slidev's optional `playwright-chromium` peer and a
+Chromium browser. Slidev can exit successfully while a slide still shows its
+"Loading slide..." placeholder, so both export commands wait for network idle
+and then 5 seconds before capturing, and `scripts/verify_exports.py` fails if
+any PDF page is blank or shows the placeholder, or if the PDF page count or
+PPTX slide count differs from the slide count of `slides.md`. The PPTX holds
+images only, so inspect it visually.
+
+The CI export workflow (`.github/workflows/presentation-export.yml`) runs on
+pull requests and pushes to `main` that change presentation sources, the site
+build script or the workflow, and on manual dispatch. It installs the browser,
+fails if any of the three formats is missing or fails verification, and uploads
+the HTML site, PDF, and PPTX together as one artifact named
+`ossdevcon-presentation-<commit SHA>`. On pull request runs that SHA is
+GitHub's test merge commit, not the branch head, so take release deliverables
+from the run on `main` or from a manual dispatch. Download the artifact from
+the workflow run's **Artifacts** section; it is kept for 30 days.
+
+The default PPTX export uses an image per slide for visual consistency. It is
+suitable for presenting and reviewing, but slide text and shapes are not
+directly editable; web interactions and animations become static. If native
+PowerPoint editing is needed, evaluate Slidev's `pptx-editable` export as a
+separate output and manually review its layout. Export success does not replace
+visual inspection of the PDF and PPTX.
 
 ## Operator: web → PDF / PPTX
 

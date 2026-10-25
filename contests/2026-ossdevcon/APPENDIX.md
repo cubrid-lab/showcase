@@ -136,13 +136,21 @@
 | Query select-all | 39.8ms | 31.8ms | **19.9% faster** |
 | Fetch optimization (10K rows) | 96ms | 78ms | **−19% latency** |
 
-### Benchmark Infrastructure
+### Benchmark Provenance and Status
+
+> **Historical results — not rerun for the 2026-10-25 presentation refresh.**
+> The values above are retained as previously recorded results, not as a benchmark
+> of the latest driver/library versions. The original run date and exact driver
+> versions are not recorded in the currently verified presentation evidence.
+> Those fields are intentionally marked as **not recorded** rather than inferred.
 
 - Repo: [cubrid-benchmark](https://github.com/cubrid-lab/cubrid-benchmark)
-- Environment: Intel i5-9400F, Linux x86_64, Docker CUBRID 11.4
-- Workload: 10,000 rows × 5 rounds (mean)
-- Profiling scripts: `profile_connect.py`, `profile_execute.py`, `profile_fetch.py`
-- All numbers reproducible via benchmark repo
+- Environment as previously stated (not verified against a run log): Intel i5-9400F, Linux x86_64, Docker CUBRID 11.4
+- Workload as previously stated (not verified against a run log): 10,000 rows × 5 rounds (mean)
+- Profiling scripts as previously stated (not verified against a run log): `profile_connect.py`, `profile_execute.py`, `profile_fetch.py`
+- Original benchmark execution date: **not recorded**
+- Original `pycubrid` / `PyMySQL` versions or commit SHAs: **not recorded**
+- Follow-up: [Issue #44](https://github.com/cubrid-lab/showcase/issues/44) tracks metadata verification and a new benchmark run next week.
 
 ---
 
