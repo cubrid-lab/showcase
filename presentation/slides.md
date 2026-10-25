@@ -319,7 +319,7 @@ pip install pycubrid
     <li><b>asyncio 네이티브</b> — <code>pycubrid.aio</code>로 FastAPI 같은 비동기 서버에서 바로</li>
     <li><b>TLS</b> 암호화 연결, <b>BLOB · CLOB</b> 대용량 데이터</li>
     <li><b class="nw">CAS broker</b> 자동 reconnect · <span class="nw">batch fetch</span></li>
-    <li><b>테스트 1,147개</b> · <span class="nw">mypy strict</span> 오류 0</li>
+    <li><b>커버리지 95% CI 게이트</b> · <span class="nw">mypy strict</span> 오류 0</li>
   </ul>
 </div>
 
@@ -327,7 +327,7 @@ pip install pycubrid
 [25초 · 활용성 · 기능테스트]
 그 결과가 pycubrid입니다. pip install 한 줄이면 끝나고, C 컴파일러도 필요 없습니다.
 Python 표준 DB-API를 따르니 다른 데이터베이스와 쓰는 법이 같고, asyncio를 기본 지원해서 FastAPI 같은 비동기 서버에서 바로 쓸 수 있습니다.
-TLS 암호화와 대용량 데이터도 지원하고, 테스트는 1,147개입니다.
+TLS 암호화와 대용량 데이터도 지원하고, 테스트와 커버리지 기준을 CI에서 강제합니다.
 -->
 
 ---
@@ -388,7 +388,7 @@ TLS 암호화와 대용량 데이터도 지원하고, 테스트는 1,147개입�
     <ul class="explain">
       <li><b>tool 12개</b> — 테이블 목록 · 스키마 · 인덱스 · <span class="nw">실행 계획</span> · <span class="nw">쿼리 실행</span></li>
       <li><b>기본 읽기 전용</b> — 쓰기는 운영자가 켤 때만</li>
-      <li>저희가 찾아본 범위에서 <b class="nw">세계 최초의 CUBRID MCP 서버</b> · <span class="nw">PyPI v0.4.0</span></li>
+      <li>저희가 찾아본 범위에서 <b class="nw">세계 최초의 CUBRID MCP 서버</b> · <span class="nw">v0.5.4</span></li>
     </ul>
   </div>
   <figure class="shot clip"><img src="/shots/repo-mcp.jpg" alt="cubrid-mcp-server 저장소"></figure>
@@ -496,13 +496,9 @@ AI에게 데이터베이스를 열어 주면 제일 먼저 나오는 질문이 "
 <div class="split even">
   <div class="stack">
     <p class="kicker">믿지 않아도 되게 만들었습니다</p>
-    <p class="huge sm">2,200</p>
-    <h2>개의 테스트를 통과해야<br>머지됩니다</h2>
-    <BarChart :width="360" :label-width="130" :bar="18" :gap="10" :rows="[
-      { label: 'pycubrid', value: 1147, text: '1,147', hl: true },
-      { label: 'sqlalchemy-cubrid', value: 769, text: '769' },
-      { label: 'mcp-server', value: 284, text: '284' },
-    ]" />
+    <p class="huge sm">CI</p>
+    <h2>를 통과해야<br>머지됩니다</h2>
+    <p class="small">테스트 수는 파라미터화와 workflow lane에 따라 달라져 고정 합계로 제시하지 않습니다.</p>
   </div>
   <ul class="explain">
     <li><b>타입 오류 0</b> — mypy strict</li>
@@ -520,7 +516,7 @@ AI에게 데이터베이스를 열어 주면 제일 먼저 나오는 질문이 "
 
 <!--
 [25초 · 기능테스트]
-저희는 믿지 않아도 되게 만들었습니다. 테스트가 2,200개이고, 통과하지 못하면 머지 자체가 안 됩니다.
+저희는 믿지 않아도 되게 만들었습니다. 저장소별 테스트와 품질 게이트를 통과하지 못하면 머지 자체가 안 됩니다.
 타입 오류 0, 커버리지 95%, property-based test, 공개 API 변경 감지,
 그리고 Python 5개 버전과 CUBRID 4개 버전, 20개 조합의 실제 DB에서 검증합니다.
 -->
@@ -612,7 +608,7 @@ ping을 SELECT 1 대신 CAS protocol 수준으로 바꿔 처리량이 3.8배, SQ
 <h2>저희 말 대신,<br><span class="accent">직접 확인해 보세요</span></h2>
 
 ```bash
-uvx cubrid-mcp-server             # PyPI v0.4.0
+uvx cubrid-mcp-server             # current release v0.5.4
 docker compose up && make verify  # 전체 스택
 ```
 
@@ -630,7 +626,7 @@ VERIFY.md에 단계별 명령과 기대 결과를 모두 적어 두었습니다.
 
 <!--
 [25초 · 활용성]
-숫자는 화면에 표시한 스냅숏 기준으로 검증된 값만 가져왔습니다. GitHub star, merged PR, PyPI 릴리스 수를 저장소별로 보여드립니다.
+숫자는 화면에 표시한 스냅숏 기준으로 검증된 값만 가져왔습니다. GitHub star, merged PR, published GitHub Release 수를 저장소별로 보여드립니다.
 fork는 이 스냅숏에 기록되지 않아 제외했습니다. 클론 수는 CI와 실제 사용자를 구분할 수 없어 사용자 수로 제시하지 않습니다.
 -->
 
@@ -648,7 +644,7 @@ fork는 이 스냅숏에 기록되지 않아 제외했습니다. 클론 수는 C
 <p class="sub">Python에서 검증한 이 순서를<br>다른 언어에도 그대로 적용하고 있습니다.</p>
 
 <ul class="explain langs">
-  <li><b>Python</b> — pycubrid · sqlalchemy-cubrid <span class="muted">v1.7.1 · 완성</span></li>
+  <li><b>Python</b> — pycubrid <span class="muted">v1.13.3</span> · sqlalchemy-cubrid <span class="muted">v1.11.5</span></li>
   <li><b>TypeScript</b> — cubrid-client · drizzle-cubrid <span class="muted">진행 중</span></li>
   <li><b>Go</b> — cubrid-go · gorm-cubrid <span class="muted">진행 중</span></li>
   <li><b>Rust</b> — cubrid-rs · sea-orm-cubrid <span class="muted">진행 중</span></li>
