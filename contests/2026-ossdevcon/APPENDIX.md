@@ -148,15 +148,15 @@
 
 ## C. Adoption Trends
 
-### GitHub Stars (as of 2026-09-12)
+### GitHub Stars (as of 2026-10-25)
 
 | Repo | Created | Stars | Growth |
 |---|---|---|---|
-| sqlalchemy-cubrid | 2022-07 | ⭐36 | 4 years, steady |
-| pycubrid | 2026-03 | ⭐29 | 6 months, rapid |
-| cubrid-mcp-server | 2026-04 | ⭐29 | 5 months, rapid |
-| cubrid-cookbook-python | 2026-03 | ⭐25 | 6 months |
-| **Total** | — | **⭐119** | — |
+| sqlalchemy-cubrid | 2022-07 | ⭐38 | 4 years, steady |
+| pycubrid | 2026-03 | ⭐31 | 7 months |
+| cubrid-mcp-server | 2026-04 | ⭐32 | 6 months |
+| cubrid-cookbook-python | 2026-03 | ⭐28 | 7 months |
+| **Total** | — | **⭐129** | — |
 
 ### GitHub Clone Traffic — not an adoption metric
 
@@ -186,11 +186,11 @@
 
 | Repo | Merged PRs | Contributors | AI+Human PRs |
 |---|---:|---|---|
-| pycubrid | 159 | 2 humans + AI | 100% CI-gated |
-| sqlalchemy-cubrid | 151 | 2 humans + AI | 100% CI-gated |
-| cubrid-mcp-server | 84 | 2 humans + AI | 100% CI-gated |
-| cubrid-cookbook-python | 56 | 2 humans + AI | 100% CI-gated |
-| **Total** | **450** | | |
+| pycubrid | 537 | 2 humans + AI | CI-gated |
+| sqlalchemy-cubrid | 529 | 2 humans + AI | CI-gated |
+| cubrid-mcp-server | 236 | 2 humans + AI | CI-gated |
+| cubrid-cookbook-python | 251 | 2 humans + AI | CI-gated |
+| **Total** | **1,553** | | |
 
 ---
 
@@ -198,7 +198,7 @@
 
 | Language | Driver | Version | ORM | Version | Status |
 |---|---|---|---|---|---|
-| **Python** | pycubrid | v1.7.1 | sqlalchemy-cubrid | v1.7.1 | **Complete** |
+| **Python** | pycubrid | v1.13.3 | sqlalchemy-cubrid | v1.11.5 | **Complete** |
 | TypeScript | cubrid-client | v1.1.0 | drizzle-cubrid | v0.2.1 | In progress |
 | Go | cubrid-go | v0.2.1 | gorm-cubrid | v0.1.0 | In progress |
 | Rust | cubrid-rs | v0.1.0 | sea-orm-cubrid | v0.1.0 | In progress |
