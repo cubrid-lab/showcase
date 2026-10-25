@@ -9,8 +9,8 @@ The Operator uses `operator-first-validation.ko.md` and
 [event's web slide sources](decks/2026-builder-season4/01-validation/)
 inside the Slidev project root and share its installed theme and tooling.
 See the [event brief](../events/2026-builder-season4/01-validation/) for
-requirements. Edit the deck sources for content
-and the entry frontmatter for presentation configuration.
+requirements. Edit the deck sources for content and the entry frontmatter for
+presentation configuration.
 
 ## Published HTML presentations
 
@@ -26,10 +26,36 @@ This builds all three decks into `../site-dist/` with their own URL base paths,
 plus a landing page. `PAGES_BASE_PATH` defaults to `/showcase`; set it to an
 empty string for a domain-root deployment. Slide navigation uses hash routes.
 
-The Pages workflow rebuilds and deploys when presentation sources or site
-build files change on `main`, and supports manual dispatch. It uses the
-existing package lock; no additional npm dependency is required. PDFs and
-PPTX remain separate exports from the same web sources.
+## 2026 OSSDevCon deliverables: HTML, PDF, and PPTX
+
+The canonical source is `slides.md`. Generate all deliverables from the same
+checkout so they use the same content and active metrics snapshot.
+
+```bash
+npm ci
+npm run build:site
+npm install --no-save --package-lock=false playwright-chromium
+npx playwright install chromium
+npm run export:ossdevcon:pdf
+npm run export:ossdevcon:pptx
+```
+
+Outputs:
+- HTML: `../site-dist/index.html` and the linked presentation pages
+- PDF: `exports/ossdevcon.pdf`
+- PowerPoint: `exports/ossdevcon.pptx`
+
+The export commands require Slidev's optional `playwright-chromium` peer and a
+Chromium browser. The CI export workflow installs the browser and uploads the
+HTML site, PDF, and PPTX together as one artifact for the same commit. Download
+the artifact from the workflow run's **Artifacts** section.
+
+The default PPTX export uses an image per slide for visual consistency. It is
+suitable for presenting and reviewing, but slide text and shapes are not
+directly editable; web interactions and animations become static. If native
+PowerPoint editing is needed, evaluate Slidev's `pptx-editable` export as a
+separate output and manually review its layout. Export success does not replace
+visual inspection of the PDF and PPTX.
 
 ## Operator: web → PDF / PPTX
 
