@@ -527,7 +527,7 @@ AI에게 데이터베이스를 열어 주면 제일 먼저 나오는 질문이 "
 
 <div class="split even perf">
   <div class="stack">
-    <p class="chart-cap">처리량 — 기존 방식 = 1×</p>
+    <p class="chart-cap">처리량 — 기존 방식 = 1× (과거 측정)</p>
     <PairChart :width="380" :label-width="130" before-name="기존" after-name="최적화" :rows="[
       { label: 'native ping', before: 1, after: 3.8, beforeText: '1×', afterText: '3.8×' },
       { label: 'pool_pre_ping', before: 1, after: 6.88, beforeText: '1×', afterText: '6.9×' },
@@ -535,7 +535,7 @@ AI에게 데이터베이스를 열어 주면 제일 먼저 나오는 질문이 "
     <p class="small">native ping: SELECT 1 대신 CAS protocol의 CHECK_CAS 사용</p>
   </div>
   <div class="stack">
-    <p class="chart-cap">걸린 시간 — 짧을수록 좋음</p>
+    <p class="chart-cap">걸린 시간 — 짧을수록 좋음 (과거 측정)</p>
     <PairChart :width="380" :label-width="130" :rows="[
       { label: 'bulk insert 1,000행', before: 100, after: 2512 / 2865 * 100, beforeText: '2,865ms', afterText: '2,512ms' },
       { label: 'select-all', before: 100, after: 31.8 / 39.8 * 100, beforeText: '39.8ms', afterText: '31.8ms' },
@@ -544,9 +544,9 @@ AI에게 데이터베이스를 열어 주면 제일 먼저 나오는 질문이 "
   </div>
 </div>
 
-<p class="note-line">과거 측정 결과이며, 2026-10-25 발표 갱신 때 재측정하지 않았습니다. 원 측정 날짜와 드라이버 버전은 기록되지 않았습니다. 세부 정보: Appendix.</p>
+<p class="note-line">위 그래프는 과거 측정값으로, 재측정하지 않았습니다. 원 측정 날짜와 드라이버 버전은 기록되지 않았습니다.</p>
 
-<p class="note-line">순수 Python이라 C 드라이버보다는 느립니다. 대신 설치 · asyncio · 이식성을 얻었고, 그 격차를 측정하며 줄이고 있습니다.</p>
+<p class="note-line"><b>2026-10-25 재측정</b> · 같은 CUBRID 11.4.6 서버에서 C 드라이버 CUBRIDdb 대비 pycubrid 1.13.5의 걸린 시간: PK 조회 1.12×, 1만 행 fetchall 1.25×, executemany 1만 행 1.20×. 대신 설치 · asyncio · 이식성을 얻었습니다. 환경 · 원본 결과: Appendix B.</p>
 
 <style>
 .chart-cap { font-size: 0.85rem; font-weight: 700; color: var(--ink); }
@@ -557,7 +557,7 @@ AI에게 데이터베이스를 열어 주면 제일 먼저 나오는 질문이 "
 [25초 · 기능테스트]
 큰 오픈소스는 사용자가 성능 문제를 알려주지만, 니치 시장은 그렇지 않아서 벤치마크 저장소를 따로 만들어 직접 쟀습니다.
 ping을 SELECT 1 대신 CAS protocol 수준으로 바꿔 처리량이 3.8배, SQLAlchemy pool_pre_ping은 6.9배가 됐고, 대량 INSERT와 조회도 12%, 20% 빨라졌습니다.
-솔직히 순수 Python이라 C 드라이버보다는 느립니다. 대신 설치와 비동기, 이식성을 얻었고, 그 격차를 계속 줄이고 있습니다.
+여기까지는 과거 측정값이고, 2026-10-25에 같은 서버에서 C 드라이버와 다시 쟀습니다. 순수 Python이라 PK 조회는 12%, 1만 행 조회는 25% 정도 느립니다. 대신 설치와 비동기, 이식성을 얻었고, 그 격차를 계속 줄이고 있습니다.
 -->
 
 ---

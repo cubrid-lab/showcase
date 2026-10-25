@@ -57,9 +57,13 @@ We improved bulk insert 12.3% and query 19.9% through profiling.
 ## Q5.5: How did you approach performance optimization?
 
 We built cubrid-benchmark (separate repo) for reproducible comparison,
-then used profiling scripts to find bottlenecks. Key results: native
-ping +280%, pool_pre_ping +588%, bulk insert 12.3% faster. In a niche
-market, you benchmark yourself.
+then used profiling scripts to find bottlenecks. Historical results (not
+rerun; run date and versions not recorded): native ping +280%,
+pool_pre_ping +588%, bulk insert 12.3% faster. Rerun on 2026-10-25 against
+the official C driver on the same CUBRID 11.4.6 server: pycubrid 1.13.5 is
+1.12x slower on a primary-key SELECT and 1.25x on fetching 10,000 rows
+([APPENDIX B](APPENDIX.md#b-performance-data)). In a niche market, you
+benchmark yourself.
 
 ## Q6: What about CUBRID 12 support?
 
