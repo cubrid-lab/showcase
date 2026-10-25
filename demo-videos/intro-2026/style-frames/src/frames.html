@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Intro Video Style Frames</title>
+<!--
+  Style frames for the CUBRID Lab introduction video (design stage).
+  Open as frames.html?frame=H2 (see FRAMES below). render.mjs screenshots every frame.
+
+  Brand marks: never copied into this repository. `marks=pinned` loads the unmodified
+  SVGs from the commit-pinned brand URLs below; `marks=slot` (the default) draws a
+  labelled placeholder of the same size instead. See VIDEO_DESIGN.md, "Brand marks".
+  To move to a newer approved brand revision, change BRAND_COMMIT only.
+
+  Every terminal/editor text below is copied from a real run on 2026-10-25 or from the
+  project README it names; nothing is invented. Production replaces these panels with
+  recorded footage (vhs / Playwright / real agent run).
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+@font-face {
+  font-family: "Pretendard";
+  src: url("../../../../presentation/public/fonts/PretendardVariable.woff2") format("woff2-variations");
+  font-weight: 45 920;
+}
+:root {
+  /* cubrid-lab/brand tokens/colors.json and tokens/organization.json (dark variant) */
+  --py: #FFD43B;          /* languages.python */
+  --py-ink: #40350F;      /* treatments.python.mark */
+  --py-keyline: #8C7520;  /* treatments.python.keyline */
+  --neutral: #6B7280;     /* languages.neutral */
+  --bg: #0D1117;          /* wordmarks.variants.dark.background */
+  --navy: #071B43;        /* wordmarks.variants.light.title */
+  --text: #F0F6FC;        /* wordmarks.variants.dark.title */
+  --text-2: #A8C1E8;      /* wordmarks.variants.dark.tagline */
+  --panel: #161B22;
+  --panel-line: #30363D;
+  --mono: "JetBrains Mono", "DejaVu Sans Mono", monospace;
+  --sans: "Pretendard", "Noto Sans KR", system-ui, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: var(--bg); color: var(--text); font-family: var(--sans); }
+body { overflow: hidden; }
+#stage { position: relative; overflow: hidden; background: var(--bg); }
+#stage.w { width: 1920px; height: 1080px; }
+#stage.v { width: 1080px; height: 1920px; }
+
+/* Isometric 60/120 degree grid: the brand's cube construction grammar as a background motif. */
+.grid { position: absolute; inset: -200px; opacity: .16;
+  background-image:
+    repeating-linear-gradient(30deg, transparent 0 63px, var(--neutral) 63px 64px),
+    repeating-linear-gradient(150deg, transparent 0 63px, var(--neutral) 63px 64px),
+    repeating-linear-gradient(90deg, transparent 0 109px, rgba(107,114,128,.5) 109px 110px); }
+.vignette { position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 45%, rgba(13,17,23,0) 30%, rgba(13,17,23,.92) 80%); }
+
+.safe { position: absolute; inset: 54px 96px; }
+#stage.v .safe { inset: 120px 72px 260px; }
+
+/* Brand mark slots */
+.mark { display: inline-flex; align-items: center; justify-content: center; flex: none; }
+.mark img { width: 100%; height: 100%; display: block; }
+.slot { border: 3px dashed var(--py-keyline); border-radius: 18%; background: rgba(255,212,59,.06);
+  color: var(--py); font: 600 14px/1.25 var(--mono); text-align: center; padding: 8px; }
+.slot.lockup { border-radius: 10px; border-color: var(--text-2); color: var(--text-2); background: rgba(168,193,232,.06); }
+
+/* Typography */
+.kicker { font: 700 26px/1 var(--mono); letter-spacing: .14em; color: var(--text-2); text-transform: uppercase; }
+.hero { font-weight: 900; font-size: 200px; line-height: .98; letter-spacing: -.035em; }
+.h1 { font-weight: 800; font-size: 104px; line-height: 1.02; letter-spacing: -.03em; }
+.h2 { font-weight: 800; font-size: 68px; line-height: 1.08; letter-spacing: -.02em; }
+.body { font-weight: 500; font-size: 34px; line-height: 1.4; color: var(--text-2); }
+.yellow { color: var(--py); }
+.underline { box-shadow: inset 0 -.16em 0 var(--py-keyline); }
+.chip { display: inline-block; border: 2px solid var(--py-keyline); color: var(--py); border-radius: 999px;
+  padding: 12px 26px; font: 700 30px/1 var(--sans); margin: 0 14px 14px 0; background: rgba(64,53,15,.35); }
+
+/* Window mockups framing real footage */
+.win { position: absolute; background: var(--panel); border: 1px solid var(--panel-line); border-radius: 18px;
+  box-shadow: 0 40px 120px rgba(0,0,0,.55); overflow: hidden; }
+.win .bar { height: 52px; display: flex; align-items: center; gap: 10px; padding: 0 20px;
+  background: #0F141A; border-bottom: 1px solid var(--panel-line); }
+.win .bar i { width: 14px; height: 14px; border-radius: 50%; background: #3A414A; display: block; }
+.win .bar span { margin-left: 14px; font: 500 20px var(--mono); color: #8B949E; }
+.win pre { font: 400 29px/1.5 var(--mono); padding: 28px 34px; white-space: pre; color: #E6EDF3; }
+.win pre .p { color: var(--py); }
+.win pre .c { color: #8B949E; }
+.win pre .k { color: #FF7B72; }
+.win pre .s { color: #A5D6FF; }
+.win pre .hl { background: rgba(255,212,59,.18); outline: 2px solid var(--py); border-radius: 6px; }
+.footage { position: absolute; right: 18px; bottom: 12px; font: 500 15px var(--mono); color: #6E7681; }
+
+/* Zoom callout */
+.callout { position: absolute; border: 4px solid var(--py); border-radius: 16px; background: #0B0F14;
+  box-shadow: 0 0 0 10px rgba(255,212,59,.12), 0 30px 80px rgba(0,0,0,.6); padding: 18px 30px;
+  font: 600 44px/1.3 var(--mono); color: var(--text); }
+.callout small { display: block; font: 700 20px var(--sans); letter-spacing: .1em; color: var(--py); margin-bottom: 6px; }
+
+/* Caption preview: the KO closed-caption track, not burned into the main cut */
+.cc { position: absolute; left: 50%; transform: translateX(-50%); bottom: 64px; max-width: 1400px;
+  background: rgba(0,0,0,.72); color: #fff; font: 600 40px/1.4 var(--sans); padding: 10px 26px; border-radius: 8px; text-align: center; word-break: keep-all; }
+#stage.v .cc { bottom: 300px; font-size: 46px; max-width: 940px; }
+.frame-id { position: absolute; left: 22px; top: 16px; font: 600 16px var(--mono); color: #6E7681; }
+.tc { position: absolute; right: 22px; top: 16px; font: 600 16px var(--mono); color: #6E7681; }
+</style>
+</head>
+<body>
+<div id="stage"></div>
+<script>
+const BRAND_COMMIT = "38b46469a1e18c7e9f7270f0b3d286ab45c3b376"; // cubrid-lab/brand PR #45 merge
+const BRAND = `https://raw.githubusercontent.com/cubrid-lab/brand/${BRAND_COMMIT}/dist`;
+const params = new URLSearchParams(location.search);
+const MODE = params.get("marks") === "pinned" ? "pinned" : "slot";
+
+function icon(repo, size) {
+  if (MODE === "pinned") {
+    return `<span class="mark" style="width:${size}px;height:${size}px"><img src="${BRAND}/icons/${repo}.svg" alt="${repo} icon"></span>`;
+  }
+  return `<span class="mark slot" style="width:${size}px;height:${size}px">${repo}<br>icon<br>@${BRAND_COMMIT.slice(0, 7)}</span>`;
+}
+function lockup(width) {
+  const h = Math.round(width * 64 / 300); // lockup-horizontal-dark.svg view box 300 x 64
+  if (MODE === "pinned") {
+    return `<span class="mark" style="width:${width}px;height:${h}px"><img src="${BRAND}/organization/lockup-horizontal-dark.svg" alt="CUBRID Lab: Open Source for a More Connected World"></span>`;
+  }
+  return `<span class="mark slot lockup" style="width:${width}px;height:${h}px">CUBRID Lab lockup-horizontal-dark @${BRAND_COMMIT.slice(0, 7)}</span>`;
+}
+const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+const bg = `<div class="grid"></div><div class="vignette"></div>`;
+const head = (id, tc) => `<div class="frame-id">${id}</div><div class="tc">${tc}</div>`;
+const cc = (t) => `<div class="cc">${t}</div>`;
+function win({ x, y, w, h, title, body, src, font = 29 }) {
+  return `<div class="win" style="left:${x}px;top:${y}px;width:${w}px;height:${h}px">
+    <div class="bar"><i></i><i></i><i></i><span>${title}</span></div><pre style="font-size:${font}px">${body}</pre>
+    <div class="footage">${src}</div></div>`;
+}
+
+const FRAMES = {
+  // Main cut, 16:9
+  H2: { size: "w", html: () => `${bg}${head("H2", "0:02 – 0:04")}
+    <div class="safe" style="display:flex;flex-direction:column;justify-content:center">
+      <div class="hero" style="color:#8B949E">CUBRID를,</div>
+      <div class="hero"><span class="yellow underline">Python</span>으로.</div>
+    </div>${cc("큐브리드를, 파이썬으로.")}` },
+
+  B1: { size: "w", html: () => `${bg}${head("B1", "0:06 – 0:12")}
+    <div class="safe" style="display:flex;flex-direction:column;justify-content:center;align-items:center;gap:56px">
+      <div class="kicker">CUBRID Lab · Python stack</div>
+      <div style="display:flex;gap:72px;align-items:flex-start">
+        ${[["pycubrid", "드라이버"], ["sqlalchemy-cubrid", "ORM"], ["cubrid-mcp-server", "AI · MCP"], ["cubrid-cookbook-python", "예제"]]
+          .map(([r, l]) => `<div style="display:flex;flex-direction:column;align-items:center;gap:26px;width:300px">
+            ${icon(r, 220)}<div class="h2" style="font-size:52px">${l}</div>
+            <div style="font:500 24px var(--mono);color:var(--text-2)">${r}</div></div>`).join("")}
+      </div>
+    </div>${cc("드라이버부터 ORM, AI, 그리고 예제까지.")}` },
+
+  P1: { size: "w", html: () => `${bg}${head("P1", "0:20 – 0:24")}
+    <div class="safe" style="display:flex;align-items:center;gap:90px">
+      ${icon("pycubrid", 420)}
+      <div><div class="kicker">01 · Driver · DB-API 2.0</div>
+        <div class="hero" style="font-size:180px;margin-top:22px">pycubrid</div>
+        <div class="body" style="margin-top:20px">순수 Python으로 만든 CUBRID 드라이버</div></div>
+    </div>${cc("첫 번째, pycubrid.")}` },
+
+  P3: { size: "w", html: () => `${bg}${head("P3", "0:32 – 0:44")}
+    <div class="safe"><div class="kicker">pycubrid</div>
+      <div class="h1" style="margin-top:18px">PEP 249, <span class="yellow">그대로.</span></div></div>
+    ${win({ x: 96, y: 300, w: 1060, h: 560, title: "first_query.py",
+      src: "source: pycubrid README 'Your first query'",
+      body: `<span class="k">import</span> pycubrid
+
+conn = pycubrid.connect(host=<span class="s">"localhost"</span>, port=33000,
+    database=<span class="s">"testdb"</span>, user=<span class="s">"dba"</span>, password=<span class="s">""</span>)
+cur = conn.cursor()
+cur.execute(<span class="s">"SELECT 1 + 1"</span>)
+print(cur.fetchone())  <span class="c"># (2,)</span>
+cur.close()
+conn.close()` })}
+    ${win({ x: 1200, y: 420, w: 624, h: 330, title: "terminal",
+      src: "real run 2026-10-25 · CUBRID 11.4",
+      body: `<span class="p">$</span> python first_query.py
+<span class="hl">(2,)</span>` })}
+    <div class="callout" style="left:1280px;top:700px"><small>REAL OUTPUT</small>(2,)</div>
+    ${cc("연결하고, 커서를 열고, 실행합니다.")}` },
+
+  S3: { size: "w", html: () => `${bg}${head("S3", "1:10 – 1:24")}
+    <div class="safe"><div class="kicker">sqlalchemy-cubrid</div>
+      <div class="h1" style="margin-top:18px">익숙한 ORM, <span class="yellow">그대로.</span></div></div>
+    ${win({ x: 96, y: 290, w: 1230, h: 590, title: "orm_demo.py", font: 25,
+      src: "real script, run 2026-10-25 (port shown as the README default)",
+      body: `<span class="k">class</span> Product(Base):
+    __tablename__ = <span class="s">"product"</span>
+    id: <span class="hl">Mapped[int]</span> = mapped_column(primary_key=<span class="k">True</span>)
+    name: Mapped[str] = mapped_column(String(50))
+
+engine = create_engine(<span class="s">"<span class="hl">cubrid+pycubrid://</span>dba@localhost:33000/testdb"</span>)
+Base.metadata.create_all(engine)
+
+<span class="k">with</span> Session(engine) <span class="k">as</span> session:
+    session.add_all([Product(id=1, name=<span class="s">"keyboard"</span>),
+                     Product(id=2, name=<span class="s">"mouse"</span>)])
+    session.commit()` })}
+    ${win({ x: 1370, y: 470, w: 454, h: 260, title: "terminal",
+      src: "real output",
+      body: `<span class="p">$</span> python orm_demo.py
+1 keyboard
+2 mouse` })}
+    ${cc("SQLAlchemy 2.0 스타일 모델로<br>테이블을 만들고, 저장하고, 조회합니다.")}` },
+
+  C4: { size: "w", html: () => `${bg}${head("C4", "2:00 – 2:12")}
+    <div class="safe"><div class="kicker">cubrid-mcp-server</div>
+      <div class="h1" style="margin-top:18px">AI가 읽고, <span class="yellow underline">쓰기는 막는다.</span></div></div>
+    ${win({ x: 96, y: 300, w: 1728, h: 420, title: "MCP stdio session · cubrid-mcp-server",
+      src: "real session 2026-10-25 (demos/mcp_demo.py); production: real agent run",
+      body: `connected: cubrid-mcp-server (MCP stdio)
+11 tools; <span class="hl">execute_write not offered (write mode is off)</span>
+
+<span class="p">&gt;</span> execute_query("DROP TABLE product")
+<span class="hl">rejected: DROP is not permitted in read-only mode;</span>
+allowed statements: DESC, DESCRIBE, SELECT, SHOW, WITH` })}
+    <div class="callout" style="left:96px;top:760px"><small>READ-ONLY BY DEFAULT</small>CUBRID_MCP_WRITE=0</div>
+    ${cc("기본은 읽기 전용. 쓰기와 DDL 문은 거부됩니다.")}` },
+
+  K3: { size: "w", html: () => `${bg}${head("K3", "2:34 – 2:42")}
+    <div class="safe"><div class="kicker">cubrid-cookbook-python</div>
+      <div class="h1" style="margin-top:18px">복사해서, <span class="yellow">바로 실행.</span></div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:26px;margin-top:70px">
+        ${[["quickstart/5min-fastapi", "FastAPI 5분 시작"], ["templates/flask", "Flask"], ["templates/django", "Django 요청 처리"],
+           ["templates/async-worker", "Celery 워커"], ["templates/batch-etl", "Pandas ETL"], ["templates/dashboard", "Streamlit 대시보드"],
+           ["templates/ai-agent", "AI 에이전트 + MCP"], ["migration/java-to-python", "Java → Python"]]
+          .map(([p, l]) => `<div style="border:1px solid var(--panel-line);background:var(--panel);border-radius:16px;padding:30px 28px">
+            <div style="font:800 38px/1.2 var(--sans)">${l}</div>
+            <div style="font:500 21px var(--mono);color:var(--text-2);margin-top:14px">${p}/</div></div>`).join("")}
+      </div>
+      <div style="font:500 18px var(--mono);color:#6E7681;margin-top:22px">directory names from cubrid-cookbook-python main (git ls-tree, 2026-10-25)</div>
+    </div>${cc("Flask, Django, 대시보드, AI 에이전트,<br>Java 마이그레이션 가이드까지.")}` },
+
+  F2: { size: "w", html: () => `<div class="grid" style="opacity:.08"></div>${head("F2", "2:48 – 2:56")}
+    <div class="safe" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center">
+      ${lockup(900)}
+      <div style="display:flex;gap:28px;margin-top:64px;flex-wrap:wrap;justify-content:center">
+        <div class="callout" style="position:static;font-size:36px">pip install pycubrid</div>
+        <div class="callout" style="position:static;font-size:36px">pip install "sqlalchemy-cubrid[pycubrid]"</div>
+        <div class="callout" style="position:static;font-size:36px">uvx cubrid-mcp-server</div>
+      </div>
+      <div class="h2" style="margin-top:56px;font-size:58px">github.com/<span class="yellow">cubrid-lab</span> · MIT License</div>
+      <div style="font:500 24px/1.55 var(--sans);color:var(--text-2);margin-top:44px;max-width:1500px;word-break:keep-all">
+        내레이션: AI 생성 음성(TTS) · Narration: AI-generated voice<br>
+        CUBRID Lab은 CUBRID Corporation 및 공식 CUBRID 프로젝트와 제휴·후원·보증 관계가 없는 독립 프로젝트입니다. CUBRID는 해당 권리자의 상표입니다.<br>
+        CUBRID Lab is independently maintained and is not affiliated with, sponsored by, or endorsed by CUBRID Corporation or the official CUBRID project.
+      </div>
+    </div>` },
+
+  // Optional 30-second derivative cut, 9:16
+  V1: { size: "v", html: () => `${bg}${head("V1", "0:00 – 0:03")}
+    <div class="safe" style="display:flex;flex-direction:column;justify-content:center">
+      <div class="hero" style="font-size:170px;color:#8B949E">CUBRID를,</div>
+      <div class="hero" style="font-size:170px"><span class="yellow underline">Python</span>으로.</div>
+      <div class="body" style="margin-top:60px;font-size:44px">드라이버 · ORM · AI · 예제</div>
+    </div>${cc("큐브리드를, 파이썬으로.")}` },
+
+  V4: { size: "v", html: () => `${bg}${head("V4", "0:17 – 0:25")}
+    <div class="safe"><div class="kicker">cubrid-mcp-server</div>
+      <div class="h1" style="margin-top:22px;font-size:110px">AI가 읽고,<br><span class="yellow underline">쓰기는<br>막는다.</span></div></div>
+    ${win({ x: 48, y: 820, w: 984, h: 560, title: "MCP stdio session",
+      src: "real session 2026-10-25",
+      body: `<span class="p">&gt;</span> execute_query(
+    "DROP TABLE product")
+<span class="hl">rejected: DROP is not
+permitted in read-only mode</span>
+
+execute_write not offered
+(write mode is off)` })}
+    ${cc("기본은 읽기 전용입니다.")}` },
+};
+
+const id = params.get("frame") || "H2";
+const f = FRAMES[id];
+const stage = document.getElementById("stage");
+stage.className = f.size;
+stage.innerHTML = f.html();
+window.FRAME_IDS = Object.keys(FRAMES);
+window.FRAME_SIZES = Object.fromEntries(Object.entries(FRAMES).map(([k, v]) => [k, v.size]));
+</script>
+</body>
+</html>
