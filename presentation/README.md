@@ -48,8 +48,8 @@ python3 -m pip install --target "${TMPDIR:-/tmp}/ossdevcon-verify-pydeps" pypdf=
 PYTHONPATH="${TMPDIR:-/tmp}/ossdevcon-verify-pydeps" python3 scripts/verify_exports.py
 ```
 
-`PAGES_BASE_PATH` only sets the site's URL prefix; omit it for a root-hosted
-preview.
+`PAGES_BASE_PATH` only sets the site's URL prefix. It defaults to `/showcase`,
+so set it to an empty string (`PAGES_BASE_PATH=`) for a root-hosted preview.
 
 Outputs:
 - HTML: `../site-dist/index.html` and the linked presentation pages
@@ -69,8 +69,10 @@ pull requests and pushes to `main` that change presentation sources, the site
 build script or the workflow, and on manual dispatch. It installs the browser,
 fails if any of the three formats is missing or fails verification, and uploads
 the HTML site, PDF, and PPTX together as one artifact named
-`ossdevcon-presentation-<commit SHA>`. Download it from the workflow run's
-**Artifacts** section; it is kept for 30 days.
+`ossdevcon-presentation-<commit SHA>`. On pull request runs that SHA is
+GitHub's test merge commit, not the branch head, so take release deliverables
+from the run on `main` or from a manual dispatch. Download the artifact from
+the workflow run's **Artifacts** section; it is kept for 30 days.
 
 The default PPTX export uses an image per slide for visual consistency. It is
 suitable for presenting and reviewing, but slide text and shapes are not
