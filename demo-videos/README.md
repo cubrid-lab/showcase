@@ -7,3 +7,7 @@
 
 형식: MP4 (1080p) + WEBM
 저장: Git LFS 또는 YouTube 링크
+
+## 소개 영상 2026
+
+- [intro-2026/](intro-2026/) — Python 생태계 소개 광고형 영상(≤3분)의 Remotion 모션 그래픽 프로젝트. 렌더된 MP4는 커밋하지 않습니다.

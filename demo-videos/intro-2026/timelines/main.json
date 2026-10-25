@@ -1,0 +1,410 @@
+{
+  "meta": {
+    "title": "CUBRID Lab Python ecosystem — main cut (SKELETON, replace with storyboard)",
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "draft": true,
+    "note": "skeleton"
+  },
+  "music": {
+    "src": "placeholder/music/bed.wav",
+    "volume": 0.5,
+    "duckedVolume": 0.12,
+    "rampFrames": 10,
+    "fadeInFrames": 30,
+    "fadeOutFrames": 90
+  },
+  "shots": [
+    {
+      "id": "m01-emblem",
+      "start": 0,
+      "duration": 90,
+      "type": "cubeAssemble",
+      "props": {
+        "repo": "organization",
+        "size": 320
+      },
+      "narration": {
+        "src": "placeholder/voice/line-1.wav",
+        "offset": 10,
+        "durationInFrames": 90
+      }
+    },
+    {
+      "id": "m02-hook",
+      "start": 90,
+      "duration": 150,
+      "type": "title",
+      "transitionIn": {
+        "type": "cubeWipe",
+        "duration": 20
+      },
+      "props": {
+        "kicker": "PLACEHOLDER",
+        "lines": [
+          {
+            "text": "PLACEHOLDER 훅 카피",
+            "size": 120
+          },
+          {
+            "text": "Python × CUBRID",
+            "size": 140,
+            "accent": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "m03-pycubrid",
+      "start": 240,
+      "duration": 90,
+      "type": "cubeAssemble",
+      "props": {
+        "repo": "pycubrid",
+        "size": 320,
+        "title": "pycubrid",
+        "subtitle": "PLACEHOLDER"
+      },
+      "transitionIn": {
+        "type": "cubeWipe",
+        "duration": 20
+      }
+    },
+    {
+      "id": "m04-pycubrid-demo",
+      "start": 330,
+      "duration": 420,
+      "type": "terminal",
+      "transitionIn": {
+        "type": "fade",
+        "duration": 12
+      },
+      "props": {
+        "footage": {
+          "src": "placeholder/footage/terminal.mp4",
+          "camera": [
+            {
+              "at": 0,
+              "zoom": 1,
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "at": 360,
+              "zoom": 1.4,
+              "x": 0.5,
+              "y": 0.35
+            }
+          ],
+          "callouts": [
+            {
+              "from": 60,
+              "to": 380,
+              "x": 0.15,
+              "y": 0.2,
+              "w": 0.7,
+              "h": 0.15,
+              "label": "PLACEHOLDER callout"
+            }
+          ]
+        },
+        "title": "pycubrid — PLACEHOLDER"
+      },
+      "narration": {
+        "src": "placeholder/voice/line-2.wav",
+        "offset": 10,
+        "durationInFrames": 90
+      },
+      "lowerThird": {
+        "title": "pycubrid",
+        "subtitle": "PLACEHOLDER",
+        "from": 15,
+        "duration": 120
+      }
+    },
+    {
+      "id": "m05-sqlalchemy",
+      "start": 750,
+      "duration": 90,
+      "type": "cubeAssemble",
+      "props": {
+        "repo": "sqlalchemy-cubrid",
+        "size": 320,
+        "title": "sqlalchemy-cubrid",
+        "subtitle": "PLACEHOLDER"
+      },
+      "transitionIn": {
+        "type": "cubeWipe",
+        "duration": 20
+      }
+    },
+    {
+      "id": "m06-sqlalchemy-demo",
+      "start": 840,
+      "duration": 420,
+      "type": "window",
+      "transitionIn": {
+        "type": "fade",
+        "duration": 12
+      },
+      "props": {
+        "footage": {
+          "src": "placeholder/footage/window.mp4",
+          "camera": [
+            {
+              "at": 0,
+              "zoom": 1,
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "at": 360,
+              "zoom": 1.4,
+              "x": 0.5,
+              "y": 0.35
+            }
+          ],
+          "callouts": [
+            {
+              "from": 60,
+              "to": 380,
+              "x": 0.15,
+              "y": 0.2,
+              "w": 0.7,
+              "h": 0.15,
+              "label": "PLACEHOLDER callout"
+            }
+          ]
+        },
+        "title": "sqlalchemy-cubrid — PLACEHOLDER"
+      },
+      "narration": {
+        "src": "placeholder/voice/line-3.wav",
+        "offset": 10,
+        "durationInFrames": 90
+      },
+      "lowerThird": {
+        "title": "sqlalchemy-cubrid",
+        "subtitle": "PLACEHOLDER",
+        "from": 15,
+        "duration": 120
+      }
+    },
+    {
+      "id": "m07-mcp",
+      "start": 1260,
+      "duration": 90,
+      "type": "cubeAssemble",
+      "props": {
+        "repo": "cubrid-mcp-server",
+        "size": 320,
+        "title": "cubrid-mcp-server",
+        "subtitle": "PLACEHOLDER"
+      },
+      "transitionIn": {
+        "type": "cubeWipe",
+        "duration": 20
+      }
+    },
+    {
+      "id": "m08-mcp-demo",
+      "start": 1350,
+      "duration": 420,
+      "type": "browser",
+      "transitionIn": {
+        "type": "fade",
+        "duration": 12
+      },
+      "props": {
+        "footage": {
+          "src": "placeholder/footage/browser.mp4",
+          "camera": [
+            {
+              "at": 0,
+              "zoom": 1,
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "at": 360,
+              "zoom": 1.4,
+              "x": 0.5,
+              "y": 0.35
+            }
+          ],
+          "callouts": [
+            {
+              "from": 60,
+              "to": 380,
+              "x": 0.15,
+              "y": 0.2,
+              "w": 0.7,
+              "h": 0.15,
+              "label": "PLACEHOLDER callout"
+            }
+          ]
+        },
+        "url": "placeholder.invalid/cubrid-mcp-server",
+        "chips": {
+          "chips": [
+            "PLACEHOLDER",
+            "PLACEHOLDER"
+          ],
+          "delay": 40
+        }
+      },
+      "narration": {
+        "src": "placeholder/voice/line-4.wav",
+        "offset": 10,
+        "durationInFrames": 90
+      },
+      "lowerThird": {
+        "title": "cubrid-mcp-server",
+        "subtitle": "PLACEHOLDER",
+        "from": 15,
+        "duration": 120
+      }
+    },
+    {
+      "id": "m09-features",
+      "start": 1770,
+      "duration": 180,
+      "type": "features",
+      "transitionIn": {
+        "type": "cubeWipe",
+        "duration": 20
+      },
+      "props": {
+        "heading": {
+          "lines": [
+            {
+              "text": "PLACEHOLDER",
+              "size": 100
+            }
+          ]
+        },
+        "chips": [
+          "PLACEHOLDER A",
+          "PLACEHOLDER B",
+          "PLACEHOLDER C"
+        ]
+      }
+    },
+    {
+      "id": "m10-cookbook",
+      "start": 1950,
+      "duration": 90,
+      "type": "cubeAssemble",
+      "props": {
+        "repo": "cubrid-cookbook-python",
+        "size": 320,
+        "title": "cubrid-cookbook-python",
+        "subtitle": "PLACEHOLDER"
+      },
+      "transitionIn": {
+        "type": "cubeWipe",
+        "duration": 20
+      }
+    },
+    {
+      "id": "m11-cookbook-demo",
+      "start": 2040,
+      "duration": 420,
+      "type": "terminal",
+      "transitionIn": {
+        "type": "fade",
+        "duration": 12
+      },
+      "props": {
+        "footage": {
+          "src": "placeholder/footage/terminal.mp4",
+          "camera": [
+            {
+              "at": 0,
+              "zoom": 1,
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "at": 360,
+              "zoom": 1.4,
+              "x": 0.5,
+              "y": 0.35
+            }
+          ],
+          "callouts": [
+            {
+              "from": 60,
+              "to": 380,
+              "x": 0.15,
+              "y": 0.2,
+              "w": 0.7,
+              "h": 0.15,
+              "label": "PLACEHOLDER callout"
+            }
+          ]
+        },
+        "title": "cubrid-cookbook-python — PLACEHOLDER"
+      },
+      "narration": {
+        "src": "placeholder/voice/line-5.wav",
+        "offset": 10,
+        "durationInFrames": 90
+      },
+      "lowerThird": {
+        "title": "cubrid-cookbook-python",
+        "subtitle": "PLACEHOLDER",
+        "from": 15,
+        "duration": 120
+      }
+    },
+    {
+      "id": "m12-family",
+      "start": 2460,
+      "duration": 180,
+      "type": "iconRow",
+      "transitionIn": {
+        "type": "cubeWipe",
+        "duration": 20
+      },
+      "props": {
+        "repos": [
+          "pycubrid",
+          "sqlalchemy-cubrid",
+          "cubrid-mcp-server",
+          "cubrid-cookbook-python"
+        ],
+        "size": 220
+      }
+    },
+    {
+      "id": "m13-end",
+      "start": 2640,
+      "duration": 300,
+      "type": "endCard",
+      "transitionIn": {
+        "type": "cubeWipe",
+        "duration": 20
+      },
+      "props": {
+        "theme": "dark",
+        "lockup": "horizontal",
+        "headline": "PLACEHOLDER 헤드라인",
+        "installs": [
+          "pip install pycubrid",
+          "pip install sqlalchemy-cubrid",
+          "pip install cubrid-mcp-server"
+        ],
+        "links": [
+          "github.com/cubrid-lab"
+        ]
+      },
+      "narration": {
+        "src": "placeholder/voice/line-6.wav",
+        "offset": 15,
+        "durationInFrames": 90
+      }
+    }
+  ]
+}

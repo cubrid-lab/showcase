@@ -1,0 +1,27 @@
+{
+  "name": "cubrid-lab-intro-2026-video",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Code-based motion graphics for the CUBRID Lab Python ecosystem introduction video (Remotion)",
+  "scripts": {
+    "placeholders": "node scripts/make-placeholders.mjs",
+    "studio": "npm run placeholders && remotion studio src/index.ts",
+    "typecheck": "tsc --noEmit",
+    "render:main": "remotion render src/index.ts Main out/main.mp4",
+    "render:short": "remotion render src/index.ts Short out/short.mp4",
+    "render:demo": "npm run placeholders && remotion render src/index.ts Demo out/demo.mp4",
+    "render:stills": "node scripts/render-stills.mjs",
+    "stills:demo": "node scripts/extract-stills.mjs out/demo.mp4 stills 1.2 7.8 12.6 18.5"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.534",
+    "@remotion/google-fonts": "4.0.534",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "remotion": "4.0.534"
+  },
+  "devDependencies": {
+    "@types/react": "19.1.8",
+    "typescript": "5.9.3"
+  }
+}
