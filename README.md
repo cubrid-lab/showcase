@@ -2,7 +2,7 @@
 
 <!-- CUBRID-LAB-ICON:START -->
 <p align="center">
-  <a href="https://github.com/cubrid-lab/brand"><img src="https://raw.githubusercontent.com/cubrid-lab/brand/2de5d2323186a36ec16755b428b3ed2c88a5642e/dist/icons/showcase.svg" alt="showcase icon (CUBRID Lab brand repository)" width="120"></a>
+  <a href="https://github.com/cubrid-lab/brand"><img src="https://raw.githubusercontent.com/cubrid-lab/brand/bfb1871c8856d59dd60eb6276328465a7ab03ac7/dist/icons/showcase.svg" alt="showcase icon (CUBRID Lab brand repository)" width="120"></a>
 </p>
 <!-- CUBRID-LAB-ICON:END -->
 
