@@ -1,0 +1,41 @@
+{
+  "snapshotDate": "2026-10-25",
+  "collectedAt": "2026-10-25T00:29:31Z",
+  "repos": ["pycubrid", "sqlalchemy-cubrid", "cubrid-mcp-server", "cubrid-cookbook-python"],
+  "metrics": {
+    "stars": {
+      "perRepo": {"pycubrid": 31, "sqlalchemy-cubrid": 38, "cubrid-mcp-server": 32, "cubrid-cookbook-python": 28},
+      "total": 129,
+      "unit": "stars",
+      "source": "GitHub REST API"
+    },
+    "mergedPRs": {
+      "perRepo": {"pycubrid": 537, "sqlalchemy-cubrid": 529, "cubrid-mcp-server": 236, "cubrid-cookbook-python": 251},
+      "total": 1553,
+      "unit": "merged PRs",
+      "source": "GitHub Search API"
+    },
+    "publishedReleases": {
+      "perRepo": {"pycubrid": 29, "sqlalchemy-cubrid": 23, "cubrid-mcp-server": 9, "cubrid-cookbook-python": null},
+      "total": 61,
+      "unit": "published GitHub releases",
+      "source": "GitHub Releases API",
+      "note": "Counts non-draft published GitHub Releases; cookbook is not a published Python package."
+    }
+  },
+  "versions": {
+    "pycubrid": "v1.13.3",
+    "sqlalchemy-cubrid": "v1.11.5",
+    "cubrid-mcp-server": "v0.5.4"
+  },
+  "performance": {
+    "nativePing": {"improvement": "+280%", "description": "CHECK_CAS vs SELECT 1"},
+    "poolPrePing": {"improvement": "+588%", "description": "SA pool_pre_ping optimization"},
+    "bulkInsert1000": {"improvement": "12.3%", "before": "2865ms", "after": "2512ms"},
+    "querySelectAll": {"improvement": "19.9%", "before": "39.8ms", "after": "31.8ms"}
+  },
+  "qualityGates": {
+    "coverageFloor": "95%",
+    "note": "Do not present a single fixed test-count total: selected/parameterized test counts and live lanes now differ by repository and workflow."
+  }
+}
