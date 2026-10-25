@@ -46,6 +46,10 @@ cubrid-mcp-server   AI/LLM 접근 (12개 도구, 읽기 전용 화이트리스�
 | 대량 INSERT (1000행) | **12.3% faster** |
 | 쿼리 select-all | **19.9% faster** |
 
+위 결과는 과거 측정값이며 재측정하지 않았고, 측정 날짜와 버전은 기록되지 않았습니다.
+2026-10-25에 같은 CUBRID 11.4.6 서버에서 공식 C 드라이버 `CUBRIDdb`와 다시 잰 결과, pycubrid 1.13.5는
+PK 조회에 1.12배, 1만 행 조회에 1.25배의 시간이 걸렸습니다([측정 환경과 원본 결과](../contests/2026-ossdevcon/metrics/benchmark-2026-10-25/README.md)).
+
 벤치마크 저장소(cubrid-benchmark)에서 재현 가능한 비교 환경 제공.
 
 ## 생태계 확장 (4개 언어)

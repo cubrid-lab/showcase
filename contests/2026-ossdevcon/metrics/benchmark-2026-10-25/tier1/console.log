@@ -1,0 +1,100 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.13, pytest-9.1.1, pluggy-1.7.0 -- /tmp/claude-1000/-data-GitHub-pycubrid/adb11aee-7544-476c-bcaa-21dcb7ccbd02/scratchpad/venv-tier1/bin/python
+cachedir: .pytest_cache
+benchmark: 5.3.0 (defaults: timer=time.perf_counter disable_gc=False min_rounds=5 min_time=0.000005 max_time=1.0 calibration_precision=10 warmup=False warmup_iterations=100000)
+rootdir: /tmp/claude-1000/-data-GitHub-pycubrid/adb11aee-7544-476c-bcaa-21dcb7ccbd02/scratchpad/cb
+configfile: pyproject.toml
+plugins: benchmark-5.3.0
+collecting ... collected 5 items
+
+bench_pycubrid.py::test_bench_insert_sequential PASSED                   [ 20%]
+bench_pycubrid.py::test_bench_select_by_pk PASSED                        [ 40%]
+bench_pycubrid.py::test_bench_select_full_scan PASSED                    [ 60%]
+bench_pycubrid.py::test_bench_update_indexed PASSED                      [ 80%]
+bench_pycubrid.py::test_bench_delete_sequential PASSED                   [100%]
+Wrote benchmark data in: /tmp/claude-1000/-data-GitHub-pycubrid/adb11aee-7544-476c-bcaa-21dcb7ccbd02/scratchpad/b44/run-tier1/raw/cubrid114_t1.json
+
+
+
+---------------------------------------------------------------------------------------------- benchmark: 5 tests ----------------------------------------------------------------------------------------------
+Name (time in ms)                       Min                   Max                  Mean              StdDev                Median                 IQR            Outliers      OPS            Rounds  Iterations
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+test_bench_select_full_scan         41.0820 (1.0)         54.9178 (1.0)         47.7262 (1.0)        6.2967 (1.0)         44.6560 (1.0)       10.9681 (1.0)           2;0  20.9529 (1.0)           5           1
+test_bench_update_indexed          882.2466 (21.48)    1,543.0846 (28.10)    1,075.0426 (22.53)    270.8706 (43.02)      941.3475 (21.08)    267.8101 (24.42)         1;0   0.9302 (0.04)          5           1
+test_bench_delete_sequential     1,005.5583 (24.48)    2,115.2813 (38.52)    1,584.4386 (33.20)    408.9035 (64.94)    1,572.8767 (35.22)    514.6064 (46.92)         2;0   0.6311 (0.03)          5           1
+test_bench_select_by_pk          7,482.3629 (182.13)   7,841.5164 (142.79)   7,697.5893 (161.29)   156.0968 (24.79)    7,761.7582 (173.81)   261.7476 (23.86)         1;0   0.1299 (0.01)          5           1
+test_bench_insert_sequential     8,548.9893 (208.10)   9,273.5998 (168.86)   8,845.0875 (185.33)   334.0750 (53.06)    8,662.0557 (193.97)   578.5050 (52.74)         1;0   0.1131 (0.01)          5           1
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Legend:
+  Outliers: 1 Standard Deviation from Mean; 1.5 IQR (InterQuartile Range) from 1st Quartile and 3rd Quartile.
+  OPS: Operations Per Second, computed as 1 / Mean
+======================== 5 passed in 366.75s (0:06:06) =========================
+trial 1 exit=0
+============================= test session starts ==============================
+platform linux -- Python 3.12.13, pytest-9.1.1, pluggy-1.7.0 -- /tmp/claude-1000/-data-GitHub-pycubrid/adb11aee-7544-476c-bcaa-21dcb7ccbd02/scratchpad/venv-tier1/bin/python
+cachedir: .pytest_cache
+benchmark: 5.3.0 (defaults: timer=time.perf_counter disable_gc=False min_rounds=5 min_time=0.000005 max_time=1.0 calibration_precision=10 warmup=False warmup_iterations=100000)
+rootdir: /tmp/claude-1000/-data-GitHub-pycubrid/adb11aee-7544-476c-bcaa-21dcb7ccbd02/scratchpad/cb
+configfile: pyproject.toml
+plugins: benchmark-5.3.0
+collecting ... collected 5 items
+
+bench_pycubrid.py::test_bench_insert_sequential PASSED                   [ 20%]
+bench_pycubrid.py::test_bench_select_by_pk PASSED                        [ 40%]
+bench_pycubrid.py::test_bench_select_full_scan PASSED                    [ 60%]
+bench_pycubrid.py::test_bench_update_indexed PASSED                      [ 80%]
+bench_pycubrid.py::test_bench_delete_sequential PASSED                   [100%]
+Wrote benchmark data in: /tmp/claude-1000/-data-GitHub-pycubrid/adb11aee-7544-476c-bcaa-21dcb7ccbd02/scratchpad/b44/run-tier1/raw/cubrid114_t2.json
+
+
+
+----------------------------------------------------------------------------------------------- benchmark: 5 tests ----------------------------------------------------------------------------------------------
+Name (time in ms)                       Min                    Max                  Mean              StdDev                Median                 IQR            Outliers      OPS            Rounds  Iterations
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+test_bench_select_full_scan         35.3542 (1.0)          48.8227 (1.0)         40.5761 (1.0)        5.3448 (1.0)         39.2543 (1.0)        7.5828 (1.0)           1;0  24.6450 (1.0)           5           1
+test_bench_update_indexed          737.2728 (20.85)     1,014.8508 (20.79)      831.3328 (20.49)    112.9533 (21.13)      785.9737 (20.02)    147.8964 (19.50)         1;0   1.2029 (0.05)          5           1
+test_bench_delete_sequential       931.8321 (26.36)     1,487.8331 (30.47)    1,121.1708 (27.63)    221.9995 (41.54)    1,099.9183 (28.02)    265.4546 (35.01)         1;0   0.8919 (0.04)          5           1
+test_bench_select_by_pk          7,218.7486 (204.18)    7,849.7508 (160.78)   7,522.9120 (185.40)   297.6920 (55.70)    7,450.7581 (189.81)   566.7763 (74.75)         2;0   0.1329 (0.01)          5           1
+test_bench_insert_sequential     8,632.0947 (244.16)   10,334.5462 (211.67)   9,076.2876 (223.69)   721.1017 (134.92)   8,744.5397 (222.77)   712.2987 (93.94)         1;0   0.1102 (0.00)          5           1
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Legend:
+  Outliers: 1 Standard Deviation from Mean; 1.5 IQR (InterQuartile Range) from 1st Quartile and 3rd Quartile.
+  OPS: Operations Per Second, computed as 1 / Mean
+======================== 5 passed in 337.07s (0:05:37) =========================
+trial 2 exit=0
+============================= test session starts ==============================
+platform linux -- Python 3.12.13, pytest-9.1.1, pluggy-1.7.0 -- /tmp/claude-1000/-data-GitHub-pycubrid/adb11aee-7544-476c-bcaa-21dcb7ccbd02/scratchpad/venv-tier1/bin/python
+cachedir: .pytest_cache
+benchmark: 5.3.0 (defaults: timer=time.perf_counter disable_gc=False min_rounds=5 min_time=0.000005 max_time=1.0 calibration_precision=10 warmup=False warmup_iterations=100000)
+rootdir: /tmp/claude-1000/-data-GitHub-pycubrid/adb11aee-7544-476c-bcaa-21dcb7ccbd02/scratchpad/cb
+configfile: pyproject.toml
+plugins: benchmark-5.3.0
+collecting ... collected 5 items
+
+bench_pycubrid.py::test_bench_insert_sequential PASSED                   [ 20%]
+bench_pycubrid.py::test_bench_select_by_pk PASSED                        [ 40%]
+bench_pycubrid.py::test_bench_select_full_scan PASSED                    [ 60%]
+bench_pycubrid.py::test_bench_update_indexed PASSED                      [ 80%]
+bench_pycubrid.py::test_bench_delete_sequential PASSED                   [100%]
+Wrote benchmark data in: /tmp/claude-1000/-data-GitHub-pycubrid/adb11aee-7544-476c-bcaa-21dcb7ccbd02/scratchpad/b44/run-tier1/raw/cubrid114_t3.json
+
+
+
+---------------------------------------------------------------------------------------------- benchmark: 5 tests ----------------------------------------------------------------------------------------------
+Name (time in ms)                       Min                   Max                  Mean              StdDev                Median                 IQR            Outliers      OPS            Rounds  Iterations
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+test_bench_select_full_scan         32.9264 (1.0)         46.1054 (1.0)         41.8412 (1.0)        5.2398 (1.0)         42.8808 (1.0)        5.5616 (1.0)           1;0  23.8999 (1.0)           5           1
+test_bench_delete_sequential       805.3892 (24.46)      871.7000 (18.91)      848.3684 (20.28)     27.1484 (5.18)       862.0982 (20.10)     36.4360 (6.55)          1;0   1.1787 (0.05)          5           1
+test_bench_update_indexed          896.9783 (27.24)    1,116.7920 (24.22)      986.3531 (23.57)     85.8453 (16.38)      976.4115 (22.77)    121.1268 (21.78)         2;0   1.0138 (0.04)          5           1
+test_bench_select_by_pk          6,659.4693 (202.25)   8,101.1002 (175.71)   7,395.3399 (176.75)   523.6268 (99.93)    7,420.5976 (173.05)   612.4954 (110.13)        2;0   0.1352 (0.01)          5           1
+test_bench_insert_sequential     7,306.0146 (221.89)   9,043.8579 (196.16)   8,309.3666 (198.59)   643.2215 (122.76)   8,307.9506 (193.75)   719.4930 (129.37)        2;0   0.1203 (0.01)          5           1
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Legend:
+  Outliers: 1 Standard Deviation from Mean; 1.5 IQR (InterQuartile Range) from 1st Quartile and 3rd Quartile.
+  OPS: Operations Per Second, computed as 1 / Mean
+======================== 5 passed in 321.19s (0:05:21) =========================
+trial 3 exit=0
+ALLDONE
