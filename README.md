@@ -1,10 +1,10 @@
 # CUBRID Lab — Showcase
 
-<!-- CUBRID-LAB-ROLE-ICON:START -->
-<a href="https://github.com/cubrid-lab/brand">
-  <img src="https://raw.githubusercontent.com/cubrid-lab/brand/aa62d38b48d165e39f0c56ed706a9dadb090a2bb/studies/icons/showcase.svg" alt="CUBRID Lab Showcase icon (Neutral)" width="80" />
-</a>
-<!-- CUBRID-LAB-ROLE-ICON:END -->
+<!-- CUBRID-LAB-ICON:START -->
+<p align="center">
+  <a href="https://github.com/cubrid-lab/brand"><img src="https://raw.githubusercontent.com/cubrid-lab/brand/2de5d2323186a36ec16755b428b3ed2c88a5642e/dist/icons/showcase.svg" alt="showcase icon (CUBRID Lab brand repository)" width="120"></a>
+</p>
+<!-- CUBRID-LAB-ICON:END -->
 
 Presentations, contest entries, program submissions, demos, and supporting
 materials for [cubrid-lab](https://github.com/cubrid-lab) projects, including
