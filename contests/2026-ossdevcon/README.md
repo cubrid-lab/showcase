@@ -1,5 +1,23 @@
 # 2026 OSS Developer Contest
 
+## Presentation
+
+- **[View slides (HTML)](https://cubrid-lab.github.io/showcase/contests/2026-ossdevcon/)** — opens in the browser
+- **[Download PDF](https://github.com/cubrid-lab/showcase/releases/download/ossdevcon-2026-presentation-2026-10-25/ossdevcon.pdf)** · **[Download PowerPoint (PPTX)](https://github.com/cubrid-lab/showcase/releases/download/ossdevcon-2026-presentation-2026-10-25/ossdevcon.pptx)**
+- [Release `ossdevcon-2026-presentation-2026-10-25`](https://github.com/cubrid-lab/showcase/releases/tag/ossdevcon-2026-presentation-2026-10-25) — version record: source commit, export workflow run, metrics snapshot and SHA-256 checksums
+
+| Format | Role |
+|---|---|
+| [`presentation/slides.md`](../../presentation/slides.md) | Editable Slidev source of the slides and speaker notes; edit this file |
+| [SLIDES.md](SLIDES.md) | Speaker script collected from the speaker notes in `slides.md`; not the slide source |
+| HTML | Published from `slides.md` on every qualifying push to `main` |
+| PDF | Exported from `slides.md`; one page per slide |
+| PPTX | One static image per slide for presenting; text and shapes are not editable |
+
+The PDF and PPTX in the release were exported from commit `3feb210` with metrics
+snapshot 2026-10-25. The HTML deck follows `main`, so it can be newer than the
+release files after later slide changes.
+
 ## Entry
 
 pycubrid · sqlalchemy-cubrid · cubrid-cookbook-python · cubrid-mcp-server
@@ -25,7 +43,7 @@ Usability 15 · OSS 15 · PT 10 · Demo 10 · Testing 10 · Community 5 · Licen
 
 | File | Purpose |
 |---|---|
-| SLIDES.md | Current 32-slide talk script, generated from `presentation/slides.md` |
+| SLIDES.md | Current 32-slide speaker script, collected from the speaker notes in `presentation/slides.md` |
 | APPENDIX.md | Technical reference for Q&A |
 | EXPECTED_QA.md | 12 anticipated questions + answers |
 | DEMO_RUNBOOK.md | Historical On-nara demo script (2 min) + checklist |
@@ -34,7 +52,7 @@ Usability 15 · OSS 15 · PT 10 · Demo 10 · Testing 10 · Community 5 · Licen
 | seed_demo_data_products.py | Alternative product catalog demo data |
 | cubrid-corp-outreach.md | CUBRID Corp outreach email draft |
 | blog-post-draft.md | Tech blog post draft |
-| metrics/SNAPSHOT.md | Verified metrics snapshot (re-measure on presentation day) |
+| metrics/SNAPSHOT.md | Verified metrics snapshot (refreshed 2026-10-25; re-measure before delivery) |
 | captures/ | Historical demo rehearsal scripts + backup recording |
 
 ## Consolidation Note
@@ -68,9 +86,10 @@ Terminal demo GIFs are generated from VHS (.tape) scripts in each repo:
 
 - [Slidev presentation](../../presentation/README.md) — development and export instructions
 - [Metrics snapshot](metrics/SNAPSHOT.md) — provenance and measurement details
+- [Benchmark rerun 2026-10-25](metrics/benchmark-2026-10-25/README.md) — versions, environment, commands and raw output of the performance numbers on the deck
 - [English one-pager](../../press-kit/ONE_PAGER.md)
 - [Korean one-pager](../../press-kit/ONE_PAGER.ko.md)
 
-Historical metrics remain in the [dated snapshot](../../presentation/snapshots/2026-09-12.json).
+The active metrics snapshot is [2026-10-25](../../presentation/snapshots/2026-10-25.json); the 2026-09-12 snapshot remains for historical comparison.
 Clone traffic includes CI activity and is not an adoption metric; see the
 [measurement notes](metrics/SNAPSHOT.md) before reusing any traffic figures.

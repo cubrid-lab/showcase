@@ -1,7 +1,7 @@
 # Expected Q&A — 2026 OSS Developer Contest Finals
 
 > 18 anticipated questions with prepared answers (30-60 seconds each).
-> Numbers verified 2026-09-12; market share and clone/CI figures 2026-09-27.
+> Repository metrics and current release versions verified 2026-10-25; historical clone/CI figures remain dated 2026-09-27.
 
 ---
 
@@ -28,15 +28,14 @@ We built a system where AI agents write code and humans review it —
 the same mentor-mentee model we learned from OSS contribution culture.
 AGENTS.md defines the rules, every PR is merged only after CI gates pass
 (driver and dialect PRs run the 20-combination live DB matrix with a 95%
-coverage floor), and only humans push release tags. 450 merged PRs
-prove the system works.
+coverage floor), and only humans push release tags. As of 2026-10-25, the four repositories have 1,553 merged PRs.
 
 ## Q3: Stars are low — is anyone actually using this?
 
 We're early, and we don't inflate it. We deliberately don't quote clone
 counts: GitHub clone traffic is dominated by our own CI runners (pycubrid:
 ~700 workflow runs vs ~5,000 clones in the same 14 days). What we can show
-is 450 merged PRs, 35 PyPI releases, 119 stars — and a real market: CUBRID
+is 1,553 merged PRs, 61 published GitHub Releases across the three package repositories, and 129 stars — and a real market: CUBRID
 ranks second among the top five Korean public-sector DBMS vendors
 (2,367 installations; 13.24% of their combined total at end of
 2025, MOIS/NIA report), and before us it had no maintained Python driver.
@@ -58,9 +57,13 @@ We improved bulk insert 12.3% and query 19.9% through profiling.
 ## Q5.5: How did you approach performance optimization?
 
 We built cubrid-benchmark (separate repo) for reproducible comparison,
-then used profiling scripts to find bottlenecks. Key results: native
-ping +280%, pool_pre_ping +588%, bulk insert 12.3% faster. In a niche
-market, you benchmark yourself.
+then used profiling scripts to find bottlenecks. Historical results (not
+rerun; run date and versions not recorded): native ping +280%,
+pool_pre_ping +588%, bulk insert 12.3% faster. Rerun on 2026-10-25 against
+the official C driver on the same CUBRID 11.4.6 server: pycubrid 1.13.5 is
+1.12x slower on a primary-key SELECT and 1.25x on fetching 10,000 rows
+([APPENDIX B](APPENDIX.md#b-performance-data)). In a niche market, you
+benchmark yourself.
 
 ## Q6: What about CUBRID 12 support?
 

@@ -1,0 +1,2 @@
+cubrid-python @ file:///tmp/claude-1000/-data-GitHub-pycubrid/adb11aee-7544-476c-bcaa-21dcb7ccbd02/scratchpad/cubrid-python
+setuptools==84.2.1

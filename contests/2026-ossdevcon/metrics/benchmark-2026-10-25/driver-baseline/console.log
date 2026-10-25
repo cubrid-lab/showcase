@@ -1,0 +1,380 @@
+ 17:15:23 up 18 days,  8:56, 19 users,  load average: 22.04, 19.28, 17.44
+[pycubrid-main t1] connect/close
+[pycubrid-main t1] seed
+[pycubrid-main t1] select_pk
+[pycubrid-main t1] insert
+[pycubrid-main t1] update
+[pycubrid-main t1] delete
+[pycubrid-main t1] executemany 100
+[pycubrid-main t1] executemany 1000
+[pycubrid-main t1] executemany 10000
+[pycubrid-main t1] fetchone
+[pycubrid-main t1] fetchmany
+[pycubrid-main t1] fetchall
+[pycubrid-main t1] fetch_size=1000
+[pycubrid-main t1] fetch_size=10000
+[pycubrid-main t1] threads c=1
+[pycubrid-main t1] async c=1
+[pycubrid-main t1] threads c=8
+[pycubrid-main t1] async c=8
+[pycubrid-main t1] threads c=32
+[pycubrid-main t1] async c=32
+[pycubrid-main t1] memory
+[pycubrid-main t1] done in 422.1s -> /tmp/claude-1000/-data-GitHub-pycubrid/adb11aee-7544-476c-bcaa-21dcb7ccbd02/scratchpad/b44/run-release/raw/pycubrid-main_t1.json
+ 17:22:25 up 18 days,  9:03, 19 users,  load average: 25.52, 22.89, 19.73
+[pycubrid-1.10.0 t1] connect/close
+[pycubrid-1.10.0 t1] seed
+[pycubrid-1.10.0 t1] select_pk
+[pycubrid-1.10.0 t1] insert
+[pycubrid-1.10.0 t1] update
+[pycubrid-1.10.0 t1] delete
+[pycubrid-1.10.0 t1] executemany 100
+[pycubrid-1.10.0 t1] executemany 1000
+[pycubrid-1.10.0 t1] executemany 10000
+[pycubrid-1.10.0 t1] fetchone
+[pycubrid-1.10.0 t1] fetchmany
+[pycubrid-1.10.0 t1] fetchall
+[pycubrid-1.10.0 t1] fetch_size=1000
+[pycubrid-1.10.0 t1] fetch_size=10000
+[pycubrid-1.10.0 t1] threads c=1
+[pycubrid-1.10.0 t1] async c=1
+[pycubrid-1.10.0 t1] threads c=8
+[pycubrid-1.10.0 t1] async c=8
+[pycubrid-1.10.0 t1] threads c=32
+[pycubrid-1.10.0 t1] async c=32
+[pycubrid-1.10.0 t1] memory
+[pycubrid-1.10.0 t1] done in 552.0s -> /tmp/claude-1000/-data-GitHub-pycubrid/adb11aee-7544-476c-bcaa-21dcb7ccbd02/scratchpad/b44/run-release/raw/pycubrid-1.10.0_t1.json
+ 17:31:37 up 18 days,  9:12, 19 users,  load average: 21.02, 19.50, 19.20
+[cubriddb t1] connect/close
+[cubriddb t1] seed
+[cubriddb t1] select_pk
+[cubriddb t1] insert
+[cubriddb t1] update
+[cubriddb t1] delete
+[cubriddb t1] executemany 100
+[cubriddb t1] executemany 1000
+[cubriddb t1] executemany 10000
+[cubriddb t1] fetchone
+[cubriddb t1] fetchmany
+[cubriddb t1] fetchall
+[cubriddb t1] threads c=1
+[cubriddb t1] threads c=8
+[cubriddb t1] threads c=32
+[cubriddb t1] memory
+[cubriddb t1] done in 461.5s -> /tmp/claude-1000/-data-GitHub-pycubrid/adb11aee-7544-476c-bcaa-21dcb7ccbd02/scratchpad/b44/run-release/raw/cubriddb_t1.json
+ 17:39:19 up 18 days,  9:20, 19 users,  load average: 17.89, 18.69, 18.82
+[pycubrid-1.10.0 t2] connect/close
+[pycubrid-1.10.0 t2] seed
+[pycubrid-1.10.0 t2] select_pk
+[pycubrid-1.10.0 t2] insert
+[pycubrid-1.10.0 t2] update
+[pycubrid-1.10.0 t2] delete
+[pycubrid-1.10.0 t2] executemany 100
+[pycubrid-1.10.0 t2] executemany 1000
+[pycubrid-1.10.0 t2] executemany 10000
+[pycubrid-1.10.0 t2] fetchone
+[pycubrid-1.10.0 t2] fetchmany
+[pycubrid-1.10.0 t2] fetchall
+[pycubrid-1.10.0 t2] fetch_size=1000
+[pycubrid-1.10.0 t2] fetch_size=10000
+[pycubrid-1.10.0 t2] threads c=1
+[pycubrid-1.10.0 t2] async c=1
+[pycubrid-1.10.0 t2] threads c=8
+[pycubrid-1.10.0 t2] async c=8
+[pycubrid-1.10.0 t2] threads c=32
+[pycubrid-1.10.0 t2] async c=32
+[pycubrid-1.10.0 t2] memory
+[pycubrid-1.10.0 t2] done in 278.6s -> /tmp/claude-1000/-data-GitHub-pycubrid/adb11aee-7544-476c-bcaa-21dcb7ccbd02/scratchpad/b44/run-release/raw/pycubrid-1.10.0_t2.json
+ 17:43:58 up 18 days,  9:24, 19 users,  load average: 19.79, 17.80, 18.23
+[cubriddb t2] connect/close
+[cubriddb t2] seed
+[cubriddb t2] select_pk
+[cubriddb t2] insert
+[cubriddb t2] update
+[cubriddb t2] delete
+[cubriddb t2] executemany 100
+[cubriddb t2] executemany 1000
+[cubriddb t2] executemany 10000
+[cubriddb t2] fetchone
+[cubriddb t2] fetchmany
+[cubriddb t2] fetchall
+[cubriddb t2] threads c=1
+[cubriddb t2] threads c=8
+[cubriddb t2] threads c=32
+[cubriddb t2] memory
+[cubriddb t2] done in 215.8s -> /tmp/claude-1000/-data-GitHub-pycubrid/adb11aee-7544-476c-bcaa-21dcb7ccbd02/scratchpad/b44/run-release/raw/cubriddb_t2.json
+ 17:47:34 up 18 days,  9:28, 19 users,  load average: 14.60, 16.09, 17.44
+[pycubrid-main t2] connect/close
+[pycubrid-main t2] seed
+[pycubrid-main t2] select_pk
+[pycubrid-main t2] insert
+[pycubrid-main t2] update
+[pycubrid-main t2] delete
+[pycubrid-main t2] executemany 100
+[pycubrid-main t2] executemany 1000
+[pycubrid-main t2] executemany 10000
+[pycubrid-main t2] fetchone
+[pycubrid-main t2] fetchmany
+[pycubrid-main t2] fetchall
+[pycubrid-main t2] fetch_size=1000
+[pycubrid-main t2] fetch_size=10000
+[pycubrid-main t2] threads c=1
+[pycubrid-main t2] async c=1
+[pycubrid-main t2] threads c=8
+[pycubrid-main t2] async c=8
+[pycubrid-main t2] threads c=32
+[pycubrid-main t2] async c=32
+[pycubrid-main t2] memory
+[pycubrid-main t2] done in 509.9s -> /tmp/claude-1000/-data-GitHub-pycubrid/adb11aee-7544-476c-bcaa-21dcb7ccbd02/scratchpad/b44/run-release/raw/pycubrid-main_t2.json
+ 17:56:04 up 18 days,  9:37, 19 users,  load average: 24.10, 19.16, 17.95
+[cubriddb t3] connect/close
+[cubriddb t3] seed
+[cubriddb t3] select_pk
+[cubriddb t3] insert
+[cubriddb t3] update
+[cubriddb t3] delete
+[cubriddb t3] executemany 100
+[cubriddb t3] executemany 1000
+[cubriddb t3] executemany 10000
+[cubriddb t3] fetchone
+[cubriddb t3] fetchmany
+[cubriddb t3] fetchall
+[cubriddb t3] threads c=1
+[cubriddb t3] threads c=8
+[cubriddb t3] threads c=32
+[cubriddb t3] memory
+[cubriddb t3] done in 450.7s -> /tmp/claude-1000/-data-GitHub-pycubrid/adb11aee-7544-476c-bcaa-21dcb7ccbd02/scratchpad/b44/run-release/raw/cubriddb_t3.json
+ 18:03:35 up 18 days,  9:44, 19 users,  load average: 23.31, 20.72, 19.03
+[pycubrid-main t3] connect/close
+[pycubrid-main t3] seed
+[pycubrid-main t3] select_pk
+[pycubrid-main t3] insert
+[pycubrid-main t3] update
+[pycubrid-main t3] delete
+[pycubrid-main t3] executemany 100
+[pycubrid-main t3] executemany 1000
+[pycubrid-main t3] executemany 10000
+[pycubrid-main t3] fetchone
+[pycubrid-main t3] fetchmany
+[pycubrid-main t3] fetchall
+[pycubrid-main t3] fetch_size=1000
+[pycubrid-main t3] fetch_size=10000
+[pycubrid-main t3] threads c=1
+[pycubrid-main t3] async c=1
+[pycubrid-main t3] threads c=8
+[pycubrid-main t3] async c=8
+[pycubrid-main t3] threads c=32
+[pycubrid-main t3] async c=32
+[pycubrid-main t3] memory
+[pycubrid-main t3] done in 312.8s -> /tmp/claude-1000/-data-GitHub-pycubrid/adb11aee-7544-476c-bcaa-21dcb7ccbd02/scratchpad/b44/run-release/raw/pycubrid-main_t3.json
+ 18:08:47 up 18 days,  9:49, 19 users,  load average: 18.51, 17.02, 17.76
+[pycubrid-1.10.0 t3] connect/close
+[pycubrid-1.10.0 t3] seed
+[pycubrid-1.10.0 t3] select_pk
+[pycubrid-1.10.0 t3] insert
+[pycubrid-1.10.0 t3] update
+[pycubrid-1.10.0 t3] delete
+[pycubrid-1.10.0 t3] executemany 100
+[pycubrid-1.10.0 t3] executemany 1000
+[pycubrid-1.10.0 t3] executemany 10000
+[pycubrid-1.10.0 t3] fetchone
+[pycubrid-1.10.0 t3] fetchmany
+[pycubrid-1.10.0 t3] fetchall
+[pycubrid-1.10.0 t3] fetch_size=1000
+[pycubrid-1.10.0 t3] fetch_size=10000
+[pycubrid-1.10.0 t3] threads c=1
+[pycubrid-1.10.0 t3] async c=1
+[pycubrid-1.10.0 t3] threads c=8
+[pycubrid-1.10.0 t3] async c=8
+[pycubrid-1.10.0 t3] threads c=32
+[pycubrid-1.10.0 t3] async c=32
+[pycubrid-1.10.0 t3] memory
+[pycubrid-1.10.0 t3] done in 319.1s -> /tmp/claude-1000/-data-GitHub-pycubrid/adb11aee-7544-476c-bcaa-21dcb7ccbd02/scratchpad/b44/run-release/raw/pycubrid-1.10.0_t3.json
+ 18:14:07 up 18 days,  9:55, 19 users,  load average: 14.18, 13.78, 15.92
+[pycubrid-main t4] connect/close
+[pycubrid-main t4] seed
+[pycubrid-main t4] select_pk
+[pycubrid-main t4] insert
+[pycubrid-main t4] update
+[pycubrid-main t4] delete
+[pycubrid-main t4] executemany 100
+[pycubrid-main t4] executemany 1000
+[pycubrid-main t4] executemany 10000
+[pycubrid-main t4] fetchone
+[pycubrid-main t4] fetchmany
+[pycubrid-main t4] fetchall
+[pycubrid-main t4] fetch_size=1000
+[pycubrid-main t4] fetch_size=10000
+[pycubrid-main t4] threads c=1
+[pycubrid-main t4] async c=1
+[pycubrid-main t4] threads c=8
+[pycubrid-main t4] async c=8
+[pycubrid-main t4] threads c=32
+[pycubrid-main t4] async c=32
+[pycubrid-main t4] memory
+[pycubrid-main t4] done in 305.4s -> /tmp/claude-1000/-data-GitHub-pycubrid/adb11aee-7544-476c-bcaa-21dcb7ccbd02/scratchpad/b44/run-release/raw/pycubrid-main_t4.json
+ 18:19:12 up 18 days, 10:00, 19 users,  load average: 11.22, 11.81, 14.40
+[pycubrid-1.10.0 t4] connect/close
+[pycubrid-1.10.0 t4] seed
+[pycubrid-1.10.0 t4] select_pk
+[pycubrid-1.10.0 t4] insert
+[pycubrid-1.10.0 t4] update
+[pycubrid-1.10.0 t4] delete
+[pycubrid-1.10.0 t4] executemany 100
+[pycubrid-1.10.0 t4] executemany 1000
+[pycubrid-1.10.0 t4] executemany 10000
+[pycubrid-1.10.0 t4] fetchone
+[pycubrid-1.10.0 t4] fetchmany
+[pycubrid-1.10.0 t4] fetchall
+[pycubrid-1.10.0 t4] fetch_size=1000
+[pycubrid-1.10.0 t4] fetch_size=10000
+[pycubrid-1.10.0 t4] threads c=1
+[pycubrid-1.10.0 t4] async c=1
+[pycubrid-1.10.0 t4] threads c=8
+[pycubrid-1.10.0 t4] async c=8
+[pycubrid-1.10.0 t4] threads c=32
+[pycubrid-1.10.0 t4] async c=32
+[pycubrid-1.10.0 t4] memory
+[pycubrid-1.10.0 t4] done in 381.0s -> /tmp/claude-1000/-data-GitHub-pycubrid/adb11aee-7544-476c-bcaa-21dcb7ccbd02/scratchpad/b44/run-release/raw/pycubrid-1.10.0_t4.json
+ 18:25:33 up 18 days, 10:06, 19 users,  load average: 16.99, 14.08, 14.31
+[cubriddb t4] connect/close
+[cubriddb t4] seed
+[cubriddb t4] select_pk
+[cubriddb t4] insert
+[cubriddb t4] update
+[cubriddb t4] delete
+[cubriddb t4] executemany 100
+[cubriddb t4] executemany 1000
+[cubriddb t4] executemany 10000
+[cubriddb t4] fetchone
+[cubriddb t4] fetchmany
+[cubriddb t4] fetchall
+[cubriddb t4] threads c=1
+[cubriddb t4] threads c=8
+[cubriddb t4] threads c=32
+[cubriddb t4] memory
+[cubriddb t4] done in 249.9s -> /tmp/claude-1000/-data-GitHub-pycubrid/adb11aee-7544-476c-bcaa-21dcb7ccbd02/scratchpad/b44/run-release/raw/cubriddb_t4.json
+ 18:29:43 up 18 days, 10:10, 19 users,  load average: 6.22, 10.25, 12.73
+[pycubrid-1.10.0 t5] connect/close
+[pycubrid-1.10.0 t5] seed
+[pycubrid-1.10.0 t5] select_pk
+[pycubrid-1.10.0 t5] insert
+[pycubrid-1.10.0 t5] update
+[pycubrid-1.10.0 t5] delete
+[pycubrid-1.10.0 t5] executemany 100
+[pycubrid-1.10.0 t5] executemany 1000
+[pycubrid-1.10.0 t5] executemany 10000
+[pycubrid-1.10.0 t5] fetchone
+[pycubrid-1.10.0 t5] fetchmany
+[pycubrid-1.10.0 t5] fetchall
+[pycubrid-1.10.0 t5] fetch_size=1000
+[pycubrid-1.10.0 t5] fetch_size=10000
+[pycubrid-1.10.0 t5] threads c=1
+[pycubrid-1.10.0 t5] async c=1
+[pycubrid-1.10.0 t5] threads c=8
+[pycubrid-1.10.0 t5] async c=8
+[pycubrid-1.10.0 t5] threads c=32
+[pycubrid-1.10.0 t5] async c=32
+[pycubrid-1.10.0 t5] memory
+[pycubrid-1.10.0 t5] done in 331.0s -> /tmp/claude-1000/-data-GitHub-pycubrid/adb11aee-7544-476c-bcaa-21dcb7ccbd02/scratchpad/b44/run-release/raw/pycubrid-1.10.0_t5.json
+ 18:35:14 up 18 days, 10:16, 19 users,  load average: 18.93, 13.46, 13.12
+[cubriddb t5] connect/close
+[cubriddb t5] seed
+[cubriddb t5] select_pk
+[cubriddb t5] insert
+[cubriddb t5] update
+[cubriddb t5] delete
+[cubriddb t5] executemany 100
+[cubriddb t5] executemany 1000
+[cubriddb t5] executemany 10000
+[cubriddb t5] fetchone
+[cubriddb t5] fetchmany
+[cubriddb t5] fetchall
+[cubriddb t5] threads c=1
+[cubriddb t5] threads c=8
+[cubriddb t5] threads c=32
+[cubriddb t5] memory
+[cubriddb t5] done in 445.0s -> /tmp/claude-1000/-data-GitHub-pycubrid/adb11aee-7544-476c-bcaa-21dcb7ccbd02/scratchpad/b44/run-release/raw/cubriddb_t5.json
+ 18:42:39 up 18 days, 10:23, 19 users,  load average: 14.94, 14.42, 13.66
+[pycubrid-main t5] connect/close
+[pycubrid-main t5] seed
+[pycubrid-main t5] select_pk
+[pycubrid-main t5] insert
+[pycubrid-main t5] update
+[pycubrid-main t5] delete
+[pycubrid-main t5] executemany 100
+[pycubrid-main t5] executemany 1000
+[pycubrid-main t5] executemany 10000
+[pycubrid-main t5] fetchone
+[pycubrid-main t5] fetchmany
+[pycubrid-main t5] fetchall
+[pycubrid-main t5] fetch_size=1000
+[pycubrid-main t5] fetch_size=10000
+[pycubrid-main t5] threads c=1
+[pycubrid-main t5] async c=1
+[pycubrid-main t5] threads c=8
+[pycubrid-main t5] async c=8
+[pycubrid-main t5] threads c=32
+[pycubrid-main t5] async c=32
+[pycubrid-main t5] memory
+[pycubrid-main t5] done in 377.3s -> /tmp/claude-1000/-data-GitHub-pycubrid/adb11aee-7544-476c-bcaa-21dcb7ccbd02/scratchpad/b44/run-release/raw/pycubrid-main_t5.json
+ 18:48:57 up 18 days, 10:29, 19 users,  load average: 11.88, 12.43, 12.99
+Phase-decomposed benchmark: 200 iterations, 50 warmup, 10000 rows
+  [1/6] Connect...
+  Setting up bench_users (10000 rows)...
+  [2/6] INSERT...
+  [3/6] SELECT PK...
+  [4/6] SELECT Full Scan...
+  [5/6] UPDATE...
+  [6/6] DELETE...
+
+Results written to /tmp/claude-1000/-data-GitHub-pycubrid/adb11aee-7544-476c-bcaa-21dcb7ccbd02/scratchpad/b44/run-release/raw/phase_decomposed_pycubrid-main.json
+
+--- Summary ---
+  connect                         mean=   1.775ms  p50=   1.700ms  CV=26.9%
+  insert_execute                  mean=   1.523ms  p50=   1.349ms  CV=49.8%
+  insert_commit                   mean= 225.791ms  p50= 208.303ms  CV=44.0%
+  insert_total                    mean= 227.315ms  p50= 209.615ms  CV=43.7%
+  select_pk_execute               mean=   0.606ms  p50=   0.589ms  CV=17.1%
+  select_pk_fetch                 mean=   0.001ms  p50=   0.001ms  CV=14.1%
+  select_pk_total                 mean=   0.607ms  p50=   0.590ms  CV=17.1%
+  select_full_execute             mean=   7.226ms  p50=   6.853ms  CV=18.0%
+  select_full_fetch               mean=  42.596ms  p50=  39.732ms  CV=20.7%
+  select_full_total               mean=  49.822ms  p50=  46.922ms  CV=18.6%
+  update_execute                  mean=   1.837ms  p50=   1.154ms  CV=418.1%
+  update_commit                   mean= 160.599ms  p50= 150.814ms  CV=52.9%
+  update_total                    mean= 162.437ms  p50= 153.234ms  CV=52.8%
+  delete_execute                  mean=   1.806ms  p50=   1.087ms  CV=191.5%
+  delete_commit                   mean= 200.889ms  p50= 182.779ms  CV=50.0%
+  delete_total                    mean= 202.695ms  p50= 183.792ms  CV=49.8%
+ 18:53:30 up 18 days, 10:34, 19 users,  load average: 10.84, 11.31, 12.33
+Phase-decomposed benchmark: 200 iterations, 50 warmup, 10000 rows
+  [1/6] Connect...
+  Setting up bench_users (10000 rows)...
+  [2/6] INSERT...
+  [3/6] SELECT PK...
+  [4/6] SELECT Full Scan...
+  [5/6] UPDATE...
+  [6/6] DELETE...
+
+Results written to /tmp/claude-1000/-data-GitHub-pycubrid/adb11aee-7544-476c-bcaa-21dcb7ccbd02/scratchpad/b44/run-release/raw/phase_decomposed_pycubrid-1.10.0.json
+
+--- Summary ---
+  connect                         mean=   1.936ms  p50=   1.724ms  CV=40.2%
+  insert_execute                  mean=   1.738ms  p50=   1.299ms  CV=164.6%
+  insert_commit                   mean= 174.921ms  p50= 142.869ms  CV=54.9%
+  insert_total                    mean= 176.659ms  p50= 144.244ms  CV=54.6%
+  select_pk_execute               mean=   0.668ms  p50=   0.605ms  CV=40.6%
+  select_pk_fetch                 mean=   0.001ms  p50=   0.001ms  CV=15.8%
+  select_pk_total                 mean=   0.669ms  p50=   0.606ms  CV=40.5%
+  select_full_execute             mean=   6.936ms  p50=   6.679ms  CV=19.4%
+  select_full_fetch               mean=  37.051ms  p50=  36.144ms  CV=9.4%
+  select_full_total               mean=  43.988ms  p50=  42.969ms  CV=8.4%
+  update_execute                  mean=   1.202ms  p50=   1.117ms  CV=31.1%
+  update_commit                   mean= 221.334ms  p50= 165.930ms  CV=98.9%
+  update_total                    mean= 222.536ms  p50= 167.060ms  CV=98.4%
+  delete_execute                  mean=   1.343ms  p50=   1.121ms  CV=115.3%
+  delete_commit                   mean= 242.413ms  p50= 207.902ms  CV=58.2%
+  delete_total                    mean= 243.756ms  p50= 209.601ms  CV=57.9%
+wrote /tmp/claude-1000/-data-GitHub-pycubrid/adb11aee-7544-476c-bcaa-21dcb7ccbd02/scratchpad/b44/run-release/derived
+exit=0

@@ -15,7 +15,7 @@ TITLE_OVERRIDES = {
     10: "sqlalchemy-cubrid — 이렇게 씁니다 (코드)",
     13: "pycubrid — 문서 대신 두 드라이버의 소스를 나란히 놓고 읽었습니다",
     19: "\"지워버리면요?\" 기본은 읽기 전용입니다",
-    23: "2,200개의 테스트를 통과 못 하면, 머지되지 않습니다 (패키지별 차트)",
+    23: "CI를 통과 못 하면, 머지되지 않습니다",
     24: "직접 쟀습니다 — 성능 비교 차트",
     27: "MIT × 4 — 누구나 가져다 쓸 수 있게",
     29: "부풀리지 않은 숫자만 가져왔습니다 (star · PR · 릴리스 차트)",
@@ -26,7 +26,7 @@ CRITERIA = [
     "| OSS 적절성 | 15 | Mike Bayer의 README에 응답해 dialect 재작성·공식 test suite (5, 9) → 오픈소스 소스를 읽어 프로토콜 해독 (13) → 표준 위에 (26) |",
     "| PT | 10 | 표지 (1) · 장 제목 5개 · 전환 문장 (6, 12, 22) · 제목 \"If someone were interested\"가 README (5)와 마지막 장 (32)을 잇는 구조 |",
     "| 데모 | 10 | 라이브 데모 없음 — 실행해 본 코드 (10), 실제 문서·저장소·PR 화면 (15, 17, 21)으로 대신 |",
-    "| 기능테스트 | 10 | 매일 밤 실서버 golden test (16) → 읽기 전용 설계 (19) → 2,200 테스트·패키지별 차트 (23) → 성능 비교 차트 (24) → 직접 확인 (28) |",
+    "| 기능테스트 | 10 | 매일 밤 실서버 golden test (16) → 읽기 전용 설계 (19) → CI 테스트·품질 게이트 (23) → 성능 비교 차트 (24) → 직접 확인 (28) |",
     "| 커뮤니티 | 5 | 컨트리뷰톤·SQLAlchemy Korea (3–4) → \"관심 있는 사람이 있다면\" → 이어받음 (5–6) → AI+사람 리뷰 (21) → 다음 언어·good-first-issue (31) → If you are interested (32) |",
     "| 라이선스 | 5 | BSD 소스 참고 (13) → MIT × 4 · GPL 없음 · SBOM (27) |",
 ]
@@ -79,7 +79,7 @@ def main():
         "# 발표 대본 — 2026 오픈소스 개발자대회", "",
         f"> 「If someone were interested — 멈춰 있던 CUBRID dialect를 이어받아 생태계가 되기까지」 · {len(parts)}장 · 약 {fmt(t)} (12분 슬롯). 화면은 `presentation/slides.md`, 이 문서는 그 발표자 노트를 모은 대본입니다 (`scripts/build_talk_script.py`로 생성).",
         "> 심사 기준은 화면에 표시하지 않고 이야기 흐름 안에 녹였습니다. 각 장면이 채우는 기준은 대본 머리와 맨 끝 표에 적었습니다.",
-        f"> 채택 지표는 `presentation/deck.json`이 선택한 {snapshot['snapshotDate']} 스냅숏 기준입니다: GitHub stars {metrics['stars']['total']:,}개, merged PRs {metrics['mergedPRs']['total']:,}개, PyPI releases {metrics['pypiReleases']['total']:,}회. fork는 기록되지 않아 제외했습니다. 최신 수치를 뜻하지 않습니다.",
+        f"> 채택 지표는 `presentation/deck.json`이 선택한 {snapshot['snapshotDate']} 스냅숏 기준입니다: GitHub stars {metrics['stars']['total']:,}개, merged PRs {metrics['mergedPRs']['total']:,}개, published GitHub Releases {metrics['publishedReleases']['total']:,}회입니다. fork와 clone traffic은 채택 지표에서 제외했습니다.",
         "> 사진 두 장(`presentation/public/photos/team-2020.jpg`, `team-now.jpg`)은 받는 대로 넣습니다.", "",
     ]
     for i, title, chapter, meta, body in rows:

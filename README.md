@@ -10,12 +10,19 @@ Presentations, contest entries, program submissions, demos, and supporting
 materials for [cubrid-lab](https://github.com/cubrid-lab) projects, including
 the CUBRID client ecosystem and the CUBRID Kubernetes Operator.
 
+**[Open HTML presentations](https://cubrid-lab.github.io/showcase/)**
+
 ## Presentations and submissions
 
-| Event / program | Project | Materials |
-|---|---|---|
-| 2026 OSS Developer Contest | CUBRID Python ecosystem | [Contest brief, slides, Q&A, demo, and evidence](contests/2026-ossdevcon/) · [Slidev deck](presentation/) |
-| 2026 Builder Season 4 — First Validation | CUBRID Kubernetes Operator | [Presentation brief and Korean / English web sources](events/2026-builder-season4/01-validation/) |
+| Event / program | Project | Presentations | Overview |
+|---|---|---|---|
+| 2026 OSS Developer Contest | CUBRID Python ecosystem | [발표 보기](https://cubrid-lab.github.io/showcase/contests/2026-ossdevcon/) · [PDF](https://github.com/cubrid-lab/showcase/releases/download/ossdevcon-2026-presentation-2026-10-25/ossdevcon.pdf) · [PPTX](https://github.com/cubrid-lab/showcase/releases/download/ossdevcon-2026-presentation-2026-10-25/ossdevcon.pptx) | [Contest materials and format guide](contests/2026-ossdevcon/#presentation) |
+| 2026 Builder Season 4 | CUBRID Kubernetes Operator | First validation: [한국어](https://cubrid-lab.github.io/showcase/events/2026-builder-season4/01-validation/ko/) · [English](https://cubrid-lab.github.io/showcase/events/2026-builder-season4/01-validation/en/) | [Program and presentation rounds](events/2026-builder-season4/) |
+
+The presentation links open HTML slides in your browser; PDF and PPTX links
+download the published release files. The Operator decks
+contain ten matched slides per language, speaker notes, and Q&A material. Source files, verification records, and export
+commands are linked from each event brief.
 
 ## Repository layout
 
@@ -34,8 +41,10 @@ the CUBRID client ecosystem and the CUBRID Kubernetes Operator.
 1. Add new material under `events/<year>-<event>/<milestone>/`, whether it
    is a contest, program, conference, or meetup. Keep existing contest paths
    intact. Use the index to identify the project and describe the event type.
-2. Include a `README.md` with the project, audience, event date, submission
-   deadline, required formats, and source of the requirements.
+2. For a recurring program, include an event-level `README.md` linking its
+   presentation rounds. Each milestone gets a `README.md` with the project,
+   audience, event date, submission deadline, required formats, and source
+   of the requirements. Add future rounds when preparation starts.
 3. Keep the event brief and supporting evidence in that event folder. Put
    web slide sources in `presentation/decks/<year>-<event>/<milestone>/`
    as `SLIDES.ko.md` and `SLIDES.en.md`, with entry files in `presentation/`.

@@ -8,7 +8,7 @@ This guide lets anyone verify the CUBRID Python ecosystem works — with or with
 # 1. Driver — one command, pure Python
 pip install pycubrid
 python -c "import pycubrid; print(pycubrid.__version__)"
-# Expected: 1.7.0 (or later)
+# Expected: current stable release (v1.13.3 when this guide was refreshed)
 
 # 2. ORM
 pip install sqlalchemy-cubrid
@@ -76,7 +76,7 @@ echo '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":
 
 ```bash
 # SPDX SBOM attached to every GitHub Release
-gh release download v0.4.0 -R cubrid-lab/cubrid-mcp-server -p sbom.spdx.json
+gh release download v0.5.4 -R cubrid-lab/cubrid-mcp-server -p sbom.spdx.json
 cat sbom.spdx.json | python -m json.tool | head -20
 
 # THIRD_PARTY_LICENSES.md in every repo
