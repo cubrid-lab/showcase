@@ -1,5 +1,11 @@
 # CUBRID Lab — Showcase
 
+<!-- CUBRID-LAB-ICON:START -->
+<p align="center">
+  <a href="https://github.com/cubrid-lab/brand"><img src="https://raw.githubusercontent.com/cubrid-lab/brand/2de5d2323186a36ec16755b428b3ed2c88a5642e/dist/icons/showcase.svg" alt="showcase icon (CUBRID Lab brand repository)" width="120"></a>
+</p>
+<!-- CUBRID-LAB-ICON:END -->
+
 Presentations, contest entries, program submissions, demos, and supporting
 materials for [cubrid-lab](https://github.com/cubrid-lab) projects, including
 the CUBRID client ecosystem and the CUBRID Kubernetes Operator.
