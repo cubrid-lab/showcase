@@ -72,7 +72,19 @@ the HTML site, PDF, and PPTX together as one artifact named
 `ossdevcon-presentation-<commit SHA>`. On pull request runs that SHA is
 GitHub's test merge commit, not the branch head, so take release deliverables
 from the run on `main` or from a manual dispatch. Download the artifact from
-the workflow run's **Artifacts** section; it is kept for 30 days.
+the workflow run's **Artifacts** section; it is kept for 30 days and serves CI
+review only.
+
+Durable copies are published as GitHub **prereleases** of this repository with
+the verified PDF and PPTX, a `presentation-manifest.json` (source commit,
+workflow run, metrics snapshot, file sizes and hashes) and `SHA256SUMS`. The
+current one is
+[`ossdevcon-2026-presentation-2026-10-25`](https://github.com/cubrid-lab/showcase/releases/tag/ossdevcon-2026-presentation-2026-10-25);
+the [contest README](../contests/2026-ossdevcon/README.md#presentation) links
+its download URLs. To publish a new revision, take the artifact from a `main`
+run, run `scripts/verify_exports.py --pdf <file> --pptx <file>` against those
+exact files, inspect them visually, and create a new prerelease tag rather than
+replacing the assets of an existing one.
 
 The default PPTX export uses an image per slide for visual consistency. It is
 suitable for presenting and reviewing, but slide text and shapes are not

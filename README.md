@@ -8,12 +8,13 @@ the CUBRID client ecosystem and the CUBRID Kubernetes Operator.
 
 ## Presentations and submissions
 
-| Event / program | Project | HTML presentations | Overview |
+| Event / program | Project | Presentations | Overview |
 |---|---|---|---|
-| 2026 OSS Developer Contest | CUBRID Python ecosystem | [발표 보기](https://cubrid-lab.github.io/showcase/contests/2026-ossdevcon/) | [Contest materials](contests/2026-ossdevcon/) |
+| 2026 OSS Developer Contest | CUBRID Python ecosystem | [발표 보기](https://cubrid-lab.github.io/showcase/contests/2026-ossdevcon/) · [PDF](https://github.com/cubrid-lab/showcase/releases/download/ossdevcon-2026-presentation-2026-10-25/ossdevcon.pdf) · [PPTX](https://github.com/cubrid-lab/showcase/releases/download/ossdevcon-2026-presentation-2026-10-25/ossdevcon.pptx) | [Contest materials and format guide](contests/2026-ossdevcon/#presentation) |
 | 2026 Builder Season 4 | CUBRID Kubernetes Operator | First validation: [한국어](https://cubrid-lab.github.io/showcase/events/2026-builder-season4/01-validation/ko/) · [English](https://cubrid-lab.github.io/showcase/events/2026-builder-season4/01-validation/en/) | [Program and presentation rounds](events/2026-builder-season4/) |
 
-The presentation links open HTML slides in your browser. The Operator decks
+The presentation links open HTML slides in your browser; PDF and PPTX links
+download the published release files. The Operator decks
 contain ten matched slides per language, speaker notes, and Q&A material. Source files, verification records, and export
 commands are linked from each event brief.
 
