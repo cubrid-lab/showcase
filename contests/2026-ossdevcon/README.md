@@ -34,7 +34,7 @@ Usability 15 · OSS 15 · PT 10 · Demo 10 · Testing 10 · Community 5 · Licen
 | seed_demo_data_products.py | Alternative product catalog demo data |
 | cubrid-corp-outreach.md | CUBRID Corp outreach email draft |
 | blog-post-draft.md | Tech blog post draft |
-| metrics/SNAPSHOT.md | Verified metrics snapshot (re-measure on presentation day) |
+| metrics/SNAPSHOT.md | Verified metrics snapshot (refreshed 2026-10-25; re-measure before delivery) |
 | captures/ | Historical demo rehearsal scripts + backup recording |
 
 ## Consolidation Note
@@ -71,6 +71,6 @@ Terminal demo GIFs are generated from VHS (.tape) scripts in each repo:
 - [English one-pager](../../press-kit/ONE_PAGER.md)
 - [Korean one-pager](../../press-kit/ONE_PAGER.ko.md)
 
-Historical metrics remain in the [dated snapshot](../../presentation/snapshots/2026-09-12.json).
+The active metrics snapshot is [2026-10-25](../../presentation/snapshots/2026-10-25.json); the 2026-09-12 snapshot remains for historical comparison.
 Clone traffic includes CI activity and is not an adoption metric; see the
 [measurement notes](metrics/SNAPSHOT.md) before reusing any traffic figures.
