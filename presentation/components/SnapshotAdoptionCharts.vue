@@ -5,7 +5,7 @@ import { snapshot } from '../selectedSnapshot.js'
 const charts = [
   { key: 'stars', label: 'GitHub star' },
   { key: 'mergedPRs', label: 'merged PR' },
-  { key: 'pypiReleases', label: 'PyPI 릴리스' },
+  { key: snapshot.metrics.publishedReleases ? 'publishedReleases' : 'pypiReleases', label: snapshot.metrics.publishedReleases ? 'GitHub 릴리스' : 'PyPI 릴리스' },
 ].map(({ key, label }) => {
   const metric = snapshot.metrics[key]
   const rows = Object.entries(metric.perRepo)
@@ -17,7 +17,7 @@ const charts = [
 </script>
 
 <template>
-  <p class="kicker">부풀리지 않은 숫자만 가져왔습니다 · GitHub · PyPI, {{ snapshot.snapshotDate }} 기준</p>
+  <p class="kicker">부풀리지 않은 숫자만 가져왔습니다 · GitHub API, {{ snapshot.snapshotDate }} 기준</p>
   <div class="adoption-charts">
     <div v-for="chart in charts" :key="chart.key" class="stack">
       <p class="chart-cap">{{ chart.label }} — 총 {{ chart.total.toLocaleString() }}</p>
