@@ -7,3 +7,11 @@
 
 형식: MP4 (1080p) + WEBM
 저장: Git LFS 또는 YouTube 링크
+
+## CUBRID Lab introduction video (2026)
+
+프로젝트 소개 영상(≤3:00, 한국어 AI 내레이션)의 설계와 콘티:
+[`intro-2026/VIDEO_DESIGN.md`](intro-2026/VIDEO_DESIGN.md) ·
+[style frames](intro-2026/style-frames/png/contact-sheet.png).
+Design [#50](https://github.com/cubrid-lab/showcase/issues/50) · production [#51](https://github.com/cubrid-lab/showcase/issues/51).
+위 목록의 대회 데모 백업 녹화([#1](https://github.com/cubrid-lab/showcase/issues/1))와는 별개입니다.
