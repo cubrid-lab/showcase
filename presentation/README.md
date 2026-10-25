@@ -34,7 +34,7 @@ checkout so they use the same content and active metrics snapshot.
 ```bash
 npm ci
 npm run build:site
-npm install --no-save --package-lock=false playwright-chromium
+npm install --no-save --package-lock=false playwright-chromium@1.64.1
 npx playwright install chromium
 npm run export:ossdevcon:pdf
 npm run export:ossdevcon:pptx
