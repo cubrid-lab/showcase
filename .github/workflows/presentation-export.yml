@@ -6,6 +6,12 @@ on:
     branches: [main]
     paths:
       - 'presentation/**'
+      - 'scripts/build_site.mjs'
+      - '.github/workflows/presentation-export.yml'
+  pull_request:
+    paths:
+      - 'presentation/**'
+      - 'scripts/build_site.mjs'
       - '.github/workflows/presentation-export.yml'
 
 permissions:

@@ -26,6 +26,10 @@ This builds all three decks into `../site-dist/` with their own URL base paths,
 plus a landing page. `PAGES_BASE_PATH` defaults to `/showcase`; set it to an
 empty string for a domain-root deployment. Slide navigation uses hash routes.
 
+The Pages workflow rebuilds and deploys when presentation sources or site
+build files change on `main`, and supports manual dispatch. It uses the
+existing package lock; no additional npm dependency is required.
+
 ## 2026 OSSDevCon deliverables: HTML, PDF, and PPTX
 
 The canonical source is `slides.md`. Generate all deliverables from the same
@@ -58,9 +62,15 @@ Chromium browser. Slidev can exit successfully while a slide still shows its
 and then 5 seconds before capturing, and `scripts/verify_exports.py` fails if
 any PDF page is blank or shows the placeholder, or if the PDF page count or
 PPTX slide count differs from the slide count of `slides.md`. The PPTX holds
-images only, so inspect it visually. The CI export workflow installs the browser and uploads the
-HTML site, PDF, and PPTX together as one artifact for the same commit. Download
-the artifact from the workflow run's **Artifacts** section.
+images only, so inspect it visually.
+
+The CI export workflow (`.github/workflows/presentation-export.yml`) runs on
+pull requests and pushes to `main` that change presentation sources, the site
+build script or the workflow, and on manual dispatch. It installs the browser,
+fails if any of the three formats is missing or fails verification, and uploads
+the HTML site, PDF, and PPTX together as one artifact named
+`ossdevcon-presentation-<commit SHA>`. Download it from the workflow run's
+**Artifacts** section; it is kept for 30 days.
 
 The default PPTX export uses an image per slide for visual consistency. It is
 suitable for presenting and reviewing, but slide text and shapes are not

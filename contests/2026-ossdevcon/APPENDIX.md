@@ -145,9 +145,9 @@
 > Those fields are intentionally marked as **not recorded** rather than inferred.
 
 - Repo: [cubrid-benchmark](https://github.com/cubrid-lab/cubrid-benchmark)
-- Recorded environment: Intel i5-9400F, Linux x86_64, Docker CUBRID 11.4
-- Recorded workload: 10,000 rows × 5 rounds (mean)
-- Profiling scripts: `profile_connect.py`, `profile_execute.py`, `profile_fetch.py`
+- Environment as previously stated (not verified against a run log): Intel i5-9400F, Linux x86_64, Docker CUBRID 11.4
+- Workload as previously stated (not verified against a run log): 10,000 rows × 5 rounds (mean)
+- Profiling scripts as previously stated (not verified against a run log): `profile_connect.py`, `profile_execute.py`, `profile_fetch.py`
 - Original benchmark execution date: **not recorded**
 - Original `pycubrid` / `PyMySQL` versions or commit SHAs: **not recorded**
 - Follow-up: [Issue #44](https://github.com/cubrid-lab/showcase/issues/44) tracks metadata verification and a new benchmark run next week.
