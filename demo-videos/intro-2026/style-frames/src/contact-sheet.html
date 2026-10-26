@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Style Frame Sheet</title>
+<style>
+@font-face {
+  font-family: "Pretendard";
+  src: url("../../../../presentation/public/fonts/PretendardVariable.woff2") format("woff2-variations");
+  font-weight: 45 920;
+}
+:root { --bg: #0D1117; --text: #F0F6FC; --muted: #A8C1E8; --line: #30363D; }
+* { box-sizing: border-box; margin: 0; }
+body { background: var(--bg); color: var(--text); font-family: "Pretendard", system-ui, sans-serif; }
+#sheet { width: 2400px; padding: 56px; background: var(--bg); }
+h1 { font-size: 44px; font-weight: 800; }
+p { color: var(--muted); font-size: 22px; margin-top: 10px; }
+.main { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; margin-top: 40px; }
+.short { display: grid; grid-template-columns: repeat(6, 1fr); gap: 28px; margin-top: 40px; }
+figure img { width: 100%; display: block; border: 1px solid var(--line); border-radius: 8px; }
+figcaption { font-size: 20px; color: var(--muted); margin-top: 10px; }
+</style>
+</head>
+<body>
+<div id="sheet">
+  <h1>CUBRID Lab 소개 영상 · 스타일 프레임</h1>
+  <p>Main cut 1920×1080 (top) · optional 30 s short 1080×1920 (bottom) · storyboard: VIDEO_DESIGN.md</p>
+  <div class="main" id="main"></div>
+  <div class="short" id="short"></div>
+</div>
+<script>
+const dir = new URLSearchParams(location.search).get("dir") || "../png/";
+const base = dir.endsWith("/") ? dir : dir + "/";
+const MAIN = [["H2", "0:02 Hook"], ["B1", "0:06 Four projects"], ["P1", "0:20 pycubrid"], ["P3", "0:32 PEP 249"],
+  ["S3", "1:10 ORM"], ["C4", "2:00 Read-only"], ["K3", "2:34 Cookbook"], ["F2", "2:48 End card"]];
+const SHORT = [["V1", "0:00 Hook"], ["V4", "0:17 Read-only"]];
+const fig = (kind, [id, label]) =>
+  `<figure><img src="${base}${kind}-${id}.png" alt="${id}"><figcaption>${id} · ${label}</figcaption></figure>`;
+document.getElementById("main").innerHTML = MAIN.map((f) => fig("main", f)).join("");
+document.getElementById("short").innerHTML = SHORT.map((f) => fig("short", f)).join("");
+</script>
+</body>
+</html>
