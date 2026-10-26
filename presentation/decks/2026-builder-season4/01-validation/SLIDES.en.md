@@ -299,9 +299,9 @@ We want to publish the images, install manifests, supported-environment table, o
 
 <!--
 [20s · 4 · After v0.1]
-Once the first version is out, we'd like to fix the rough edges people find. Can they find the cause in the logs and follow the recovery steps? We also need to test features needed for actual use, such as database authentication, TLS and compatible updates.
+Once the first version is out, we'll fix what people run into first: logs, recovery steps, database authentication and TLS.
 
-Then we'd add Kubernetes and CSI combinations one at a time, testing faults and recovery in each. arm64 and setups across availability zones need separate work. Changing CUBRID versions and adding read replicas that cannot become master are longer-term jobs too. We haven't set a next version or date. First we'll finish the required v0.1 work, then use feedback from people who've tried it to decide what comes next.
+Then we'll add Kubernetes and CSI combinations one at a time, testing faults and recovery in each. We haven't set a next version or date.
 -->
 
 ---
