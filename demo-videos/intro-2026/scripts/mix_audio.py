@@ -53,7 +53,7 @@ def read_wav(path: Path) -> np.ndarray:
 def write_wav_float(path: Path, x: np.ndarray) -> None:
     """Writes float32 WAV through ffmpeg (the wave module only writes PCM)."""
     subprocess.run(
-        ["ffmpeg", "-nostdin", "-v", "error", "-y", "-f", "f32le", "-ar", str(SR), "-ac", "2", "-i", "-", str(path)],
+        ["ffmpeg", "-nostdin", "-v", "error", "-y", "-f", "f32le", "-ar", str(SR), "-ac", "2", "-i", "-", "-c:a", "pcm_f32le", str(path)],
         input=np.ascontiguousarray(x, np.float32).tobytes(),
         check=True,
     )

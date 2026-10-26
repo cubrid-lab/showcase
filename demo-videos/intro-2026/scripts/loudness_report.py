@@ -52,12 +52,13 @@ def main() -> None:
     tb, _, sb, music = series(d / "music-bus.wav")
     tv, _, sv, vox = series(d / "narration-bus.wav")
 
-    # Music bus loudness inside vs outside narration (short-term, 3 s windows fully inside/outside).
+    # Music bus loudness inside vs outside narration. ffmpeg's short-term value at t covers
+    # [t - 3 s, t], so only windows that lie entirely inside (or entirely outside) count.
     def inside(t):
-        return any(w["from_s"] + 1.5 <= t <= w["to_s"] - 0.2 for w in env["narration"])
+        return any(w["from_s"] + 0.15 <= t - 3.0 and t <= w["to_s"] for w in env["narration"])
 
     def outside(t):
-        return all(t < w["from_s"] - 0.5 or t > w["to_s"] + 3.5 for w in env["narration"])
+        return all(t <= w["from_s"] - 0.15 or t - 3.0 >= w["to_s"] + 0.35 for w in env["narration"])
 
     def mean(xs):
         return sum(xs) / len(xs) if xs else float("nan")

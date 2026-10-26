@@ -181,6 +181,10 @@ input checksums are in [`PROVENANCE.md`](PROVENANCE.md).
 
 ### End to end
 
+Prerequisites besides Node 24: ffmpeg/ffprobe 4.4+ with libx264, libvpx-vp9 and libopus, and
+Python 3.10+ with NumPy and Matplotlib for the audio scripts
+(`python3 -m pip install numpy matplotlib`).
+
 ```bash
 cd demo-videos/intro-2026
 npm ci
