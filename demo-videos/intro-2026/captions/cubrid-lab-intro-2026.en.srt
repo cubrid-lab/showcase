@@ -1,0 +1,109 @@
+1
+00:00:00,200 --> 00:00:01,340
+CUBRID,
+
+2
+00:00:02,200 --> 00:00:03,391
+in Python.
+
+3
+00:00:06,200 --> 00:00:11,036
+From the driver to the
+ORM, AI and examples.
+
+4
+00:00:12,200 --> 00:00:17,587
+Open-source Python tools from
+CUBRID Lab, all MIT-licensed.
+
+5
+00:00:20,200 --> 00:00:22,540
+One: pycubrid.
+
+6
+00:00:24,200 --> 00:00:29,603
+One line to install: a pure-Python
+driver, no C extensions, no compiling.
+
+7
+00:00:32,200 --> 00:00:40,153
+Connect, open a cursor, execute:
+the familiar DB-API 2.0 way.
+
+8
+00:00:44,200 --> 00:00:50,159
+asyncio, TLS encryption and
+LOBs are supported too.
+
+9
+00:00:52,200 --> 00:00:55,888
+No C compiler. Anywhere Python runs.
+
+10
+00:00:58,200 --> 00:01:01,250
+Two: sqlalchemy-cubrid.
+
+11
+00:01:02,200 --> 00:01:07,865
+Install it with pycubrid and
+connect with one engine URL.
+
+12
+00:01:10,200 --> 00:01:16,924
+Create tables, then save and query
+rows with SQLAlchemy 2.0-style models.
+
+13
+00:01:24,200 --> 00:01:29,840
+Alembic migrations, schema
+reflection and an async engine.
+
+14
+00:01:36,200 --> 00:01:39,130
+Three: cubrid-mcp-server.
+
+15
+00:01:40,200 --> 00:01:46,033
+An AI agent connects to CUBRID
+over MCP and explores the schema.
+
+16
+00:01:50,200 --> 00:01:56,344
+The agent turns a question into SQL;
+the server runs read queries only.
+
+17
+00:02:00,200 --> 00:02:04,958
+Read-only by default.
+Writes and DDL are rejected,
+
+18
+00:02:04,958 --> 00:02:08,479
+and the write tool isn't even listed.
+
+19
+00:02:12,200 --> 00:02:16,205
+Writes open only when an operator
+enables them, per connection.
+
+20
+00:02:20,200 --> 00:02:23,104
+Four: cubrid-cookbook-python.
+
+21
+00:02:24,200 --> 00:02:29,824
+Start the FastAPI example with
+Docker and check it in the browser.
+
+22
+00:02:34,200 --> 00:02:41,488
+Flask, Django, dashboards,
+AI agents and a Java migration guide.
+
+23
+00:02:42,200 --> 00:02:46,207
+CUBRID from Python, end to end.
+
+24
+00:02:48,200 --> 00:02:51,304
+Get started at github.com/cubrid-lab.

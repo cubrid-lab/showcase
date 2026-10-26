@@ -1,0 +1,113 @@
+{
+  "meta": {
+    "title": "Pipeline demo (PLACEHOLDER content)",
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "draft": true,
+    "note": "pipeline demo"
+  },
+  "music": {
+    "src": "placeholder/music/bed.wav",
+    "volume": 0.5,
+    "duckedVolume": 0.12,
+    "rampFrames": 8,
+    "fadeInFrames": 15,
+    "fadeOutFrames": 45
+  },
+  "subtitles": "subtitles/demo.ko.srt",
+  "shots": [
+    {
+      "id": "s01-emblem",
+      "start": 0,
+      "duration": 75,
+      "type": "cubeAssemble",
+      "props": {"repo": "organization", "size": 300},
+      "narration": {"src": "placeholder/voice/line-1.wav", "offset": 6, "durationInFrames": 90}
+    },
+    {
+      "id": "s02-title",
+      "start": 75,
+      "duration": 90,
+      "type": "title",
+      "transitionIn": {"type": "cubeWipe", "duration": 20},
+      "props": {
+        "kicker": "Python × CUBRID",
+        "lines": [
+          {"text": "파이썬에서 CUBRID를", "size": 110},
+          {"text": "더 가깝게", "size": 140, "accent": true}
+        ]
+      }
+    },
+    {
+      "id": "s03-terminal",
+      "start": 165,
+      "duration": 135,
+      "type": "terminal",
+      "transitionIn": {"type": "cubeWipe", "duration": 20},
+      "props": {
+        "title": "pycubrid — PLACEHOLDER",
+        "footage": {
+          "src": "placeholder/footage/terminal.mp4",
+          "camera": [
+            {"at": 0, "zoom": 1, "x": 0.5, "y": 0.5},
+            {"at": 45, "zoom": 1, "x": 0.5, "y": 0.5},
+            {"at": 90, "zoom": 1.6, "x": 0.5, "y": 0.28}
+          ],
+          "callouts": [
+            {"from": 30, "to": 125, "x": 0.12, "y": 0.17, "w": 0.76, "h": 0.14, "label": "callout: 순수 파이썬"}
+          ]
+        }
+      },
+      "narration": {"src": "placeholder/voice/line-2.wav", "offset": 10, "durationInFrames": 90},
+      "lowerThird": {"title": "pycubrid", "subtitle": "Pure-Python DB-API 2.0 driver", "from": 12, "duration": 100}
+    },
+    {
+      "id": "s04-browser",
+      "start": 300,
+      "duration": 120,
+      "type": "browser",
+      "transitionIn": {"type": "fade", "duration": 12},
+      "props": {
+        "url": "placeholder.invalid/cubrid-mcp-server",
+        "heading": "cubrid-mcp-server",
+        "footage": {
+          "src": "placeholder/footage/browser.mp4",
+          "camera": [
+            {"at": 0, "zoom": 1.25, "x": 0.3, "y": 0.4},
+            {"at": 100, "zoom": 1, "x": 0.5, "y": 0.5}
+          ]
+        },
+        "chips": {"chips": ["읽기 전용 기본값", "MCP", "PLACEHOLDER"], "delay": 30}
+      },
+      "narration": {"src": "placeholder/voice/line-3.wav", "offset": 8, "durationInFrames": 90}
+    },
+    {
+      "id": "s05-icons",
+      "start": 420,
+      "duration": 75,
+      "type": "iconRow",
+      "transitionIn": {"type": "cubeWipe", "duration": 20},
+      "props": {
+        "repos": ["pycubrid", "sqlalchemy-cubrid", "cubrid-mcp-server", "cubrid-cookbook-python"],
+        "size": 200,
+        "stagger": 6
+      }
+    },
+    {
+      "id": "s06-end",
+      "start": 495,
+      "duration": 105,
+      "type": "endCard",
+      "transitionIn": {"type": "cubeWipe", "duration": 20},
+      "props": {
+        "theme": "dark",
+        "lockup": "horizontal",
+        "headline": "지금 설치해 보세요",
+        "installs": ["pip install pycubrid", "pip install sqlalchemy-cubrid"],
+        "links": ["github.com/cubrid-lab"]
+      },
+      "narration": {"src": "placeholder/voice/line-4.wav", "offset": 15, "durationInFrames": 90}
+    }
+  ]
+}
