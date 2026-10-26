@@ -196,13 +196,13 @@ master에 장애가 났을 때도 CUBRID의 역할 전환을 먼저 봅니다. I
 
 ---
 
-<OperatorSlide section="3 · 검증 근거" index="12" total="18" source="2026.10.20 실행 기록" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/SOURCES.md#recorded-execution-evidence">
+<OperatorSlide section="3 · 검증 근거" index="12" total="18" source="2026.10.20–25 실행 기록" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/SOURCES.md#recorded-execution-evidence">
 
 <h1 class="op-title">실제로 확인한 결과는<br>여기까지입니다</h1>
 <div class="op-evidence-list">
   <div><span class="op-evidence-number">27 / 27</span><div><b>Kind E2E 테스트 spec 통과</b><p>2026.10.20 실행 기준 · 테스트 spec 수이며 필수 복구 시나리오 완료 수는 아닙니다.</p></div></div>
-  <div><span class="op-evidence-number">LAB00</span><div><b>실제 VM 환경에서 접속·SQL 확인</b><p>k3s / CUBRID 11.4.6 환경 · 연결과 HTTP 확인. VM 전원 장애 시험은 아님</p></div></div>
-  <div><span class="op-evidence-number">RW / RO</span><div><b>롤아웃 후 기존 데이터와 접속 경로 확인</b><p>기존 PVC·행·타임스탬프 보존과 RW 쓰기 / RO 읽기 / RO 쓰기 거부 확인</p></div></div>
+  <div><span class="op-evidence-number">RW / RO</span><div><b>VM 접속과 롤아웃 후 기존 데이터 확인</b><p>k3s / CUBRID 11.4.6 · 기존 PVC·행 보존, RW 쓰기 / RO 읽기 / RO 쓰기 거부 확인 · VM 전원 장애 시험은 아님</p></div></div>
+  <div><span class="op-evidence-number">5 / 7</span><div><b>VM에서 백업으로 새 클러스터 복원 통과</b><p>2026.10.25 실행 기준 · 나머지 2회는 세션 끊김(원인 조사 중, #238)으로 판정 보류 · 변조한 백업은 복원 거부</p></div></div>
 </div>
 <p class="op-boundary"><b>검증 범위</b>　동작한 일부 경로를 확인했습니다. 실제 장애·복원 전체가 통과했다는 뜻은 아닙니다.</p>
 
@@ -210,9 +210,9 @@ master에 장애가 났을 때도 CUBRID의 역할 전환을 먼저 봅니다. I
 
 <!--
 [40초 · 3 · 검증 근거]
-현재까지 무엇을 직접 검증했는지 수치를 분리해 보여드리겠습니다. 첫째, 10월 20일 기준 Kind E2E 테스트 spec 27개가 통과했습니다. 이것은 S00부터 S15까지의 필수 시나리오 16개를 모두 통과했다는 뜻이 아닙니다.
+현재까지 직접 확인한 결과입니다. 첫째, 10월 20일 기준 Kind E2E 테스트 spec 27개가 통과했습니다. S00부터 S15까지 필수 시나리오 16개를 모두 통과했다는 뜻은 아닙니다.
 
-둘째, k3s 기반 VM에서 설치 후 연결과 SQL을 확인했습니다. 셋째, 롤아웃 전후 기존 데이터와 RW/RO SQL 동작을 검사했습니다. 이 검증들은 실제 실행 기록이 있지만, 임의의 장애에서도 데이터 복구가 보장된다는 증거로 확대 해석하지 않겠습니다.
+둘째, k3s VM에서 접속과 SQL, 롤아웃 전후 기존 데이터와 RW/RO 동작을 확인했습니다. 셋째, 로드맵에서 2~4주차 목표로 잡은 백업 복원 초기 시험을 10월 25일 VM에서 일곱 번 했습니다. 다섯 번 통과했고, 두 번은 데이터 확인을 마친 뒤 DB 세션이 끊겨 판정을 보류했습니다. 세션이 끊긴 원인은 아직 찾는 중입니다. 백업 파일을 일부러 변조했을 때는 복원을 거부했습니다. 다만 이 결과를 어떤 장애에서도 복구된다는 증거로 보지는 않겠습니다.
 -->
 
 ---

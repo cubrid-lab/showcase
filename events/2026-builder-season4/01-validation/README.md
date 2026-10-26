@@ -1,7 +1,7 @@
 # CUBRID Kubernetes Operator — 빌더 시즌4 1차 검증
 
 아이디어와 프로젝트 방향성을 설명하는 한국어·영어 **각 18장** 발표자료입니다.
-2026-10-20 시험 결과를 기준으로 운영 사례와 v0.1 이후 계획을 담았습니다. 2026-10-22에 장애 시나리오, 사용자, 기존 대안, 안전성, 시험 근거를 추가해 발표 흐름을 확장했습니다.
+2026-10-20 시험 결과를 기준으로 운영 사례와 v0.1 이후 계획을 담았습니다. 2026-10-22에 장애 시나리오, 사용자, 기존 대안, 안전성, 시험 근거를 추가해 발표 흐름을 확장했고, 2026-10-26에는 10월 25일 VM 백업 복원 결과를 12–13장에 더했습니다.
 프로그램 공식 명칭은 확인 전이며, 폴더명은 전달받은 “시즌4 빌더” 공지를
 기준으로 정했습니다.
 
@@ -39,7 +39,7 @@
 | [SLIDES.en.md](../../../presentation/decks/2026-builder-season4/01-validation/SLIDES.en.md) | 영어 웹 발표 원본과 발표자 메모 | 18장 · 580초 시간 배분 · 발표자 메모 포함 |
 | [한국어 진입 파일](../../../presentation/operator-first-validation.ko.md) | 공통 테마·웹·출력 설정 | 원본을 불러오는 Slidev 설정 |
 | [영어 진입 파일](../../../presentation/operator-first-validation.en.md) | 공통 테마·웹·출력 설정 | 원본을 불러오는 Slidev 설정 |
-| [SOURCES.md](SOURCES.md) | 고정된 근거·주장 경계·필수 항목 대응 | 10-20 고정 실행 근거 · 10-22 설명 확장 |
+| [SOURCES.md](SOURCES.md) | 고정된 근거·주장 경계·필수 항목 대응 | 10-20 고정 실행 근거 · 10-22 설명 확장 · 10-25 복원 근거 추가 |
 | `operator-first-validation.ko.pptx` / `.pdf` | 한국어 발표·제출용 출력물 | [출력·검수 기록](DELIVERY.md) |
 | `operator-first-validation.en.pptx` / `.pdf` | 영어 발표·제출용 출력물 | [출력·검수 기록](DELIVERY.md) |
 

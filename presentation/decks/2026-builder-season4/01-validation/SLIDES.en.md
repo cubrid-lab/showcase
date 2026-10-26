@@ -203,13 +203,13 @@ In an earlier Kind test, RW writes succeeded during an unresolved-master state. 
 
 ---
 
-<OperatorSlide section="3 · Recorded evidence" index="12" total="18" source="Recorded executions · Oct 20" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/SOURCES.md#recorded-execution-evidence">
+<OperatorSlide section="3 · Recorded evidence" index="12" total="18" source="Recorded executions · Oct 20–25" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/SOURCES.md#recorded-execution-evidence">
 
 <h1 class="op-title">Here is what we have<br>actually verified so far</h1>
 <div class="op-evidence-list">
   <div><span class="op-evidence-number">27 / 27</span><div><b>Kind end-to-end test specs passed</b><p>Recorded October 20, 2026. Specs are not the S00–S15 release scenarios.</p></div></div>
-  <div><span class="op-evidence-number">LAB00</span><div><b>VM connection and SQL checks</b><p>k3s and CUBRID 11.4.6. Not a VM power-loss test.</p></div></div>
-  <div><span class="op-evidence-number">RW / RO</span><div><b>Post-rollout data and SQL checks</b><p>Known PVC identities and rows retained; read/write routing and RO rejection checked.</p></div></div>
+  <div><span class="op-evidence-number">RW / RO</span><div><b>VM connection and post-rollout data checks</b><p>k3s and CUBRID 11.4.6. Known PVCs and rows retained; RW/RO routing and RO rejection checked. Not a VM power-loss test.</p></div></div>
+  <div><span class="op-evidence-number">5 / 7</span><div><b>Backup restores into a new cluster passed on VMs</b><p>Recorded October 25, 2026. The other 2 were blocked by a dropped session, cause under investigation (#238). A tampered backup was refused.</p></div></div>
 </div>
 <p class="op-boundary"><b>SCOPE OF EVIDENCE</b>　Passing these paths does not prove the whole recovery lifecycle works.</p>
 
@@ -219,7 +219,7 @@ In an earlier Kind test, RW writes succeeded during an unresolved-master state. 
 [40s · 3 · Recorded evidence]
 We are separating actual observations from targets. First, all 27 Kind E2E specs in the cited run passed on October 20. This is not the same as passing all mandatory scenarios S00 through S15.
 
-Second, a k3s VM environment passed initial connectivity and SQL checks. Third, a controlled rollout preserved known storage identities and data, with RW and RO SQL behavior checked. These are useful results but not a guarantee of recovery after arbitrary faults.
+Second, on k3s VMs we checked connectivity and SQL, and a controlled rollout kept known storage and rows, with RW and RO behavior checked. Third, the roadmap set an early backup-restore test for weeks 2 to 4, and on October 25 we ran it seven times on the VMs, restoring a backup into a new cluster. Five runs passed. Two were blocked when a database session dropped after the data checks had passed, and we're still looking for the cause. When we tampered with a backup file, the restore was refused. None of this guarantees recovery after arbitrary faults.
 -->
 
 ---
