@@ -145,7 +145,7 @@ We haven't compared how the two behave in real faults yet. Both use port checks,
 [35s · 2 · Proposed approach]
 The user puts the desired configuration in YAML. The Operator reads database status, requests work, and updates progress and results. A long-running backup has an ID so we can look it up again. It also needs to avoid starting another operation blindly if it can't read the existing records.
 
-So far, 27 Kind tests have passed. On VMs, we checked that existing rows were still there, that data written through RW could be read through RO, and that RO rejected writes. Those 27 are test specs; they don't cover every required scenario. We still need VM power-fault and network-partition tests, rejoin, rebuild, real backup restores and CSI testing. The results on this slide were recorded on October 20.
+So far, 27 Kind tests have passed. On VMs, we checked that existing rows were still there, that data written through RW could be read through RO, and that RO rejected writes. We still need VM power-fault and network-partition tests, rejoin, rebuild and CSI testing. I'll cover backup restores separately in a moment.
 -->
 
 ---
@@ -230,7 +230,7 @@ Second, on k3s VMs we checked connectivity and SQL, and a controlled rollout kep
 <div class="op-gates">
   <div><span>01 · SAFE WRITES</span><b>Unknown master / network partition</b><p>Does client SQL stop when writes must not be accepted?</p></div>
   <div><span>02 · RECOVERY</span><b>Rejoin and rebuild</b><p>Can a failed member return without overwriting correct data?</p></div>
-  <div><span>03 · RESTORE</span><b>Backup into a new cluster</b><p>Are manifests, checksums and restored rows correct?</p></div>
+  <div><span>03 · RESTORE</span><b>Repeated and interrupted restores</b><p>Does the data still match after many runs, or a restart in the middle of a restore?</p></div>
   <div><span>04 · REPRODUCE</span><b>CSI and independent runbooks</b><p>Can another maintainer repeat the result on one defined stack?</p></div>
 </div>
 <p class="op-caption">Record fault outcomes with commits, images, environment, SQL evidence and S00–S15 scenario IDs.</p>
@@ -239,7 +239,7 @@ Second, on k3s VMs we checked connectivity and SQL, and a controlled rollout kep
 
 <!--
 [40s · 3 · Next validation]
-The next work targets fault conditions. Write quarantine must be enforced during uncertain HA states. Rejoining or rebuilding must not damage valid data. Backup needs to be tested by restoring into a new cluster, not merely by checking that archive files exist.
+The next work targets fault conditions. Write quarantine must be enforced during uncertain HA states. Rejoining or rebuilding must not damage valid data. As I mentioned, restoring a backup into a new cluster has passed for the first time. Next we need to find why the sessions dropped and repeat it under more conditions.
 
 We also need an explicit Kubernetes and CSI environment and independent runbook reproduction. Those are acceptance gates for the initial release, not evidence we already have.
 -->
