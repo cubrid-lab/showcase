@@ -7,6 +7,20 @@ import {EndCard, EndCardProps} from './components/EndCard';
 import {KineticTitle, KineticTitleProps} from './components/KineticTitle';
 import {BrowserMockup, MockupProps, TerminalMockup, WindowMockup} from './components/Mockups';
 import {FeatureCallout, FeatureCalloutProps} from './components/Overlays';
+import {
+	BrandLockupShot,
+	BrandTilesShot,
+	ButtonShot,
+	CardsShot,
+	ChapterShot,
+	ConfigShot,
+	EndCardShot as IntroEndCardShot,
+	FinaleShot,
+	FlashShot,
+	HitShot,
+	HookShot,
+	ProofShot,
+} from './components/Intro';
 
 type ShotComponent = React.FC<{props: Record<string, unknown>; duration: number}>;
 
@@ -131,4 +145,17 @@ export const SHOT_TYPES: Record<string, ShotComponent> = {
 	window: mockupShot(WindowMockup),
 	features: FeaturesShot,
 	endCard: EndCardShot,
+	// Main cut (components/Intro.tsx); props are passed through unchanged.
+	hook: ({props}) => <HookShot {...(props as React.ComponentProps<typeof HookShot>)} />,
+	flash: ({props}) => <FlashShot {...(props as React.ComponentProps<typeof FlashShot>)} />,
+	brandTiles: ({props}) => <BrandTilesShot {...(props as React.ComponentProps<typeof BrandTilesShot>)} />,
+	brandLockup: () => <BrandLockupShot />,
+	chapter: ({props}) => <ChapterShot {...(props as React.ComponentProps<typeof ChapterShot>)} />,
+	proof: ({props}) => <ProofShot {...(props as React.ComponentProps<typeof ProofShot>)} />,
+	button: ({props}) => <ButtonShot {...(props as React.ComponentProps<typeof ButtonShot>)} />,
+	hit: ({props}) => <HitShot {...(props as React.ComponentProps<typeof HitShot>)} />,
+	config: ({props}) => <ConfigShot {...(props as React.ComponentProps<typeof ConfigShot>)} />,
+	cards: ({props}) => <CardsShot {...(props as React.ComponentProps<typeof CardsShot>)} />,
+	finale: ({props}) => <FinaleShot {...(props as React.ComponentProps<typeof FinaleShot>)} />,
+	introEndCard: ({props}) => <IntroEndCardShot {...(props as React.ComponentProps<typeof IntroEndCardShot>)} />,
 };

@@ -9,9 +9,11 @@ Built with [Remotion](https://www.remotion.dev). The storyboard, voice, music an
 real screen captures are plugged in as data and media files; the components
 stay unchanged.
 
-> **Status: scaffold.** Every timeline here is a placeholder (`meta.draft: true`
-> puts a red `DRAFT · PLACEHOLDER` badge on every frame). Read
-> [Brand assets](#brand-assets-and-open-permissions) before publishing any render.
+> **Status: production.** `timelines/main.json` is the final 25-shot main cut of
+> [`VIDEO_DESIGN.md`](VIDEO_DESIGN.md) (2:56) with real footage, narration and music; see
+> [Production](#production) to rebuild it end to end and [`PROVENANCE.md`](PROVENANCE.md) for
+> every input. `short.json` and `demo.json` are still placeholder timelines (`meta.draft: true`
+> puts a red `DRAFT · PLACEHOLDER` badge on every frame).
 
 ## Commands
 
@@ -29,6 +31,8 @@ npm run render:stills -- Main 120 900 2700   # single frames -> out/stills/main-
 npm run stills:demo       # 4 JPEG stills from out/demo.mp4 -> stills/
 npm run placeholders      # (re)generate PLACEHOLDER media in public/placeholder/
 npm run typecheck
+scripts/render-final.sh [assetsDir] [outDir]   # main cut: render, mix, master, MP4 + WebM, captions, contact sheet
+DRAFT=1 scripts/render-final.sh                # 960x540 draft of the same pipeline
 ```
 
 `render:stills` defaults to four frames of `Demo`. `scripts/extract-stills.mjs
@@ -50,8 +54,9 @@ with `--concurrency=1` if frames time out.
 Exact versions in `package.json`, locked by `package-lock.json`. Remotion
 packages must always share one version.
 
-Fonts: Noto Sans KR (Hangul + Latin, weights 500/700/900) and JetBrains Mono,
-both SIL OFL 1.1, loaded from Google Fonts at render time (`src/fonts.ts`).
+Fonts: Pretendard Variable (SIL OFL 1.1; linked from `presentation/public/fonts/` by
+`scripts/prepare-media.mjs`, not vendored), with Noto Sans KR and JetBrains Mono (SIL OFL 1.1)
+loaded from Google Fonts at render time (`src/fonts.ts`).
 
 ## Layout
 
@@ -71,10 +76,14 @@ src/
     Overlays.tsx            FeatureCallout chips, LowerThird, DraftBadge
     Subtitles.tsx           .srt/.vtt parser and burned-in subtitle track
     EndCard.tsx             lockup, install commands, links, AI-voice + independence notices
-    Transitions.tsx         CubeWipe (three org-colour 30° panels), FadeThrough
+    Transitions.tsx         CubeWipe (three org-colour 30° panels), KeyWipe (main cut), FadeThrough
+    Intro.tsx               main-cut shots: hook, flash, brand tiles/lockup, chapter, proof, config, cards, finale, end card
 timelines/            main.json, short.json, demo.json
 public/               footage/, voice/, music/ (gitignored media), subtitles/
-scripts/              make-placeholders.mjs, render-stills.mjs, extract-stills.mjs
+scripts/              make-placeholders.mjs, render-stills.mjs, extract-stills.mjs,
+                      build_main_timeline.py, prepare-media.mjs, render-final.sh, mix_audio.py,
+                      loudness_report.py, contact-sheet.mjs, review-stills.mjs
+captions/             ko/en .srt/.vtt of the main cut
 stills/               4 frames of the pipeline demo render
 ```
 
@@ -110,6 +119,31 @@ media paths are relative to `public/`.
 | `features` | `chips[]`, `heading? (title props)`, `delay?`, `stagger?` |
 | `endCard` | `theme` (`dark`/`light`), `lockup` (`horizontal`/`stacked`), `headline?`, `installs[]`, `links[]`, `aiVoiceDisclosure?`, `independenceNotice?` |
 
+Main-cut shot types (`src/components/Intro.tsx`, style of the style frames):
+
+| `type` | Storyboard shots | `props` |
+| --- | --- | --- |
+| `hook` | H1, H2 | `stage` (1: grid draws, grey line slams in; 2: “Python으로.” drops in, underline wipe) |
+| `flash` | H3 | `flashes[] {footage, kind?, title?, url?}`, `each` (frames per flash) |
+| `brandTiles` / `brandLockup` | B1 / B2 | `beat?` |
+| `chapter` | P1, S1, C1, K1 | `repo`, `kicker`, `name`, `tagline?` |
+| `proof` | P2–P4, S2–S4, C2–C4, K2 | `heading {kicker?, parts[] {t, accent?, underline?, br?}, still?}`, `kind?`, `mockup` (below), `align?`, `chips? {items[], at[]}`, `cards?[] {at, kicker, text}`, `windowAt?` |
+| `button` / `hit` | P5 / S5 | `repo`, `heading`, `command` (button) |
+| `config` | C5 | `rows[] {name, def, desc, highlight?}`, `rowAt[]`, `tools[]`, `toolsAt`, `writeAt`, `offNote`, `writeNote`, `source` |
+| `cards` | K3 | `heading`, `cards[] {label, path}`, `at`, `beat`, `mockup`, `note` |
+| `finale` / `introEndCard` | F1 / F2 | `items[] {repo, line}`, `heading` / `installs[]`, `url`, `notices[]` |
+
+`mockup` takes `footage`, `title?`, `url?`, `width?`, `enter?` (false for the second half of a
+split shot), `labels?[]` (persistent title-bar labels), `source?` (provenance line under the
+window) and `clock?` (shows the recording's own `rec m:ss`). `footage` adds to the fields above:
+`segments[] {from, to?, rate?, hold?}` (source seconds; played back to back; `hold` freezes
+`from` for N frames; every segment at 2× or more shows a “×N” badge), `viewport {x, y, w, h}`
+(crop of the source shown in the window) and `mask {x, y, w, h}` (everything outside is cut
+away, e.g. C4 ends above the agent's SQL block). Camera and callout coordinates stay in
+full-footage coordinates. A shot's `review` frame is used by the stills and the contact sheet.
+
+`timelines/main.json` is generated by `scripts/build_main_timeline.py`; edit the script.
+
 Camera and callout coordinates are normalized to the footage (0..1); callouts follow
 the zoom. Frames in `camera`, `callouts` and `lowerThird` are relative to the shot.
 Add a shot type by writing a component and registering it in `src/Shots.tsx`.
@@ -139,6 +173,68 @@ Placeholder media (`npm run placeholders`) is colored ffmpeg test clips stamped
 `PLACEHOLDER - <KIND> FOOTAGE`, beeping tones for narration and a sine pad for
 music. It is never a deliverable.
 
+## Production
+
+The main cut is built from four inputs that are not committed: real footage, narration,
+music and the pinned brand marks. Each comes with its own provenance record; the summary and
+input checksums are in [`PROVENANCE.md`](PROVENANCE.md).
+
+### End to end
+
+```bash
+cd demo-videos/intro-2026
+npm ci
+# 1. Assets in one directory (default /data/video-intro-assets, or $INTRO_ASSETS):
+#    footage/*.mp4 + provenance.json   vhs/Playwright takes (P2..K3, H3-*)
+#    mcp/*.mp4 + provenance.json       C2, C3, C4 (agent replay), C4_script (demo client)
+#    voice/<shot>.wav + manifest.json  MeloTTS lines, ko/en .srt/.vtt
+#    music/bed.wav + stems/*.wav       generated score (music/src/generate.py, seed 51)
+# 2. Optional: regenerate the timeline after changing the shot list or the voice lines
+python3 scripts/build_main_timeline.py
+# 3. Draft (960x540, about 3 minutes here), then the master
+DRAFT=1 scripts/render-final.sh
+scripts/render-final.sh /data/video-intro-assets /data/video-intro-assets/out
+```
+
+`render-final.sh` runs, in order:
+
+1. `scripts/prepare-media.mjs` hard-links the media into `public/` (gitignored) and fails on
+   any missing file.
+2. `remotion render … Main --muted` (H.264, CRF 16, x264 `slow`, yuv420p, 1920×1080, 30 fps;
+   `CONCURRENCY`, default 4). Brand marks and Google fonts are fetched at render time, so the
+   render needs network access.
+3. `scripts/mix_audio.py` places each narration line at its shot start + 0.2 s, ducks the
+   music stems 8 dB under narration (attack 150 ms, release 350 ms; the fx stem with the
+   chapter hits only 3 dB), and masters to −14 LUFS integrated / ≤ −1 dBTP (gain plus a peak
+   limiter, iterated against ffmpeg `ebur128`).
+4. Mux to `cubrid-lab-intro-2026.mp4` (H.264 High + AAC 48 kHz 320 kb/s, faststart) and
+   `cubrid-lab-intro-2026.webm` (VP9 CRF 31 + Opus 192 kb/s).
+5. Copies the caption tracks from `captions/` (Korean primary, English secondary; not burned
+   in, per the storyboard).
+6. `scripts/contact-sheet.mjs` extracts one still per shot at its `review` frame from the MP4.
+7. `scripts/loudness_report.py` writes `loudness.png` (master, music bus and narration bus
+   short-term loudness with the duck envelope) and `loudness-report.md`.
+
+`node scripts/review-stills.mjs Main out/review 0.5 [shotId …]` renders single shots straight
+from the source for quick checks.
+
+### Captions
+
+`captions/cubrid-lab-intro-2026.{ko,en}.{srt,vtt}` are the narration tracks produced with the
+voice lines (cue start = line start, 0.2 s after the shot). Korean: at most 2 lines of about
+18 characters; English: at most 2 lines of 42 characters.
+
+### Licenses
+
+- Narration: MeloTTS (code MIT, `myshell-ai/MeloTTS-Korean` model MIT), run locally; disclosed
+  on the end card and to be disclosed in the YouTube description.
+- Music: original procedural score generated for CUBRID Lab, no third-party material;
+  intended CC0 1.0 dedication **pending maintainer confirmation**.
+- Fonts: Pretendard, Noto Sans KR, JetBrains Mono — SIL OFL 1.1.
+- Brand marks: see [Brand assets](#brand-assets-and-open-permissions).
+- Remotion: source-available, see [Remotion license](#remotion-license); the license governs
+  use of the framework, not the rendered video.
+
 ## Brand assets and open permissions
 
 Nothing from `cubrid-lab/brand` is copied here. The emblem, role icons, wordmark
@@ -152,15 +248,14 @@ time from commit-pinned URLs at revision
 SVG; from `delay + assembleFrames + resolveFrames` on, only the pinned SVG is
 visible.
 
-**Before publishing a render, get a recorded maintainer decision in
-[cubrid-lab/brand](https://github.com/cubrid-lab/brand/issues).** At the pinned
-revision, `BRAND_USAGE.md` and `docs/ORGANIZATION_MARK_USAGE.md` permit the role
-icons only in their own repository's README/docs site, the emblem only as
-avatar, profile mark and website header/favicon, and the lockups only on CUBRID
-Lab surfaces, all by pinned URL; they list rasterizing, modifying and using another
-repository's icon as not permitted. A video necessarily rasterizes the assets,
-shows four repositories' icons in a showcase video, and animates
-derived (unresolved) cube frames. None of that is covered yet.
+Use of the marks in this video follows brand policy decision 5
+([cubrid-lab/brand#47](https://github.com/cubrid-lab/brand/pull/47), merged as `1d9b374`): rendering, animating
+and combining them in CUBRID Lab videos is allowed as long as every held frame of a finished
+mark matches the approved SVG exactly; a cube assembly may show partial faces only while it
+moves. The main cut does not use the face assembly at all: role icons and the lockup move only
+as whole images (position, scale, opacity) and settle at scale 1, opacity 1, unrotated. The
+emblem face colours appear only inside the unmodified lockup (`KeyWipe` replaces `CubeWipe` in
+the main cut).
 
 The end card always carries the AI-voice disclosure and the independence notice
 (`src/components/EndCard.tsx`). Never place a lockup or icon next to an official

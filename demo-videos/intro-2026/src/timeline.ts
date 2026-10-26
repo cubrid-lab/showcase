@@ -13,7 +13,7 @@ export type Narration = {
 	durationInFrames?: number;
 };
 
-export type Transition = {type: 'cubeWipe' | 'fade'; duration: number};
+export type Transition = {type: 'cubeWipe' | 'keyWipe' | 'fade'; duration: number};
 
 export type Shot = {
 	id: string;
@@ -25,6 +25,8 @@ export type Shot = {
 	/** Played centred on this shot's start, covering the cut. */
 	transitionIn?: Transition;
 	lowerThird?: {title: string; subtitle?: string; from?: number; duration?: number; accent?: string};
+	/** Key frame (relative to the shot) for review stills and the contact sheet. */
+	review?: number;
 };
 
 export type Music = {

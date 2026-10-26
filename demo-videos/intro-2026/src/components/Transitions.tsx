@@ -47,3 +47,43 @@ export const FadeThrough: React.FC<{duration: number}> = ({duration}) => {
 	const o = interpolate(frame, [0, duration / 2, duration], [0, 1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
 	return <AbsoluteFill style={{background: THEME.bg, opacity: o}} />;
 };
+
+/**
+ * Key wipe for the main cut: a dark panel with a Python Yellow leading edge,
+ * slanted along the 30° isometric edge, covers the cut at its midpoint. Uses only
+ * UI tokens (the emblem face colors stay inside the emblem, VIDEO_DESIGN.md 5.1).
+ */
+export const KeyWipe: React.FC<{duration: number}> = ({duration}) => {
+	const frame = useCurrentFrame();
+	const {width, height} = useVideoConfig();
+	const slant = Math.tan(Math.PI / 6) * height;
+	const span = width + slant;
+	const bands: Array<[string, number]> = [
+		[THEME.python, 0],
+		['#161B22', 1.5],
+	];
+	return (
+		<AbsoluteFill style={{pointerEvents: 'none'}}>
+			<svg width={width} height={height} style={{position: 'absolute', inset: 0}}>
+				{bands.map(([color, lag], i) => {
+					const t = interpolate(frame - lag, [0, duration * 0.5, duration], [0, 1, 2], {
+						extrapolateLeft: 'clamp',
+						extrapolateRight: 'clamp',
+						easing: Easing.bezier(0.2, 0.8, 0.2, 1),
+					});
+					const x1 = t <= 1 ? -slant + t * span : width;
+					const x0 = t <= 1 ? -slant : -slant + (t - 1) * span - (i === 0 ? 0 : 0);
+					const points = [
+						[x0 + slant, 0],
+						[x1 + slant, 0],
+						[x1, height],
+						[x0, height],
+					]
+						.map(([x, y]) => `${x},${y}`)
+						.join(' ');
+					return <polygon key={color} points={points} fill={color} />;
+				})}
+			</svg>
+		</AbsoluteFill>
+	);
+};

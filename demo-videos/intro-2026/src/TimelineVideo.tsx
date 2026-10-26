@@ -3,7 +3,7 @@ import {AbsoluteFill, Audio, Sequence, staticFile} from 'remotion';
 import {THEME} from './brand';
 import {DraftBadge, LowerThird} from './components/Overlays';
 import {SubtitleTrack} from './components/Subtitles';
-import {CubeWipe, FadeThrough} from './components/Transitions';
+import {CubeWipe, FadeThrough, KeyWipe} from './components/Transitions';
 import {SHOT_TYPES} from './Shots';
 import {Timeline, musicVolumeAt} from './timeline';
 
@@ -41,7 +41,7 @@ export const TimelineVideo: React.FC<{timeline: Timeline}> = ({timeline}) => {
 				.filter((s) => s.transitionIn)
 				.map((shot) => {
 					const t = shot.transitionIn!;
-					const Wipe = t.type === 'cubeWipe' ? CubeWipe : FadeThrough;
+					const Wipe = t.type === 'cubeWipe' ? CubeWipe : t.type === 'keyWipe' ? KeyWipe : FadeThrough;
 					return (
 						<Sequence
 							key={`${shot.id}-transition`}
