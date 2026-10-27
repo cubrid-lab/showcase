@@ -8,7 +8,7 @@ is also the pronunciation list for synthesis), counts Korean syllables and compa
 them with the shot length at the planning rate. It also checks that the shots are
 contiguous and that the cut ends between 2:45 and 3:00.
 
-    python3 demo-videos/intro-2026/narration_budget.py
+    python3 projects/cubrid-lab/intro-video/narration_budget.py
 
 Exit status 1 if a line is over budget, a Latin word has no reading, or the
 timeline is broken. Standard library only.

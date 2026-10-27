@@ -4,6 +4,8 @@ Shared Slidev tooling for the [showcase presentations](../README.md).
 `slides.md` remains the 2026 OSS Developer Contest deck; its existing commands
 and scripts continue to use that entry.
 
+The supporting contest materials are in [events/2026-ossdevcon](../events/2026-ossdevcon/), while the published HTML slides deliberately retain the historical `/contests/2026-ossdevcon/` route for existing links.
+
 The Operator uses `operator-first-validation.ko.md` and
 `operator-first-validation.en.md` as thin entry files. They import the
 [event's web slide sources](decks/2026-builder-season4/01-validation/)
@@ -80,7 +82,7 @@ the verified PDF and PPTX, a `presentation-manifest.json` (source commit,
 workflow run, metrics snapshot, file sizes and hashes) and `SHA256SUMS`. The
 current one is
 [`ossdevcon-2026-presentation-2026-10-25`](https://github.com/cubrid-lab/showcase/releases/tag/ossdevcon-2026-presentation-2026-10-25);
-the [contest README](../contests/2026-ossdevcon/README.md#presentation) links
+the [contest README](../events/2026-ossdevcon/README.md#presentation) links
 its download URLs. To publish a new revision, take the artifact from a `main`
 run, run `scripts/verify_exports.py --pdf <file> --pptx <file>` against those
 exact files, inspect them visually, and create a new prerelease tag rather than

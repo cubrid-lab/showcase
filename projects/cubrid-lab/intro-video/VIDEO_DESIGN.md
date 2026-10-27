@@ -113,7 +113,7 @@ All colors come from [`tokens/colors.json`](https://github.com/cubrid-lab/brand/
 
 The emblem's three face colors (`#006BDA`, `#00A36F`, `#E60039`) appear only inside the unmodified emblem/lockup. Red is not used as a UI color; the read-only rejection is shown with the yellow highlight and the word “rejected”, so meaning never depends on color.
 
-**Typography** (open licenses, no remote dependency in the final render): Pretendard Variable (SIL OFL 1.1, already bundled in [`presentation/public/fonts/`](../../presentation/public/fonts/)) for Korean and Latin display/body; JetBrains Mono (SIL OFL 1.1) for code and terminals, bundled into the render project in production. Display 160–200 px / weight 900, headings 68–104 px / 800, body 34 px / 500, code 25–29 px. Korean lines use `word-break: keep-all`.
+**Typography** (open licenses, no remote dependency in the final render): Pretendard Variable (SIL OFL 1.1, already bundled in [`presentation/public/fonts/`](../../../presentation/public/fonts/)) for Korean and Latin display/body; JetBrains Mono (SIL OFL 1.1) for code and terminals, bundled into the render project in production. Display 160–200 px / weight 900, headings 68–104 px / 800, body 34 px / 500, code 25–29 px. Korean lines use `word-break: keep-all`.
 
 **Layout:** title-safe margins 96 px × 54 px; nothing essential in the bottom 150 px of the main cut (caption zone); window mockups with 18 px radius and a 52 px title bar; one idea per frame.
 
@@ -168,7 +168,7 @@ Korean narration by a TTS voice, disclosed as AI-generated (on screen at the end
 **Sizing.** Natural Korean read speech runs around 5–6 syllables per second. The script is planned at **4.5 syllables per second of shot length**, which leaves 10–25 % of each shot for music hits and breaths and lets the voice run at a confident, unhurried rate. [`narration_budget.py`](narration_budget.py) applies the pronunciation lexicon (also the TTS lexicon: `pycubrid` → 파이큐브리드, `MCP` → 엠씨피, `DB-API 2.0` → 디비 에이피아이 이 점 영, …), counts syllables per shot and fails if a line is over budget or the cut leaves 2:45–3:00. At the script checkpoint the rate is calibrated against the synthesized audio (measured duration per line, adjusted with the engine's rate control).
 
 ```text
-$ python3 demo-videos/intro-2026/narration_budget.py
+$ python3 projects/cubrid-lab/intro-video/narration_budget.py
 ```
 
 **Captions.** Korean track primary, English track secondary (both in the storyboard). Korean: at most 2 lines, about 18 characters per line, at least 1 s per cue, breaks at phrase boundaries. English: at most 2 lines, 42 characters per line. Delivered as `.srt` and `.vtt`; the main cut does not burn captions in (YouTube CC, `<track>` on the website); the short burns Korean in.
@@ -241,7 +241,7 @@ Every take except K2 runs against a fresh local `cubrid/cubrid:11.4` container o
 1. Every product shot is a real recording: terminal via vhs, browser via Playwright, MCP via a real agent run. No mocked output, no edited result text, no composited numbers. Speed-ups are labelled.
 2. The style frames use only real text: code from the READMEs or the script run on 2026-10-25, and output from that run (pycubrid `(2,)`, ORM rows, MCP stdio session). Each panel names its source.
 3. No package version numbers in narration, on-screen copy or the end card; versions appear only where real footage shows them.
-4. **No performance numbers.** If one is ever added, it may come only from [`contests/2026-ossdevcon/metrics/benchmark-2026-10-25/`](../../contests/2026-ossdevcon/metrics/benchmark-2026-10-25/README.md) with its shared-host caveats on screen; the recommendation is to use none.
+4. **No performance numbers.** If one is ever added, it may come only from [`events/2026-ossdevcon/metrics/benchmark-2026-10-25/`](../../../events/2026-ossdevcon/metrics/benchmark-2026-10-25/README.md) with its shared-host caveats on screen; the recommendation is to use none.
 5. No claims beyond the sources in [section 9](#9-fact-sources). Django appears as a template name, not as “Django ORM support” (the template is a SQLAlchemy bridge).
 6. The independence notice and the AI-voice disclosure are on the end card and in the description.
 
@@ -274,7 +274,7 @@ Checked on 2026-10-25 against `main` of each repository and PyPI.
 
 ## 11. Deliverables and naming
 
-Directory for production sources: `demo-videos/intro-2026/` (Remotion project, `.tape` files, Playwright scripts, music generator). Large media are not committed; they are attached to a GitHub Release `intro-video-2026-<yyyy-mm-dd>` (the pattern the presentation exports use) and uploaded to YouTube.
+Directory for production sources: `projects/cubrid-lab/intro-video/` (Remotion project, `.tape` files, Playwright scripts, music generator). Large media are not committed; they are attached to a GitHub Release `intro-video-2026-<yyyy-mm-dd>` (the pattern the presentation exports use) and uploaded to YouTube.
 
 | File | Spec |
 |---|---|
@@ -311,7 +311,7 @@ Tracked in [#51](https://github.com/cubrid-lab/showcase/issues/51): blocking dec
 ## Reproducing the style frames
 
 ```bash
-cd demo-videos/intro-2026/style-frames/src
+cd projects/cubrid-lab/intro-video/style-frames/src
 npm install --no-save --package-lock=false playwright-chromium@1.64.1
 npx playwright install chromium
 node render.mjs                     # placeholders -> ../png/ (committed)

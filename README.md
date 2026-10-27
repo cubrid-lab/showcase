@@ -6,58 +6,49 @@
 </p>
 <!-- CUBRID-LAB-ICON:END -->
 
-Presentations, contest entries, program submissions, demos, and supporting
-materials for [cubrid-lab](https://github.com/cubrid-lab) projects, including
-the CUBRID client ecosystem and the CUBRID Kubernetes Operator.
+Presentations, event submissions, demonstration materials and public project assets for [CUBRID Lab](https://github.com/cubrid-lab).
 
 **[Open HTML presentations](https://cubrid-lab.github.io/showcase/)**
 
-## Presentations and submissions
+## Events and presentations
 
-| Event / program | Project | Presentations | Overview |
+| Event | Project | Presentations | Source and materials |
 |---|---|---|---|
-| 2026 OSS Developer Contest | CUBRID Python ecosystem | [발표 보기](https://cubrid-lab.github.io/showcase/contests/2026-ossdevcon/) · [PDF](https://github.com/cubrid-lab/showcase/releases/download/ossdevcon-2026-presentation-2026-10-25/ossdevcon.pdf) · [PPTX](https://github.com/cubrid-lab/showcase/releases/download/ossdevcon-2026-presentation-2026-10-25/ossdevcon.pptx) | [Contest materials and format guide](contests/2026-ossdevcon/#presentation) |
-| 2026 Builder Season 4 | CUBRID Kubernetes Operator | First validation: [한국어](https://cubrid-lab.github.io/showcase/events/2026-builder-season4/01-validation/ko/) · [English](https://cubrid-lab.github.io/showcase/events/2026-builder-season4/01-validation/en/) | [Program and presentation rounds](events/2026-builder-season4/) |
+| 2026 OSS Developer Contest | CUBRID Python ecosystem | [HTML slides](https://cubrid-lab.github.io/showcase/contests/2026-ossdevcon/) · [PDF](https://github.com/cubrid-lab/showcase/releases/download/ossdevcon-2026-presentation-2026-10-25/ossdevcon.pdf) · [PPTX](https://github.com/cubrid-lab/showcase/releases/download/ossdevcon-2026-presentation-2026-10-25/ossdevcon.pptx) | [Contest materials](events/2026-ossdevcon/) |
+| 2026 Builder Season 4 | CUBRID Kubernetes Operator | First validation: [한국어](https://cubrid-lab.github.io/showcase/events/2026-builder-season4/01-validation/ko/) · [English](https://cubrid-lab.github.io/showcase/events/2026-builder-season4/01-validation/en/) | [Validation and submission brief](events/2026-builder-season4/01-validation/) |
 
-The presentation links open HTML slides in your browser; PDF and PPTX links
-download the published release files. The Operator decks
-contain ten matched slides per language, speaker notes, and Q&A material. Source files, verification records, and export
-commands are linked from each event brief.
+For upcoming rounds and program opportunities, see the [events index](events/).
 
-## Repository layout
+## Project materials
 
-| Path | Purpose |
+| Project | Materials |
 |---|---|
-| [events/](events/) | Event briefs and presentation milestones, regardless of event type |
-| [contests/](contests/) | Existing contest materials, with their original paths preserved |
-| [programs/](programs/) | Program submissions, validation presentations, and application examples |
-| [presentation/](presentation/) | Shared Slidev tooling and deck entry files for web, PDF, and PPTX |
-| [demo-videos/](demo-videos/) | Demo video materials |
-| [press-kit/](press-kit/) | Existing CUBRID Python ecosystem one-pagers |
-| [scripts/](scripts/) | Build, PDF export, and metrics collection for the existing contest deck |
+| CUBRID Lab | [Introduction video project](projects/cubrid-lab/intro-video/) |
+| CUBRID Python ecosystem | [Press kit and one-pagers](projects/cubrid-python-ecosystem/press-kit/) |
 
-## Adding a presentation
+[Browse all project materials](projects/).
 
-1. Add new material under `events/<year>-<event>/<milestone>/`, whether it
-   is a contest, program, conference, or meetup. Keep existing contest paths
-   intact. Use the index to identify the project and describe the event type.
-2. For a recurring program, include an event-level `README.md` linking its
-   presentation rounds. Each milestone gets a `README.md` with the project,
-   audience, event date, submission deadline, required formats, and source
-   of the requirements. Add future rounds when preparation starts.
-3. Keep the event brief and supporting evidence in that event folder. Put
-   web slide sources in `presentation/decks/<year>-<event>/<milestone>/`
-   as `SLIDES.ko.md` and `SLIDES.en.md`, with entry files in `presentation/`.
-   This keeps imports within the Slidev project root and reuses its tooling.
-   Link the sources from the event brief, and generate PDF and PPTX from
-   those sources. Mark preparation and submission separately.
-4. Add a row to the presentation index above. Keep project-specific metrics,
-   biographies, and claims in the corresponding event materials with sources.
-5. Check the required delivery format for each event. Follow the
-   [Operator workflow](events/2026-builder-season4/01-validation/#웹-원본에서-발표와-내보내기)
-   for web preview, static builds, and Korean/English PDF and PPTX export.
-   Generated files stay out of Git; keep final submissions as event release
-   attachments, with the source commit recorded in the event brief.
+## Repository structure
+
+| Directory | Purpose |
+|---|---|
+| [events/](events/) | Time-bound contest entries, program submissions, speaker notes, demos and supporting evidence |
+| [projects/](projects/) | Reusable project and organization promotional assets |
+| [templates/](templates/) | Reusable application, presentation and demo templates |
+| [presentation/](presentation/) | Shared Slidev project, canonical deck sources, themes, metrics snapshots and export configuration |
+| [scripts/](scripts/) | Shared build, export and metrics tools |
+
+Each event brief links to its source deck and supporting evidence. Slidev source files remain inside `presentation/` because the shared build uses that project root. This is a tooling constraint, not a second copy of the event material.
+
+## Add a presentation
+
+1. Create `events/<year>-<event>/README.md` for a new event, and an event milestone directory when there are multiple presentation rounds.
+2. Record the project, audience, requirements, deadline and source of the event details in the event brief.
+3. Put the canonical slide source inside `presentation/` and link it from the brief. Keep event-specific runbooks, notes and evidence in the event directory.
+4. Update the events index and, when a public viewer exists, the HTML presentation index. Derive PDF/PPTX from the same source.
+5. Publish immutable deliverables as release assets with a source commit, and verify links and exports before publication.
+
+**Compatibility:** The OSSDevCon HTML presentation keeps its existing `/contests/2026-ossdevcon/` public URL. The source materials have moved to `events/2026-ossdevcon/`; existing published release links remain unchanged.
 
 ## License
 

@@ -1,4 +1,4 @@
-"""Regenerate contests/2026-ossdevcon/SLIDES.md (talk script) from the speaker
+"""Regenerate events/2026-ossdevcon/SLIDES.md (talk script) from the speaker
 notes in presentation/slides.md. Each note starts with "[N초 · criteria]" or
 "[N분 · ...]"; slide time ranges are computed cumulatively from those."""
 import json
@@ -7,7 +7,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SRC = ROOT / "presentation/slides.md"
-OUT = ROOT / "contests/2026-ossdevcon/SLIDES.md"
+OUT = ROOT / "events/2026-ossdevcon/SLIDES.md"
 
 # Titles the extractor can't read cleanly (charts, code, lists)
 TITLE_OVERRIDES = {

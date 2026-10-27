@@ -1,0 +1,35 @@
+name: Validate showcase source layout
+
+on:
+  pull_request:
+    paths:
+      - 'README.md'
+      - 'events/**'
+      - 'projects/**'
+      - 'templates/**'
+      - 'presentation/**'
+      - 'scripts/**'
+      - '.github/workflows/layout-check.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'README.md'
+      - 'events/**'
+      - 'projects/**'
+      - 'templates/**'
+      - 'presentation/**'
+      - 'scripts/**'
+      - '.github/workflows/layout-check.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Validate layout and Markdown links
+        run: python3 scripts/check_showcase_links.py

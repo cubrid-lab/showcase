@@ -87,8 +87,8 @@ Terminal demo GIFs are generated from VHS (.tape) scripts in each repo:
 - [Slidev presentation](../../presentation/README.md) — development and export instructions
 - [Metrics snapshot](metrics/SNAPSHOT.md) — provenance and measurement details
 - [Benchmark rerun 2026-10-25](metrics/benchmark-2026-10-25/README.md) — versions, environment, commands and raw output of the performance numbers on the deck
-- [English one-pager](../../press-kit/ONE_PAGER.md)
-- [Korean one-pager](../../press-kit/ONE_PAGER.ko.md)
+- [English one-pager](../../projects/cubrid-python-ecosystem/press-kit/ONE_PAGER.md)
+- [Korean one-pager](../../projects/cubrid-python-ecosystem/press-kit/ONE_PAGER.ko.md)
 
 The active metrics snapshot is [2026-10-25](../../presentation/snapshots/2026-10-25.json); the 2026-09-12 snapshot remains for historical comparison.
 Clone traffic includes CI activity and is not an adoption metric; see the
