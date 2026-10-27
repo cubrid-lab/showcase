@@ -4,7 +4,7 @@ title: "CUBRID Kubernetes Operator — 1차 검증"
 
 <OperatorSlide section="Opening · 프로젝트 소개" index="01" total="18" source="프로젝트·팀" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/SOURCES.md">
 
-<div class="op-cover"><p class="op-kicker">빌더 시즌4 · 1차 검증 · 2026.10.31</p><h1 class="op-title">CUBRID K8s Operator</h1><p class="op-lead">Kubernetes에서 CUBRID 설치부터 장애 후 복구 확인까지</p><div class="op-meta"><b>CUBRID Lab</b><span>최영선 · 백경준 · 공동 메인테이너</span></div></div>
+<div class="op-cover"><BrandMark name="cubrid-kubernetes-operator" alt="CUBRID Lab Operator icon" :height="84" /><p class="op-kicker">빌더 시즌4 · 1차 검증 · 2026.10.31</p><h1 class="op-title">CUBRID K8s Operator</h1><p class="op-lead">Kubernetes에서 CUBRID 설치부터 장애 후 복구 확인까지</p><div class="op-meta"><b>CUBRID Lab</b><span>최영선 · 백경준 · 공동 메인테이너</span></div></div>
 
 </OperatorSlide>
 
@@ -273,7 +273,7 @@ v0.1에서는 환경 하나를 정해서 설치부터 복구까지 확인하겠�
 
 <OperatorSlide section="Q&amp;A · 질의응답" index="18" total="18" source="예상 질문" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/EXPECTED_QA.ko.md">
 
-<div class="op-cover op-closing"><h1 class="op-title">Q&amp;A</h1><p class="op-lead">감사합니다</p><div class="op-meta"><b>CUBRID Lab</b><span>최영선 · 백경준</span></div></div>
+<div class="op-cover op-closing"><h1 class="op-title">Q&amp;A</h1><p class="op-lead">감사합니다</p><div class="op-meta"><b>CUBRID Lab</b><span>최영선 · 백경준</span></div><BrandMark name="lockup-horizontal" alt="CUBRID Lab" :height="40" /><p class="op-notice">CUBRID Lab은 CUBRID Corporation 및 공식 CUBRID 프로젝트와 제휴·후원·보증 관계가 없는 독립 프로젝트입니다. CUBRID는 해당 권리자의 상표입니다.</p></div>
 
 </OperatorSlide>
 

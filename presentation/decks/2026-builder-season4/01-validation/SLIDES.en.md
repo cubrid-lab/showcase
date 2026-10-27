@@ -4,7 +4,7 @@ title: "CUBRID Kubernetes Operator — First Validation"
 
 <OperatorSlide section="Opening · Project and team" index="01" total="18" source="Project and team" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/SOURCES.md">
 
-<div class="op-cover"><p class="op-kicker">BUILDER SEASON 4 · FIRST VALIDATION · 2026.10.31</p><h1 class="op-title">CUBRID K8s Operator</h1><p class="op-lead">CUBRID on Kubernetes, from installation to verified recovery</p><div class="op-meta"><b>CUBRID Lab</b><span>Yeongseon Choe · Gyeongjun Paik · Co-maintainers</span></div></div>
+<div class="op-cover"><BrandMark name="cubrid-kubernetes-operator" alt="CUBRID Lab Operator icon" :height="84" /><p class="op-kicker">BUILDER SEASON 4 · FIRST VALIDATION · 2026.10.31</p><h1 class="op-title">CUBRID K8s Operator</h1><p class="op-lead">CUBRID on Kubernetes, from installation to verified recovery</p><div class="op-meta"><b>CUBRID Lab</b><span>Yeongseon Choe · Gyeongjun Paik · Co-maintainers</span></div></div>
 
 </OperatorSlide>
 
@@ -280,7 +280,7 @@ And could you try our installation and recovery docs in December and tell us whe
 
 <OperatorSlide section="Q&amp;A" index="18" total="18" source="Expected questions" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/EXPECTED_QA.ko.md">
 
-<div class="op-cover op-closing"><h1 class="op-title">Q&amp;A</h1><p class="op-lead">Thank you</p><div class="op-meta"><b>CUBRID Lab</b><span>Yeongseon Choe · Gyeongjun Paik</span></div></div>
+<div class="op-cover op-closing"><h1 class="op-title">Q&amp;A</h1><p class="op-lead">Thank you</p><div class="op-meta"><b>CUBRID Lab</b><span>Yeongseon Choe · Gyeongjun Paik</span></div><BrandMark name="lockup-horizontal" alt="CUBRID Lab" :height="40" /><p class="op-notice">CUBRID Lab is independently maintained and is not affiliated with, sponsored by, or endorsed by CUBRID Corporation or the official CUBRID project.</p></div>
 
 </OperatorSlide>
 

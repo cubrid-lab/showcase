@@ -327,3 +327,6 @@
 /* Closing Q&A slide: everything centered. */
 .slidev-layout.showcase-deck.operator-deck .op-closing { justify-items: center; text-align: center; }
 .slidev-layout.showcase-deck.operator-deck .op-closing .op-lead { font-size: 1.6rem; }
+
+.slidev-layout.showcase-deck.operator-deck .op-cover .brand-mark { margin: 0 auto; }
+.slidev-layout.showcase-deck.operator-deck .op-notice { max-width: 46rem; margin: 0; font-size: 0.7rem; line-height: 1.5; color: var(--muted); }
