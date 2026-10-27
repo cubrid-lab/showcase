@@ -3,7 +3,7 @@
 - Status: design stage, for maintainer review. Production is tracked separately.
 - Design issue: [#50](https://github.com/cubrid-lab/showcase/issues/50). Production follow-up: [#51](https://github.com/cubrid-lab/showcase/issues/51).
 - Related: [#1](https://github.com/cubrid-lab/showcase/issues/1) is the backup recording of the 2026 OSS Developer Contest talk demo. This video is a separate, reusable project introduction for developers. It does not replace #1.
-- Brand revision: [`cubrid-lab/brand@538bad3`](https://github.com/cubrid-lab/brand/tree/538bad3929bb661ee95774119cf3b9b4aebc7f15) (PR #51 merge; Python Yellow keyline aligned with the emblem).
+- Brand revision: [`cubrid-lab/brand@3a385be`](https://github.com/cubrid-lab/brand/tree/3a385be773af94077c56548a24cdb9313bdc3b5c) (PR #55 merge; Python Yellow icons use the shared white marks, cubrid-lab/brand#54).
 - Style frames: [`style-frames/png/`](style-frames/png/) ([contact sheet](style-frames/png/contact-sheet.png)), sources in [`style-frames/src/`](style-frames/src/).
 - Maintainer decisions: 2026-10-25, recorded in #50.
 
@@ -63,7 +63,7 @@ Columns: shot, time, visual and motion, on-screen copy, real-footage source, Kor
 | P2 | 0:24–0:32 | “설치 한 줄.” kinetic; terminal mockup pushes in; zoom callout on the `Successfully installed` line. | 설치 한 줄. | vhs: fresh venv, `pip install pycubrid` | 설치는 한 줄. C 확장도, 컴파일도 필요 없는 순수 Python 드라이버입니다. | One line to install: a pure-Python driver, no C extensions, no compiling. |
 | P3 | 0:32–0:44 | Editor + terminal split. Code types in at 2× speed, run, callout zooms on `(2,)`. Style frame P3. | PEP 249, 그대로. | vhs: README “Your first query” as `first_query.py`, run against a local CUBRID 11.4 container | 연결하고, 커서를 열고, 실행합니다. 익숙한 DB-API 2.0 방식 그대로. | Connect, open a cursor, execute: the familiar DB-API 2.0 way. |
 | P4 | 0:44–0:52 | Feature chips stack on beats; behind them the async snippet runs. | asyncio · TLS · LOB | vhs: README “Async” example (`pycubrid.aio.connect`) as a script, real output | asyncio 비동기 연결, TLS 암호화, LOB까지 지원합니다. | asyncio, TLS encryption and LOBs are supported too. |
-| P5 | 0:52–0:58 | Button-out: `pip install pycubrid` on a yellow-keyline card; icon recedes. | C 컴파일러 없이. | Motion graphics | C 컴파일러 없이, Python이 도는 곳 어디서나. | No C compiler. Anywhere Python runs. |
+| P5 | 0:52–0:58 | Button-out: `pip install pycubrid` on a card with an ochre border; icon recedes. | C 컴파일러 없이. | Motion graphics | C 컴파일러 없이, Python이 도는 곳 어디서나. | No C compiler. Anywhere Python runs. |
 | S1 | 0:58–1:02 | Chapter card: ORM icon, name, kicker. | 02 · ORM · SQLAlchemy 2.0–2.1 / sqlalchemy-cubrid | Pinned icon | 두 번째, sqlalchemy-cubrid. | Two: sqlalchemy-cubrid. |
 | S2 | 1:02–1:10 | Terminal install, then the engine URL; callout isolates `cubrid+pycubrid://`. | 엔진 URL 하나. | vhs: `pip install "sqlalchemy-cubrid[pycubrid]"`, then `create_engine(...)` line | pycubrid와 함께 설치하고, 엔진 URL 하나로 연결합니다. | Install it with pycubrid and connect with one engine URL. |
 | S3 | 1:10–1:24 | Model class types in; highlight sweeps `Mapped[int]`; terminal prints the rows. Style frame S3. | 익숙한 ORM, 그대로. | vhs: ORM script (declarative model, `create_all`, `add_all`, `select`), real output | SQLAlchemy 2.0 스타일 모델로 테이블을 만들고, 저장하고, 조회합니다. | Create tables, then save and query rows with SQLAlchemy 2.0-style models. |
@@ -99,7 +99,7 @@ Vertical 1080×1920 (a 1080×1080 square crop works from the same layout). Built
 
 ### 5.1 Tokens
 
-All colors come from [`tokens/colors.json`](https://github.com/cubrid-lab/brand/blob/538bad3929bb661ee95774119cf3b9b4aebc7f15/tokens/colors.json) and [`tokens/organization.json`](https://github.com/cubrid-lab/brand/blob/538bad3929bb661ee95774119cf3b9b4aebc7f15/tokens/organization.json) at the pinned revision. They are CUBRID Lab project tokens, not official CUBRID colors.
+All colors come from [`tokens/colors.json`](https://github.com/cubrid-lab/brand/blob/3a385be773af94077c56548a24cdb9313bdc3b5c/tokens/colors.json) and [`tokens/organization.json`](https://github.com/cubrid-lab/brand/blob/3a385be773af94077c56548a24cdb9313bdc3b5c/tokens/organization.json) at the pinned revision. They are CUBRID Lab project tokens, not official CUBRID colors.
 
 | Role | Value | Token |
 |---|---|---|
@@ -107,8 +107,8 @@ All colors come from [`tokens/colors.json`](https://github.com/cubrid-lab/brand/
 | Primary text | `#F0F6FC` | `wordmarks.variants.dark.title` |
 | Secondary text | `#A8C1E8` | `wordmarks.variants.dark.tagline` |
 | Accent / language | `#FFD43B` Python Yellow | `languages.python` |
-| Keyline, underline, chip border | `#8C7520` ochre | `treatments.python.keyline` |
-| Ink on yellow | `#40350F` | `treatments.python.mark` |
+| Keyline, underline, chip border | `#8C7520` ochre | Python Yellow mixed 45% toward black (the retired `treatments.python.keyline` at brand `538bad3`) |
+| Ink on yellow | `#40350F` | Python Yellow mixed 75% toward black (the retired `treatments.python.mark` at brand `538bad3`) |
 | Grid lines, neutral | `#6B7280` | `languages.neutral` |
 
 The emblem's three face colors (`#006BDA`, `#00A36F`, `#E60039`) appear only inside the unmodified emblem/lockup. Red is not used as a UI color; the read-only rejection is shown with the yellow highlight and the word “rejected”, so meaning never depends on color.
@@ -119,19 +119,19 @@ The emblem's three face colors (`#006BDA`, `#00A36F`, `#E60039`) appear only ins
 
 ### 5.2 Brand marks
 
-Assets at `cubrid-lab/brand@538bad3`:
+Assets at `cubrid-lab/brand@3a385be`:
 
 | Use | Pinned file |
 |---|---|
-| Driver | [`dist/icons/pycubrid.svg`](https://raw.githubusercontent.com/cubrid-lab/brand/538bad3929bb661ee95774119cf3b9b4aebc7f15/dist/icons/pycubrid.svg) (complete cube, horizontal grooves) |
-| ORM | [`dist/icons/sqlalchemy-cubrid.svg`](https://raw.githubusercontent.com/cubrid-lab/brand/538bad3929bb661ee95774119cf3b9b4aebc7f15/dist/icons/sqlalchemy-cubrid.svg) (complete cube, side-to-side grooves) |
-| MCP | [`dist/icons/cubrid-mcp-server.svg`](https://raw.githubusercontent.com/cubrid-lab/brand/538bad3929bb661ee95774119cf3b9b4aebc7f15/dist/icons/cubrid-mcp-server.svg) (router hub) |
-| Cookbook | [`dist/icons/cubrid-cookbook-python.svg`](https://raw.githubusercontent.com/cubrid-lab/brand/538bad3929bb661ee95774119cf3b9b4aebc7f15/dist/icons/cubrid-cookbook-python.svg) (pages) |
-| Lockup, dark canvas | [`dist/organization/lockup-horizontal-dark.svg`](https://raw.githubusercontent.com/cubrid-lab/brand/538bad3929bb661ee95774119cf3b9b4aebc7f15/dist/organization/lockup-horizontal-dark.svg) (stacked variant for the vertical short) |
+| Driver | [`dist/icons/pycubrid.svg`](https://raw.githubusercontent.com/cubrid-lab/brand/3a385be773af94077c56548a24cdb9313bdc3b5c/dist/icons/pycubrid.svg) (complete cube, horizontal grooves) |
+| ORM | [`dist/icons/sqlalchemy-cubrid.svg`](https://raw.githubusercontent.com/cubrid-lab/brand/3a385be773af94077c56548a24cdb9313bdc3b5c/dist/icons/sqlalchemy-cubrid.svg) (complete cube, side-to-side grooves) |
+| MCP | [`dist/icons/cubrid-mcp-server.svg`](https://raw.githubusercontent.com/cubrid-lab/brand/3a385be773af94077c56548a24cdb9313bdc3b5c/dist/icons/cubrid-mcp-server.svg) (router hub) |
+| Cookbook | [`dist/icons/cubrid-cookbook-python.svg`](https://raw.githubusercontent.com/cubrid-lab/brand/3a385be773af94077c56548a24cdb9313bdc3b5c/dist/icons/cubrid-cookbook-python.svg) (pages) |
+| Lockup, dark canvas | [`dist/organization/lockup-horizontal-dark.svg`](https://raw.githubusercontent.com/cubrid-lab/brand/3a385be773af94077c56548a24cdb9313bdc3b5c/dist/organization/lockup-horizontal-dark.svg) (stacked variant for the vertical short) |
 
 The production video reads these by commit-pinned URL through one constant, `BRAND_REVISION` in [`src/brand.ts`](src/brand.ts); moving to a later approved revision is a one-line change and a re-render. The design-stage style frames keep their reviewed pin, `BRAND_COMMIT` (`38b4646`) in [`frames.html`](style-frames/src/frames.html).
 
-**Policy gate (design stage, resolved).** Resolved by decision 5 in [`BRAND_USAGE.md`](https://github.com/cubrid-lab/brand/blob/538bad3929bb661ee95774119cf3b9b4aebc7f15/BRAND_USAGE.md) (cubrid-lab/brand#47, `1d9b374`), which permits CUBRID Lab promotional videos to render, animate and combine approved marks; the production render follows it. The text below is the design-stage record. The brand policy at the design-stage revision `38b4646` ([`BRAND_USAGE.md`](https://github.com/cubrid-lab/brand/blob/38b46469a1e18c7e9f7270f0b3d286ab45c3b376/BRAND_USAGE.md#repository-icon-use), [`ORGANIZATION_MARK_USAGE.md`](https://github.com/cubrid-lab/brand/blob/38b46469a1e18c7e9f7270f0b3d286ab45c3b376/docs/ORGANIZATION_MARK_USAGE.md#wordmark-lockups)) permits each repository's icon only in its own README/docs by pinned URL and lists *rasterizing*, *combining with text*, *modifying* and *using another repository's icon* as not permitted. A video necessarily rasterizes, and this one shows four repositories' icons and the lockup on a showcase/YouTube surface. Therefore:
+**Policy gate (design stage, resolved).** Resolved by decision 5 in [`BRAND_USAGE.md`](https://github.com/cubrid-lab/brand/blob/3a385be773af94077c56548a24cdb9313bdc3b5c/BRAND_USAGE.md) (cubrid-lab/brand#47, `1d9b374`), which permits CUBRID Lab promotional videos to render, animate and combine approved marks; the production render follows it. The text below is the design-stage record. The brand policy at the design-stage revision `38b4646` ([`BRAND_USAGE.md`](https://github.com/cubrid-lab/brand/blob/38b46469a1e18c7e9f7270f0b3d286ab45c3b376/BRAND_USAGE.md#repository-icon-use), [`ORGANIZATION_MARK_USAGE.md`](https://github.com/cubrid-lab/brand/blob/38b46469a1e18c7e9f7270f0b3d286ab45c3b376/docs/ORGANIZATION_MARK_USAGE.md#wordmark-lockups)) permits each repository's icon only in its own README/docs by pinned URL and lists *rasterizing*, *combining with text*, *modifying* and *using another repository's icon* as not permitted. A video necessarily rasterizes, and this one shows four repositories' icons and the lockup on a showcase/YouTube surface. Therefore:
 
 - The committed style-frame PNGs are rendered with labelled placeholders (`marks=slot`). No brand SVG and no rasterized brand mark is committed here.
 - A full-fidelity set rendered with the pinned SVGs (`node render.mjs --marks=pinned --out=<dir>`) is for local review only.
@@ -149,7 +149,7 @@ Lockup (dark); install commands verified in the READMEs: `pip install pycubrid`,
 - CUBRID Lab은 CUBRID Corporation 및 공식 CUBRID 프로젝트와 제휴·후원·보증 관계가 없는 독립 프로젝트입니다. CUBRID는 해당 권리자의 상표입니다.
 - CUBRID Lab is independently maintained and is not affiliated with, sponsored by, or endorsed by CUBRID Corporation or the official CUBRID project.
 
-The independence wording follows [`BRAND_USAGE.md`](https://github.com/cubrid-lab/brand/blob/538bad3929bb661ee95774119cf3b9b4aebc7f15/BRAND_USAGE.md#independence). The same notices go in the YouTube description.
+The independence wording follows [`BRAND_USAGE.md`](https://github.com/cubrid-lab/brand/blob/3a385be773af94077c56548a24cdb9313bdc3b5c/BRAND_USAGE.md#independence). The same notices go in the YouTube description.
 
 ### 5.4 Motion principles
 
@@ -261,7 +261,7 @@ Checked on 2026-10-25 against `main` of each repository and PyPI.
 | `uvx cubrid-mcp-server` | cubrid-mcp-server README install section |
 | Cookbook FastAPI quickstart with Docker; Flask, Django, Celery, Pandas ETL, Streamlit dashboard, AI agent templates; Java → Python migration | [cubrid-cookbook-python README](https://github.com/cubrid-lab/cubrid-cookbook-python#readme) and its directory tree |
 | All four are MIT licensed | Each repository's `LICENSE`; PyPI metadata (`license_expression: MIT`) for the three packages |
-| CUBRID Lab independence wording | [brand `BRAND_USAGE.md`](https://github.com/cubrid-lab/brand/blob/538bad3929bb661ee95774119cf3b9b4aebc7f15/BRAND_USAGE.md#independence) |
+| CUBRID Lab independence wording | [brand `BRAND_USAGE.md`](https://github.com/cubrid-lab/brand/blob/3a385be773af94077c56548a24cdb9313bdc3b5c/BRAND_USAGE.md#independence) |
 
 ## 10. Accessibility
 
