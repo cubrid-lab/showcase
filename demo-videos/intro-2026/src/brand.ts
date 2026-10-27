@@ -9,7 +9,7 @@ import {useDelayRender} from 'remotion';
  * raw.githubusercontent.com URLs at studio/render time (BRAND_USAGE.md,
  * "Repository icon use"). Change the pin only to a reviewed brand revision.
  */
-export const BRAND_REVISION = '538bad3929bb661ee95774119cf3b9b4aebc7f15';
+export const BRAND_REVISION = '3a385be773af94077c56548a24cdb9313bdc3b5c';
 export const BRAND_RAW = `https://raw.githubusercontent.com/cubrid-lab/brand/${BRAND_REVISION}`;
 
 export const iconUrl = (repo: string) => `${BRAND_RAW}/dist/icons/${repo}.svg`;
