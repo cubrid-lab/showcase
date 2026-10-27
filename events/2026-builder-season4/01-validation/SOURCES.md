@@ -1,6 +1,6 @@
 # First-validation presentation — sources
 
-Presentation expanded on **2026-10-22 (KST)** to 18 slides per language; execution evidence remains fixed to **2026-10-20**, except the VM-lab backup and new-cluster restore runs of **2026-10-25** added to slides 12–13 on 2026-10-26. The main deck follows the seven items in the supplied
+Presentation expanded on **2026-10-22 (KST)** to 18 slides per language; execution evidence remains fixed to **2026-10-20**, except the VM-lab backup and new-cluster restore runs of **2026-10-25** added to slides 11–12 on 2026-10-26. The main deck follows the seven items in the supplied
 Builder notice. Detailed source checks stay here and in speaker notes rather
 than becoming extra presentation sections.
 
@@ -10,13 +10,14 @@ than becoming extra presentation sections.
 |---|---|---|
 | 1. Project and team | 1 | 20 |
 | Agenda | 2 | 15 |
-| 2. Problem, recovery scenario and initial users | 3–5 | 100 |
-| 3. Existing approaches and open-source comparison | 6–7 | 70 |
-| 4. Proposal, recorded evidence and validation gaps | 8, 12–13 | 115 |
-| 5. Components, data/control flow and write safety | 9–11 | 110 |
-| 6. Roadmap, responsibilities, v0.1 and later direction | 14–17 | 125 |
-| 7. Discussion topics | 18 | 25 |
-| **Total** | **18 slides per language** | **580 + 20 seconds transition buffer** |
+| 2. Problem, recovery scenario and initial users | 3–4 | 65 |
+| 3. Existing approaches and open-source comparison | 5–6 | 70 |
+| 4. Proposal, recorded evidence and validation gaps | 7, 11–12 | 115 |
+| 5. Components, data/control flow and write safety | 8–10 | 110 |
+| 6. Roadmap, responsibilities, v0.1 and later direction | 13–16 | 125 |
+| 7. Discussion topics | 17 | 25 |
+| Questions | 18 | 5 |
+| **Total** | **18 slides per language** | **550 + 50 seconds buffer** |
 
 The announced presentation limit is ten minutes plus separate ten-minute Q&A. Times are planning targets, not a rehearsal measurement.
 The expanded material deliberately separates hypothetical incident stories, user hypotheses, source comparison, executed evidence and work not yet proven.
@@ -32,15 +33,15 @@ The expanded material deliberately separates hypothetical incident stories, user
 
 | Slides | Evidence basis | Claim boundary |
 |---|---|---|
-| 1, 3–5 | [Operator README](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/README.md), [DESIGN](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/DESIGN.md) | Recovery scenario is illustrative, not a customer incident. Initial target users are hypotheses, not proven adoption/interviews |
-| 6–7 | [Official README](https://github.com/CUBRID/cubrid-operator/blob/fa7b6c2cf26096769c4404a2e2bb683f3872aa1e/README.md), [status controller](https://github.com/CUBRID/cubrid-operator/blob/fa7b6c2cf26096769c4404a2e2bb683f3872aa1e/internal/controller/cubriddb_controller_status.go#L68), [backup controller](https://github.com/CUBRID/cubrid-operator/blob/fa7b6c2cf26096769c4404a2e2bb683f3872aa1e/internal/controller/backupdb_controller.go#L317) | Upstream already has HA observation, storage and scheduled backup. Comparison is source-level, not field reliability benchmarking |
-| 8–10 | [Architecture](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/DESIGN.md#7-high-level-architecture) and [Broker flows](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/DESIGN.md#10-broker-and-service-architecture) | CUBRID owns HA promotion. IM is integrated in DB container; Operator never proxies SQL |
-| 11 | [Fault-safety ADR](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/docs/adr/0005-failover-split-brain.md), [write-quarantine issue](https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/113) | Reported unknown master is not automatic RW write isolation; mandatory work remains |
-| 12–13 | [Kind, VM and rollout records](#recorded-execution-evidence), [v0.1 gates](#evidence-boundaries-retained-in-the-notes) | Kind 27/27 specs, VM SQL and the first S12 restore passes are not completed S00–S15 fault/restore certification |
-| 14, 16 | [ROADMAP](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/ROADMAP.md) | Nov 29 full first pass, Dec 27 candidate release are goals, not passed or promised milestones |
-| 15 | [CONTRIBUTING](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/CONTRIBUTING.md) and team record below | Both are co-maintainers; per-issue owner and reviewer, no invented permanent feature assignment |
-| 17 | [Post-v0.1 direction](#post-v01-direction) | Unsheduled proposal, not support or release commitment |
-| 18 | Builder validation notice | Discussion: incident criteria, reference CSI stack, independent runbook review |
+| 1, 3–4 | [Operator README](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/README.md), [DESIGN](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/DESIGN.md) | Recovery scenario is illustrative, not a customer incident. Initial target users are hypotheses, not proven adoption/interviews |
+| 5–6 | [Official README](https://github.com/CUBRID/cubrid-operator/blob/fa7b6c2cf26096769c4404a2e2bb683f3872aa1e/README.md), [status controller](https://github.com/CUBRID/cubrid-operator/blob/fa7b6c2cf26096769c4404a2e2bb683f3872aa1e/internal/controller/cubriddb_controller_status.go#L68), [backup controller](https://github.com/CUBRID/cubrid-operator/blob/fa7b6c2cf26096769c4404a2e2bb683f3872aa1e/internal/controller/backupdb_controller.go#L317) | Upstream already has HA observation, storage and scheduled backup. Comparison is source-level, not field reliability benchmarking |
+| 7–9 | [Architecture](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/DESIGN.md#7-high-level-architecture) and [Broker flows](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/DESIGN.md#10-broker-and-service-architecture) | CUBRID owns HA promotion. IM is integrated in DB container; Operator never proxies SQL |
+| 10 | [Fault-safety ADR](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/docs/adr/0005-failover-split-brain.md), [write-quarantine issue](https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/113) | Reported unknown master is not automatic RW write isolation; mandatory work remains |
+| 11–12 | [Kind, VM and rollout records](#recorded-execution-evidence), [v0.1 gates](#evidence-boundaries-retained-in-the-notes) | Kind 27/27 specs, VM SQL and the first S12 restore passes are not completed S00–S15 fault/restore certification |
+| 13, 15 | [ROADMAP](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/ROADMAP.md) | Nov 29 full first pass, Dec 27 candidate release are goals, not passed or promised milestones |
+| 14 | [CONTRIBUTING](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/CONTRIBUTING.md) and team record below | Both are co-maintainers; per-issue owner and reviewer, no invented permanent feature assignment |
+| 16 | [Post-v0.1 direction](#post-v01-direction) | Unsheduled proposal, not support or release commitment |
+| 17 | Builder validation notice | Discussion: incident criteria, the first CSI driver to support, independent runbook review |
 
 ## Recorded execution evidence
 
@@ -100,7 +101,7 @@ The deck presents both as co-maintainers. It makes the per-change owner/reviewer
 
 ## Comparison boundaries
 
-Slide 7 compares inspected implementation models, not every upstream feature or deployed reliability. Source inspection was repeated against the same two pinned revisions for this content revision.
+Slide 6 compares inspected implementation models, not every upstream feature or deployed reliability. Source inspection was repeated against the same two pinned revisions for this content revision.
 
 | Claim | Primary source and boundary |
 |---|---|
@@ -115,7 +116,7 @@ Both projects observe periodically. Polling is not presented as a differentiator
 
 ## Post-v0.1 direction
 
-Slide 17 is a **direction proposal prompted by presentation feedback**, not an approved new release plan. The first version remains the required, bounded recovery qualification described by the pinned ROADMAP; no mandatory safety condition is moved to a later version.
+Slide 16 is a **direction proposal prompted by presentation feedback**, not an approved new release plan. The first version remains the required, bounded recovery qualification described by the pinned ROADMAP; no mandatory safety condition is moved to a later version.
 
 1. Learn from independent installations and incident reproduction; improve failure diagnosis and operating procedures. Qualify DB authentication/TLS and compatible updates as adoption needs. These are not claimed supported today; IM authentication is distinct. Compatible updates remain conditional in v0.1 until their gates pass.
 2. Expand Kubernetes/CSI coverage only with per-configuration recovery evidence. Consider arm64 and multi-zone tests separately; do not generalize single-lab results.
@@ -127,8 +128,19 @@ Dates, version numbers, implementation order and supported-production status are
 
 The 2026-10-21 wording revision keeps the same eleven slides,600-second budget, source revisions and execution evidence. Titles, captions and notes use concrete actors/actions instead of repeating abstract labels and disclaimers. Relevant limits remain beside the Kind/VM results, write-quarantine work, release/security scope and future plan. No interviews, personal incidents, fixed individual assignments, measurements or future dates were added.
 
-The 2026-10-26 revision keeps the 18 slides, the 580-second plan and the
+The 2026-10-26 revision (slide numbers as they were before the 2026-10-27 revision) keeps the 18 slides, the 580-second plan and the
 2026-10-20 Kind and VM rows. It adds the 2026-10-25 restore record to slide 12,
 rewords the restore gate on slide 13 and the restore sentences in the notes of
 slides 8, 12 and 13, and shortens the notes of slide 17 to its 20 seconds. The
 slide 17 body is unchanged.
+
+The 2026-10-27 revision follows a slide-by-slide review. It keeps the seven
+announced items and the evidence above, and changes how they are shown:
+slides 3 and 4 are merged into one (what Kubernetes monitoring shows and what
+needs database knowledge); slide 4 shows the two teams as two people with
+their own questions; slide 5 states why another Operator when an official one
+exists, and slide 6 details the differences; repeated sentences, unexplained
+abbreviations and internal scenario IDs are removed from the slides; every
+title fits one line; slide 18 is a closing questions slide. Slide 5 says
+recovery is *tested* with SQL and data, since both Operators use port checks
+at runtime. The plan is 550 seconds with a 50-second buffer.
