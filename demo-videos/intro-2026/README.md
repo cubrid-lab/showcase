@@ -245,7 +245,7 @@ Nothing from `cubrid-lab/brand` is copied here. The emblem, role icons, wordmark
 lockups and numeric tokens (`tokens/geometry.json`, `tokens/colors.json`,
 `tokens/organization.json`, `registry/repositories.json`) are loaded at render
 time from commit-pinned URLs at revision
-`3a385be773af94077c56548a24cdb9313bdc3b5c` (`src/brand.ts`).
+`e55990a6a0b2c3b0d133985951d41e42b62a8588` (`src/brand.ts`).
 `BrandCubeAssemble` rebuilds the three cube faces from the geometry tokens
 (the same construction as `cube_polygons()` in the MIT-licensed
 `scripts/build.py`) for the fly-in, then crossfades to the unmodified pinned
