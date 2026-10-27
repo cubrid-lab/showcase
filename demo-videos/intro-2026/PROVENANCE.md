@@ -51,7 +51,7 @@ AI music services), 120 BPM, generated 2026-10-26. Intended dedication CC0 1.0 â
 ## Brand marks
 
 Role icons and the dark horizontal lockup are loaded at render time from
-`cubrid-lab/brand@38b46469a1e18c7e9f7270f0b3d286ab45c3b376` (`dist/icons/*.svg`,
+`cubrid-lab/brand@538bad3929bb661ee95774119cf3b9b4aebc7f15` (`dist/icons/*.svg`,
 `dist/organization/lockup-horizontal-dark.svg`); nothing is copied into this repository.
 Use in this video follows brand policy decision 5 ([cubrid-lab/brand#47](https://github.com/cubrid-lab/brand/pull/47), merged as `1d9b374`):
 marks move only as whole images (position, scale, opacity); every held frame shows the
