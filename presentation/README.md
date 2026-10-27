@@ -14,6 +14,10 @@ See the [event brief](../events/2026-builder-season4/01-validation/) for
 requirements. Edit the deck sources for content and the entry frontmatter for
 presentation configuration.
 
+## Brand marks
+
+The decks show the CUBRID Lab emblem (the favicon), the horizontal lockup and, in the Operator deck, the Operator icon. Because the decks run offline, `public/favicon.svg` and `public/brand/*.svg` are byte-identical copies from a recorded `cubrid-lab/brand` revision (decision 6 of the brand repository's `BRAND_USAGE.md`); [`public/brand/README.md`](public/brand/README.md) records the revision and rules, and `SHA256SUMS` lets you verify them with `cd public && sha256sum -c brand/SHA256SUMS`. Use the `BrandMark` component and only scale the mark.
+
 ## Published HTML presentations
 
 Open the [showcase viewer](https://cubrid-lab.github.io/showcase/) to select a

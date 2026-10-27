@@ -23,6 +23,7 @@ defaults:
 ---
 
 <div class="cover">
+  <BrandMark name="lockup-horizontal" alt="CUBRID Lab" :height="52" />
   <p class="kicker">2026 오픈소스 개발자대회</p>
   <h1>If someone were<br>interested</h1>
   <p class="lead">멈춰 있던 CUBRID dialect를 이어받아 생태계가 되기까지</p>
@@ -677,12 +678,20 @@ Python은 끝이 아니라 레퍼런스입니다. 드라이버, ORM, 예제, AI�
     </div>
     <p class="thanks">감사합니다 — 최영선 · 백경준</p>
   </div>
-  <div class="frame"><Photo src="/photos/team-now.jpg" label="지금의 두 사람 사진" /></div>
+  <div class="stack">
+    <div class="frame"><Photo src="/photos/team-now.jpg" label="지금의 두 사람 사진" /></div>
+    <div class="closing-brand">
+      <BrandMark name="lockup-horizontal" alt="CUBRID Lab" :height="34" />
+      <p class="notice">CUBRID Lab은 CUBRID Corporation 및 공식 CUBRID 프로젝트와 제휴·후원·보증 관계가 없는 독립 프로젝트입니다. CUBRID는 해당 권리자의 상표입니다.</p>
+    </div>
+  </div>
 </div>
 
 <style>
-.frame { height: 400px; }
+.frame { height: 330px; }
 .thanks { font-size: 1.2rem; font-weight: 700; margin-top: 8px; }
+.closing-brand { display: grid; gap: 8px; }
+.notice { max-width: none; margin: 0; font-size: 0.62rem; line-height: 1.5; color: var(--muted); }
 </style>
 
 <!--
