@@ -1,5 +1,7 @@
 # Contributing
 
+**Title policy:** Use type-only issue titles (`feat:`, `bug:`, `docs:`) without module scopes. Keep Conventional Commits for PRs/commits and verifiable acceptance criteria for issues; triage and PR CI have separate responsibilities. See [organization guidance](https://github.com/cubrid-lab/.github/blob/main/docs/ISSUE_PR_COMMIT_STANDARD.md).
+
 Use a focused pull request with a clear purpose, changed files, validation
 evidence and any required documentation updates. Human contributors and
 all AI-assisted implementations follow the same review criteria.
