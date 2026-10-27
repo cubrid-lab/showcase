@@ -11,8 +11,8 @@
 ## CUBRID Lab introduction video (2026)
 
 프로젝트 소개 영상(≤3:00, 한국어 AI 내레이션)의 설계와 콘티:
-[`intro-2026/VIDEO_DESIGN.md`](intro-2026/VIDEO_DESIGN.md) ·
-[style frames](intro-2026/style-frames/png/contact-sheet.png).
-Remotion 모션 그래픽 프로젝트와 제작 절차: [`intro-2026/`](intro-2026/) (렌더된 MP4는 커밋하지 않습니다).
+[`intro-2026/VIDEO_DESIGN.md`](../../projects/cubrid-lab/intro-video/VIDEO_DESIGN.md) ·
+[style frames](../../projects/cubrid-lab/intro-video/style-frames/png/contact-sheet.png).
+Remotion 모션 그래픽 프로젝트와 제작 절차: [`intro-2026/`](../../projects/cubrid-lab/intro-video/) (렌더된 MP4는 커밋하지 않습니다).
 Design [#50](https://github.com/cubrid-lab/showcase/issues/50) · production [#51](https://github.com/cubrid-lab/showcase/issues/51).
 위 목록의 대회 데모 백업 녹화([#1](https://github.com/cubrid-lab/showcase/issues/1))와는 별개입니다.
