@@ -80,7 +80,7 @@ the verified PDF and PPTX, a `presentation-manifest.json` (source commit,
 workflow run, metrics snapshot, file sizes and hashes) and `SHA256SUMS`. The
 current one is
 [`ossdevcon-2026-presentation-2026-10-25`](https://github.com/cubrid-lab/showcase/releases/tag/ossdevcon-2026-presentation-2026-10-25);
-the [contest README](../contests/2026-ossdevcon/README.md#presentation) links
+the [contest README](../events/2026-ossdevcon/README.md#presentation) links
 its download URLs. To publish a new revision, take the artifact from a `main`
 run, run `scripts/verify_exports.py --pdf <file> --pptx <file>` against those
 exact files, inspect them visually, and create a new prerelease tag rather than
