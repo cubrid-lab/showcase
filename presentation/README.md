@@ -4,6 +4,8 @@ Shared Slidev tooling for the [showcase presentations](../README.md).
 `slides.md` remains the 2026 OSS Developer Contest deck; its existing commands
 and scripts continue to use that entry.
 
+The supporting contest materials are in [events/2026-ossdevcon](../events/2026-ossdevcon/), while the published HTML slides deliberately retain the historical `/contests/2026-ossdevcon/` route for existing links.
+
 The Operator uses `operator-first-validation.ko.md` and
 `operator-first-validation.en.md` as thin entry files. They import the
 [event's web slide sources](decks/2026-builder-season4/01-validation/)
