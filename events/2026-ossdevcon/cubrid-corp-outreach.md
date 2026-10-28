@@ -20,10 +20,10 @@ sqlalchemy-hana에 기여하면서 데이터베이스 dialect 개발을 시작�
 
 | 패키지 | 설명 | PyPI |
 |---|---|---|
-| pycubrid | 순수 Python DB-API 2.0 드라이버 (asyncio, TLS) | v1.7.1 |
-| sqlalchemy-cubrid | SQLAlchemy 2.0 dialect (ORM, Alembic, ENUM) | v1.7.1 |
-| cubrid-cookbook-python | 68 예제 + 7 템플릿 (FastAPI~AI Agent) | — |
-| cubrid-mcp-server | **세계 최초 CUBRID MCP 서버** (AI/LLM 접근) | v0.4.0 |
+| pycubrid | 순수 Python DB-API 2.0 드라이버 (asyncio, TLS) | 공개 |
+| sqlalchemy-cubrid | SQLAlchemy 2.0 dialect (ORM, Alembic, ENUM) | 공개 |
+| cubrid-cookbook-python | 50여 개 예제 + 7 템플릿 (FastAPI~AI Agent) | — |
+| cubrid-mcp-server | **세계 최초 CUBRID MCP 서버** (AI/LLM 접근) | 공개 |
 
 ## 요청 사항
 
@@ -41,21 +41,21 @@ sqlalchemy-hana에 기여하면서 데이터베이스 dialect 개발을 시작�
 
 - GitHub: https://github.com/cubrid-lab
 - Documentation: https://cubrid-lab.github.io/pycubrid/
-- PyPI: https://pypi.org/project/pycubrid/ (v1.7.1)
-- MCP Server: https://pypi.org/project/cubrid-mcp-server/ (v0.4.0)
-- 테스트: 2,200개 (Python 5 × CUBRID 4 = 20 CI 조합)
+- PyPI: https://pypi.org/project/pycubrid/
+- MCP Server: https://pypi.org/project/cubrid-mcp-server/
+- CI: Python 5 × CUBRID 4 = 20개 조합 라이브 DB 테스트
 - 오픈소스 개발자대회 출품작 (2026, 1차 통과)
 
 ## 왜 중요한가
 
-CUBRID의 공식 Python 드라이버가 2014년 이후 유지보수되지 않으면서
-Python 개발자들이 CUBRID를 사용하기 어려웠습니다. 저희 생태계는:
+CUBRID 공식 Python 드라이버는 2014년 이후 PyPI에 새 릴리스가 없고, 이후 버전은
+GitHub에서 받아 C 확장을 직접 빌드해야 해서 Python 개발자들이 CUBRID를 쓰기 어려웠습니다. 저희 생태계는:
 
 - `pip install pycubrid` 한 줄로 설치 (C 컴파일러 불필요)
 - asyncio 네이티브 지원 (공식 드라이버 미지원)
-- Python 3.10~3.14 지원 (공식 드라이버는 3.4까지)
+- Python 3.10~3.14 지원
 - MCP를 통한 AI/LLM 접근 (세계 최초)
-- 95% 커버리지 + 2,200 테스트로 검증
+- CI에서 커버리지 95% 하한과 20개 조합 라이브 DB 테스트로 검증
 
 이것이 공공부문 CUBRID 사용자(2,367개 설치, 2025년 말 행안부·NIA 보고서 표 46)에게 Python + AI 접근 경로를
 열어줄 것이라 믿습니다.

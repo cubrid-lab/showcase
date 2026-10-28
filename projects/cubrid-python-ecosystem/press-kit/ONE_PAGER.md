@@ -9,7 +9,7 @@ Rebuilt from scratch for SQLAlchemy 2.0, then built the driver too.
 
 ## The Problem
 
-CUBRID ranks **second among the top five Korean public-sector DBMS vendors**, with **2,367 installations — 13.24% of the top-five total**, after Oracle (end of 2025, [MOIS/NIA report, printed page 57, table 46](https://www.data.go.kr/data/3038513/fileData.do)). The official Python driver's last release was **May 2014** — no asyncio, no SQLAlchemy 2.x, no modern Python. Teams running those systems had no maintained Python path.
+CUBRID ranks **second among the top five Korean public-sector DBMS vendors**, with **2,367 installations — 13.24% of the top-five total**, after Oracle (end of 2025, [MOIS/NIA report, printed page 57, table 46](https://www.data.go.kr/data/3038513/fileData.do)). The official Python driver's last PyPI release was **May 2014**. Newer versions (up to v11.3.0.51, September 2025) are GitHub-only C extensions you build yourself, without asyncio. Teams running those systems had no Python driver they could `pip install` from a current PyPI release.
 
 ## The Solution
 
@@ -18,20 +18,19 @@ Four packages, pure Python, `pip install` — done.
 ```
 pycubrid            Driver (DB-API 2.0, asyncio, TLS, zero deps)
 sqlalchemy-cubrid   ORM (SQLAlchemy 2.0-2.2, Alembic, ENUM)
-cubrid-cookbook     68 examples + 7 templates (FastAPI to AI agent)
-cubrid-mcp-server   AI/LLM access (12 tools, read-only whitelist, domain knowledge)
+cubrid-cookbook     50+ examples + 7 templates (FastAPI to AI agent)
+cubrid-mcp-server   AI/LLM access (11 read tools; write tool opt-in; domain knowledge)
 ```
 
-## Key Metrics (2026-09-12)
+## Key Metrics (2026-10-25 snapshot)
 
 | | |
 |---|---|
-| GitHub stars | 119 |
-| Merged PRs | 450 |
-| PyPI releases | 35 |
-| Tests | 2,200 (CI-enforced) |
+| GitHub stars | 129 (4 repos) |
+| Merged PRs | 1,553 |
+| GitHub Releases | 61 (3 package repos) |
 | CI combinations | Python 5 × CUBRID 4 = 20 |
-| Documentation | 4 sites, 34 Korean pages |
+| Documentation | 4 sites, including Korean docs |
 | License | MIT (all 4 repos) |
 
 **Community**: SQLAlchemy Korea organizer (since Oct 2020, after Gitter chat with Mike Bayer)
@@ -56,10 +55,12 @@ Reproducible benchmarks at [cubrid-benchmark](https://github.com/cubrid-lab/cubr
 
 | Language | Driver | ORM | Status |
 |---|---|---|---|
-| Python | pycubrid v1.7.1 | sqlalchemy-cubrid v1.7.1 | **Complete** |
-| TypeScript | cubrid-client v1.1.0 | drizzle-cubrid v0.2.1 | In progress |
-| Go | cubrid-go v0.2.1 | gorm-cubrid v0.1.0 | In progress |
-| Rust | cubrid-rs v0.1.0 | sea-orm-cubrid v0.1.0 | In progress |
+| Python | pycubrid | sqlalchemy-cubrid | **Complete** |
+| TypeScript | cubrid-client | drizzle-cubrid | In progress |
+| Go | cubrid-go | gorm-cubrid | In progress |
+| Rust | cubrid-rs | sea-orm-cubrid | In progress |
+
+Current versions are on each repository's releases page.
 
 Community: Led by SQLAlchemy Korea organizer (since 2020).
 Same playbook (driver -> ORM -> examples -> AI) for each language.
@@ -69,7 +70,7 @@ Same playbook (driver -> ORM -> examples -> AI) for each language.
 1. **World's only** pure Python CUBRID driver (no C extensions)
 2. **World's only** MCP server for CUBRID (AI/LLM access)
 3. **Domain knowledge built-in** — MCP server teaches LLMs CUBRID SQL dialect
-4. **450 PRs validated** by AI-agent workflow with human review gates
+4. **1,553 merged PRs** (2026-10-25) through an AI-agent workflow with human review and CI gates
 5. **Production-ready** — 7 runnable templates, golden-verified examples
 
 ## Links

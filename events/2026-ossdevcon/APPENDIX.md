@@ -48,7 +48,7 @@
 │  ├── types.py (CUBRID type system)         │
 │  ├── dml.py (MERGE, ODKU, REPLACE)         │
 │  ├── alembic_impl.py (migrations)          │
-│  └── requirements.py (53 SA test flags)    │
+│  └── requirements.py (60+ SA test flags)   │
 ├─────────────────────────────────────────────┤
 │  pycubrid (or CUBRIDdb legacy driver)      │
 └─────────────────────────────────────────────┘
@@ -56,7 +56,7 @@
 
 **Key design decisions:**
 - Supports 3 driver URLs: `cubrid+pycubrid://`, `cubrid+aiopycubrid://`, `cubrid+cubriddb://`
-- Official SQLAlchemy test suite integrated (53 feature flags)
+- Official SQLAlchemy test suite integrated (60+ feature flags)
 - Non-transactional DDL handling (CUBRID auto-commits DDL)
 - `insertmanyvalues` batch optimization (SA 2.x)
 

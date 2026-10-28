@@ -10,7 +10,7 @@ Gitter에서 Mike와 교류한 후, SQLAlchemy 2.0 기준으로 처음부터 다
 
 ## 문제
 
-CUBRID는 **공공부문 DBMS 상위 5개 벤더 중 2위 — 2,367개 설치, 상위 5개 합계 대비 13.24%** (2025년 말, [행안부·NIA 보고서 인쇄면 57쪽 표 46](https://www.data.go.kr/data/3038513/fileData.do)). 그런데 공식 Python 드라이버의 마지막 릴리스는 **2014년 5월** — asyncio 없음, SQLAlchemy 2.x 없음, 현대 Python 미지원. 이 시스템들을 운영하는 팀에게는 유지보수되는 Python 경로가 없었습니다.
+CUBRID는 **공공부문 DBMS 상위 5개 벤더 중 2위 — 2,367개 설치, 상위 5개 합계 대비 13.24%** (2025년 말, [행안부·NIA 보고서 인쇄면 57쪽 표 46](https://www.data.go.kr/data/3038513/fileData.do)). 그런데 PyPI에 올라온 공식 Python 드라이버의 마지막 릴리스는 **2014년 5월**입니다. 이후 버전(2025년 9월 v11.3.0.51까지)은 GitHub에서 받아 C 확장을 직접 빌드해야 하고 asyncio를 지원하지 않습니다. 이 시스템들을 운영하는 팀에게는 `pip install`로 바로 쓸 수 있는 Python 드라이버가 없었습니다.
 
 ## 해결
 
@@ -19,20 +19,19 @@ CUBRID는 **공공부문 DBMS 상위 5개 벤더 중 2위 — 2,367개 설치, �
 ```
 pycubrid            드라이버 (DB-API 2.0, asyncio, TLS, 의존성 0)
 sqlalchemy-cubrid   ORM (SQLAlchemy 2.0-2.2, Alembic, ENUM)
-cubrid-cookbook     68개 예제 + 7개 템플릿 (FastAPI부터 AI 에이전트까지)
-cubrid-mcp-server   AI/LLM 접근 (12개 도구, 읽기 전용 화이트리스트, 도메인 지식)
+cubrid-cookbook     50여 개 예제 + 7개 템플릿 (FastAPI부터 AI 에이전트까지)
+cubrid-mcp-server   AI/LLM 접근 (읽기 도구 11개, 쓰기 도구는 켤 때만, 도메인 지식)
 ```
 
-## 핵심 지표 (2026-09-12)
+## 핵심 지표 (2026-10-25 스냅숏)
 
 | | |
 |---|---|
-| GitHub 스타 | 119 |
-| 병합된 PR | 450개 |
-| PyPI 릴리스 | 35회 |
-| 테스트 | 2,200개 (CI 강제) |
+| GitHub 스타 | 129 (4개 저장소) |
+| 병합된 PR | 1,553개 |
+| GitHub Releases | 61회 (패키지 3개 저장소) |
 | CI 조합 | Python 5 × CUBRID 4 = 20개 |
-| 문서 | 4개 사이트, 한국어 34페이지 |
+| 문서 | 4개 사이트, 한국어 문서 포함 |
 | 라이선스 | MIT (4개 전부) |
 
 **커뮤니티**: SQLAlchemy Korea 운영 (2020.10~, Gitter에서 Mike Bayer와 논의 후 개설)
@@ -56,10 +55,12 @@ PK 조회에 1.12배, 1만 행 조회에 1.25배의 시간이 걸렸습니다([�
 
 | 언어 | 드라이버 | ORM | 상태 |
 |---|---|---|---|
-| Python | pycubrid v1.7.1 | sqlalchemy-cubrid v1.7.1 | **완성** |
-| TypeScript | cubrid-client v1.1.0 | drizzle-cubrid v0.2.1 | 진행 중 |
-| Go | cubrid-go v0.2.1 | gorm-cubrid v0.1.0 | 진행 중 |
-| Rust | cubrid-rs v0.1.0 | sea-orm-cubrid v0.1.0 | 진행 중 |
+| Python | pycubrid | sqlalchemy-cubrid | **완성** |
+| TypeScript | cubrid-client | drizzle-cubrid | 진행 중 |
+| Go | cubrid-go | gorm-cubrid | 진행 중 |
+| Rust | cubrid-rs | sea-orm-cubrid | 진행 중 |
+
+최신 버전은 각 저장소의 릴리스 페이지에서 확인합니다.
 
 커뮤니티: SQLAlchemy Korea 운영 경험(2020~)으로, 언어마다 같은 순서(드라이버 → ORM → 예제 → AI)를 적용합니다.
 
@@ -68,7 +69,7 @@ PK 조회에 1.12배, 1만 행 조회에 1.25배의 시간이 걸렸습니다([�
 1. **세계 유일**의 순수 Python CUBRID 드라이버 (C 확장 없음)
 2. **세계 유일**의 CUBRID MCP 서버 (AI/LLM 접근)
 3. **도메인 지식 내장** — MCP 서버가 LLM에게 CUBRID SQL 구문을 가르침
-4. **450개 PR 검증** — AI 에이전트가 작성, 사람이 리뷰하는 워크플로우
+4. **병합된 PR 1,553개** (2026-10-25) — AI 에이전트가 작성하고 사람이 리뷰, CI 게이트를 통과
 5. **프로덕션 준비 완료** — 7개 실행 가능한 템플릿, 골든 검증 예제
 
 ## 링크
