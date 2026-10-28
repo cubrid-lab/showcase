@@ -1,87 +1,85 @@
 WEBVTT
 
-00:00:00.200 --> 00:00:01.340
+00:00:00.200 --> 00:00:00.964
 CUBRID,
 
-00:00:02.200 --> 00:00:03.391
+00:00:02.200 --> 00:00:02.912
 in Python.
 
-00:00:06.200 --> 00:00:11.036
+00:00:06.200 --> 00:00:09.451
 From the driver to the
 ORM, AI and examples.
 
-00:00:12.200 --> 00:00:17.587
+00:00:12.200 --> 00:00:16.698
 Open-source Python tools from
-CUBRID Lab, all MIT-licensed.
+the PyCUBRID team, all MIT-licensed.
 
-00:00:20.200 --> 00:00:22.540
+00:00:20.200 --> 00:00:21.511
 One: pycubrid.
 
-00:00:24.200 --> 00:00:29.603
+00:00:24.200 --> 00:00:30.056
 One line to install: a pure-Python
 driver, no C extensions, no compiling.
 
-00:00:32.200 --> 00:00:40.153
+00:00:32.200 --> 00:00:38.313
 Connect, open a cursor, execute:
 the familiar DB-API 2.0 way.
 
-00:00:44.200 --> 00:00:50.159
+00:00:44.200 --> 00:00:49.584
 asyncio, TLS encryption and
 LOBs are supported too.
 
-00:00:52.200 --> 00:00:55.888
+00:00:52.200 --> 00:00:55.365
 No C compiler. Anywhere Python runs.
 
-00:00:58.200 --> 00:01:01.250
+00:00:58.200 --> 00:01:00.438
 Two: sqlalchemy-cubrid.
 
-00:01:02.200 --> 00:01:07.865
+00:01:02.200 --> 00:01:06.753
 Install it with pycubrid and
 connect with one engine URL.
 
-00:01:10.200 --> 00:01:16.924
+00:01:10.200 --> 00:01:16.179
 Create tables, then save and query
 rows with SQLAlchemy 2.0-style models.
 
-00:01:24.200 --> 00:01:29.840
+00:01:24.200 --> 00:01:28.384
 Alembic migrations, schema
 reflection and an async engine.
 
-00:01:36.200 --> 00:01:39.130
+00:01:36.200 --> 00:01:38.193
 Three: cubrid-mcp-server.
 
-00:01:40.200 --> 00:01:46.033
+00:01:40.200 --> 00:01:45.339
 An AI agent connects to CUBRID
 over MCP and explores the schema.
 
-00:01:50.200 --> 00:01:56.344
+00:01:50.200 --> 00:01:55.473
 The agent turns a question into SQL;
 the server runs read queries only.
 
-00:02:00.200 --> 00:02:04.958
+00:02:00.200 --> 00:02:06.553
 Read-only by default.
 Writes and DDL are rejected,
-
-00:02:04.958 --> 00:02:08.479
 and the write tool isn't even listed.
 
-00:02:12.200 --> 00:02:16.205
+00:02:12.200 --> 00:02:15.921
 Writes open only when an operator
 enables them, per connection.
 
-00:02:20.200 --> 00:02:23.104
+00:02:20.200 --> 00:02:22.463
 Four: cubrid-cookbook-python.
 
-00:02:24.200 --> 00:02:29.824
+00:02:24.200 --> 00:02:28.987
 Start the FastAPI example with
 Docker and check it in the browser.
 
-00:02:34.200 --> 00:02:41.488
+00:02:34.200 --> 00:02:39.623
 Flask, Django, dashboards,
 AI agents and a Java migration guide.
 
-00:02:42.200 --> 00:02:46.207
+00:02:42.200 --> 00:02:44.717
 CUBRID from Python, end to end.
 
-00:02:48.200 --> 00:02:51.304
-Get started at github.com/cubrid-lab.
+00:02:48.200 --> 00:02:49.786
+Get started on GitHub.

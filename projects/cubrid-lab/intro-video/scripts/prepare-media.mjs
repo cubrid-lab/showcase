@@ -42,5 +42,5 @@ for (const shot of timeline.shots) {
 		place(join(assets, shot.narration.src), shot.narration.src);
 	}
 }
-place(join(root, '..', '..', 'presentation', 'public', 'fonts', 'PretendardVariable.woff2'), 'fonts/PretendardVariable.woff2');
+place(join(root, '..', '..', '..', 'presentation', 'public', 'fonts', 'PretendardVariable.woff2'), 'fonts/PretendardVariable.woff2');
 console.log(`media linked from ${assets} into ${join(root, 'public')}`);

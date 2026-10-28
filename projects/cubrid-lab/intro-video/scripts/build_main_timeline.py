@@ -205,14 +205,14 @@ shot('F2', 168, 8, 'introEndCard', {
   'installs': ['pip install pycubrid', 'pip install "sqlalchemy-cubrid[pycubrid]"', 'uvx cubrid-mcp-server'],
   'url': 'cubrid-lab',
   'notices': [
-    '내레이션: AI 생성 음성(TTS) · Narration: AI-generated voice',
-    'CUBRID Lab은 CUBRID Corporation 및 공식 CUBRID 프로젝트와 제휴·후원·보증 관계가 없는 독립 프로젝트입니다. CUBRID는 해당 권리자의 상표입니다.',
-    'CUBRID Lab is independently maintained and is not affiliated with, sponsored by, or endorsed by CUBRID Corporation or the official CUBRID project.',
+    '내레이션: AI 생성 음성(Supertonic TTS) · Narration: AI-generated voice (Supertonic)',
+    '파이큐브리드팀은 CUBRID Corporation 및 공식 CUBRID 프로젝트와 제휴·후원·보증 관계가 없는 독립 오픈소스 팀입니다. CUBRID는 해당 권리자의 상표입니다.',
+    'The PyCUBRID team is independent and is not affiliated with, sponsored by, or endorsed by CUBRID Corporation or the official CUBRID project.',
   ],
 }, trans={'type': 'fade', 'duration': 12})
 
 tl = {
-  'meta': {'title': 'CUBRID Lab introduction video 2026 — main cut (VIDEO_DESIGN.md, 25 shots, 2:56)', 'fps': 30, 'width': 1920, 'height': 1080, 'draft': False,
+  'meta': {'title': 'PyCUBRID team introduction video 2026 — main cut (VIDEO_DESIGN.md, 25 shots, 2:56)', 'fps': 30, 'width': 1920, 'height': 1080, 'draft': False,
            'note': 'Shot ids follow the storyboard; C4b and K2b are the second halves of C4 and K2.'},
   'music': {'src': 'music/bed.wav', 'volume': 1, 'duckedVolume': 0.398, 'rampFrames': 6, 'fadeInFrames': 1, 'fadeOutFrames': 1},
   'shots': shots,
