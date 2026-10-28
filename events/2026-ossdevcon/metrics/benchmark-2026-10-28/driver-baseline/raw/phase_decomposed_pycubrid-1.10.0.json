@@ -1,0 +1,191 @@
+{
+  "metadata": {
+    "tool": "phase_decomposed_bench.py",
+    "pycubrid_version": "1.10.0",
+    "driver_commit": "pypi:1.10.0",
+    "python_version": "CPython 3.12.13",
+    "iterations": 200,
+    "warmup": 50,
+    "row_count": 10000,
+    "timer": "time.perf_counter_ns()",
+    "timestamp": "2026-10-28T23:42:02+0900"
+  },
+  "results": {
+    "connect": {
+      "mean_ms": 1.4162,
+      "stdev_ms": 0.1404,
+      "p50_ms": 1.3951,
+      "p95_ms": 1.6703,
+      "p99_ms": 1.8062,
+      "cv_pct": 9.92,
+      "min_ms": 1.157,
+      "max_ms": 1.85,
+      "count": 200
+    },
+    "insert_execute": {
+      "mean_ms": 5.7084,
+      "stdev_ms": 1.4912,
+      "p50_ms": 6.2159,
+      "p95_ms": 7.1872,
+      "p99_ms": 7.6516,
+      "cv_pct": 26.12,
+      "min_ms": 1.3162,
+      "max_ms": 7.9119,
+      "count": 200
+    },
+    "insert_commit": {
+      "mean_ms": 139.7181,
+      "stdev_ms": 56.1345,
+      "p50_ms": 123.3993,
+      "p95_ms": 236.8752,
+      "p99_ms": 350.5963,
+      "cv_pct": 40.18,
+      "min_ms": 76.0388,
+      "max_ms": 537.3808,
+      "count": 200
+    },
+    "insert_total": {
+      "mean_ms": 145.4266,
+      "stdev_ms": 56.0964,
+      "p50_ms": 127.1384,
+      "p95_ms": 239.3663,
+      "p99_ms": 355.8184,
+      "cv_pct": 38.57,
+      "min_ms": 82.8783,
+      "max_ms": 544.4181,
+      "count": 200
+    },
+    "select_pk_execute": {
+      "mean_ms": 0.9356,
+      "stdev_ms": 0.122,
+      "p50_ms": 0.9258,
+      "p95_ms": 1.158,
+      "p99_ms": 1.2138,
+      "cv_pct": 13.04,
+      "min_ms": 0.7031,
+      "max_ms": 1.2649,
+      "count": 200
+    },
+    "select_pk_fetch": {
+      "mean_ms": 0.0013,
+      "stdev_ms": 0.0001,
+      "p50_ms": 0.0013,
+      "p95_ms": 0.0015,
+      "p99_ms": 0.0017,
+      "cv_pct": 10.72,
+      "min_ms": 0.001,
+      "max_ms": 0.0017,
+      "count": 200
+    },
+    "select_pk_total": {
+      "mean_ms": 0.9369,
+      "stdev_ms": 0.122,
+      "p50_ms": 0.9271,
+      "p95_ms": 1.1595,
+      "p99_ms": 1.2152,
+      "cv_pct": 13.03,
+      "min_ms": 0.7043,
+      "max_ms": 1.2664,
+      "count": 200
+    },
+    "select_full_execute": {
+      "mean_ms": 6.602,
+      "stdev_ms": 0.2017,
+      "p50_ms": 6.5646,
+      "p95_ms": 7.03,
+      "p99_ms": 7.2916,
+      "cv_pct": 3.06,
+      "min_ms": 6.3175,
+      "max_ms": 7.6691,
+      "count": 200
+    },
+    "select_full_fetch": {
+      "mean_ms": 37.0421,
+      "stdev_ms": 1.7098,
+      "p50_ms": 36.9746,
+      "p95_ms": 40.049,
+      "p99_ms": 42.781,
+      "cv_pct": 4.62,
+      "min_ms": 32.9235,
+      "max_ms": 43.9567,
+      "count": 200
+    },
+    "select_full_total": {
+      "mean_ms": 43.6442,
+      "stdev_ms": 1.8078,
+      "p50_ms": 43.541,
+      "p95_ms": 46.8591,
+      "p99_ms": 49.773,
+      "cv_pct": 4.14,
+      "min_ms": 39.241,
+      "max_ms": 51.0184,
+      "count": 200
+    },
+    "update_execute": {
+      "mean_ms": 4.6363,
+      "stdev_ms": 1.5115,
+      "p50_ms": 5.0704,
+      "p95_ms": 5.9555,
+      "p99_ms": 6.2792,
+      "cv_pct": 32.6,
+      "min_ms": 1.1431,
+      "max_ms": 15.2803,
+      "count": 200
+    },
+    "update_commit": {
+      "mean_ms": 174.0093,
+      "stdev_ms": 70.3866,
+      "p50_ms": 157.8374,
+      "p95_ms": 312.0467,
+      "p99_ms": 386.9101,
+      "cv_pct": 40.45,
+      "min_ms": 51.6808,
+      "max_ms": 462.5423,
+      "count": 200
+    },
+    "update_total": {
+      "mean_ms": 178.6456,
+      "stdev_ms": 70.4414,
+      "p50_ms": 162.7432,
+      "p95_ms": 317.0768,
+      "p99_ms": 392.3704,
+      "cv_pct": 39.43,
+      "min_ms": 56.9276,
+      "max_ms": 466.9498,
+      "count": 200
+    },
+    "delete_execute": {
+      "mean_ms": 4.5088,
+      "stdev_ms": 3.1158,
+      "p50_ms": 4.7745,
+      "p95_ms": 5.911,
+      "p99_ms": 6.6067,
+      "cv_pct": 69.1,
+      "min_ms": 1.0001,
+      "max_ms": 39.2511,
+      "count": 200
+    },
+    "delete_commit": {
+      "mean_ms": 143.4473,
+      "stdev_ms": 59.2114,
+      "p50_ms": 128.1104,
+      "p95_ms": 254.5901,
+      "p99_ms": 347.5108,
+      "cv_pct": 41.28,
+      "min_ms": 35.3588,
+      "max_ms": 437.0994,
+      "count": 200
+    },
+    "delete_total": {
+      "mean_ms": 147.9562,
+      "stdev_ms": 59.7349,
+      "p50_ms": 133.2864,
+      "p95_ms": 258.9384,
+      "p99_ms": 351.6646,
+      "cv_pct": 40.37,
+      "min_ms": 41.5802,
+      "max_ms": 442.1154,
+      "count": 200
+    }
+  }
+}

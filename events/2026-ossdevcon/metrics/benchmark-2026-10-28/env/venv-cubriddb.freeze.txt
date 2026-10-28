@@ -1,0 +1,2 @@
+cubrid-python @ file://<run-dir>/cubrid-python
+setuptools==84.2.1

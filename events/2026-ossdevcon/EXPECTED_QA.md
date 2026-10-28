@@ -56,11 +56,12 @@ No GPL anywhere in our dependency trees.
 
 ## Q5: How does performance compare to C extensions?
 
-We measured it on 2026-10-25 against the official C driver on the same
-CUBRID 11.4.6 server: pycubrid is about 1.12x the time on a primary-key
-SELECT and 1.25x on fetching 10,000 rows. It is a little slower, because it
+We measured it on 2026-10-28 against the official C driver on the same
+CUBRID 11.4.6 server: pycubrid 1.15.0 is about 1.04x the time on a primary-key
+SELECT, 1.17x on fetching 10,000 rows and 1.04x on inserting 10,000 rows
+with executemany (within the noise for that one). It is a little slower, because it
 is pure Python. In return you get `pip install` without a compiler,
-cross-platform use, native asyncio and TLS. Caveat: one shared, loaded host,
+cross-platform use, native asyncio and TLS. Caveat: one shared host,
 so the ratios are more reliable than absolute times
 ([APPENDIX 2](APPENDIX.md#2-performance-evidence)).
 
@@ -70,7 +71,7 @@ We built cubrid-benchmark (separate repo) for reproducible comparison,
 then used profiling scripts to find bottlenecks. Earlier results (not
 rerun; run date and versions not recorded) include native ping +280%
 throughput and pool_pre_ping +588%; treat them as history, not a current
-measurement. The current numbers are the 2026-10-25 same-server comparison
+measurement. The current numbers are the 2026-10-28 same-server comparison
 above ([APPENDIX 2](APPENDIX.md#2-performance-evidence)). In a niche market,
 you benchmark yourself.
 

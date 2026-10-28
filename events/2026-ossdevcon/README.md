@@ -88,7 +88,7 @@ Terminal demo GIFs are generated from VHS (.tape) scripts in each repo:
 
 - [Slidev presentation](../../presentation/README.md) — development and export instructions
 - [Metrics snapshot](metrics/SNAPSHOT.md) — provenance and measurement details
-- [Benchmark rerun 2026-10-25](metrics/benchmark-2026-10-25/README.md) — versions, environment, commands and raw output of the performance numbers on the deck
+- [Benchmark rerun 2026-10-28](metrics/benchmark-2026-10-28/README.md) — versions, environment, commands and raw output of the performance numbers on the deck ([previous run, 2026-10-25](metrics/benchmark-2026-10-25/README.md))
 - [English one-pager](../../projects/cubrid-python-ecosystem/press-kit/ONE_PAGER.md)
 - [Korean one-pager](../../projects/cubrid-python-ecosystem/press-kit/ONE_PAGER.ko.md)
 

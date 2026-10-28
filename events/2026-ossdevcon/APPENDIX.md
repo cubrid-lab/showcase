@@ -58,31 +58,34 @@ Design choices worth knowing (details in each repository's docs):
 
 ## 2. Performance evidence
 
-**Headline: the 2026-10-25 same-server comparison.** Full provenance, raw output and
+**Headline: the 2026-10-28 same-server comparison.** Full provenance, raw output and
 environment freeze files are in
-[metrics/benchmark-2026-10-25](metrics/benchmark-2026-10-25/README.md).
+[metrics/benchmark-2026-10-28](metrics/benchmark-2026-10-28/README.md). It repeats the
+method of the [2026-10-25 rerun](metrics/benchmark-2026-10-25/README.md), which is kept
+unchanged.
 
-Measured 2026-10-25 08:15-10:16 UTC with the unmodified
+Measured 2026-10-28 13:39-14:57 UTC with the unmodified
 [cubrid-benchmark](https://github.com/cubrid-lab/cubrid-benchmark) harnesses at commit
-`b002085`. Both drivers ran against one CUBRID 11.4.6 server (Docker `cubrid/cubrid:11.4`)
+`831d495` (harness files byte-identical to the 2026-10-25 run). Both drivers ran against one CUBRID 11.4.6 server (Docker `cubrid/cubrid:11.4`)
 on one host (Intel i5-9400F, 6 cores, 31 GiB, Ubuntu 22.04.5), CPython 3.12.13,
 `autocommit=False`, 10,000 seeded rows, 5 trials per driver in rotating order, warm-up
-discarded, every iteration verified. Driver versions: pycubrid 1.13.5 (PyPI) and CUBRIDdb
+discarded, every iteration verified. Driver versions: pycubrid 1.15.0 (PyPI) and CUBRIDdb
 from cubrid-python `v11.3.0.51` (C extension over CCI). Pooled medians; lower is faster.
 
-| Operation | pycubrid 1.13.5 | CUBRIDdb | pycubrid ÷ CUBRIDdb |
-|---|---:|---:|---:|
-| connect + close | 2.11 ms | 1.51 ms | 1.40× |
-| SELECT by primary key | 0.84 ms | 0.75 ms | 1.12× |
-| `fetchall`, 10,000 rows | 51.3 ms | 41.1 ms | 1.25× |
-| `executemany` 10,000 rows + commit | 3,899 ms | 3,258 ms | 1.20× |
+| Operation | pycubrid 1.15.0 | CUBRIDdb | pycubrid ÷ CUBRIDdb | 2026-10-25 (1.13.5) |
+|---|---:|---:|---:|---:|
+| connect + close | 1.71 ms | 1.20 ms | 1.43× | 1.40× |
+| SELECT by primary key | 0.735 ms | 0.709 ms | 1.04× | 1.12× |
+| `fetchall`, 10,000 rows | 48.7 ms | 41.5 ms | 1.17× | 1.25× |
+| `executemany` 10,000 rows + commit | 3,772 ms | 3,612 ms | 1.04× (95% CI 0.97–1.20) | 1.20× |
 
 - Concurrency (SELECT by primary key, 8 workers, one connection each): pycubrid sync
-  2,906 and `pycubrid.aio` 2,005 queries/s against CUBRIDdb 995 queries/s.
-- pycubrid 1.13.5 against 1.10.0 in the same run: no regression by the harness's rule
+  4,533 and `pycubrid.aio` 3,958 queries/s against CUBRIDdb 747 queries/s.
+- pycubrid 1.15.0 against 1.10.0 in the same run: no regression by the harness's rule
   (median more than 5% slower with non-overlapping IQRs).
-- Caveat: the host was shared and heavily loaded (1-minute load average 6-25 on
-  6 cores), with one server and localhost networking. Trust the ratios more than the
+- Caveat: the host was shared (1-minute load average 2-15 on 6 cores, lighter than the
+  6-25 of 2026-10-25), with one server and localhost networking. Part of the change
+  from 2026-10-25 may come from the lighter load, not only from the newer driver. Trust the ratios more than the
   absolute times. The full table (95% intervals, more operations) and the pycubrid-only
   Tier 1 workload are in the benchmark README.
 
@@ -143,8 +146,8 @@ humans push release tags. See each repository's Actions page (links in
 
 **Release versions are point-in-time.** pycubrid 1.13.3 and sqlalchemy-cubrid 1.11.5
 were the latest on 2026-10-24 and appear in the 2026-10-25 snapshot, which was not
-refreshed after later releases. The benchmark used pycubrid 1.13.5 (released
-2026-10-25 02:10 UTC, before the run). Newer releases have shipped since; check the
+refreshed after later releases. The current benchmark (2026-10-28) used pycubrid 1.15.0; the 2026-10-25 run used
+1.13.5 (released 2026-10-25 02:10 UTC, before that run). Newer releases have shipped since; check the
 [pycubrid](https://pypi.org/project/pycubrid/),
 [sqlalchemy-cubrid](https://pypi.org/project/sqlalchemy-cubrid/) and
 [cubrid-mcp-server](https://pypi.org/project/cubrid-mcp-server/) pages for the latest.
@@ -180,5 +183,6 @@ current status.
 - [VERIFY.md](VERIFY.md): commands to reproduce and verify
 - [metrics/SNAPSHOT.md](metrics/SNAPSHOT.md): repository metrics, 2026-10-25
 - [metrics/contributors-2026-10-28.json](metrics/contributors-2026-10-28.json): outside contributors, 2026-10-28
-- [metrics/benchmark-2026-10-25](metrics/benchmark-2026-10-25/README.md): benchmark rerun, raw data
+- [metrics/benchmark-2026-10-28](metrics/benchmark-2026-10-28/README.md): current benchmark rerun, raw data
+- [metrics/benchmark-2026-10-25](metrics/benchmark-2026-10-25/README.md): previous benchmark rerun, raw data
 - [cubrid-benchmark](https://github.com/cubrid-lab/cubrid-benchmark): harnesses and earlier runs
