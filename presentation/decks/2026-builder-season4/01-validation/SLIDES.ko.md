@@ -77,7 +77,7 @@ CUBRID에는 이미 공식 Operator가 있습니다. HA 상태 조회, 스토리
 
 <OperatorSlide class="op-compact" section="1 · 기존 방식 비교" index="06" total="18" source="공식 Operator·소스 비교" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/SOURCES.md#comparison-boundaries">
 
-<h1 class="op-title">구체적으로 무엇을 다르게 하나요?</h1><table class="op-comparison"><thead><tr><th></th><th>공식 Operator (지금)</th><th>우리가 바꾸는 것</th></tr></thead><tbody><tr><td><b>master 멤버 확인</b></td><td>처음 응답한 멤버 하나의<br>노드 정보를 그대로 사용</td><td>모든 멤버의 최신 응답을 비교<br>빠지거나 엇갈리면 “미확정”으로 표시</td></tr><tr><td><b>백업 작업 기록</b></td><td>예약 백업을 Pod 안에서 명령으로 실행<br>백업 상태를 기록</td><td>Instance Manager에 요청하고 작업 ID를 볼륨에 기록<br>재시작으로 끊긴 작업은 “실패”로 남김</td></tr><tr><td><b>복원</b></td><td>대상 Pod·스크립트·저장소를 지정</td><td>복원 전에 파일 목록과 체크섬을 확인<br>항상 새 클러스터로 복원</td></tr><tr><td><b>복구 확인</b></td><td>포트 검사</td><td>포트 검사는 같음<br>시험에서 실제 SQL 쓰기·읽기와 데이터까지 확인</td></tr></tbody></table><p class="op-caption">확인한 소스 버전 기준의 비교입니다. 실제 장애에서 어느 쪽이 더 안정적인지는 아직 시험 전입니다.</p>
+<h1 class="op-title">구체적으로 무엇을 다르게 하나요?</h1><table class="op-comparison"><thead><tr><th></th><th>공식 Operator (지금)</th><th>우리가 바꾸는 것</th></tr></thead><tbody><tr><td><b>master 멤버 확인</b></td><td>처음 응답한 멤버 하나의<br>노드 정보를 그대로 사용</td><td>모든 멤버의 최신 응답을 비교<br>빠지거나 엇갈리면 “미확정”으로 표시</td></tr><tr><td><b>백업 작업 기록</b></td><td>예약 백업을 Pod 안에서 명령으로 실행<br>백업 상태를 기록</td><td>Instance Manager에 요청하고 작업 ID를 볼륨에 기록<br>재시작으로 끊긴 작업은 “실패”로 남김</td></tr><tr><td><b>복원</b></td><td>소스에서 복원 기능을 찾지 못함<br>(백업만 지원)</td><td>복원 전에 파일 목록과 체크섬을 확인<br>항상 새 클러스터로 복원</td></tr><tr><td><b>복구 확인</b></td><td>포트 검사</td><td>포트 검사는 같음<br>시험에서 실제 SQL 쓰기·읽기와 데이터까지 확인</td></tr></tbody></table><p class="op-caption">확인한 소스 버전 기준의 비교입니다. 실제 장애에서 어느 쪽이 더 안정적인지는 아직 시험 전입니다.</p>
 
 </OperatorSlide>
 
@@ -85,7 +85,7 @@ CUBRID에는 이미 공식 Operator가 있습니다. HA 상태 조회, 스토리
 [40초 · 1 · 기존 방식 비교]
 5장에서 말씀드린 차이를 조금 더 구체적으로 보여드리겠습니다. 표는 두 프로젝트의 소스를 직접 읽고 정리한 것입니다.
 
-공식 Operator는 처음 응답한 멤버 하나의 정보로 master를 판단합니다. 저희는 모든 멤버의 최신 응답을 비교하고, 빠지거나 엇갈리면 미확정으로 둡니다. 백업 같은 작업은 Instance Manager에 요청하고 작업 ID를 볼륨에 남겨서, 중간에 끊기면 실패로 기록합니다. 복원 전에는 파일 목록과 체크섬을 확인합니다. 운영 중 판단은 두 쪽 모두 포트 검사를 쓰기 때문에, 저희는 시험에서 SQL과 데이터를 따로 확인합니다. 실제 장애에서 어느 쪽이 더 안정적인지는 아직 비교하지 못했습니다.
+공식 Operator는 처음 응답한 멤버 하나의 정보로 master를 판단합니다. 저희는 모든 멤버의 최신 응답을 비교하고, 빠지거나 엇갈리면 미확정으로 둡니다. 백업 같은 작업은 Instance Manager에 요청하고 작업 ID를 볼륨에 남겨서, 중간에 끊기면 실패로 기록합니다. 공식 Operator 소스에서는 복원 기능을 찾지 못했습니다. 저희는 복원 전에 파일 목록과 체크섬을 확인합니다. 운영 중 판단은 두 쪽 모두 포트 검사를 쓰기 때문에, 저희는 시험에서 SQL과 데이터를 따로 확인합니다. 실제 장애에서 어느 쪽이 더 안정적인지는 아직 비교하지 못했습니다.
 -->
 
 ---
@@ -181,9 +181,9 @@ master에 장애가 나면 CUBRID의 역할 전환을 먼저 보고, 멤버별�
   <div><span>01 · SAFE WRITES</span><b>master 불확실·네트워크 분할</b><p>쓰기 성공을 허용하지 않아야 할 순간에 실제 SQL 요청이 차단되는가?</p></div>
   <div><span>02 · RECOVERY</span><b>장애 후 재합류·재구축</b><p>정상 멤버와 이미 커밋한 데이터를 덮어쓰지 않고 복귀하는가?</p></div>
   <div><span>03 · RESTORE</span><b>복원 반복·중단</b><p>여러 번 반복하거나 복원 도중 재시작돼도 데이터가 일치하는가?</p></div>
-  <div><span>04 · REPRODUCE</span><b>스토리지·환경·문서 재현</b><p>정한 Kubernetes·스토리지(CSI) 구성에서 다른 사람도 동일한 결과를 얻는가?</p></div>
+  <div><span>04 · REPRODUCE</span><b>스토리지·환경·문서 재현</b><p>정한 Kubernetes·스토리지(CSI) 구성에서 다른 메인테이너도 동일한 결과를 얻는가?</p></div>
 </div>
-<p class="op-boundary">이 네 가지를 모두 통과해야 v0.1을 공개합니다.</p>
+<p class="op-boundary">이 네 가지를 포함한 필수 시나리오를 모두 통과해야 v0.1을 공개합니다.</p>
 
 </OperatorSlide>
 
@@ -228,7 +228,7 @@ HA와 백업·복구, 설치 문서도 같은 방식으로 진행합니다. VM �
 
 <OperatorSlide class="op-compact" section="4 · v0.1 범위" index="15" total="18" source="v0.1 범위" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/ROADMAP.md#v01-scope">
 
-<h1 class="op-title">v0.1은 기능 수보다 검증 가능한 범위로 자릅니다</h1><table class="op-comparison op-acceptance"><thead><tr><th>포함할 기능</th><th>어떻게 확인할지</th></tr></thead><tbody><tr><td>root 없이 실행·데이터 보존<br>3멤버 HA·RW/RO</td><td>SQL을 실행하고 역할·커밋·데이터 확인</td></tr><tr><td>장애·쓰기 격리<br>재합류·재구축</td><td>Pod/VM/Broker/Operator 장애 뒤 상태와 데이터 확인</td></tr><tr><td>백업<br>새 클러스터 복원</td><td>백업으로 새 클러스터를 만들어 데이터 비교</td></tr><tr><td>볼륨 보존·Instance Manager 인증<br>노드 점검 중 보호·상태 지표</td><td>필수 시나리오 시험과 설치·운영·복구 문서 재현</td></tr></tbody></table><p class="op-boundary"><b>함께 공개</b>　이미지·설치 매니페스트·지원 환경표·운영 문서·시험 결과</p><p class="op-caption">지원 범위: CUBRID 11.4.x · amd64 · Kubernetes·스토리지 한 구성 · 실험 버전</p>
+<h1 class="op-title">v0.1은 기능 수보다 검증 가능한 범위로 자릅니다</h1><table class="op-comparison op-acceptance"><thead><tr><th>포함할 기능</th><th>어떻게 확인할지</th></tr></thead><tbody><tr><td>root 없이 실행·데이터 보존<br>3멤버 HA·RW/RO</td><td>SQL을 실행하고 역할·커밋·데이터 확인</td></tr><tr><td>장애·쓰기 격리<br>재합류·재구축</td><td>Pod/VM/Broker/Operator 장애 뒤 상태와 데이터 확인</td></tr><tr><td>백업<br>새 클러스터 복원</td><td>백업으로 새 클러스터를 만들어 데이터 비교</td></tr><tr><td>볼륨 보존·Instance Manager 인증<br>노드 점검 중 보호·상태 지표</td><td>필수 시나리오 시험과 설치·운영·복구 문서 재현</td></tr></tbody></table><p class="op-boundary"><b>함께 공개</b>　이미지·설치 매니페스트·지원 환경표·운영 문서·시험 결과</p><p class="op-caption">지원 범위: CUBRID 11.4.x · amd64 · Kubernetes·스토리지 한 구성 · 실험 버전 · DB 암호·TLS는 v0.1 이후</p>
 
 </OperatorSlide>
 
