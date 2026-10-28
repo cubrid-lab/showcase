@@ -37,6 +37,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PRESENTATION = ROOT / "presentation"
+sys.dont_write_bytecode = True  # keep the checkout clean when importing the verifier
 sys.path.insert(0, str(PRESENTATION / "scripts"))
 from verify_exports import check_pdf, check_pptx, expected_slide_count  # noqa: E402
 from pypdf import PdfReader  # noqa: E402
@@ -66,7 +67,7 @@ def package_version(name: str) -> str | None:
 
 
 def source_commit() -> str:
-    return os.environ.get("GITHUB_SHA") or subprocess.run(
+    return subprocess.run(
         ["git", "rev-parse", "HEAD"], cwd=ROOT, check=True, capture_output=True, text=True
     ).stdout.strip()
 
@@ -79,6 +80,12 @@ def build_record() -> dict:
             "workflowRunUrl": f"{server}/{os.environ['GITHUB_REPOSITORY']}/actions/runs/{os.environ['GITHUB_RUN_ID']}",
             "event": os.environ.get("GITHUB_EVENT_NAME"),
             "ref": os.environ.get("GITHUB_REF"),
+        }
+    if os.environ.get("PR_HEAD_SHA"):
+        # A pull-request checkout is GitHub's temporary merge commit, which is on no branch.
+        record |= {
+            "pullRequestHead": os.environ["PR_HEAD_SHA"],
+            "note": "built from a pull-request test merge; publish releases from a main run instead",
         }
     return record
 

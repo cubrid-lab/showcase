@@ -62,6 +62,8 @@ jobs:
           python3 -m pip install --no-cache-dir --target "$RUNNER_TEMP/verify-pydeps" pypdf==6.20.0
           (cd presentation && PYTHONPATH="$RUNNER_TEMP/verify-pydeps" python3 scripts/verify_exports.py)
       - name: Package release files
+        env:
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         run: |
           PYTHONPATH="$RUNNER_TEMP/verify-pydeps" python3 scripts/package_presentations.py \
             --html presentation/exports/html --out presentation/exports/releases
