@@ -55,7 +55,7 @@ title: "CUBRID, 이제 Python으로 — 파이큐브리드팀"
 
 <style>
 .meet { grid-template-columns: 1.5fr 1fr; }
-.frame { height: 330px; }
+.frame { height: 270px; }
 </style>
 
 <!--
@@ -97,6 +97,7 @@ sqlalchemy-hana를 고치면서 다른 dialect를 찾아보다가, Mike Bayer의
 
 ---
 
+<p class="kicker">구조</p>
 <h2>CUBRID Python 생태계의 연결 구조</h2>
 
 <div class="arch eco">
@@ -127,10 +128,11 @@ sqlalchemy-hana를 고치면서 다른 dialect를 찾아보다가, Mike Bayer의
     <div class="node db">CUBRID</div>
   </div>
 </div>
-<p class="note-line">dialect는 SQLAlchemy 안의 플러그인이고, pycubrid는 단독으로도 씁니다.</p>
 
 <style>
 .eco { grid-template-columns: 1.4fr 1fr; gap: 24px; }
+.eco .down { font-size: 0.6rem; }
+.eco .node, .eco .sa, .eco .cook { padding-top: 4px; padding-bottom: 4px; }
 .eco .node { padding: 5px 12px; }
 .eco .ic { display: flex; align-items: center; gap: 8px; }
 .eco .cook { border: 1.5px dashed var(--blue); border-radius: 10px; padding: 7px 12px; display: grid; gap: 6px; }
@@ -153,7 +155,9 @@ sqlalchemy-hana를 고치면서 다른 dialect를 찾아보다가, Mike Bayer의
 
 ---
 
-<p class="kicker proj"><BrandMark name="sqlalchemy-cubrid" alt="" :height="24" />sqlalchemy-cubrid</p>
+<div class="corner-logo"><BrandMark name="sqlalchemy-cubrid" alt="sqlalchemy-cubrid 로고" :height="52" /></div>
+
+<p class="kicker">sqlalchemy-cubrid</p>
 <h2 class="one">CUBRID용 SQLAlchemy dialect를 새로 구현했습니다</h2>
 
 <p class="sub" style="white-space: nowrap">dialect: SQLAlchemy가 CUBRID SQL을 만들고 읽게 하는 플러그인</p>
@@ -172,6 +176,8 @@ SQLAlchemy는 외부 dialect가 같은 동작을 보장하는지 확인하라고
 -->
 
 ---
+
+<div class="corner-logo"><BrandMark name="sqlalchemy-cubrid" alt="sqlalchemy-cubrid 로고" :height="52" /></div>
 
 <p class="kicker">sqlalchemy-cubrid — 이렇게 씁니다</p>
 
@@ -193,7 +199,7 @@ with engine.connect() as conn:
 
 <style>
 .then { font-size: 1.3rem; font-weight: 700; line-height: 1.4; border-left: 4px solid var(--seal); padding-left: 16px; }
-pre.slidev-code { font-size: 0.9rem !important; }
+.slidev-layout.contest-deck pre.slidev-code { font-size: 0.8rem !important; line-height: 1.45 !important; padding: 14px 20px !important; }
 </style>
 
 <!--
@@ -226,7 +232,9 @@ dialect 아래에 둘 드라이버를 찾아봤습니다. 공식 드라이버 CU
 
 ---
 
-<p class="kicker proj"><BrandMark name="pycubrid" alt="" :height="24" />pycubrid · 2026</p>
+<div class="corner-logo"><BrandMark name="pycubrid" alt="pycubrid 로고" :height="52" /></div>
+
+<p class="kicker">pycubrid · 2026</p>
 <h2 class="one">CAS 통신 동작을 기존 드라이버 소스와 대조했습니다</h2>
 
 <div class="packet">
@@ -255,7 +263,9 @@ dialect 아래에 둘 드라이버를 찾아봤습니다. 공식 드라이버 CU
 
 ---
 
-<p class="kicker proj"><BrandMark name="pycubrid" alt="" :height="24" />pycubrid</p>
+<div class="corner-logo"><BrandMark name="pycubrid" alt="pycubrid 로고" :height="52" /></div>
+
+<p class="kicker">pycubrid</p>
 <h2 class="one">C 컴파일러 없이, 한 줄이면 끝납니다</h2>
 
 <div class="split even">
@@ -283,7 +293,9 @@ TLS 암호화와 대용량 데이터도 지원하고, 테스트와 커버리지 
 
 ---
 
-<p class="kicker proj"><BrandMark name="cubrid-cookbook-python" alt="" :height="24" />cubrid-cookbook · 2026</p>
+<div class="corner-logo"><BrandMark name="cubrid-cookbook-python" alt="cubrid-cookbook-python 로고" :height="52" /></div>
+
+<p class="kicker">cubrid-cookbook · 2026</p>
 <h2 class="one">만들고 나니, 쓰는 법이 필요했습니다</h2>
 
 <div class="split">
@@ -304,7 +316,9 @@ TLS 암호화와 대용량 데이터도 지원하고, 테스트와 커버리지 
 
 ---
 
-<p class="kicker proj"><BrandMark name="cubrid-cookbook-python" alt="" :height="24" />cubrid-cookbook — 예제가 곧 테스트입니다</p>
+<div class="corner-logo"><BrandMark name="cubrid-cookbook-python" alt="cubrid-cookbook-python 로고" :height="52" /></div>
+
+<p class="kicker">cubrid-cookbook — 예제가 곧 테스트입니다</p>
 <h2 class="one">cookbook 예제로 드라이버를 매일 검증합니다</h2>
 
 <div class="nightly">
@@ -330,7 +344,9 @@ TLS 암호화와 대용량 데이터도 지원하고, 테스트와 커버리지 
 
 ---
 
-<p class="kicker proj"><BrandMark name="cubrid-mcp-server" alt="" :height="24" />cubrid-mcp-server · 2026</p>
+<div class="corner-logo"><BrandMark name="cubrid-mcp-server" alt="cubrid-mcp-server 로고" :height="52" /></div>
+
+<p class="kicker">cubrid-mcp-server · 2026</p>
 <h2 class="one">AI가 CUBRID에 직접 물어볼 수 있게</h2>
 
 <div class="split">
@@ -352,7 +368,9 @@ TLS 암호화와 대용량 데이터도 지원하고, 테스트와 커버리지 
 
 ---
 
-<p class="kicker proj"><BrandMark name="cubrid-mcp-server" alt="" :height="24" />cubrid-mcp-server — AI는 CUBRID SQL을 잘 모릅니다</p>
+<div class="corner-logo"><BrandMark name="cubrid-mcp-server" alt="cubrid-mcp-server 로고" :height="52" /></div>
+
+<p class="kicker">cubrid-mcp-server — AI는 CUBRID SQL을 잘 모릅니다</p>
 <h2>그래서 서버가 먼저 알려 줍니다</h2>
 
 <ul class="explain wide">
@@ -370,7 +388,9 @@ AI 모델은 CUBRID 문법을 잘 모릅니다. 그래서 서버가 먼저 알�
 
 ---
 
-<p class="kicker proj"><BrandMark name="cubrid-mcp-server" alt="" :height="24" />cubrid-mcp-server — AI에게 DB를 열어 줄 때 첫 질문</p>
+<div class="corner-logo"><BrandMark name="cubrid-mcp-server" alt="cubrid-mcp-server 로고" :height="52" /></div>
+
+<p class="kicker">cubrid-mcp-server — AI에게 DB를 열어 줄 때 첫 질문</p>
 <h1 class="one">"지워버리면요?" 기본은 <span class="accent">읽기 전용</span>입니다</h1>
 
 <ul class="explain wide2">
@@ -483,6 +503,7 @@ AI에게 데이터베이스를 열어 주면 제일 먼저 나오는 질문이 "
 
 ---
 
+<p class="kicker">표준과 라이선스</p>
 <h2 class="one">표준을 따르고, <span class="accent">누구나 쓸 수 있게 공개합니다</span></h2>
 
 <div class="split even trust" style="align-items: start">
@@ -519,6 +540,7 @@ AI에게 데이터베이스를 열어 주면 제일 먼저 나오는 질문이 "
 
 ---
 
+<p class="kicker">직접 확인</p>
 <h2 class="one">저희 말 대신, <span class="accent">직접 확인해 보세요</span></h2>
 
 ```bash
@@ -581,6 +603,7 @@ make docker-up && make verify  # cookbook 저장소에서, 전체 스택
 
 ---
 
+<p class="kicker">다음 단계</p>
 <h2>드라이버 → ORM → 예제 → AI</h2>
 <p class="sub">Python에서 검증한 순서를 다른 언어에도 적용합니다.</p>
 
@@ -623,7 +646,7 @@ Python은 끝이 아니라 기준입니다. 드라이버, ORM, 예제, AI로 이
 </div>
 
 <style>
-.frame { height: 280px; }
+.frame { height: 230px; }
 .thanks { font-size: 1.15rem; font-weight: 700; margin-top: 8px; }
 .notice { max-width: none; margin: 0; font-size: 0.62rem; line-height: 1.5; color: var(--muted); }
 </style>
