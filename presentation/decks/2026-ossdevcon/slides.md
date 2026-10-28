@@ -160,7 +160,7 @@ sqlalchemy-hana를 고치면서 다른 dialect를 찾아보다가, Mike Bayer의
 <p class="kicker">sqlalchemy-cubrid</p>
 <h2 class="one">CUBRID용 SQLAlchemy dialect를 새로 구현했습니다</h2>
 
-<p class="sub" style="white-space: nowrap">dialect: SQLAlchemy가 CUBRID SQL을 만들고 읽게 하는 플러그인</p>
+<p class="sub" style="max-width: 100%">dialect: SQLAlchemy가 CUBRID SQL을 만들고 읽게 하는 플러그인</p>
 
 <ul class="explain">
   <li><b>SQLAlchemy 2.0 기준</b>으로 처음부터 작성</li>
@@ -334,7 +334,7 @@ TLS 암호화와 대용량 데이터도 지원하고, 테스트와 커버리지 
 .nightly { display: flex; align-items: center; gap: 8px; }
 .nightly .node { font-size: 0.82rem; padding: 6px 10px; line-height: 1.35; }
 .nightly .arr { color: var(--muted); }
-.nightly + .sub { max-width: none; white-space: nowrap; font-size: 1.05rem; }
+.nightly + .sub { max-width: none; font-size: 1.05rem; }
 </style>
 
 <!--
@@ -351,7 +351,7 @@ TLS 암호화와 대용량 데이터도 지원하고, 테스트와 커버리지 
 
 <div class="split">
   <div class="stack">
-    <p class="sub" style="white-space: nowrap">MCP: AI 도구용 공개 프로토콜</p>
+    <p class="sub" style="max-width: 100%">MCP: AI 도구용 공개 프로토콜</p>
     <ul class="explain">
       <li><b>tool 11개</b> — 스키마 · 인덱스 · 쿼리 등</li>
       <li><b>기본 읽기 전용</b> — 쓰기는 켤 때만</li>
@@ -678,7 +678,7 @@ Python은 끝이 아니라 기준입니다. 드라이버, ORM, 예제, AI로 이
 
 <div class="split even">
   <div class="stack">
-    <p class="sub" style="white-space: nowrap; font-size: 1.05rem">README의 한 줄에 답했고, 지금은 62명이 함께합니다.</p>
+    <p class="sub" style="max-width: 100%; font-size: 1.05rem">README의 한 줄에 답했고, 지금은 62명이 함께합니다.</p>
     <div class="links">
       <div><span>GitHub</span>github.com/cubrid-lab</div>
       <div><span>설치</span>pip install pycubrid</div>
