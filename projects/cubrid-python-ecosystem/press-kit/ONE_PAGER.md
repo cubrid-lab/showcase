@@ -45,9 +45,9 @@ cubrid-mcp-server   AI/LLM access (11 read tools; write tool opt-in; domain know
 | Query select-all | **19.9% faster** |
 
 These are historical results, not rerun; their run date and versions are not recorded.
-A 2026-10-25 rerun against the official C driver `CUBRIDdb` on the same CUBRID 11.4.6 server
-measured pycubrid 1.13.5 at 1.12× its time for a primary-key SELECT and 1.25× for fetching
-10,000 rows ([provenance and raw output](../../../events/2026-ossdevcon/metrics/benchmark-2026-10-25/README.md)).
+A 2026-10-28 rerun against the official C driver `CUBRIDdb` on the same CUBRID 11.4.6 server
+measured pycubrid 1.15.0 at 1.04× its time for a primary-key SELECT and 1.17× for fetching
+10,000 rows ([provenance and raw output](../../../events/2026-ossdevcon/metrics/benchmark-2026-10-28/README.md)).
 
 Reproducible benchmarks at [cubrid-benchmark](https://github.com/cubrid-lab/cubrid-benchmark).
 

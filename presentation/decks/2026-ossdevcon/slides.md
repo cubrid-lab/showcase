@@ -498,11 +498,11 @@ AI에게 데이터베이스를 열어 주면 제일 먼저 나오는 질문이 "
   <div class="stack">
     <p class="chart-cap">C 드라이버 CUBRIDdb = 100 · 짧을수록 좋음</p>
     <PairChart :width="400" :label-width="150" before-name="CUBRIDdb (C)" after-name="pycubrid" :rows="[
-      { label: 'PK 조회', before: 100, after: 112, beforeText: '100', afterText: '112' },
-      { label: '1만 행 fetchall', before: 100, after: 125, beforeText: '100', afterText: '125' },
-      { label: 'executemany 1만 행', before: 100, after: 120, beforeText: '100', afterText: '120' },
+      { label: 'PK 조회', before: 100, after: 104, beforeText: '100', afterText: '104' },
+      { label: '1만 행 fetchall', before: 100, after: 117, beforeText: '100', afterText: '117' },
+      { label: 'executemany 1만 행', before: 100, after: 104, beforeText: '100', afterText: '104' },
     ]" />
-    <p class="small">2026-10-25 · CUBRID 11.4.6 · pycubrid 1.13.5 · Appendix B</p>
+    <p class="small">2026-10-28 · CUBRID 11.4.6 · pycubrid 1.15.0 · Appendix B</p>
   </div>
   <div class="stack past">
     <p class="chart-cap">pycubrid 안에서 바꾼 것 (과거 측정)</p>
@@ -524,7 +524,7 @@ AI에게 데이터베이스를 열어 주면 제일 먼저 나오는 질문이 "
 
 <!--
 [30초 · 기능테스트]
-성능은 무엇과 비교했는지부터 말씀드리겠습니다. 2026년 10월 25일, 같은 CUBRID 11.4.6 서버에서 공식 C 드라이버와 같은 작업에 걸린 시간을 쟀습니다. C 드라이버를 100으로 놓으면 pycubrid는 PK 조회 112, 1만 행 조회 125입니다. 순수 Python이라 조금 느립니다.
+성능은 무엇과 비교했는지부터 말씀드리겠습니다. 2026년 10월 28일, 같은 CUBRID 11.4.6 서버에서 공식 C 드라이버와 최신 pycubrid 1.15.0이 같은 작업에 걸린 시간을 쟀습니다. C 드라이버를 100으로 놓으면 pycubrid는 PK 조회 104, 1만 행 조회 117, 1만 행 일괄 입력 104입니다. 순수 Python이라 조금 느리지만, 격차가 크지 않습니다.
 대신 설치와 비동기, 이식성을 얻었습니다. 오른쪽은 pycubrid 안에서 ping 방식 등을 바꿔 개선한 과거 측정값입니다. 날짜와 버전이 기록되지 않아서, 참고로만 보여드립니다.
 -->
 
@@ -822,11 +822,11 @@ dialect는 SQLAlchemy가 제공하는 공통 호환성 테스트를 실제 CUBRI
 
 <table class="cmp">
   <tbody>
-    <tr><td>날짜</td><td>2026-10-25 (UTC)</td></tr>
+    <tr><td>날짜</td><td>2026-10-28 (UTC)</td></tr>
     <tr><td>서버</td><td>CUBRID 11.4.6 Docker 컨테이너 1개</td></tr>
-    <tr><td>드라이버</td><td>pycubrid 1.13.5 · CUBRIDdb v11.3.0.51 (소스 빌드)</td></tr>
+    <tr><td>드라이버</td><td>pycubrid 1.15.0 · CUBRIDdb v11.3.0.51 (소스 빌드)</td></tr>
     <tr><td>도구</td><td>cubrid-benchmark 기존 하네스 그대로 · 드라이버당 5회, 순서 교대</td></tr>
-    <tr><td>결과</td><td>CUBRIDdb = 100 → PK 조회 112 · 1만 행 fetchall 125 · executemany 120</td></tr>
+    <tr><td>결과</td><td>CUBRIDdb = 100 → PK 조회 104 · 1만 행 fetchall 117 · executemany 104</td></tr>
     <tr><td>주의</td><td>공유 서버라 부하가 있었음 · 원본과 환경은 저장소 기록</td></tr>
   </tbody>
 </table>

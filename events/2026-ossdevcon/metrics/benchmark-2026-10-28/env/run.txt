@@ -1,0 +1,12 @@
+cubrid-benchmark 831d495403a934b3c6bb2c2a2485e77bc0423dbb
+cubrid-python c63ab9c51353e5c80e02dd2c1a19d4640acb29f5 cci-src 7d1eb8f40f04089b8218d08e36e2c24a2de11b24
+pycubrid v1.15.0 838620b5817648bd96975409fb39a6611f418c7a; v1.10.0 d383be79e55a5f164b2569a0edb44eace9bb7e50
+image cubrid/cubrid@sha256:1248b77ad39888df9e064655937188ab99fe056ed7e35b57d06155a015dc1791
+CUBRID 11.4.6 (11.4.6.1963-0e7d3c1) (64bit release build for Linux) (Sep  7 2026 17:45:11)
+Docker version 29.2.1, build a5c7197
+uv 0.11.7 (x86_64-unknown-linux-gnu)
+Python 3.12.13
+gcc (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0
+cmake version 3.22.1
+driver baseline 2026-10-28T13:39:38Z - 2026-10-28T14:42:14Z
+tier1 2026-10-28T14:43:12Z - 2026-10-28T14:57:18Z

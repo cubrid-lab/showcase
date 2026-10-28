@@ -1,0 +1,8 @@
+CPU(s):                                  6
+Model name:                              Intel(R) Core(TM) i5-9400F CPU @ 2.90GHz
+Thread(s) per core:                      1
+Core(s) per socket:                      6
+               total        used        free      shared  buff/cache   available
+Mem:            31Gi        12Gi       7.5Gi       139Mi        11Gi        18Gi
+PRETTY_NAME="Ubuntu 22.04.5 LTS"
+Linux 5.15.0-198-generic x86_64

@@ -1,0 +1,366 @@
+ 23:42:48 up 21 days, 15:23, 16 users,  load average: 10.14, 9.54, 8.88
+============================= test session starts ==============================
+platform linux -- Python 3.12.13, pytest-9.2.0, pluggy-1.7.0 -- /tmp/claude-1000/-data-GitHub-showcase/a4f09362-9d66-451b-89e9-70feba9b8299/scratchpad/bench95/venv-tier1/bin/python
+cachedir: .pytest_cache
+benchmark: 5.3.0 (defaults: timer=time.perf_counter disable_gc=False min_rounds=5 min_time=0.000005 max_time=1.0 calibration_precision=10 warmup=False warmup_iterations=100000)
+rootdir: /tmp/claude-1000/-data-GitHub-showcase/a4f09362-9d66-451b-89e9-70feba9b8299/scratchpad/bench95/cb
+configfile: pyproject.toml
+plugins: benchmark-5.3.0
+collecting ... collected 5 items
+
+bench_pycubrid.py::test_bench_insert_sequential ERROR                    [ 20%]
+bench_pycubrid.py::test_bench_select_by_pk ERROR                         [ 40%]
+bench_pycubrid.py::test_bench_select_full_scan ERROR                     [ 60%]
+bench_pycubrid.py::test_bench_update_indexed ERROR                       [ 80%]
+bench_pycubrid.py::test_bench_delete_sequential ERROR                    [100%]/tmp/claude-1000/-data-GitHub-showcase/a4f09362-9d66-451b-89e9-70feba9b8299/scratchpad/bench95/venv-tier1/lib/python3.12/site-packages/pytest_benchmark/logger.py:44: PytestBenchmarkWarning: Not saving anything, no benchmarks have been run!
+  warner(PytestBenchmarkWarning(text))
+
+
+==================================== ERRORS ====================================
+________________ ERROR at setup of test_bench_insert_sequential ________________
+
+request = <SubRequest 'benchmark' for <Function test_bench_insert_sequential>>
+
+    @pytest.fixture
+    def benchmark(request):
+        bs: BenchmarkSession = request.config._benchmarksession
+    
+        if bs.skip:
+            pytest.skip('Benchmarks are skipped (--benchmark-skip was used).')
+        else:
+            node = request.node
+            marker = node.get_closest_marker('benchmark')
+            options: dict[str, object] = dict(marker.kwargs) if marker else {}
+            if 'timer' in options:
+                options['timer'] = NameWrapper(options['timer'])
+>           fixture = BenchmarkFixture(
+                node,
+                add_stats=bs.benchmarks.append,
+                logger=bs.logger,
+                warner=request.node.warn,
+                disabled=bs.disabled,
+                **dict(bs.options, **options),
+            )
+
+../../venv-tier1/lib/python3.12/site-packages/pytest_benchmark/plugin.py:494: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <pytest_benchmark.fixture.BenchmarkFixture object at 0x7fd48994f770>
+node = <Function test_bench_insert_sequential>, disable_gc = False
+timer = NameWrapper(<built-in function perf_counter>), min_rounds = 5
+min_time = Decimal('0.000005'), max_time = Decimal('1.0'), precision = None
+confidence = 0.99, warmup = False, warmup_iterations = 100000
+calibration_precision = 10
+add_stats = <built-in method append of list object at 0x7fd4897af9c0>
+logger = <pytest_benchmark.logger.Logger object at 0x7fd489945430>
+warner = <bound method Node.warn of <Function test_bench_insert_sequential>>
+disabled = False, cprofile = False, cprofile_loops = 1, cprofile_dump = False
+group = None
+
+    def __init__(
+        self,
+        node,
+        disable_gc,
+        timer,
+        min_rounds,
+        min_time,
+        max_time,
+        precision,
+        confidence,
+        warmup,
+        warmup_iterations,
+        calibration_precision,
+        add_stats,
+        logger,
+        warner,
+        disabled,
+        cprofile,
+        cprofile_loops,
+        cprofile_dump,
+        group=None,
+    ):
+        self.name = node.name
+>       self.fullname = node._nodeid
+                        ^^^^^^^^^^^^
+E       AttributeError: 'Function' object has no attribute '_nodeid'. Did you mean: 'nodeid'?
+
+../../venv-tier1/lib/python3.12/site-packages/pytest_benchmark/fixture.py:88: AttributeError
+__________________ ERROR at setup of test_bench_select_by_pk ___________________
+
+request = <SubRequest 'benchmark' for <Function test_bench_select_by_pk>>
+
+    @pytest.fixture
+    def benchmark(request):
+        bs: BenchmarkSession = request.config._benchmarksession
+    
+        if bs.skip:
+            pytest.skip('Benchmarks are skipped (--benchmark-skip was used).')
+        else:
+            node = request.node
+            marker = node.get_closest_marker('benchmark')
+            options: dict[str, object] = dict(marker.kwargs) if marker else {}
+            if 'timer' in options:
+                options['timer'] = NameWrapper(options['timer'])
+>           fixture = BenchmarkFixture(
+                node,
+                add_stats=bs.benchmarks.append,
+                logger=bs.logger,
+                warner=request.node.warn,
+                disabled=bs.disabled,
+                **dict(bs.options, **options),
+            )
+
+../../venv-tier1/lib/python3.12/site-packages/pytest_benchmark/plugin.py:494: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <pytest_benchmark.fixture.BenchmarkFixture object at 0x7fd4899516a0>
+node = <Function test_bench_select_by_pk>, disable_gc = False
+timer = NameWrapper(<built-in function perf_counter>), min_rounds = 5
+min_time = Decimal('0.000005'), max_time = Decimal('1.0'), precision = None
+confidence = 0.99, warmup = False, warmup_iterations = 100000
+calibration_precision = 10
+add_stats = <built-in method append of list object at 0x7fd4897af9c0>
+logger = <pytest_benchmark.logger.Logger object at 0x7fd489945430>
+warner = <bound method Node.warn of <Function test_bench_select_by_pk>>
+disabled = False, cprofile = False, cprofile_loops = 1, cprofile_dump = False
+group = None
+
+    def __init__(
+        self,
+        node,
+        disable_gc,
+        timer,
+        min_rounds,
+        min_time,
+        max_time,
+        precision,
+        confidence,
+        warmup,
+        warmup_iterations,
+        calibration_precision,
+        add_stats,
+        logger,
+        warner,
+        disabled,
+        cprofile,
+        cprofile_loops,
+        cprofile_dump,
+        group=None,
+    ):
+        self.name = node.name
+>       self.fullname = node._nodeid
+                        ^^^^^^^^^^^^
+E       AttributeError: 'Function' object has no attribute '_nodeid'. Did you mean: 'nodeid'?
+
+../../venv-tier1/lib/python3.12/site-packages/pytest_benchmark/fixture.py:88: AttributeError
+________________ ERROR at setup of test_bench_select_full_scan _________________
+
+request = <SubRequest 'benchmark' for <Function test_bench_select_full_scan>>
+
+    @pytest.fixture
+    def benchmark(request):
+        bs: BenchmarkSession = request.config._benchmarksession
+    
+        if bs.skip:
+            pytest.skip('Benchmarks are skipped (--benchmark-skip was used).')
+        else:
+            node = request.node
+            marker = node.get_closest_marker('benchmark')
+            options: dict[str, object] = dict(marker.kwargs) if marker else {}
+            if 'timer' in options:
+                options['timer'] = NameWrapper(options['timer'])
+>           fixture = BenchmarkFixture(
+                node,
+                add_stats=bs.benchmarks.append,
+                logger=bs.logger,
+                warner=request.node.warn,
+                disabled=bs.disabled,
+                **dict(bs.options, **options),
+            )
+
+../../venv-tier1/lib/python3.12/site-packages/pytest_benchmark/plugin.py:494: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <pytest_benchmark.fixture.BenchmarkFixture object at 0x7fd48994e930>
+node = <Function test_bench_select_full_scan>, disable_gc = False
+timer = NameWrapper(<built-in function perf_counter>), min_rounds = 5
+min_time = Decimal('0.000005'), max_time = Decimal('1.0'), precision = None
+confidence = 0.99, warmup = False, warmup_iterations = 100000
+calibration_precision = 10
+add_stats = <built-in method append of list object at 0x7fd4897af9c0>
+logger = <pytest_benchmark.logger.Logger object at 0x7fd489945430>
+warner = <bound method Node.warn of <Function test_bench_select_full_scan>>
+disabled = False, cprofile = False, cprofile_loops = 1, cprofile_dump = False
+group = None
+
+    def __init__(
+        self,
+        node,
+        disable_gc,
+        timer,
+        min_rounds,
+        min_time,
+        max_time,
+        precision,
+        confidence,
+        warmup,
+        warmup_iterations,
+        calibration_precision,
+        add_stats,
+        logger,
+        warner,
+        disabled,
+        cprofile,
+        cprofile_loops,
+        cprofile_dump,
+        group=None,
+    ):
+        self.name = node.name
+>       self.fullname = node._nodeid
+                        ^^^^^^^^^^^^
+E       AttributeError: 'Function' object has no attribute '_nodeid'. Did you mean: 'nodeid'?
+
+../../venv-tier1/lib/python3.12/site-packages/pytest_benchmark/fixture.py:88: AttributeError
+_________________ ERROR at setup of test_bench_update_indexed __________________
+
+request = <SubRequest 'benchmark' for <Function test_bench_update_indexed>>
+
+    @pytest.fixture
+    def benchmark(request):
+        bs: BenchmarkSession = request.config._benchmarksession
+    
+        if bs.skip:
+            pytest.skip('Benchmarks are skipped (--benchmark-skip was used).')
+        else:
+            node = request.node
+            marker = node.get_closest_marker('benchmark')
+            options: dict[str, object] = dict(marker.kwargs) if marker else {}
+            if 'timer' in options:
+                options['timer'] = NameWrapper(options['timer'])
+>           fixture = BenchmarkFixture(
+                node,
+                add_stats=bs.benchmarks.append,
+                logger=bs.logger,
+                warner=request.node.warn,
+                disabled=bs.disabled,
+                **dict(bs.options, **options),
+            )
+
+../../venv-tier1/lib/python3.12/site-packages/pytest_benchmark/plugin.py:494: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <pytest_benchmark.fixture.BenchmarkFixture object at 0x7fd4899507d0>
+node = <Function test_bench_update_indexed>, disable_gc = False
+timer = NameWrapper(<built-in function perf_counter>), min_rounds = 5
+min_time = Decimal('0.000005'), max_time = Decimal('1.0'), precision = None
+confidence = 0.99, warmup = False, warmup_iterations = 100000
+calibration_precision = 10
+add_stats = <built-in method append of list object at 0x7fd4897af9c0>
+logger = <pytest_benchmark.logger.Logger object at 0x7fd489945430>
+warner = <bound method Node.warn of <Function test_bench_update_indexed>>
+disabled = False, cprofile = False, cprofile_loops = 1, cprofile_dump = False
+group = None
+
+    def __init__(
+        self,
+        node,
+        disable_gc,
+        timer,
+        min_rounds,
+        min_time,
+        max_time,
+        precision,
+        confidence,
+        warmup,
+        warmup_iterations,
+        calibration_precision,
+        add_stats,
+        logger,
+        warner,
+        disabled,
+        cprofile,
+        cprofile_loops,
+        cprofile_dump,
+        group=None,
+    ):
+        self.name = node.name
+>       self.fullname = node._nodeid
+                        ^^^^^^^^^^^^
+E       AttributeError: 'Function' object has no attribute '_nodeid'. Did you mean: 'nodeid'?
+
+../../venv-tier1/lib/python3.12/site-packages/pytest_benchmark/fixture.py:88: AttributeError
+________________ ERROR at setup of test_bench_delete_sequential ________________
+
+request = <SubRequest 'benchmark' for <Function test_bench_delete_sequential>>
+
+    @pytest.fixture
+    def benchmark(request):
+        bs: BenchmarkSession = request.config._benchmarksession
+    
+        if bs.skip:
+            pytest.skip('Benchmarks are skipped (--benchmark-skip was used).')
+        else:
+            node = request.node
+            marker = node.get_closest_marker('benchmark')
+            options: dict[str, object] = dict(marker.kwargs) if marker else {}
+            if 'timer' in options:
+                options['timer'] = NameWrapper(options['timer'])
+>           fixture = BenchmarkFixture(
+                node,
+                add_stats=bs.benchmarks.append,
+                logger=bs.logger,
+                warner=request.node.warn,
+                disabled=bs.disabled,
+                **dict(bs.options, **options),
+            )
+
+../../venv-tier1/lib/python3.12/site-packages/pytest_benchmark/plugin.py:494: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <pytest_benchmark.fixture.BenchmarkFixture object at 0x7fd489953170>
+node = <Function test_bench_delete_sequential>, disable_gc = False
+timer = NameWrapper(<built-in function perf_counter>), min_rounds = 5
+min_time = Decimal('0.000005'), max_time = Decimal('1.0'), precision = None
+confidence = 0.99, warmup = False, warmup_iterations = 100000
+calibration_precision = 10
+add_stats = <built-in method append of list object at 0x7fd4897af9c0>
+logger = <pytest_benchmark.logger.Logger object at 0x7fd489945430>
+warner = <bound method Node.warn of <Function test_bench_delete_sequential>>
+disabled = False, cprofile = False, cprofile_loops = 1, cprofile_dump = False
+group = None
+
+    def __init__(
+        self,
+        node,
+        disable_gc,
+        timer,
+        min_rounds,
+        min_time,
+        max_time,
+        precision,
+        confidence,
+        warmup,
+        warmup_iterations,
+        calibration_precision,
+        add_stats,
+        logger,
+        warner,
+        disabled,
+        cprofile,
+        cprofile_loops,
+        cprofile_dump,
+        group=None,
+    ):
+        self.name = node.name
+>       self.fullname = node._nodeid
+                        ^^^^^^^^^^^^
+E       AttributeError: 'Function' object has no attribute '_nodeid'. Did you mean: 'nodeid'?
+
+../../venv-tier1/lib/python3.12/site-packages/pytest_benchmark/fixture.py:88: AttributeError
+=========================== short test summary info ============================
+ERROR bench_pycubrid.py::test_bench_insert_sequential - AttributeError: 'Func...
+ERROR bench_pycubrid.py::test_bench_select_by_pk - AttributeError: 'Function'...
+ERROR bench_pycubrid.py::test_bench_select_full_scan - AttributeError: 'Funct...
+ERROR bench_pycubrid.py::test_bench_update_indexed - AttributeError: 'Functio...
+ERROR bench_pycubrid.py::test_bench_delete_sequential - AttributeError: 'Func...
+============================== 5 errors in 0.13s ===============================

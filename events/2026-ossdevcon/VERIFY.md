@@ -8,7 +8,7 @@ This guide lets anyone verify the CUBRID Python ecosystem works — with or with
 # 1. Driver — one command, pure Python
 pip install pycubrid
 python -c "import pycubrid; print(pycubrid.__version__)"
-# Expected: the latest stable release (the 2026-10-25 benchmark used 1.13.5)
+# Expected: the latest stable release (the 2026-10-28 benchmark used 1.15.0)
 
 # 2. ORM
 pip install sqlalchemy-cubrid
