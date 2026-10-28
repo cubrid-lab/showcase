@@ -2,7 +2,7 @@
 theme: default
 title: "CUBRID, 이제 Python으로 — 파이큐브리드팀"
 info: "2026 오픈소스 개발자대회"
-author: "CUBRID Lab — 최영선 · 백경준"
+author: "파이큐브리드팀 — 최영선 · 백경준"
 drawings:
   persist: false
 transition: fade
@@ -20,5 +20,7 @@ preloadImages: false
 class: contest-deck
 defaults:
   class: contest-deck
+# Page number at the bottom right of every slide but the cover (slide-bottom.vue).
+pageNumbers: true
 src: ./decks/2026-ossdevcon/slides.md
 ---

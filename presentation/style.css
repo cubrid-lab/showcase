@@ -146,8 +146,9 @@
 .slidev-layout:is(.contest-deck, .showcase-deck) li, .slidev-layout:is(.contest-deck, .showcase-deck) p { text-wrap: pretty; }
 .slidev-layout:is(.contest-deck, .showcase-deck) .nw { white-space: nowrap; }
 
-/* Contest deck: the product logo pinned to the top-right corner of its slides. */
-.slidev-layout.contest-deck .corner-logo { position: absolute; top: 26px; right: 56px; }
+/* Contest deck: a product slide opens with its logo and name at the top left. */
+.slidev-layout.contest-deck .proj { display: flex; align-items: center; gap: 10px; font-size: 1rem; }
+.slidev-layout.contest-deck .proj .brand-mark { display: inline-block; }
 
 /* Contest deck: a claim headline stays on one line. */
 .slidev-layout.contest-deck :is(h1, h2).one { font-size: 1.95rem; line-height: 1.25; white-space: nowrap; }
