@@ -25,8 +25,8 @@ const charts = [
     </div>
     <div class="stack scope-note">
       <p class="chart-cap">측정 범위</p>
-      <p>star · 머지된 PR · 릴리스는 개발 활동을 보여 주는 숫자이며, 사용자 수가 아닙니다.</p>
-      <p>fork는 스냅숏에 기록되지 않아 제외했고, 클론 수는 CI와 사용자를 구분할 수 없어 쓰지 않습니다.</p>
+      <p>개발 활동 지표이며 사용자 수가 아닙니다.</p>
+      <p>fork · 클론 수는 쓰지 않습니다.</p>
     </div>
   </div>
 </template>
