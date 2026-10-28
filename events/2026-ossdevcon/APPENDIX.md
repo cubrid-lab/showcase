@@ -1,136 +1,74 @@
-# Appendix — Technical Reference for Q&A
+# Appendix — Source-Linked Technical Evidence
 
-> Judges may ask for details. This appendix has architecture diagrams,
-> performance data, adoption trends, and per-repo technical specifics.
+> Reference for judges and Q&A. This page holds evidence and links, not the talk.
+> Spoken answers are in [EXPECTED_QA.md](EXPECTED_QA.md). Commands to reproduce
+> anything here are only in [VERIFY.md](VERIFY.md). The slides are in
+> [`slides.md`](../../presentation/decks/2026-ossdevcon/slides.md).
 
----
+## Index
 
-## A. Architecture (Per-Repo)
-
-### pycubrid — Pure Python Driver
-
-```
-┌─────────────────────────────────────────────┐
-│              Application                    │
-├─────────────────────────────────────────────┤
-│  pycubrid (DB-API 2.0 / PEP 249)          │
-│  ├── Connection (TCP, TLS/STARTTLS)        │
-│  ├── Cursor (execute, fetch, executemany)  │
-│  ├── Lob (BLOB/CLOB)                       │
-│  └── aio/ (asyncio native)                 │
-├─────────────────────────────────────────────┤
-│  protocol.py (20 CAS packet types)         │
-│  packet.py (PacketReader/PacketWriter)     │
-│  constants.py (41 function codes,          │
-│    30 data types)                          │
-├─────────────────────────────────────────────┤
-│  CAS Binary Protocol v8 (TCP:33000)        │
-│  [4B length][4B cas_info][payload]         │
-└─────────────────────────────────────────────┘
-```
-
-**Key design decisions:**
-- Zero runtime dependencies (`dependencies = []`)
-- Driver-side literal binding (not server-side prepared statements)
-- `no_backslash_escapes` auto-negotiation via live server probe
-- Transparent CAS reconnect on broker redirect
-- Memory-bounded fetch (default batch: 100 rows)
-
-### sqlalchemy-cubrid — SQLAlchemy Dialect
-
-```
-┌─────────────────────────────────────────────┐
-│  SQLAlchemy ORM / Core                     │
-├─────────────────────────────────────────────┤
-│  sqlalchemy_cubrid                         │
-│  ├── dialect.py (reflection, isolation)    │
-│  ├── compiler.py (SQL/DDL/Type compilers)  │
-│  ├── types.py (CUBRID type system)         │
-│  ├── dml.py (MERGE, ODKU, REPLACE)         │
-│  ├── alembic_impl.py (migrations)          │
-│  └── requirements.py (60+ SA test flags)   │
-├─────────────────────────────────────────────┤
-│  pycubrid (or CUBRIDdb legacy driver)      │
-└─────────────────────────────────────────────┘
-```
-
-**Key design decisions:**
-- Supports 3 driver URLs: `cubrid+pycubrid://`, `cubrid+aiopycubrid://`, `cubrid+cubriddb://`
-- Official SQLAlchemy test suite integrated (60+ feature flags)
-- Non-transactional DDL handling (CUBRID auto-commits DDL)
-- `insertmanyvalues` batch optimization (SA 2.x)
-
-### cubrid-mcp-server — AI/LLM Access
-
-```
-┌─────────────────────────────────────────────┐
-│  Claude / Cursor / Any MCP Client          │
-├─────────────────────────────────────────────┤
-│  cubrid-mcp-server (stdio)                 │
-│  ├── 12 Tools (11 read + 1 opt-in write)  │
-│  ├── 7 Resources (2 schema + 5 domain)     │
-│  ├── 9 Prompts (4 basic + 5 expert)        │
-│  ├── Read-only whitelist (sqlparse)        │
-│  ├── Multi-connection (per-conn isolation) │
-│  └── Audit logging (no raw SQL)            │
-├─────────────────────────────────────────────┤
-│  fastmcp (Apache-2.0) + pycubrid (MIT)     │
-└─────────────────────────────────────────────┘
-```
-
-**Key design decisions:**
-- Domain knowledge packs teach LLMs CUBRID SQL (LIMIT, SHOW TRACE, SET)
-- Server-enforced whitelist (not prompt-based safety)
-- Write mode off by default, single DML atomic txn only
-- fastmcp pin opened to `<5` (canary 3× green)
-
-### cubrid-cookbook-python — Dogfooding Platform
-
-```
-┌─────────────────────────────────────────────┐
-│  Templates (7)                             │
-│  ├── api-service-fastapi (12 recipes)      │
-│  ├── flask (11 recipes)                    │
-│  ├── django                                │
-│  ├── dashboard (Streamlit, one-command)    │
-│  ├── async-worker (Celery)                 │
-│  ├── batch-etl (Pandas)                    │
-│  └── ai-agent (MCP + RAG metadata)        │
-├─────────────────────────────────────────────┤
-│  Fundamentals (50+ examples)               │
-│  ├── connect, crud, transactions           │
-│  ├── parameterized, error handling, LOB   │
-│  ├── orm-basics, pycubrid (22), sqlalchemy│
-│  ├── pandas (6), async, alembic, json     │
-│  └── isolation-levels                      │
-├─────────────────────────────────────────────┤
-│  Nightly CI: golden-verified examples     │
-│  on CUBRID 11.4 (11.2 weekly, docker)     │
-└─────────────────────────────────────────────┘
-```
+| Looking for | Go to |
+|---|---|
+| How the four repositories fit together | [1. Architecture and compatibility](#1-architecture-and-compatibility) |
+| pycubrid against the official C driver | [2. Performance evidence](#2-performance-evidence) |
+| Contributors, merged PRs, stars, CI and releases | [3. Community and reliability evidence](#3-community-and-reliability-evidence) |
+| Licenses and SBOM | [4. License checklist](#4-license-checklist) |
+| Other languages | [5. Other languages](#5-other-languages) |
+| Raw data and sources | [6. References](#6-references) |
 
 ---
 
-## B. Performance Data
+## 1. Architecture and compatibility
 
-This section holds two separate sets of numbers. Do not compare them with each other:
-they were measured with different driver versions, CUBRID versions and workloads.
+```
+ Application                    Claude / Cursor / any MCP client
+     │                                      │
+ SQLAlchemy ORM / Core              cubrid-mcp-server (stdio)
+     │                                      │
+ sqlalchemy-cubrid (dialect)                │
+     │                                      │
+     └──────────────┬───────────────────────┘
+                    │
+        pycubrid (DB-API 2.0, sync + asyncio)
+                    │
+        CUBRID CAS binary protocol over TCP (broker port 33000)
+```
 
-- **Rerun 2026-10-25** — measured for this presentation, with full provenance and raw
-  output in [metrics/benchmark-2026-10-25](metrics/benchmark-2026-10-25/README.md).
-- **Historical** — earlier results, kept as they were recorded, not rerun.
+[cubrid-cookbook-python](https://github.com/cubrid-lab/cubrid-cookbook-python) is not
+part of this stack. It is a separate repository of examples and templates that uses
+the three packages above and runs them against live CUBRID in CI.
 
-### Rerun 2026-10-25: pycubrid 1.13.5 vs CUBRIDdb on the same server
+| Repository | Role | What sets it apart | Authoritative docs |
+|---|---|---|---|
+| [pycubrid](https://github.com/cubrid-lab/pycubrid) | Pure Python driver | No runtime dependencies; speaks the CAS protocol directly (20 packet types, 30 data types); sync and `pycubrid.aio`; TLS; no compiler needed | [repo](https://github.com/cubrid-lab/pycubrid) |
+| [sqlalchemy-cubrid](https://github.com/cubrid-lab/sqlalchemy-cubrid) | SQLAlchemy 2.x dialect | URLs `cubrid+pycubrid://`, `cubrid+aiopycubrid://` and `cubrid+cubriddb://` (the official C driver); runs SQLAlchemy's own dialect test suite; Alembic support; MERGE, ON DUPLICATE KEY UPDATE and REPLACE; handles CUBRID auto-committing DDL | [repo](https://github.com/cubrid-lab/sqlalchemy-cubrid) |
+| [cubrid-mcp-server](https://github.com/cubrid-lab/cubrid-mcp-server) | MCP server for AI tools | 11 read-only tools by default plus 1 opt-in write tool; keyword whitelist enforced by the server, not by the prompt; write mode off by default (single INSERT/UPDATE/DELETE only); optional audit log without raw SQL; domain guides and prompts that teach CUBRID SQL | [repo](https://github.com/cubrid-lab/cubrid-mcp-server) |
+| [cubrid-cookbook-python](https://github.com/cubrid-lab/cubrid-cookbook-python) | Examples and templates | 50+ examples (connection, CRUD, transactions, LOB, async, pandas, Alembic); 7 app templates (FastAPI, Flask, Django, Streamlit dashboard, Celery worker, Pandas ETL, AI agent); nightly golden-verified run on CUBRID 11.4, weekly on 11.2 | [repo](https://github.com/cubrid-lab/cubrid-cookbook-python) |
 
-Measured 2026-10-25 08:15–10:16 UTC with the unmodified
-[cubrid-benchmark](https://github.com/cubrid-lab/cubrid-benchmark) harnesses at
-`b002085`: pycubrid 1.13.5 (PyPI) and CUBRIDdb from cubrid-python `v11.3.0.51` (C
-extension over CCI), CPython 3.12.13, CUBRID 11.4.6 (`11.4.6.1963-0e7d3c1`, Docker
-`cubrid/cubrid:11.4`), Intel i5-9400F 6 cores, 31 GiB, Ubuntu 22.04.5 / Linux
-5.15.0-198. `autocommit=False` on every connection; 10,000 seeded rows; 5 trials per
-driver in rotating order, warm-up discarded, every iteration verified; pooled medians in
-milliseconds (lower is faster). The host was shared and heavily loaded (1-minute load
-average 6–25 on 6 cores), so the ratios are more reliable than the absolute times.
+Design choices worth knowing (details in each repository's docs):
+
+- pycubrid binds parameters on the driver side rather than using server-side prepared
+  statements, and probes the server to detect `no_backslash_escapes`.
+- The MCP server's safety comes from the server-side whitelist and the database
+  account's grants, not from instructions to the model.
+- Compatibility matrix in CI: Python 3.10-3.14 against CUBRID 10.2, 11.0, 11.2 and 11.4
+  (20 combinations) for the driver and dialect, with a 95% coverage floor.
+
+---
+
+## 2. Performance evidence
+
+**Headline: the 2026-10-25 same-server comparison.** Full provenance, raw output and
+environment freeze files are in
+[metrics/benchmark-2026-10-25](metrics/benchmark-2026-10-25/README.md).
+
+Measured 2026-10-25 08:15-10:16 UTC with the unmodified
+[cubrid-benchmark](https://github.com/cubrid-lab/cubrid-benchmark) harnesses at commit
+`b002085`. Both drivers ran against one CUBRID 11.4.6 server (Docker `cubrid/cubrid:11.4`)
+on one host (Intel i5-9400F, 6 cores, 31 GiB, Ubuntu 22.04.5), CPython 3.12.13,
+`autocommit=False`, 10,000 seeded rows, 5 trials per driver in rotating order, warm-up
+discarded, every iteration verified. Driver versions: pycubrid 1.13.5 (PyPI) and CUBRIDdb
+from cubrid-python `v11.3.0.51` (C extension over CCI). Pooled medians; lower is faster.
 
 | Operation | pycubrid 1.13.5 | CUBRIDdb | pycubrid ÷ CUBRIDdb |
 |---|---:|---:|---:|
@@ -139,131 +77,108 @@ average 6–25 on 6 cores), so the ratios are more reliable than the absolute ti
 | `fetchall`, 10,000 rows | 51.3 ms | 41.1 ms | 1.25× |
 | `executemany` 10,000 rows + commit | 3,899 ms | 3,258 ms | 1.20× |
 
-- Concurrency (SELECT by PK, 8 workers, one connection each): pycubrid sync 2,906 and
-  `pycubrid.aio` 2,005 queries/s against CUBRIDdb 995 queries/s.
-- pycubrid 1.13.5 against 1.10.0 in the same run: no regression detected by the
-  harness's rule (median >5% slower with non-overlapping IQRs).
-- Tier 1 workload (`tier1-explicit-keys-v2`, pycubrid only, median of 3 trials ×
-  5 rounds): insert_sequential 8.66 s, select_by_pk 7.45 s, select_full_scan 0.043 s
-  (10,000 rows each), update_indexed 0.94 s, delete_sequential 1.10 s (1,000 rows each).
-  This corrected workload measures a different quantity from the historical table below.
-- Not rerun: PyMySQL/MySQL (a cross-engine comparison does not isolate driver
-  overhead) and the optimization rows below (their source run is not recorded).
+- Concurrency (SELECT by primary key, 8 workers, one connection each): pycubrid sync
+  2,906 and `pycubrid.aio` 2,005 queries/s against CUBRIDdb 995 queries/s.
+- pycubrid 1.13.5 against 1.10.0 in the same run: no regression by the harness's rule
+  (median more than 5% slower with non-overlapping IQRs).
+- Caveat: the host was shared and heavily loaded (1-minute load average 6-25 on
+  6 cores), with one server and localhost networking. Trust the ratios more than the
+  absolute times. The full table (95% intervals, more operations) and the pycubrid-only
+  Tier 1 workload are in the benchmark README.
 
-### Historical: pycubrid vs PyMySQL (C extension) — Synthetic Baseline
+**Historical results (archive, not the headline).** Earlier numbers are kept as
+recorded and were not rerun. Do not compare them with the table above: the versions,
+CUBRID version and workloads differ.
 
-| Scenario | pycubrid | PyMySQL | Ratio |
-|---|---:|---:|---:|
-| insert_sequential (10K rows) | 10.47s | 1.74s | 6.0x |
-| select_by_pk (10K lookups) | 15.99s | 3.52s | 4.5x |
-| select_full_scan (10K rows) | 10.31s | 1.86s | 5.5x |
-| update_indexed (10K rows) | 10.70s | 2.19s | 4.9x |
-| delete_sequential (10K rows) | 10.75s | 2.10s | 5.1x |
+| Record | What it is | Status |
+|---|---|---|
+| pycubrid vs PyMySQL, 2026-03-16 | Run `2026-03-16_initial` in cubrid-benchmark: pycubrid 0.5.0 against CUBRID 11.2, PyMySQL against a **MySQL 8.0** server. PyMySQL is a pure Python driver, not a C extension. This compares two database engines as well as two drivers, so it does not isolate driver overhead. It predates a pycubrid `fetchall` fix and an autocommit correction. | [Run directory](https://github.com/cubrid-lab/cubrid-benchmark/tree/b002085822054fdd48075a97b52c75921a73fda3/experiments/baseline-multilang/runs/2026-03-16_initial); not quoted in the talk |
+| Optimization results (native ping +280% throughput, SQLAlchemy `pool_pre_ping` +588%, bulk insert 1,000 rows 12.3% faster, select-all 19.9% faster, fetch 10,000 rows 96 → 78 ms) | Earlier profiling-driven changes. Run date, harness and library versions are **not recorded**, so they are not a current measurement. | Kept as recorded; the slides show only the throughput gains, labeled earlier results |
 
-*Note: Pure Python vs C extension — this gap is expected. The trade-off is zero-install (no compiler), cross-platform, and asyncio. What matters is the improvement trend, shown below.*
-
-### Historical: Optimization Results (Before → After)
-
-| Optimization | Before | After | Improvement |
-|---|---:|---:|---:|
-| Native ping (CHECK_CAS vs SELECT 1) | — | — | **+280% throughput** |
-| SQLAlchemy pool_pre_ping | — | — | **+588% throughput** |
-| Bulk insert 100 rows | 370.3ms | 356.1ms | **3.9% faster** |
-| Bulk insert 1000 rows | 2,865ms | 2,512ms | **12.3% faster** |
-| Query select-all | 39.8ms | 31.8ms | **19.9% faster** |
-| Fetch optimization (10K rows) | 96ms | 78ms | **−19% latency** |
-
-### Historical provenance and status
-
-> **Historical results — not rerun for the 2026-10-25 presentation refresh.**
-> The values above are retained as previously recorded results, not as a benchmark
-> of the latest driver/library versions. Fields that could not be traced to a run log
-> are marked **not recorded** rather than inferred. The current measurement is the
-> 2026-10-25 rerun above.
-
-- Repo: [cubrid-benchmark](https://github.com/cubrid-lab/cubrid-benchmark)
-- *pycubrid vs PyMySQL* table — traced on 2026-10-25 to cubrid-benchmark
-  [`experiments/baseline-multilang/runs/2026-03-16_initial`](https://github.com/cubrid-lab/cubrid-benchmark/tree/b002085822054fdd48075a97b52c75921a73fda3/experiments/baseline-multilang/runs/2026-03-16_initial)
-  (`raw/python_tier1.json` means match the table): run 2026-03-16 12:30 UTC, pycubrid
-  0.5.0, PyMySQL version not recorded, CPython 3.10.12, CUBRID **11.2** against a
-  **MySQL 8.0** server (a cross-engine comparison), Intel i5-9400F, Linux
-  5.15.0-171, 5 rounds × 1 iteration, mean. That experiment's README notes that these
-  rows predate a pycubrid `fetchall` fix and an autocommit correction. The earlier
-  statement "Docker CUBRID 11.4" for this table was wrong.
-- *Optimization Results* table — original execution date, harness and
-  `pycubrid` / SQLAlchemy versions or commit SHAs: **not recorded**.
-- Profiling scripts as previously stated (not verified against a run log): `profile_connect.py`, `profile_execute.py`, `profile_fetch.py`
-- Tracking: [Issue #44](https://github.com/cubrid-lab/showcase/issues/44).
+Tracking and any future rerun: [issue #44](https://github.com/cubrid-lab/showcase/issues/44).
 
 ---
 
-## C. Adoption Trends
+## 3. Community and reliability evidence
 
-### GitHub Stars (as of 2026-10-25)
+**Definitions.**
 
-| Repo | Created | Stars | Growth |
-|---|---|---|---|
-| sqlalchemy-cubrid | 2022-07 | ⭐38 | 4 years, steady |
-| pycubrid | 2026-03 | ⭐31 | 7 months |
-| cubrid-mcp-server | 2026-04 | ⭐32 | 6 months |
-| cubrid-cookbook-python | 2026-03 | ⭐28 | 7 months |
-| **Total** | — | **⭐129** | — |
+- *Maintainer*: the two team members, `yeongseon` and `paikend`.
+- *Outside contributor*: a human GitHub account other than the maintainers, not a bot or
+  automation account, that authored at least one merged PR in the four repositories.
+- *Bots and automation*: dependabot, GitHub Actions, review bots and AI agent accounts.
+  They are not counted as contributors.
+- *Repository merged-PR total*: every merged PR in a repository whoever authored it,
+  including the maintainers' own AI-assisted PRs. It measures repository activity, not
+  the number of people or users.
 
-### GitHub Clone Traffic — not an adoption metric
+**Outside contributors, as of 2026-10-28T12:20:10Z (UTC):**
+**62 people with 137 merged PRs** across the four repositories. By repository, merged
+outside PRs: pycubrid 30, sqlalchemy-cubrid 34, cubrid-mcp-server 35,
+cubrid-cookbook-python 38. Method, exclusions and per-PR links are in
+[metrics/contributors-2026-10-28.json](metrics/contributors-2026-10-28.json).
 
-> Measured 2026-09-27. `actions/checkout` performs a real git fetch, and every
-> GitHub-hosted runner counts as a distinct cloner, so clone traffic is
-> dominated by our own CI (matrix jobs × runs). We no longer quote it as
-> adoption. Earlier drafts claimed CI was excluded — that was wrong.
+**Repository activity, as of 2026-10-25 (UTC)**, from
+[metrics/SNAPSHOT.md](metrics/SNAPSHOT.md):
 
-| Repo | Unique cloners (14d) | Total clones (14d) | CI workflow runs (14d) |
+| Repository | Stars | Merged PRs (all authors) | Published GitHub Releases |
 |---|---:|---:|---:|
-| pycubrid | 495 | 4,969 | 700 |
-| sqlalchemy-cubrid | 547 | 5,742 | 1,103 |
-| cubrid-mcp-server | 277 | 1,493 | 96 |
-| cubrid-cookbook-python | 184 | 1,018 | 335 |
+| pycubrid | 31 | 537 | 29 |
+| sqlalchemy-cubrid | 38 | 529 | 23 |
+| cubrid-mcp-server | 32 | 236 | 9 |
+| cubrid-cookbook-python | 28 | 251 | none (examples) |
+| **Total** | **129** | **1,553** | **61** |
 
-### PyPI Downloads
+**Not used as adoption evidence.** GitHub clone traffic and PyPI downloads include our
+own CI (for example, pycubrid had about 700 workflow runs and 4,969 clones in the 14
+days measured on 2026-09-27). They say little about how many people use the packages,
+so the talk does not cite them. The 2026-09-27 table is kept in
+[metrics/SNAPSHOT.md](metrics/SNAPSHOT.md).
 
-| Package | Day | Week | Month | Note |
-|---|---:|---:|---:|---|
-| pycubrid | 129 | 653 | **3,778** | includes CI installs |
-| sqlalchemy-cubrid | 0 | 84 | **420** | includes CI installs |
-| cubrid-mcp-server | — | — | — | Published on PyPI (v0.4.0); stats not yet collected |
+**Reliability gates.** Merging requires passing CI. pycubrid, sqlalchemy-cubrid and
+cubrid-mcp-server enforce a 95% coverage floor; the driver and dialect run the live
+CUBRID matrix; sqlalchemy-cubrid also runs the official SQLAlchemy dialect suite. Only
+humans push release tags. See each repository's Actions page (links in
+[VERIFY.md](VERIFY.md)).
 
-*Note: Our CI (cookbook smoke + integration tests) generates ~20-50 downloads/day, so PyPI counts include CI. Neither PyPI downloads nor clone traffic is a clean adoption signal; we cite merged PRs, releases, and stars instead.*
-
-### Merged PRs (Collaboration Evidence)
-
-| Repo | Merged PRs | Contributors | AI+Human PRs |
-|---|---:|---|---|
-| pycubrid | 537 | 2 humans + AI | CI-gated |
-| sqlalchemy-cubrid | 529 | 2 humans + AI | CI-gated |
-| cubrid-mcp-server | 236 | 2 humans + AI | CI-gated |
-| cubrid-cookbook-python | 251 | 2 humans + AI | CI-gated |
-| **Total** | **1,553** | | |
-
----
-
-## D. Multi-Language Ecosystem
-
-| Language | Driver | Version | ORM | Version | Status |
-|---|---|---|---|---|---|
-| **Python** | pycubrid | v1.13.3 | sqlalchemy-cubrid | v1.11.5 | **Complete** (versions as of the 2026-10-25 snapshot) |
-| TypeScript | cubrid-client | v1.1.0 | drizzle-cubrid | v0.2.1 | In progress |
-| Go | cubrid-go | v0.2.1 | gorm-cubrid | v0.1.0 | In progress |
-| Rust | cubrid-rs | v0.1.0 | sea-orm-cubrid | v0.1.0 | In progress |
+**Release versions are point-in-time.** pycubrid 1.13.3 and sqlalchemy-cubrid 1.11.5
+were the latest on 2026-10-24 and appear in the 2026-10-25 snapshot, which was not
+refreshed after later releases. The benchmark used pycubrid 1.13.5 (released
+2026-10-25 02:10 UTC, before the run). Newer releases have shipped since; check the
+[pycubrid](https://pypi.org/project/pycubrid/),
+[sqlalchemy-cubrid](https://pypi.org/project/sqlalchemy-cubrid/) and
+[cubrid-mcp-server](https://pypi.org/project/cubrid-mcp-server/) pages for the latest.
 
 ---
 
-## E. License Compliance Summary
+## 4. License checklist
 
-| Item | Status |
-|---|---|
-| All 4 repos | MIT |
-| THIRD_PARTY_LICENSES.md | Every repo (pip-licenses generated) |
-| NOTICE | Every repo |
-| SPDX SBOM | Recent GitHub Releases (not attached to the earliest ones) |
-| GPL dependencies | **Zero** (runtime + dev) |
-| CUBRID server license | Apache-2.0 / BSD (upstream COPYING verified) |
-| Our packages | Independent wire-protocol clients, no server code |
+| Item | Status | Evidence |
+|---|---|---|
+| Our four repositories | MIT | `LICENSE` in each repository |
+| Third-party licenses | `THIRD_PARTY_LICENSES.md` and `NOTICE` in every repository | files in each repository root |
+| SPDX SBOM | Attached to recent GitHub Releases, not the earliest | Releases page of each repository |
+| GPL dependencies | None, runtime or development, in the generated license reports | `THIRD_PARTY_LICENSES.md` |
+| CUBRID server license | Apache-2.0 for the engine, BSD for connectors, per the upstream `COPYING` | [CUBRID COPYING](https://github.com/CUBRID/cubrid/blob/develop/COPYING) |
+| Relationship to CUBRID | Independent wire-protocol clients; no CUBRID server code | repository source |
+
+---
+
+## 5. Other languages
+
+Python is the complete, reference ecosystem and the contest entry. The same approach is
+under way for TypeScript (`cubrid-client`, `drizzle-cubrid`), Go (`cubrid-go`,
+`gorm-cubrid`) and Rust (`cubrid-rs`, `sea-orm-cubrid`), all in progress at 0.x-1.x
+versions. Treat versions as of 2026-10-25 and check each repository's releases for the
+current status.
+
+---
+
+## 6. References
+
+- [EXPECTED_QA.md](EXPECTED_QA.md): prepared spoken answers
+- [VERIFY.md](VERIFY.md): commands to reproduce and verify
+- [metrics/SNAPSHOT.md](metrics/SNAPSHOT.md): repository metrics, 2026-10-25
+- [metrics/contributors-2026-10-28.json](metrics/contributors-2026-10-28.json): outside contributors, 2026-10-28
+- [metrics/benchmark-2026-10-25](metrics/benchmark-2026-10-25/README.md): benchmark rerun, raw data
+- [cubrid-benchmark](https://github.com/cubrid-lab/cubrid-benchmark): harnesses and earlier runs
