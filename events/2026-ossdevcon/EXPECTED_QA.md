@@ -1,18 +1,21 @@
 # Expected Q&A — 2026 OSS Developer Contest Finals
 
-> 18 anticipated questions with prepared answers (30-60 seconds each).
-> Repository metrics and current release versions verified 2026-10-25; historical clone/CI figures remain dated 2026-09-27.
+> 18 anticipated questions with prepared spoken answers (30-60 seconds each).
+> Evidence and sources are in [APPENDIX.md](APPENDIX.md); commands to reproduce are in
+> [VERIFY.md](VERIFY.md). Repository metrics are dated 2026-10-25, outside contributors
+> 2026-10-28 (UTC); clone and CI figures are from 2026-09-27.
 
 ---
 
 ## Q0: Tell us about your team's background.
 
-We met at the 2020 OSS Contribution Hackathon as mentor and mentee.
-We contributed to SQLAlchemy and sqlalchemy-hana, connected with Mike
+We are the PyCUBRID team (파이큐브리드팀). We met at the 2020 OSS Contribution
+Hackathon as mentor and mentee. We contributed to SQLAlchemy and sqlalchemy-hana, connected with Mike
 Bayer via Gitter, and started the SQLAlchemy Korea community. Mike Bayer
 had built a CUBRID dialect in 2012 but abandoned it. We rebuilt from
 scratch for SQLAlchemy 2.0, then built the pure Python driver, then the
-full ecosystem, including a CUBRID MCP server for AI tools. As of 2026-10-28, 62 people outside the team have had pull requests merged.
+full ecosystem, including a CUBRID MCP server for AI tools. As of 2026-10-28, 62 people outside the team have had 137 pull requests merged
+(maintainers and bots excluded).
 
 ## Q1: Why not just use the official CUBRID Python driver?
 
@@ -25,18 +28,20 @@ support the old driver via `cubrid+cubriddb://` URLs in our dialect.
 
 ## Q2: Why are there so many AI-generated commits?
 
-We built a system where AI agents write code and humans review it —
-the same mentor-mentee model we learned from OSS contribution culture.
-AGENTS.md defines the rules, every PR is merged only after CI gates pass
+We use AI coding tools, and we do not trust them blindly. AGENTS.md defines
+the rules, humans review, every PR is merged only after CI gates pass
 (driver and dialect PRs run the 20-combination live DB matrix with a 95%
-coverage floor), and only humans push release tags. As of 2026-10-25, the four repositories have 1,553 merged PRs.
+coverage floor), and only humans push release tags. As of 2026-10-25, the four repositories have 1,553 merged PRs in total;
+that counts all authors and is repository activity, not people.
 
 ## Q3: Stars are low — is anyone actually using this?
 
 We're early, and we don't inflate it. We deliberately don't quote clone
 counts: GitHub clone traffic is dominated by our own CI runners (pycubrid:
 ~700 workflow runs vs ~5,000 clones in the same 14 days). What we can show
-is 1,553 merged PRs, 61 published GitHub Releases across the three package repositories, and 129 stars — and a real market: CUBRID
+is 62 outside contributors with 137 merged PRs (2026-10-28), 61 published GitHub
+Releases across the three package repositories, and 129 stars across the four
+repositories (2026-10-25). The market is real: CUBRID
 ranks second among the top five Korean public-sector DBMS vendors
 (2,367 installations; 13.24% of their combined total at end of
 2025, MOIS/NIA report), and before us it had no Python driver you could
@@ -51,21 +56,23 @@ No GPL anywhere in our dependency trees.
 
 ## Q5: How does performance compare to C extensions?
 
-C extensions will always have an edge in raw throughput. But what you
-gain: zero installation friction, cross-platform, native asyncio, TLS.
-For 95% of use cases, install simplicity outweighs the throughput gap.
-We improved bulk insert 12.3% and query 19.9% through profiling.
+We measured it on 2026-10-25 against the official C driver on the same
+CUBRID 11.4.6 server: pycubrid is about 1.12x the time on a primary-key
+SELECT and 1.25x on fetching 10,000 rows. It is a little slower, because it
+is pure Python. In return you get `pip install` without a compiler,
+cross-platform use, native asyncio and TLS. Caveat: one shared, loaded host,
+so the ratios are more reliable than absolute times
+([APPENDIX 2](APPENDIX.md#2-performance-evidence)).
 
 ## Q5.5: How did you approach performance optimization?
 
 We built cubrid-benchmark (separate repo) for reproducible comparison,
-then used profiling scripts to find bottlenecks. Historical results (not
-rerun; run date and versions not recorded): native ping +280%,
-pool_pre_ping +588%, bulk insert 12.3% faster. Rerun on 2026-10-25 against
-the official C driver on the same CUBRID 11.4.6 server: pycubrid 1.13.5 is
-1.12x slower on a primary-key SELECT and 1.25x on fetching 10,000 rows
-([APPENDIX B](APPENDIX.md#b-performance-data)). In a niche market, you
-benchmark yourself.
+then used profiling scripts to find bottlenecks. Earlier results (not
+rerun; run date and versions not recorded) include native ping +280%
+throughput and pool_pre_ping +588%; treat them as history, not a current
+measurement. The current numbers are the 2026-10-25 same-server comparison
+above ([APPENDIX 2](APPENDIX.md#2-performance-evidence)). In a niche market,
+you benchmark yourself.
 
 ## Q6: What about CUBRID 12 support?
 
@@ -103,8 +110,9 @@ code — we wrote a new dialect from scratch targeting SQLAlchemy 2.0.
 
 ## Q10.5: Is this just for Python?
 
-cubrid-lab has 4 language ecosystems: Python (complete, contest entry),
-TypeScript, Go, Rust. Python is the reference. Same playbook applies.
+Python is complete and is the contest entry. TypeScript, Go and Rust
+ecosystems are in progress, using the same approach
+([APPENDIX 5](APPENDIX.md#5-other-languages)).
 
 ## Q10.7: How will you grow the community?
 
