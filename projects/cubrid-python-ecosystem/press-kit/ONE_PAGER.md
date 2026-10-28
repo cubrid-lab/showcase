@@ -67,8 +67,8 @@ Same playbook (driver -> ORM -> examples -> AI) for each language.
 
 ## What Makes It Different
 
-1. **World's only** pure Python CUBRID driver (no C extensions)
-2. **World's only** MCP server for CUBRID (AI/LLM access)
+1. **Pure Python** CUBRID driver (no C extensions, `pip install`)
+2. **MCP server** for CUBRID (AI/LLM access, read-only by default)
 3. **Domain knowledge built-in** — MCP server teaches LLMs CUBRID SQL dialect
 4. **1,553 merged PRs** (2026-10-25) through an AI-agent workflow with human review and CI gates
 5. **Production-ready** — 7 runnable templates, golden-verified examples

@@ -1,0 +1,2813 @@
+{
+ "snapshotUtc": "2026-10-28T12:20:10Z",
+ "repos": [
+  "cubrid-lab/pycubrid",
+  "cubrid-lab/sqlalchemy-cubrid",
+  "cubrid-lab/cubrid-cookbook-python",
+  "cubrid-lab/cubrid-mcp-server"
+ ],
+ "maintainers": [
+  {
+   "login": "yeongseon",
+   "name": "Yeongseon Choe",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/8798819?v=4",
+   "profile": "https://github.com/yeongseon",
+   "role": "maintainer"
+  },
+  {
+   "login": "paikend",
+   "name": "Paik Gyeongjun (Kent)",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/26214518?v=4",
+   "profile": "https://github.com/paikend",
+   "role": "maintainer"
+  }
+ ],
+ "externalContributorCount": 62,
+ "externalMergedPrCount": 137,
+ "externalContributors": [
+  {
+   "login": "WilliamK112",
+   "name": "Ching Wei Kang",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/164879897?v=4",
+   "profile": "https://github.com/WilliamK112",
+   "accountCreated": "2024-03-25T11:58:33Z",
+   "repos": {
+    "pycubrid": [
+     {
+      "type": "merged_pr",
+      "number": 1029,
+      "title": "test(perf): validate prepared batch row counts",
+      "url": "https://github.com/cubrid-lab/pycubrid/pull/1029",
+      "mergedAt": "2026-10-24T04:42:06Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 1030,
+      "title": "test(perf): cover benchmark regression thresholds",
+      "url": "https://github.com/cubrid-lab/pycubrid/pull/1030",
+      "mergedAt": "2026-10-24T04:45:50Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 1031,
+      "title": "test(profile): cover connection profiling cycles",
+      "url": "https://github.com/cubrid-lab/pycubrid/pull/1031",
+      "mergedAt": "2026-10-24T04:50:08Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 1038,
+      "title": "test(ci): cover readiness retry outcomes",
+      "url": "https://github.com/cubrid-lab/pycubrid/pull/1038",
+      "mergedAt": "2026-10-24T05:45:03Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 1037,
+      "title": "test(docs): fail on missing llms source",
+      "url": "https://github.com/cubrid-lab/pycubrid/pull/1037",
+      "mergedAt": "2026-10-24T06:23:36Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 1034,
+      "title": "test(docs): cover translation sync policy",
+      "url": "https://github.com/cubrid-lab/pycubrid/pull/1034",
+      "mergedAt": "2026-10-24T06:26:43Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 1039,
+      "title": "docs(examples): add a bounded opt-in prepared executemany example",
+      "url": "https://github.com/cubrid-lab/pycubrid/pull/1039",
+      "mergedAt": "2026-10-24T23:20:12Z"
+     }
+    ],
+    "cubrid-cookbook-python": [
+     {
+      "type": "merged_pr",
+      "number": 478,
+      "title": "test(scripts): cover unittest_junit edge cases",
+      "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/pull/478",
+      "mergedAt": "2026-10-24T05:22:35Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 486,
+      "title": "test(scripts): cover password redaction and lane status helpers",
+      "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/pull/486",
+      "mergedAt": "2026-10-24T23:17:35Z"
+     }
+    ],
+    "cubrid-mcp-server": [
+     {
+      "type": "merged_pr",
+      "number": 415,
+      "title": "test(integration): cover signal handler lifecycle",
+      "url": "https://github.com/cubrid-lab/cubrid-mcp-server/pull/415",
+      "mergedAt": "2026-10-24T06:22:39Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 414,
+      "title": "test(reporting): cover report result options",
+      "url": "https://github.com/cubrid-lab/cubrid-mcp-server/pull/414",
+      "mergedAt": "2026-10-24T06:25:12Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 423,
+      "title": "test(licenses): cover license metadata fallbacks",
+      "url": "https://github.com/cubrid-lab/cubrid-mcp-server/pull/423",
+      "mergedAt": "2026-10-24T23:20:22Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 422,
+      "title": "test(docs): cover README translation-sync rules",
+      "url": "https://github.com/cubrid-lab/cubrid-mcp-server/pull/422",
+      "mergedAt": "2026-10-24T23:23:38Z"
+     }
+    ],
+    "sqlalchemy-cubrid": [
+     {
+      "type": "merged_pr",
+      "number": 1025,
+      "title": "test(compat): cover select attribute accessors",
+      "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/1025",
+      "mergedAt": "2026-10-24T06:26:54Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 1026,
+      "title": "test(perf): validate compile benchmark iterations",
+      "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/1026",
+      "mergedAt": "2026-10-24T06:33:56Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 1031,
+      "title": "test(ci): cover version report fallbacks",
+      "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/1031",
+      "mergedAt": "2026-10-24T10:05:40Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 1034,
+      "title": "docs(development): fix stale pytest node",
+      "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/1034",
+      "mergedAt": "2026-10-24T23:17:40Z"
+     }
+    ]
+   },
+   "mergedPrCount": 17
+  },
+  {
+   "login": "Enard52",
+   "name": "Ensar",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/223665159?v=4",
+   "profile": "https://github.com/Enard52",
+   "accountCreated": "2025-07-30T11:33:16Z",
+   "repos": {
+    "cubrid-mcp-server": [
+     {
+      "type": "merged_pr",
+      "number": 320,
+      "title": "docs: fix Korean documentation typos and links",
+      "url": "https://github.com/cubrid-lab/cubrid-mcp-server/pull/320",
+      "mergedAt": "2026-10-14T22:54:37Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 335,
+      "title": "test(server): handle an empty class hierarchy catalog",
+      "url": "https://github.com/cubrid-lab/cubrid-mcp-server/pull/335",
+      "mergedAt": "2026-10-14T22:58:23Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 336,
+      "title": "test(release): cover release-note extraction CLI usage errors",
+      "url": "https://github.com/cubrid-lab/cubrid-mcp-server/pull/336",
+      "mergedAt": "2026-10-14T23:00:19Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 337,
+      "title": "test(release): reject absent or empty changelog sections without release artifacts",
+      "url": "https://github.com/cubrid-lab/cubrid-mcp-server/pull/337",
+      "mergedAt": "2026-10-14T23:02:35Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 353,
+      "title": "test(server): return no indexes when an existing table has no index rows",
+      "url": "https://github.com/cubrid-lab/cubrid-mcp-server/pull/353",
+      "mergedAt": "2026-10-16T05:25:25Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 376,
+      "title": "test(server): handle an empty serial catalog without errors",
+      "url": "https://github.com/cubrid-lab/cubrid-mcp-server/pull/376",
+      "mergedAt": "2026-10-22T14:28:35Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 377,
+      "title": "test(server): cover case- and whitespace-insensitive table names",
+      "url": "https://github.com/cubrid-lab/cubrid-mcp-server/pull/377",
+      "mergedAt": "2026-10-22T14:38:27Z"
+     }
+    ],
+    "cubrid-cookbook-python": [
+     {
+      "type": "merged_pr",
+      "number": 357,
+      "title": "test: add offline unit tests for example requirements",
+      "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/pull/357",
+      "mergedAt": "2026-10-14T23:12:14Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 371,
+      "title": "fix(recipes): print a repository-root run command in the parameterized-queries redirect",
+      "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/pull/371",
+      "mergedAt": "2026-10-14T23:20:20Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 372,
+      "title": "test(fastapi): verify empty partial task update preserves existing fields",
+      "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/pull/372",
+      "mergedAt": "2026-10-14T23:22:27Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 373,
+      "title": "test(fastapi): enforce task listing query parameter bounds",
+      "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/pull/373",
+      "mergedAt": "2026-10-14T23:24:49Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 374,
+      "title": "test(flask): cover malformed and unknown parent IDs when creating categories",
+      "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/pull/374",
+      "mergedAt": "2026-10-14T23:26:58Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 390,
+      "title": "fix(docs): split staged link targets at the first URL delimiter",
+      "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/pull/390",
+      "mergedAt": "2026-10-15T17:13:07Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 417,
+      "title": "test(licenses): pin requirement-name normalization for the license inventory",
+      "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/pull/417",
+      "mergedAt": "2026-10-22T14:30:57Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 418,
+      "title": "test(scripts): cover run_example CLI timeout and command validation",
+      "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/pull/418",
+      "mergedAt": "2026-10-22T14:44:59Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 419,
+      "title": "test(docs): cover reference-style and fenced link rewriting in stage_docs",
+      "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/pull/419",
+      "mergedAt": "2026-10-22T14:55:18Z"
+     }
+    ]
+   },
+   "mergedPrCount": 16
+  },
+  {
+   "login": "soyeladice-svg",
+   "name": "Alejandro Florez",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/327943577?v=4",
+   "profile": "https://github.com/soyeladice-svg",
+   "accountCreated": "2026-09-11T11:26:16Z",
+   "repos": {
+    "sqlalchemy-cubrid": [
+     {
+      "type": "merged_pr",
+      "number": 509,
+      "title": "docs(samples): use recommended pycubrid connection",
+      "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/509",
+      "mergedAt": "2026-09-28T21:18:35Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 508,
+      "title": "fix: clean up Docker when integration tests fail",
+      "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/508",
+      "mergedAt": "2026-09-28T21:42:32Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 516,
+      "title": "docs: make Quick Start use the recommended pycubrid driver",
+      "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/516",
+      "mergedAt": "2026-10-02T04:32:15Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 647,
+      "title": "docs: mention repository and full offline test lanes",
+      "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/647",
+      "mergedAt": "2026-10-03T05:36:32Z"
+     }
+    ],
+    "cubrid-mcp-server": [
+     {
+      "type": "merged_pr",
+      "number": 193,
+      "title": "fix: validate CUBRID port range",
+      "url": "https://github.com/cubrid-lab/cubrid-mcp-server/pull/193",
+      "mergedAt": "2026-09-30T14:38:28Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 194,
+      "title": "fix: reject blank required connection values",
+      "url": "https://github.com/cubrid-lab/cubrid-mcp-server/pull/194",
+      "mergedAt": "2026-09-30T14:44:13Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 203,
+      "title": "fix: accept leading comments in explain_query",
+      "url": "https://github.com/cubrid-lab/cubrid-mcp-server/pull/203",
+      "mergedAt": "2026-10-08T18:54:32Z"
+     }
+    ],
+    "cubrid-cookbook-python": [
+     {
+      "type": "merged_pr",
+      "number": 178,
+      "title": "docs: align Flask template README with recipe layout",
+      "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/pull/178",
+      "mergedAt": "2026-10-08T18:52:11Z"
+     }
+    ]
+   },
+   "mergedPrCount": 8
+  },
+  {
+   "login": "HarshRajSinghania",
+   "name": "Harsh Raj Singhania",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/40535627?v=4",
+   "profile": "https://github.com/HarshRajSinghania",
+   "accountCreated": "2018-06-24T07:40:50Z",
+   "repos": {
+    "pycubrid": [
+     {
+      "type": "merged_pr",
+      "number": 392,
+      "title": "fix: reset stale cursor state on empty executemany",
+      "url": "https://github.com/cubrid-lab/pycubrid/pull/392",
+      "mergedAt": "2026-09-26T23:17:21Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 516,
+      "title": "fix: validate LOB offset and length types before serialization",
+      "url": "https://github.com/cubrid-lab/pycubrid/pull/516",
+      "mergedAt": "2026-10-02T00:48:43Z"
+     }
+    ],
+    "sqlalchemy-cubrid": [
+     {
+      "type": "merged_pr",
+      "number": 499,
+      "title": "docs: derive Sphinx release from package version",
+      "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/499",
+      "mergedAt": "2026-09-28T21:00:55Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 477,
+      "title": "fix: reject explicit zero CHAR/NCHAR length",
+      "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/477",
+      "mergedAt": "2026-09-28T21:08:57Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 478,
+      "title": "fix: do not coerce BIT(length=0) to BIT(1)",
+      "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/478",
+      "mergedAt": "2026-09-28T21:19:17Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 1029,
+      "title": "docs(contributing): fix the single-test pytest node example",
+      "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/1029",
+      "mergedAt": "2026-10-24T06:24:19Z"
+     }
+    ]
+   },
+   "mergedPrCount": 6
+  },
+  {
+   "login": "kcncb",
+   "name": null,
+   "avatarUrl": "https://avatars.githubusercontent.com/u/128760047?v=4",
+   "profile": "https://github.com/kcncb",
+   "accountCreated": "2023-03-24T00:20:59Z",
+   "repos": {
+    "pycubrid": [
+     {
+      "type": "merged_pr",
+      "number": 1075,
+      "title": "test(scripts): pin offline execute-profiler DML helper call shapes",
+      "url": "https://github.com/cubrid-lab/pycubrid/pull/1075",
+      "mergedAt": "2026-10-27T11:27:13Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 1074,
+      "title": "test(scripts): pin fetch-profiler loop termination with a fake cursor",
+      "url": "https://github.com/cubrid-lab/pycubrid/pull/1074",
+      "mergedAt": "2026-10-27T11:28:00Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 1073,
+      "title": "test(scripts): cover bench regression input parsing and report-only output",
+      "url": "https://github.com/cubrid-lab/pycubrid/pull/1073",
+      "mergedAt": "2026-10-27T11:28:48Z"
+     }
+    ],
+    "sqlalchemy-cubrid": [
+     {
+      "type": "merged_pr",
+      "number": 1068,
+      "title": "test(scripts): cover dialect hotspot filtering and ordering in the ORM profiler",
+      "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/1068",
+      "mergedAt": "2026-10-27T11:27:14Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 1069,
+      "title": "test(scripts): exercise README translation drift checks with mocked Git",
+      "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/1069",
+      "mergedAt": "2026-10-27T11:28:01Z"
+     }
+    ],
+    "cubrid-mcp-server": [
+     {
+      "type": "merged_pr",
+      "number": 474,
+      "title": "test(docs): pin the README optional-settings tables to the config defaults",
+      "url": "https://github.com/cubrid-lab/cubrid-mcp-server/pull/474",
+      "mergedAt": "2026-10-27T11:34:40Z"
+     }
+    ]
+   },
+   "mergedPrCount": 6
+  },
+  {
+   "login": "CloudCorpRecords",
+   "name": "Rene Turcios",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/95189389?v=4",
+   "profile": "https://github.com/CloudCorpRecords",
+   "accountCreated": "2021-11-28T20:36:35Z",
+   "repos": {
+    "sqlalchemy-cubrid": [
+     {
+      "type": "merged_pr",
+      "number": 973,
+      "title": "docs(types): correct the namespace of reflected timezone types",
+      "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/973",
+      "mergedAt": "2026-10-20T00:05:55Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 978,
+      "title": "test(base): cover escaped and reserved identifier quoting",
+      "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/978",
+      "mergedAt": "2026-10-20T02:02:10Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 977,
+      "title": "fix(scripts): dispose reflection probe engine on every exit path",
+      "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/977",
+      "mergedAt": "2026-10-21T01:24:03Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 979,
+      "title": "test(ci): pin preflight sync engine disposal on success and errors",
+      "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/979",
+      "mergedAt": "2026-10-21T01:31:26Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 981,
+      "title": "test(diagnostics): pin reflection_probe report shape with fake inspector",
+      "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/981",
+      "mergedAt": "2026-10-21T01:38:50Z"
+     }
+    ]
+   },
+   "mergedPrCount": 5
+  },
+  {
+   "login": "rahul05ranjan",
+   "name": "Rahul",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/11793455?v=4",
+   "profile": "https://github.com/rahul05ranjan",
+   "accountCreated": "2015-04-04T04:26:26Z",
+   "repos": {
+    "cubrid-mcp-server": [
+     {
+      "type": "merged_pr",
+      "number": 389,
+      "title": "docs(ko): replace the mistranslated redaction term in the Korean docs",
+      "url": "https://github.com/cubrid-lab/cubrid-mcp-server/pull/389",
+      "mergedAt": "2026-10-23T05:42:45Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 392,
+      "title": "test(release): cover the CLI usage errors and non-stable tags in check_release_title",
+      "url": "https://github.com/cubrid-lab/cubrid-mcp-server/pull/392",
+      "mergedAt": "2026-10-24T00:51:14Z"
+     }
+    ],
+    "cubrid-cookbook-python": [
+     {
+      "type": "merged_pr",
+      "number": 448,
+      "title": "test(scripts): cover missing and malformed --compose values in wait_for_cubrid",
+      "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/pull/448",
+      "mergedAt": "2026-10-23T12:27:54Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 450,
+      "title": "test(scripts): cover the expected-file, nested-folder and wrong-suffix rules",
+      "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/pull/450",
+      "mergedAt": "2026-10-24T00:51:20Z"
+     }
+    ]
+   },
+   "mergedPrCount": 4
+  },
+  {
+   "login": "WATSONSK14",
+   "name": "Serhat Kutlu",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/189904673?v=4",
+   "profile": "https://github.com/WATSONSK14",
+   "accountCreated": "2024-11-27T19:07:55Z",
+   "repos": {
+    "cubrid-cookbook-python": [
+     {
+      "type": "merged_pr",
+      "number": 375,
+      "title": "test(flask): cover missing category and non-object JSON in basic CRUD",
+      "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/pull/375",
+      "mergedAt": "2026-10-14T23:30:59Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 453,
+      "title": "test(flask): keep persisted product fields unchanged after a rejected update",
+      "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/pull/453",
+      "mergedAt": "2026-10-24T00:53:30Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 487,
+      "title": "test(scripts): cover untested-example detection and warning output in check_docs_sync",
+      "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/pull/487",
+      "mergedAt": "2026-10-24T23:20:17Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 536,
+      "title": "test(scripts): cover the README and llms.txt failures of check_docs_sync main",
+      "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/pull/536",
+      "mergedAt": "2026-10-27T23:09:03Z"
+     }
+    ]
+   },
+   "mergedPrCount": 4
+  },
+  {
+   "login": "awss1i",
+   "name": "awss",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/327664817?v=4",
+   "profile": "https://github.com/awss1i",
+   "accountCreated": "2026-09-10T20:11:37Z",
+   "repos": {
+    "cubrid-cookbook-python": [
+     {
+      "type": "merged_pr",
+      "number": 134,
+      "title": "test: run Flask recipe tests against live CUBRID",
+      "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/pull/134",
+      "mergedAt": "2026-09-15T08:45:21Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 132,
+      "title": "test: run FastAPI recipe tests against live CUBRID",
+      "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/pull/132",
+      "mergedAt": "2026-09-15T14:29:24Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 141,
+      "title": "ci: run Flask and FastAPI pytest suites in smoke tests",
+      "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/pull/141",
+      "mergedAt": "2026-09-16T00:07:08Z"
+     }
+    ]
+   },
+   "mergedPrCount": 3
+  },
+  {
+   "login": "KeuqS",
+   "name": "Aykut Güney",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/50778230?v=4",
+   "profile": "https://github.com/KeuqS",
+   "accountCreated": "2019-05-18T17:20:33Z",
+   "repos": {
+    "cubrid-cookbook-python": [
+     {
+      "type": "merged_pr",
+      "number": 307,
+      "title": "docs(ai-agent): clarify direct agent-loop execution",
+      "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/pull/307",
+      "mergedAt": "2026-10-12T16:55:24Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 306,
+      "title": "docs(dashboard): describe manual table refresh",
+      "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/pull/306",
+      "mergedAt": "2026-10-12T16:59:16Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 321,
+      "title": "docs(django): fix template README paths",
+      "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/pull/321",
+      "mergedAt": "2026-10-14T11:37:41Z"
+     }
+    ]
+   },
+   "mergedPrCount": 3
+  },
+  {
+   "login": "tayfuryldz",
+   "name": "Tayfur Yıldız",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/238304586?v=4",
+   "profile": "https://github.com/tayfuryldz",
+   "accountCreated": "2025-10-15T16:43:50Z",
+   "repos": {
+    "sqlalchemy-cubrid": [
+     {
+      "type": "merged_pr",
+      "number": 379,
+      "title": "fix: correct IS DISTINCT FROM live emulation",
+      "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/379",
+      "mergedAt": "2026-09-14T23:02:52Z"
+     }
+    ],
+    "pycubrid": [
+     {
+      "type": "merged_pr",
+      "number": 379,
+      "title": "fix: close active query handle before batch execution",
+      "url": "https://github.com/cubrid-lab/pycubrid/pull/379",
+      "mergedAt": "2026-09-22T12:38:58Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 380,
+      "title": "fix: clear cursor state after failed batch execution",
+      "url": "https://github.com/cubrid-lab/pycubrid/pull/380",
+      "mergedAt": "2026-09-26T23:06:12Z"
+     }
+    ]
+   },
+   "mergedPrCount": 3,
+   "otherActivity": {
+    "sqlalchemy-cubrid": [
+     {
+      "type": "pr_review",
+      "pr": 379,
+      "state": "COMMENTED",
+      "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/379#pullrequestreview-5202772631",
+      "submittedAt": "2026-09-14T20:51:28Z"
+     }
+    ]
+   }
+  },
+  {
+   "login": "Vieta100-omo",
+   "name": null,
+   "avatarUrl": "https://avatars.githubusercontent.com/u/338171341?v=4",
+   "profile": "https://github.com/Vieta100-omo",
+   "accountCreated": "2026-10-05T14:29:18Z",
+   "repos": {
+    "pycubrid": [
+     {
+      "type": "merged_pr",
+      "number": 824,
+      "title": "docs(aio): correct Python version notes in TLS docstrings",
+      "url": "https://github.com/cubrid-lab/pycubrid/pull/824",
+      "mergedAt": "2026-10-11T08:36:22Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 847,
+      "title": "docs(i18n): update the Python requirement in the Chinese README",
+      "url": "https://github.com/cubrid-lab/pycubrid/pull/847",
+      "mergedAt": "2026-10-12T02:28:14Z"
+     }
+    ],
+    "sqlalchemy-cubrid": [
+     {
+      "type": "merged_pr",
+      "number": 825,
+      "title": "docs(i18n): update the Python requirement in the Chinese README",
+      "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/825",
+      "mergedAt": "2026-10-12T08:20:13Z"
+     }
+    ]
+   },
+   "mergedPrCount": 3
+  },
+  {
+   "login": "Aaqibhafeezkhan",
+   "name": "Aaqibhafeez Khan",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/292322256?v=4",
+   "profile": "https://github.com/Aaqibhafeezkhan",
+   "accountCreated": "2026-06-10T04:49:18Z",
+   "repos": {
+    "cubrid-mcp-server": [
+     {
+      "type": "merged_pr",
+      "number": 368,
+      "title": "test: cover a non-matching table-name filter",
+      "url": "https://github.com/cubrid-lab/cubrid-mcp-server/pull/368",
+      "mergedAt": "2026-10-20T00:05:22Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 367,
+      "title": "test(config): cover whitespace around named selector",
+      "url": "https://github.com/cubrid-lab/cubrid-mcp-server/pull/367",
+      "mergedAt": "2026-10-20T00:07:40Z"
+     }
+    ]
+   },
+   "mergedPrCount": 2
+  },
+  {
+   "login": "bfs2021",
+   "name": "zgy",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/101915083?v=4",
+   "profile": "https://github.com/bfs2021",
+   "accountCreated": "2022-03-19T04:01:44Z",
+   "repos": {
+    "pycubrid": [
+     {
+      "type": "merged_pr",
+      "number": 1095,
+      "title": "docs(troubleshooting): list the connection-closed errors the driver raises",
+      "url": "https://github.com/cubrid-lab/pycubrid/pull/1095",
+      "mergedAt": "2026-10-27T23:13:45Z"
+     }
+    ],
+    "sqlalchemy-cubrid": [
+     {
+      "type": "merged_pr",
+      "number": 1092,
+      "title": "docs(samples): fix the async sample's install line and Docker hint",
+      "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/1092",
+      "mergedAt": "2026-10-28T00:47:22Z"
+     }
+    ]
+   },
+   "mergedPrCount": 2
+  },
+  {
+   "login": "bh-official",
+   "name": "Bhuvaneswari_babu",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/162908389?v=4",
+   "profile": "https://github.com/bh-official",
+   "accountCreated": "2024-03-10T16:57:17Z",
+   "repos": {
+    "cubrid-mcp-server": [
+     {
+      "type": "merged_pr",
+      "number": 406,
+      "title": "test(release): cover the version-level structure rules in lint_changelog",
+      "url": "https://github.com/cubrid-lab/cubrid-mcp-server/pull/406",
+      "mergedAt": "2026-10-24T02:33:22Z"
+     }
+    ],
+    "cubrid-cookbook-python": [
+     {
+      "type": "merged_pr",
+      "number": 458,
+      "title": "test(scripts): cover the listing mode and whitespace rejection of example_requirements",
+      "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/pull/458",
+      "mergedAt": "2026-10-24T03:24:49Z"
+     }
+    ]
+   },
+   "mergedPrCount": 2
+  },
+  {
+   "login": "Mr-Neutr0n",
+   "name": "hari",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/64578610?v=4",
+   "profile": "https://github.com/Mr-Neutr0n",
+   "accountCreated": "2020-04-30T07:14:02Z",
+   "repos": {
+    "pycubrid": [
+     {
+      "type": "merged_pr",
+      "number": 479,
+      "title": "fix: DBAPIType should not treat bool values as integer type",
+      "url": "https://github.com/cubrid-lab/pycubrid/pull/479",
+      "mergedAt": "2026-10-02T07:12:26Z"
+     }
+    ],
+    "cubrid-cookbook-python": [
+     {
+      "type": "merged_pr",
+      "number": 216,
+      "title": "docs: add Korean README for dashboard template",
+      "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/pull/216",
+      "mergedAt": "2026-10-10T04:08:42Z"
+     }
+    ]
+   },
+   "mergedPrCount": 2
+  },
+  {
+   "login": "rushikeshraghatate90",
+   "name": "RUSHIKESH KASHINATH RAGHATATE",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/118911581?v=4",
+   "profile": "https://github.com/rushikeshraghatate90",
+   "accountCreated": "2022-11-23T14:14:44Z",
+   "repos": {
+    "cubrid-cookbook-python": [
+     {
+      "type": "merged_pr",
+      "number": 341,
+      "title": "test: add offline unit tests for expected coverage checker",
+      "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/pull/341",
+      "mergedAt": "2026-10-14T11:43:06Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 408,
+      "title": "test(licenses): cover requirement file exclusions",
+      "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/pull/408",
+      "mergedAt": "2026-10-16T09:54:02Z"
+     }
+    ]
+   },
+   "mergedPrCount": 2
+  },
+  {
+   "login": "ryanduguid",
+   "name": "Ryan Duguid",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/152749594?v=4",
+   "profile": "https://github.com/ryanduguid",
+   "accountCreated": "2023-12-02T23:49:10Z",
+   "repos": {
+    "pycubrid": [
+     {
+      "type": "merged_pr",
+      "number": 531,
+      "title": "fix: clear previous results after failed execute",
+      "url": "https://github.com/cubrid-lab/pycubrid/pull/531",
+      "mergedAt": "2026-10-01T02:12:43Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 981,
+      "title": "ci: install locked wheels before trusted checkout builds",
+      "url": "https://github.com/cubrid-lab/pycubrid/pull/981",
+      "mergedAt": "2026-10-27T02:28:05Z"
+     }
+    ]
+   },
+   "mergedPrCount": 2
+  },
+  {
+   "login": "thymeed",
+   "name": "Thymeed",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/326794365?v=4",
+   "profile": "https://github.com/thymeed",
+   "accountCreated": "2026-09-09T04:24:40Z",
+   "repos": {
+    "cubrid-mcp-server": [
+     {
+      "type": "merged_pr",
+      "number": 369,
+      "title": "test(config): cover all documented boolean aliases and invalid values",
+      "url": "https://github.com/cubrid-lab/cubrid-mcp-server/pull/369",
+      "mergedAt": "2026-10-20T00:28:07Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 374,
+      "title": "test(config): cover that named connections do not inherit the bare settings",
+      "url": "https://github.com/cubrid-lab/cubrid-mcp-server/pull/374",
+      "mergedAt": "2026-10-20T07:09:17Z"
+     }
+    ]
+   },
+   "mergedPrCount": 2
+  },
+  {
+   "login": "UsmanGhias",
+   "name": "Usman Ghias",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/99526697?v=4",
+   "profile": "https://github.com/UsmanGhias",
+   "accountCreated": "2022-02-12T06:26:54Z",
+   "repos": {
+    "sqlalchemy-cubrid": [
+     {
+      "type": "merged_pr",
+      "number": 455,
+      "title": "fix(reflection): do not translate native -493 syntax errors into NoSuchTableError",
+      "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/455",
+      "mergedAt": "2026-09-28T21:34:01Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 732,
+      "title": "refactor(dialect): drop the Python 3.10 asyncio.TimeoutError case in is_disconnect",
+      "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/732",
+      "mergedAt": "2026-10-07T02:44:38Z"
+     }
+    ]
+   },
+   "mergedPrCount": 2,
+   "otherActivity": {
+    "sqlalchemy-cubrid": [
+     {
+      "type": "pr_review",
+      "pr": 468,
+      "state": "COMMENTED",
+      "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/468#pullrequestreview-5328901934",
+      "submittedAt": "2026-09-27T05:04:11Z"
+     },
+     {
+      "type": "pr_review",
+      "pr": 472,
+      "state": "COMMENTED",
+      "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/472#pullrequestreview-5329453943",
+      "submittedAt": "2026-09-27T08:05:07Z"
+     },
+     {
+      "type": "pr_review",
+      "pr": 472,
+      "state": "APPROVED",
+      "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/472#pullrequestreview-5329520553",
+      "submittedAt": "2026-09-27T08:30:52Z"
+     },
+     {
+      "type": "pr_review",
+      "pr": 718,
+      "state": "COMMENTED",
+      "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/718#pullrequestreview-5409974394",
+      "submittedAt": "2026-10-05T04:17:25Z"
+     },
+     {
+      "type": "pr_review",
+      "pr": 725,
+      "state": "COMMENTED",
+      "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/725#pullrequestreview-5423982531",
+      "submittedAt": "2026-10-06T05:03:57Z"
+     }
+    ]
+   }
+  },
+  {
+   "login": "VeldanDev",
+   "name": "Aditya Surya Putra",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/177237142?v=4",
+   "profile": "https://github.com/VeldanDev",
+   "accountCreated": "2024-08-01T14:31:42Z",
+   "repos": {
+    "cubrid-mcp-server": [
+     {
+      "type": "merged_pr",
+      "number": 443,
+      "title": "fix(config): name the variable when a boolean setting is invalid",
+      "url": "https://github.com/cubrid-lab/cubrid-mcp-server/pull/443",
+      "mergedAt": "2026-10-25T01:14:06Z"
+     },
+     {
+      "type": "merged_pr",
+      "number": 446,
+      "title": "test(config): name the prefixed variable in invalid named-connection values",
+      "url": "https://github.com/cubrid-lab/cubrid-mcp-server/pull/446",
+      "mergedAt": "2026-10-25T04:23:10Z"
+     }
+    ]
+   },
+   "mergedPrCount": 2
+  },
+  {
+   "login": "abhishekjoshi13",
+   "name": "Abhishek Joshi",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/157949438?v=4",
+   "profile": "https://github.com/abhishekjoshi13",
+   "accountCreated": "2024-01-28T08:05:51Z",
+   "repos": {
+    "cubrid-cookbook-python": [
+     {
+      "type": "merged_pr",
+      "number": 120,
+      "title": "test: automated pytest suite for dashboard recipes against live CUBRID",
+      "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/pull/120",
+      "mergedAt": "2026-09-14T13:47:26Z"
+     }
+    ]
+   },
+   "mergedPrCount": 1
+  },
+  {
+   "login": "Ai-Siiii",
+   "name": null,
+   "avatarUrl": "https://avatars.githubusercontent.com/u/348796170?v=4",
+   "profile": "https://github.com/Ai-Siiii",
+   "accountCreated": "2026-10-27T11:47:30Z",
+   "repos": {
+    "cubrid-mcp-server": [
+     {
+      "type": "merged_pr",
+      "number": 493,
+      "title": "docs(templates): correct the bug-report title example and collect useful diagnostics",
+      "url": "https://github.com/cubrid-lab/cubrid-mcp-server/pull/493",
+      "mergedAt": "2026-10-27T23:22:11Z"
+     }
+    ]
+   },
+   "mergedPrCount": 1
+  },
+  {
+   "login": "alperensumeroglu",
+   "name": "Alperen Sümeroğlu",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/144742696?v=4",
+   "profile": "https://github.com/alperensumeroglu",
+   "accountCreated": "2023-09-11T22:28:04Z",
+   "repos": {
+    "cubrid-cookbook-python": [
+     {
+      "type": "merged_pr",
+      "number": 133,
+      "title": "docs: synchronize recipe counts and add CI verification script",
+      "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/pull/133",
+      "mergedAt": "2026-09-29T01:05:47Z"
+     }
+    ]
+   },
+   "mergedPrCount": 1
+  },
+  {
+   "login": "anaylab",
+   "name": "Anay Parwal",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/65026806?v=4",
+   "profile": "https://github.com/anaylab",
+   "accountCreated": "2020-05-08T13:52:53Z",
+   "repos": {
+    "sqlalchemy-cubrid": [
+     {
+      "type": "merged_pr",
+      "number": 1065,
+      "title": "test: reject missing canonical pages in the llms-full generator",
+      "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/1065",
+      "mergedAt": "2026-10-27T23:28:08Z"
+     }
+    ]
+   },
+   "mergedPrCount": 1
+  },
+  {
+   "login": "anush-933",
+   "name": "Anushree K",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/82230179?v=4",
+   "profile": "https://github.com/anush-933",
+   "accountCreated": "2021-04-09T16:33:54Z",
+   "repos": {
+    "sqlalchemy-cubrid": [
+     {
+      "type": "merged_pr",
+      "number": 740,
+      "title": "docs(llms): update the Python requirement in the canonical index",
+      "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/740",
+      "mergedAt": "2026-10-08T04:38:48Z"
+     }
+    ]
+   },
+   "mergedPrCount": 1
+  },
+  {
+   "login": "anyingiit",
+   "name": "anying",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/49945850?v=4",
+   "profile": "https://github.com/anyingiit",
+   "accountCreated": "2019-04-24T11:31:10Z",
+   "repos": {
+    "sqlalchemy-cubrid": [
+     {
+      "type": "merged_pr",
+      "number": 456,
+      "title": "fix(compiler): reject explicit zero VARCHAR/NVARCHAR length instead of using 4096",
+      "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/456",
+      "mergedAt": "2026-09-27T11:27:59Z"
+     }
+    ]
+   },
+   "mergedPrCount": 1
+  },
+  {
+   "login": "AuraFamerCode",
+   "name": null,
+   "avatarUrl": "https://avatars.githubusercontent.com/u/241599244?v=4",
+   "profile": "https://github.com/AuraFamerCode",
+   "accountCreated": "2025-11-02T14:27:07Z",
+   "repos": {
+    "cubrid-mcp-server": [
+     {
+      "type": "merged_pr",
+      "number": 386,
+      "title": "test(doctor): cover an old Python, a missing dev module and missing D…",
+      "url": "https://github.com/cubrid-lab/cubrid-mcp-server/pull/386",
+      "mergedAt": "2026-10-23T05:19:59Z"
+     }
+    ]
+   },
+   "mergedPrCount": 1
+  },
+  {
+   "login": "Bryandero98",
+   "name": "Bryan Delgado",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/124054031?v=4",
+   "profile": "https://github.com/Bryandero98",
+   "accountCreated": "2023-01-31T12:30:29Z",
+   "repos": {
+    "cubrid-cookbook-python": [
+     {
+      "type": "merged_pr",
+      "number": 125,
+      "title": "test: automated pytest suite for ai-agent recipes against live CUBRID",
+      "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/pull/125",
+      "mergedAt": "2026-09-26T23:03:40Z"
+     }
+    ]
+   },
+   "mergedPrCount": 1
+  },
+  {
+   "login": "chenzeyan54-commits",
+   "name": null,
+   "avatarUrl": "https://avatars.githubusercontent.com/u/263139938?v=4",
+   "profile": "https://github.com/chenzeyan54-commits",
+   "accountCreated": "2026-02-22T09:40:57Z",
+   "repos": {
+    "cubrid-cookbook-python": [
+     {
+      "type": "merged_pr",
+      "number": 156,
+      "title": "docs: reconcile the roadmap scope and Unreleased changelog headings",
+      "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/pull/156",
+      "mergedAt": "2026-10-11T22:40:49Z"
+     }
+    ]
+   },
+   "mergedPrCount": 1
+  },
+  {
+   "login": "dannyward630",
+   "name": "Danny Ward",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/71604164?v=4",
+   "profile": "https://github.com/dannyward630",
+   "accountCreated": "2020-09-20T17:15:48Z",
+   "repos": {
+    "cubrid-cookbook-python": [
+     {
+      "type": "merged_pr",
+      "number": 532,
+      "title": "docs: show the actual pycubrid connection error in fundamentals",
+      "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/pull/532",
+      "mergedAt": "2026-10-28T00:47:28Z"
+     }
+    ]
+   },
+   "mergedPrCount": 1
+  },
+  {
+   "login": "Dikshant-Neupane",
+   "name": "Dikshant Neupane",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/182423141?v=4",
+   "profile": "https://github.com/Dikshant-Neupane",
+   "accountCreated": "2024-09-22T13:49:12Z",
+   "repos": {
+    "cubrid-cookbook-python": [
+     {
+      "type": "merged_pr",
+      "number": 509,
+      "title": "test(scripts): cover not-newer, newer and unverified summaries of latest_server describe",
+      "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/pull/509",
+      "mergedAt": "2026-10-27T11:27:13Z"
+     }
+    ]
+   },
+   "mergedPrCount": 1
+  },
+  {
+   "login": "goktugekin",
+   "name": "Göktuğ Ekin",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/312060198?v=4",
+   "profile": "https://github.com/goktugekin",
+   "accountCreated": "2026-08-02T10:16:25Z",
+   "repos": {
+    "pycubrid": [
+     {
+      "type": "merged_pr",
+      "number": 1099,
+      "title": "docs(faq): clarify supported Python versions",
+      "url": "https://github.com/cubrid-lab/pycubrid/pull/1099",
+      "mergedAt": "2026-10-27T23:10:49Z"
+     }
+    ]
+   },
+   "mergedPrCount": 1
+  },
+  {
+   "login": "itsdevcode",
+   "name": "Arun Yadav",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/326601610?v=4",
+   "profile": "https://github.com/itsdevcode",
+   "accountCreated": "2026-09-08T17:10:00Z",
+   "repos": {
+    "sqlalchemy-cubrid": [
+     {
+      "type": "merged_pr",
+      "number": 457,
+      "title": "fix: make reflected name ordering deterministic",
+      "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/457",
+      "mergedAt": "2026-09-27T11:22:15Z"
+     }
+    ]
+   },
+   "mergedPrCount": 1
+  },
+  {
+   "login": "jackgedge",
+   "name": "Jack Galbraith-Edge",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/117417072?v=4",
+   "profile": "https://github.com/jackgedge",
+   "accountCreated": "2022-11-04T01:18:44Z",
+   "repos": {
+    "cubrid-cookbook-python": [
+     {
+      "type": "merged_pr",
+      "number": 144,
+      "title": "chore: remove stale nested Flask recipe copies",
+      "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/pull/144",
+      "mergedAt": "2026-09-28T20:56:03Z"
+     }
+    ]
+   },
+   "mergedPrCount": 1
+  },
+  {
+   "login": "Jah-yee",
+   "name": "RoomWithOutRoof",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/166608075?v=4",
+   "profile": "https://github.com/Jah-yee",
+   "accountCreated": "2024-04-10T10:13:10Z",
+   "repos": {
+    "pycubrid": [
+     {
+      "type": "merged_pr",
+      "number": 773,
+      "title": "feat(typing): annotate context manager and iterator returns with typing.Self",
+      "url": "https://github.com/cubrid-lab/pycubrid/pull/773",
+      "mergedAt": "2026-10-11T23:06:21Z"
+     }
+    ]
+   },
+   "mergedPrCount": 1,
+   "otherActivity": {
+    "pycubrid": [
+     {
+      "type": "pr_review",
+      "pr": 755,
+      "state": "COMMENTED",
+      "url": "https://github.com/cubrid-lab/pycubrid/pull/755#pullrequestreview-5438025009",
+      "submittedAt": "2026-10-07T05:27:43Z"
+     },
+     {
+      "type": "pr_review",
+      "pr": 755,
+      "state": "COMMENTED",
+      "url": "https://github.com/cubrid-lab/pycubrid/pull/755#pullrequestreview-5438026761",
+      "submittedAt": "2026-10-07T05:27:57Z"
+     },
+     {
+      "type": "pr_review",
+      "pr": 755,
+      "state": "COMMENTED",
+      "url": "https://github.com/cubrid-lab/pycubrid/pull/755#pullrequestreview-5438027627",
+      "submittedAt": "2026-10-07T05:28:03Z"
+     }
+    ]
+   }
+  },
+  {
+   "login": "Jaysanghani08",
+   "name": "Jay Sanghani",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/90022040?v=4",
+   "profile": "https://github.com/Jaysanghani08",
+   "accountCreated": "2021-09-03T04:54:24Z",
+   "repos": {
+    "cubrid-cookbook-python": [
+     {
+      "type": "merged_pr",
+      "number": 496,
+      "title": "test(scripts): cover mcp_smoke main tool-contract checks",
+      "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/pull/496",
+      "mergedAt": "2026-10-25T11:34:46Z"
+     }
+    ]
+   },
+   "mergedPrCount": 1
+  },
+  {
+   "login": "kragent66-glitch",
+   "name": "Utkarsh Bhangale",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/314170412?v=4",
+   "profile": "https://github.com/kragent66-glitch",
+   "accountCreated": "2026-08-07T07:31:38Z",
+   "repos": {
+    "sqlalchemy-cubrid": [
+     {
+      "type": "merged_pr",
+      "number": 718,
+      "title": "docs(python): update contributor and CI docs for Python 3.11",
+      "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/718",
+      "mergedAt": "2026-10-08T04:38:29Z"
+     }
+    ]
+   },
+   "mergedPrCount": 1
+  },
+  {
+   "login": "laozhej",
+   "name": "AsahiArataki",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/104217479?v=4",
+   "profile": "https://github.com/laozhej",
+   "accountCreated": "2022-04-22T15:48:28Z",
+   "repos": {
+    "cubrid-mcp-server": [
+     {
+      "type": "merged_pr",
+      "number": 459,
+      "title": "test(server): cover owner-aware catalog helper conditions",
+      "url": "https://github.com/cubrid-lab/cubrid-mcp-server/pull/459",
+      "mergedAt": "2026-10-27T02:34:37Z"
+     }
+    ]
+   },
+   "mergedPrCount": 1
+  },
+  {
+   "login": "MugdhoAI",
+   "name": "All Asmaul Husnain",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/251702612?v=4",
+   "profile": "https://github.com/MugdhoAI",
+   "accountCreated": "2025-12-27T08:07:09Z",
+   "repos": {
+    "pycubrid": [
+     {
+      "type": "merged_pr",
+      "number": 378,
+      "title": "fix: validate Cursor.arraysize type",
+      "url": "https://github.com/cubrid-lab/pycubrid/pull/378",
+      "mergedAt": "2026-09-26T22:54:39Z"
+     }
+    ]
+   },
+   "mergedPrCount": 1
+  },
+  {
+   "login": "Muhtasim-Munif-Fahim",
+   "name": "Muhtasim Munif Fahim",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/204097607?v=4",
+   "profile": "https://github.com/Muhtasim-Munif-Fahim",
+   "accountCreated": "2025-03-19T22:52:39Z",
+   "repos": {
+    "cubrid-mcp-server": [
+     {
+      "type": "merged_pr",
+      "number": 468,
+      "title": "fix: list both sides of a rename in the translation-sync changed-file list",
+      "url": "https://github.com/cubrid-lab/cubrid-mcp-server/pull/468",
+      "mergedAt": "2026-10-27T11:27:13Z"
+     }
+    ]
+   },
+   "mergedPrCount": 1
+  },
+  {
+   "login": "Nandankumarjv",
+   "name": null,
+   "avatarUrl": "https://avatars.githubusercontent.com/u/256068902?v=4",
+   "profile": "https://github.com/Nandankumarjv",
+   "accountCreated": "2026-01-20T09:18:34Z",
+   "repos": {
+    "sqlalchemy-cubrid": [
+     {
+      "type": "merged_pr",
+      "number": 1039,
+      "title": "test(perf): cover benchmark baseline helpers",
+      "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/1039",
+      "mergedAt": "2026-10-25T12:13:55Z"
+     }
+    ]
+   },
+   "mergedPrCount": 1
+  },
+  {
+   "login": "nightcityblade",
+   "name": null,
+   "avatarUrl": "https://avatars.githubusercontent.com/u/260356847?v=4",
+   "profile": "https://github.com/nightcityblade",
+   "accountCreated": "2026-02-09T06:12:15Z",
+   "repos": {
+    "pycubrid": [
+     {
+      "type": "merged_pr",
+      "number": 461,
+      "title": "docs: replace fixed Docker startup sleeps",
+      "url": "https://github.com/cubrid-lab/pycubrid/pull/461",
+      "mergedAt": "2026-09-28T20:52:18Z"
+     }
+    ]
+   },
+   "mergedPrCount": 1
+  },
+  {
+   "login": "Ochibueze474",
+   "name": "Valentine",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/231002441?v=4",
+   "profile": "https://github.com/Ochibueze474",
+   "accountCreated": "2025-09-08T10:34:19Z",
+   "repos": {
+    "cubrid-mcp-server": [
+     {
+      "type": "merged_pr",
+      "number": 464,
+      "title": "test(server): reject unknown tables in schema_definitions before metadata queries",
+      "url": "https://github.com/cubrid-lab/cubrid-mcp-server/pull/464",
+      "mergedAt": "2026-10-27T23:11:09Z"
+     }
+    ]
+   },
+   "mergedPrCount": 1
+  },
+  {
+   "login": "OpenDeernet",
+   "name": "OpenDeer",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/241758973?v=4",
+   "profile": "https://github.com/OpenDeernet",
+   "accountCreated": "2025-11-03T12:56:17Z",
+   "repos": {
+    "cubrid-mcp-server": [
+     {
+      "type": "merged_pr",
+      "number": 471,
+      "title": "test(scripts): cover _docker exit-status and timeout branches",
+      "url": "https://github.com/cubrid-lab/cubrid-mcp-server/pull/471",
+      "mergedAt": "2026-10-27T11:30:58Z"
+     }
+    ]
+   },
+   "mergedPrCount": 1
+  },
+  {
+   "login": "Oscar-Williams",
+   "name": "Oscar",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/319719771?v=4",
+   "profile": "https://github.com/Oscar-Williams",
+   "accountCreated": "2026-08-22T06:06:38Z",
+   "repos": {
+    "cubrid-mcp-server": [
+     {
+      "type": "merged_pr",
+      "number": 496,
+      "title": "feat(cli): handle --help and --version before config",
+      "url": "https://github.com/cubrid-lab/cubrid-mcp-server/pull/496",
+      "mergedAt": "2026-10-27T23:17:06Z"
+     }
+    ]
+   },
+   "mergedPrCount": 1
+  },
+  {
+   "login": "PandaHUN777",
+   "name": "Panda",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/117030640?v=4",
+   "profile": "https://github.com/PandaHUN777",
+   "accountCreated": "2022-10-30T16:11:39Z",
+   "repos": {
+    "sqlalchemy-cubrid": [
+     {
+      "type": "merged_pr",
+      "number": 506,
+      "title": "docs(compat): clarify SQLAlchemy 2.1 support and canary",
+      "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/506",
+      "mergedAt": "2026-09-28T21:10:44Z"
+     }
+    ]
+   },
+   "mergedPrCount": 1
+  },
+  {
+   "login": "Parth-Vasave",
+   "name": "parth",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/218812702?v=4",
+   "profile": "https://github.com/Parth-Vasave",
+   "accountCreated": "2025-07-01T16:33:32Z",
+   "repos": {
+    "pycubrid": [
+     {
+      "type": "merged_pr",
+      "number": 385,
+      "title": "feat: surface unknown connection options instead of silently ignoring them",
+      "url": "https://github.com/cubrid-lab/pycubrid/pull/385",
+      "mergedAt": "2026-09-27T11:22:21Z"
+     }
+    ]
+   },
+   "mergedPrCount": 1
+  },
+  {
+   "login": "petrovicistefan",
+   "name": "Stefan Petrovici",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/5754511?v=4",
+   "profile": "https://github.com/petrovicistefan",
+   "accountCreated": "2013-10-23T08:44:47Z",
+   "repos": {
+    "pycubrid": [
+     {
+      "type": "merged_pr",
+      "number": 957,
+      "title": "docs(troubleshooting): clarify sync and async read timeouts",
+      "url": "https://github.com/cubrid-lab/pycubrid/pull/957",
+      "mergedAt": "2026-10-15T23:53:56Z"
+     }
+    ]
+   },
+   "mergedPrCount": 1
+  },
+  {
+   "login": "pratham8499",
+   "name": "Pratham Patidar",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/110512385?v=4",
+   "profile": "https://github.com/pratham8499",
+   "accountCreated": "2022-08-03T02:44:53Z",
+   "repos": {
+    "cubrid-cookbook-python": [
+     {
+      "type": "merged_pr",
+      "number": 492,
+      "title": "test(scripts): cover all readiness timeout options",
+      "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/pull/492",
+      "mergedAt": "2026-10-25T01:23:14Z"
+     }
+    ]
+   },
+   "mergedPrCount": 1
+  },
+  {
+   "login": "pratipc",
+   "name": "Pratip Chakraborty",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/113278354?v=4",
+   "profile": "https://github.com/pratipc",
+   "accountCreated": "2022-09-11T06:18:32Z",
+   "repos": {
+    "sqlalchemy-cubrid": [
+     {
+      "type": "merged_pr",
+      "number": 445,
+      "title": "fix: preserve timezone=True on timezone-aware type instances",
+      "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/445",
+      "mergedAt": "2026-09-22T05:10:59Z"
+     }
+    ]
+   },
+   "mergedPrCount": 1
+  },
+  {
+   "login": "rahemoth",
+   "name": "RATH",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/93049818?v=4",
+   "profile": "https://github.com/rahemoth",
+   "accountCreated": "2021-10-23T16:45:45Z",
+   "repos": {
+    "cubrid-cookbook-python": [
+     {
+      "type": "merged_pr",
+      "number": 358,
+      "title": "test(scripts): cover the release-number parsing in the MCP smoke script",
+      "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/pull/358",
+      "mergedAt": "2026-10-14T23:16:13Z"
+     }
+    ]
+   },
+   "mergedPrCount": 1
+  },
+  {
+   "login": "randomcodeross",
+   "name": null,
+   "avatarUrl": "https://avatars.githubusercontent.com/u/340328751?v=4",
+   "profile": "https://github.com/randomcodeross",
+   "accountCreated": "2026-10-09T21:09:23Z",
+   "repos": {
+    "pycubrid": [
+     {
+      "type": "merged_pr",
+      "number": 804,
+      "title": "docs: update Python requirement in LLM index",
+      "url": "https://github.com/cubrid-lab/pycubrid/pull/804",
+      "mergedAt": "2026-10-11T08:35:19Z"
+     }
+    ]
+   },
+   "mergedPrCount": 1
+  },
+  {
+   "login": "SHIL0018",
+   "name": "SHI LIANG",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/298333456?v=4",
+   "profile": "https://github.com/SHIL0018",
+   "accountCreated": "2026-06-30T15:01:38Z",
+   "repos": {
+    "cubrid-mcp-server": [
+     {
+      "type": "merged_pr",
+      "number": 98,
+      "title": "docs: add LLM-facing project summary",
+      "url": "https://github.com/cubrid-lab/cubrid-mcp-server/pull/98",
+      "mergedAt": "2026-08-25T07:43:04Z"
+     }
+    ]
+   },
+   "mergedPrCount": 1
+  },
+  {
+   "login": "srijavuppala",
+   "name": "Srija Vuppala",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/68093811?v=4",
+   "profile": "https://github.com/srijavuppala",
+   "accountCreated": "2020-07-10T03:40:48Z",
+   "repos": {
+    "pycubrid": [
+     {
+      "type": "merged_pr",
+      "number": 393,
+      "title": "fix(connection): cache last-insert-id so it survives commit()",
+      "url": "https://github.com/cubrid-lab/pycubrid/pull/393",
+      "mergedAt": "2026-09-26T23:29:08Z"
+     }
+    ]
+   },
+   "mergedPrCount": 1
+  },
+  {
+   "login": "Srikanthmadhan",
+   "name": "Srikanth Madhan",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/171491057?v=4",
+   "profile": "https://github.com/Srikanthmadhan",
+   "accountCreated": "2024-06-02T12:55:22Z",
+   "repos": {
+    "cubrid-mcp-server": [
+     {
+      "type": "merged_pr",
+      "number": 183,
+      "title": "fix: distinguish empty table_names from omitted in table_row_counts",
+      "url": "https://github.com/cubrid-lab/cubrid-mcp-server/pull/183",
+      "mergedAt": "2026-09-27T11:13:48Z"
+     }
+    ]
+   },
+   "mergedPrCount": 1
+  },
+  {
+   "login": "SuellenQwQ",
+   "name": "SuellenQAQ",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/278082442?v=4",
+   "profile": "https://github.com/SuellenQwQ",
+   "accountCreated": "2026-04-21T12:35:10Z",
+   "repos": {
+    "sqlalchemy-cubrid": [
+     {
+      "type": "merged_pr",
+      "number": 986,
+      "title": "docs: correct the documented boolean expression positions",
+      "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/986",
+      "mergedAt": "2026-10-20T03:51:54Z"
+     }
+    ]
+   },
+   "mergedPrCount": 1
+  },
+  {
+   "login": "tnalbant",
+   "name": "tnalbant - timtim",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/182372382?v=4",
+   "profile": "https://github.com/tnalbant",
+   "accountCreated": "2024-09-21T19:37:53Z",
+   "repos": {
+    "sqlalchemy-cubrid": [
+     {
+      "type": "merged_pr",
+      "number": 931,
+      "title": "test(trace): assert SHOW TRACE read failures close result handles",
+      "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/931",
+      "mergedAt": "2026-10-15T09:00:18Z"
+     }
+    ]
+   },
+   "mergedPrCount": 1
+  },
+  {
+   "login": "tyza66",
+   "name": "孙达明",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/83948628?v=4",
+   "profile": "https://github.com/tyza66",
+   "accountCreated": "2021-05-10T08:32:26Z",
+   "repos": {
+    "cubrid-mcp-server": [
+     {
+      "type": "merged_pr",
+      "number": 387,
+      "title": "test: cover unprefixed tags and undated sections in release-note extraction",
+      "url": "https://github.com/cubrid-lab/cubrid-mcp-server/pull/387",
+      "mergedAt": "2026-10-23T05:23:25Z"
+     }
+    ]
+   },
+   "mergedPrCount": 1
+  },
+  {
+   "login": "varshith84",
+   "name": "Varshith Sai Pasupuleti",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/112600740?v=4",
+   "profile": "https://github.com/varshith84",
+   "accountCreated": "2022-09-01T02:58:21Z",
+   "repos": {
+    "pycubrid": [
+     {
+      "type": "merged_pr",
+      "number": 382,
+      "title": "fix: avoid overflow when formatting large integer parameters",
+      "url": "https://github.com/cubrid-lab/pycubrid/pull/382",
+      "mergedAt": "2026-09-22T12:28:31Z"
+     }
+    ]
+   },
+   "mergedPrCount": 1
+  },
+  {
+   "login": "xuu33030",
+   "name": null,
+   "avatarUrl": "https://avatars.githubusercontent.com/u/268775543?v=4",
+   "profile": "https://github.com/xuu33030",
+   "accountCreated": "2026-03-17T01:47:33Z",
+   "repos": {
+    "cubrid-mcp-server": [
+     {
+      "type": "merged_pr",
+      "number": 184,
+      "title": "fix: reject non-finite query timeouts",
+      "url": "https://github.com/cubrid-lab/cubrid-mcp-server/pull/184",
+      "mergedAt": "2026-09-27T11:22:27Z"
+     }
+    ]
+   },
+   "mergedPrCount": 1
+  },
+  {
+   "login": "yotam1001",
+   "name": "Yotam Moshe",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/104452400?v=4",
+   "profile": "https://github.com/yotam1001",
+   "accountCreated": "2022-04-26T16:29:57Z",
+   "repos": {
+    "pycubrid": [
+     {
+      "type": "merged_pr",
+      "number": 515,
+      "title": "fix: reject malformed qualified callproc names",
+      "url": "https://github.com/cubrid-lab/pycubrid/pull/515",
+      "mergedAt": "2026-10-02T07:24:28Z"
+     }
+    ]
+   },
+   "mergedPrCount": 1
+  }
+ ],
+ "otherParticipants": [
+  {
+   "login": "andyrzr-bot",
+   "name": "Andy Rozario",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/224369165?v=4",
+   "profile": "https://github.com/andyrzr-bot",
+   "repos": {
+    "cubrid-cookbook-python": [
+     {
+      "type": "pr_not_merged",
+      "number": 535,
+      "title": "docs: resolve issue #513",
+      "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/pull/535"
+     }
+    ]
+   }
+  },
+  {
+   "login": "biggdawg320",
+   "name": "Jim Hall",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/13669959?v=4",
+   "profile": "https://github.com/biggdawg320",
+   "repos": {
+    "sqlalchemy-cubrid": [
+     {
+      "type": "pr_not_merged",
+      "number": 468,
+      "title": "fix: include REPLACE in autocommit-text detection",
+      "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/468"
+     }
+    ]
+   }
+  },
+  {
+   "login": "blackmore-technology-group",
+   "name": "Shawn Blackmore ",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/330643895?v=4",
+   "profile": "https://github.com/blackmore-technology-group",
+   "repos": {
+    "pycubrid": [
+     {
+      "type": "pr_not_merged",
+      "number": 576,
+      "title": "fix: validate timeouts before socket creation",
+      "url": "https://github.com/cubrid-lab/pycubrid/pull/576"
+     }
+    ]
+   }
+  },
+  {
+   "login": "Chaitanya-code0",
+   "name": "Chaitanya Tikone ",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/183199531?v=4",
+   "profile": "https://github.com/Chaitanya-code0",
+   "repos": {
+    "cubrid-cookbook-python": [
+     {
+      "type": "pr_not_merged",
+      "number": 501,
+      "title": "test(licenses): cover metadata fallbacks",
+      "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/pull/501"
+     }
+    ]
+   }
+  },
+  {
+   "login": "heyadhithya",
+   "name": "ADITHYA S",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/225020989?v=4",
+   "profile": "https://github.com/heyadhithya",
+   "repos": {
+    "pycubrid": [
+     {
+      "type": "pr_not_merged",
+      "number": 458,
+      "title": "fix: validate LOB length and offset types",
+      "url": "https://github.com/cubrid-lab/pycubrid/pull/458"
+     }
+    ]
+   }
+  },
+  {
+   "login": "inmassat",
+   "name": null,
+   "avatarUrl": "https://avatars.githubusercontent.com/u/158745611?v=4",
+   "profile": "https://github.com/inmassat",
+   "repos": {
+    "cubrid-mcp-server": [
+     {
+      "type": "issue_opened",
+      "number": 432,
+      "title": "docs: add docstrings to server helper functions",
+      "url": "https://github.com/cubrid-lab/cubrid-mcp-server/issues/432",
+      "state": "closed"
+     },
+     {
+      "type": "issue_opened",
+      "number": 431,
+      "title": "fix(diagnostics): improve connection close error logging",
+      "url": "https://github.com/cubrid-lab/cubrid-mcp-server/issues/431",
+      "state": "closed"
+     },
+     {
+      "type": "issue_opened",
+      "number": 430,
+      "title": "feat(config): make the connect timeout and server output limits configurable",
+      "url": "https://github.com/cubrid-lab/cubrid-mcp-server/issues/430",
+      "state": "closed"
+     },
+     {
+      "type": "issue_opened",
+      "number": 429,
+      "title": "fix(safety): replace runtime assertions with exceptions",
+      "url": "https://github.com/cubrid-lab/cubrid-mcp-server/issues/429",
+      "state": "closed"
+     },
+     {
+      "type": "pr_not_merged",
+      "number": 497,
+      "title": "test(scripts): cover wrongly typed info and urls in the PyPI duplicate guard",
+      "url": "https://github.com/cubrid-lab/cubrid-mcp-server/pull/497"
+     },
+     {
+      "type": "pr_not_merged",
+      "number": 475,
+      "title": "test(server): cover _docker() function behavior in latest_server",
+      "url": "https://github.com/cubrid-lab/cubrid-mcp-server/pull/475"
+     },
+     {
+      "type": "pr_not_merged",
+      "number": 428,
+      "title": "fix: my contribution",
+      "url": "https://github.com/cubrid-lab/cubrid-mcp-server/pull/428"
+     }
+    ]
+   }
+  },
+  {
+   "login": "LetMeSleep8h",
+   "name": "Sleep8h",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/183817470?v=4",
+   "profile": "https://github.com/LetMeSleep8h",
+   "repos": {
+    "cubrid-cookbook-python": [
+     {
+      "type": "pr_not_merged",
+      "number": 479,
+      "title": "test: cover the usage error and the unexpected success of unittest_junit",
+      "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/pull/479"
+     }
+    ]
+   }
+  },
+  {
+   "login": "nazasnow",
+   "name": "Naza Rodriguez",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/67203744?v=4",
+   "profile": "https://github.com/nazasnow",
+   "repos": {
+    "sqlalchemy-cubrid": [
+     {
+      "type": "pr_not_merged",
+      "number": 411,
+      "title": "refactor(dialect): verify and remove dead implicit_returning=False attribute",
+      "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/411"
+     },
+     {
+      "type": "pr_not_merged",
+      "number": 410,
+      "title": "refactor(dialect): verify and remove dead implicit_returning=False attribute",
+      "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/410"
+     },
+     {
+      "type": "pr_not_merged",
+      "number": 409,
+      "title": "refactor(dialect): verify and remove dead implicit_returning=False attribute",
+      "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/409"
+     },
+     {
+      "type": "pr_not_merged",
+      "number": 408,
+      "title": "refactor(dialect): verify and remove dead implicit_returning=False attribute",
+      "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/408"
+     },
+     {
+      "type": "pr_not_merged",
+      "number": 407,
+      "title": "refactor(dialect): verify and remove dead implicit_returning=False attribute",
+      "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/407"
+     },
+     {
+      "type": "pr_not_merged",
+      "number": 405,
+      "title": "refactor(dialect): verify and remove dead implicit_returning=False attribute",
+      "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/405"
+     },
+     {
+      "type": "pr_not_merged",
+      "number": 404,
+      "title": "refactor(dialect): verify and remove dead implicit_returning=False attribute",
+      "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/404"
+     },
+     {
+      "type": "pr_not_merged",
+      "number": 402,
+      "title": "refactor(dialect): verify and remove dead implicit_returning=False attribute",
+      "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/402"
+     },
+     {
+      "type": "pr_not_merged",
+      "number": 401,
+      "title": "refactor(dialect): verify and remove dead implicit_returning=False attribute",
+      "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/pull/401"
+     }
+    ]
+   }
+  },
+  {
+   "login": "pushpakgaidhane294",
+   "name": "Pushpak Gaidhane",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/233546750?v=4",
+   "profile": "https://github.com/pushpakgaidhane294",
+   "repos": {
+    "cubrid-mcp-server": [
+     {
+      "type": "pr_not_merged",
+      "number": 350,
+      "title": "test(release): cover release-note CLI usage errors",
+      "url": "https://github.com/cubrid-lab/cubrid-mcp-server/pull/350"
+     }
+    ]
+   }
+  },
+  {
+   "login": "sajjadlabx",
+   "name": "Sajjad Ghasemi",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/208682826?v=4",
+   "profile": "https://github.com/sajjadlabx",
+   "repos": {
+    "cubrid-cookbook-python": [
+     {
+      "type": "pr_not_merged",
+      "number": 143,
+      "title": "test: cover Django with a live CUBRID smoke test",
+      "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/pull/143"
+     }
+    ]
+   }
+  },
+  {
+   "login": "syf2211",
+   "name": "Yuefeng Shi",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/132282304?v=4",
+   "profile": "https://github.com/syf2211",
+   "repos": {
+    "cubrid-mcp-server": [
+     {
+      "type": "pr_not_merged",
+      "number": 210,
+      "title": "fix(tools): accept leading comments in explain_query SELECT/WITH gate",
+      "url": "https://github.com/cubrid-lab/cubrid-mcp-server/pull/210"
+     }
+    ]
+   }
+  },
+  {
+   "login": "timerloggedout-spec",
+   "name": "'Founders' are 'found' to implement.",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/233432881?v=4",
+   "profile": "https://github.com/timerloggedout-spec",
+   "repos": {
+    "cubrid-mcp-server": [
+     {
+      "type": "pr_not_merged",
+      "number": 334,
+      "title": "help-wanted: stake + contribute for #333",
+      "url": "https://github.com/cubrid-lab/cubrid-mcp-server/pull/334"
+     }
+    ]
+   }
+  },
+  {
+   "login": "Vamsi-2581",
+   "name": null,
+   "avatarUrl": "https://avatars.githubusercontent.com/u/245859299?v=4",
+   "profile": "https://github.com/Vamsi-2581",
+   "repos": {
+    "pycubrid": [
+     {
+      "type": "pr_not_merged",
+      "number": 1102,
+      "title": "docs: update bug report environment guidance",
+      "url": "https://github.com/cubrid-lab/pycubrid/pull/1102"
+     }
+    ],
+    "cubrid-cookbook-python": [
+     {
+      "type": "pr_not_merged",
+      "number": 537,
+      "title": "docs: align bug report title example",
+      "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/pull/537"
+     }
+    ]
+   }
+  },
+  {
+   "login": "vimkim",
+   "name": "Daehyun Kim",
+   "avatarUrl": "https://avatars.githubusercontent.com/u/18080546?v=4",
+   "profile": "https://github.com/vimkim",
+   "repos": {
+    "cubrid-cookbook-python": [
+     {
+      "type": "issue_opened",
+      "number": 6,
+      "title": "docs: JSON support incorrectly marked as ❌ for CUBRID in comparison table",
+      "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/issues/6",
+      "state": "closed"
+     }
+    ]
+   }
+  }
+ ],
+ "goodFirstIssues": [
+  {
+   "repo": "cubrid-cookbook-python",
+   "number": 364,
+   "title": "test: exclude ignored environments in requirement-file discovery",
+   "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/issues/364",
+   "labels": [
+    "good first issue",
+    "testing",
+    "priority: low",
+    "size: S"
+   ]
+  },
+  {
+   "repo": "cubrid-cookbook-python",
+   "number": 513,
+   "title": "test(docs): cover out-of-repository, repository-root and query-only links in stage_docs",
+   "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/issues/513",
+   "labels": [
+    "good first issue",
+    "testing",
+    "priority: low",
+    "size: S"
+   ]
+  },
+  {
+   "repo": "cubrid-cookbook-python",
+   "number": 514,
+   "title": "bug: Make the getting-started MCP example work against a fresh lab",
+   "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/issues/514",
+   "labels": [
+    "bug",
+    "documentation",
+    "good first issue",
+    "priority: medium",
+    "size: S",
+    "status: needs triage"
+   ]
+  },
+  {
+   "repo": "cubrid-cookbook-python",
+   "number": 516,
+   "title": "feat: Add repository setup and virtual environment steps to Getting Started",
+   "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/issues/516",
+   "labels": [
+    "documentation",
+    "enhancement",
+    "good first issue",
+    "priority: medium",
+    "size: S",
+    "status: needs triage"
+   ]
+  },
+  {
+   "repo": "cubrid-cookbook-python",
+   "number": 517,
+   "title": "bug: Warn about port 33000 conflicts between the dashboard and lab",
+   "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/issues/517",
+   "labels": [
+    "bug",
+    "documentation",
+    "good first issue",
+    "priority: medium",
+    "size: XS",
+    "status: needs triage"
+   ]
+  },
+  {
+   "repo": "cubrid-cookbook-python",
+   "number": 518,
+   "title": "bug: Correct outdated recipe and template counts on the docs homepage",
+   "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/issues/518",
+   "labels": [
+    "bug",
+    "documentation",
+    "good first issue",
+    "priority: low",
+    "size: XS",
+    "status: needs triage"
+   ]
+  },
+  {
+   "repo": "cubrid-cookbook-python",
+   "number": 519,
+   "title": "bug: Fix broken image paths in the Korean README site page",
+   "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/issues/519",
+   "labels": [
+    "bug",
+    "documentation",
+    "good first issue",
+    "priority: low",
+    "size: XS",
+    "status: needs triage"
+   ]
+  },
+  {
+   "repo": "cubrid-cookbook-python",
+   "number": 520,
+   "title": "feat: Link Getting Started and the MCP server from README",
+   "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/issues/520",
+   "labels": [
+    "documentation",
+    "enhancement",
+    "good first issue",
+    "priority: low",
+    "size: XS",
+    "status: needs triage"
+   ]
+  },
+  {
+   "repo": "cubrid-cookbook-python",
+   "number": 521,
+   "title": "feat: Add the AI Agent entry to the Korean framework map",
+   "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/issues/521",
+   "labels": [
+    "documentation",
+    "enhancement",
+    "good first issue",
+    "priority: low",
+    "size: XS",
+    "status: needs triage"
+   ]
+  },
+  {
+   "repo": "cubrid-cookbook-python",
+   "number": 522,
+   "title": "bug: Make fundamentals setup commands work from the repository root",
+   "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/issues/522",
+   "labels": [
+    "bug",
+    "documentation",
+    "good first issue",
+    "priority: medium",
+    "size: XS",
+    "status: needs triage"
+   ]
+  },
+  {
+   "repo": "cubrid-cookbook-python",
+   "number": 523,
+   "title": "bug: Fix the nonexistent pandas directory in setup instructions",
+   "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/issues/523",
+   "labels": [
+    "bug",
+    "documentation",
+    "good first issue",
+    "priority: medium",
+    "size: XS",
+    "status: needs triage"
+   ]
+  },
+  {
+   "repo": "cubrid-cookbook-python",
+   "number": 524,
+   "title": "feat: Explain the root environment example and its intended use",
+   "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/issues/524",
+   "labels": [
+    "documentation",
+    "enhancement",
+    "good first issue",
+    "priority: low",
+    "size: S",
+    "status: needs triage"
+   ]
+  },
+  {
+   "repo": "cubrid-cookbook-python",
+   "number": 525,
+   "title": "bug: Align beginner script docstrings with lesson numbers",
+   "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/issues/525",
+   "labels": [
+    "bug",
+    "documentation",
+    "good first issue",
+    "priority: low",
+    "size: XS",
+    "status: needs triage"
+   ]
+  },
+  {
+   "repo": "cubrid-cookbook-python",
+   "number": 526,
+   "title": "feat: Make support guidance discoverable from README and the documentation site",
+   "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/issues/526",
+   "labels": [
+    "documentation",
+    "enhancement",
+    "good first issue",
+    "priority: medium",
+    "size: S",
+    "status: needs triage"
+   ]
+  },
+  {
+   "repo": "cubrid-cookbook-python",
+   "number": 528,
+   "title": "bug: Make the bug-report title example match the required prefix",
+   "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/issues/528",
+   "labels": [
+    "bug",
+    "documentation",
+    "good first issue",
+    "priority: low",
+    "size: XS",
+    "status: needs triage"
+   ]
+  },
+  {
+   "repo": "cubrid-cookbook-python",
+   "number": 529,
+   "title": "feat: Ask for recipe path, driver versions and database setup in bug reports",
+   "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/issues/529",
+   "labels": [
+    "enhancement",
+    "good first issue",
+    "priority: medium",
+    "size: S",
+    "status: needs triage"
+   ]
+  },
+  {
+   "repo": "cubrid-cookbook-python",
+   "number": 531,
+   "title": "feat: Add first-run troubleshooting for the CUBRID lab and starter lessons",
+   "url": "https://github.com/cubrid-lab/cubrid-cookbook-python/issues/531",
+   "labels": [
+    "documentation",
+    "enhancement",
+    "help wanted",
+    "priority: medium",
+    "size: M",
+    "status: needs triage"
+   ]
+  },
+  {
+   "repo": "cubrid-mcp-server",
+   "number": 333,
+   "title": "test: preserve composite index column order in list_indexes",
+   "url": "https://github.com/cubrid-lab/cubrid-mcp-server/issues/333",
+   "labels": [
+    "good first issue",
+    "testing",
+    "priority: medium",
+    "size: S"
+   ]
+  },
+  {
+   "repo": "cubrid-mcp-server",
+   "number": 476,
+   "title": "test(scripts): cover malformed sha256 maps in the release summary helpers",
+   "url": "https://github.com/cubrid-lab/cubrid-mcp-server/issues/476",
+   "labels": [
+    "good first issue",
+    "testing",
+    "priority: low",
+    "size: S"
+   ]
+  },
+  {
+   "repo": "cubrid-mcp-server",
+   "number": 477,
+   "title": "test(scripts): cover wrongly typed info and urls in the PyPI duplicate guard",
+   "url": "https://github.com/cubrid-lab/cubrid-mcp-server/issues/477",
+   "labels": [
+    "good first issue",
+    "testing",
+    "priority: low",
+    "size: XS"
+   ]
+  },
+  {
+   "repo": "cubrid-mcp-server",
+   "number": 478,
+   "title": "test(scripts): cover invalid manifest versions in the release label reconciler",
+   "url": "https://github.com/cubrid-lab/cubrid-mcp-server/issues/478",
+   "labels": [
+    "good first issue",
+    "testing",
+    "priority: low",
+    "size: S"
+   ]
+  },
+  {
+   "repo": "cubrid-mcp-server",
+   "number": 480,
+   "title": "feat: Add Windows instructions for Claude Desktop and MCP client setup",
+   "url": "https://github.com/cubrid-lab/cubrid-mcp-server/issues/480",
+   "labels": [
+    "documentation",
+    "enhancement",
+    "good first issue",
+    "priority: medium",
+    "size: S",
+    "status: needs triage"
+   ]
+  },
+  {
+   "repo": "cubrid-mcp-server",
+   "number": 482,
+   "title": "feat: Add question, troubleshooting and security routes to the issue chooser",
+   "url": "https://github.com/cubrid-lab/cubrid-mcp-server/issues/482",
+   "labels": [
+    "documentation",
+    "enhancement",
+    "good first issue",
+    "priority: medium",
+    "size: S",
+    "status: needs triage"
+   ]
+  },
+  {
+   "repo": "cubrid-mcp-server",
+   "number": 483,
+   "title": "feat: Document where Claude Desktop stores MCP server stderr logs",
+   "url": "https://github.com/cubrid-lab/cubrid-mcp-server/issues/483",
+   "labels": [
+    "documentation",
+    "enhancement",
+    "good first issue",
+    "priority: medium",
+    "size: XS",
+    "status: needs triage"
+   ]
+  },
+  {
+   "repo": "cubrid-mcp-server",
+   "number": 485,
+   "title": "feat: State prerequisites before the MCP server quickstart",
+   "url": "https://github.com/cubrid-lab/cubrid-mcp-server/issues/485",
+   "labels": [
+    "documentation",
+    "enhancement",
+    "good first issue",
+    "priority: low",
+    "size: XS",
+    "status: needs triage"
+   ]
+  },
+  {
+   "repo": "cubrid-mcp-server",
+   "number": 486,
+   "title": "bug: Complete the Korean multi-connection configuration example",
+   "url": "https://github.com/cubrid-lab/cubrid-mcp-server/issues/486",
+   "labels": [
+    "bug",
+    "documentation",
+    "good first issue",
+    "priority: medium",
+    "size: XS",
+    "status: needs triage"
+   ]
+  },
+  {
+   "repo": "cubrid-mcp-server",
+   "number": 489,
+   "title": "bug: Use exact first-run error messages in Troubleshooting",
+   "url": "https://github.com/cubrid-lab/cubrid-mcp-server/issues/489",
+   "labels": [
+    "bug",
+    "documentation",
+    "good first issue",
+    "priority: medium",
+    "size: S",
+    "status: needs triage"
+   ]
+  },
+  {
+   "repo": "cubrid-mcp-server",
+   "number": 490,
+   "title": "bug: Align credential and read-only troubleshooting with security guidance",
+   "url": "https://github.com/cubrid-lab/cubrid-mcp-server/issues/490",
+   "labels": [
+    "bug",
+    "documentation",
+    "good first issue",
+    "priority: medium",
+    "size: XS",
+    "status: needs triage"
+   ]
+  },
+  {
+   "repo": "pycubrid",
+   "number": 917,
+   "title": "docs: distinguish counter locking from connection thread safety",
+   "url": "https://github.com/cubrid-lab/pycubrid/issues/917",
+   "labels": [
+    "documentation",
+    "good first issue",
+    "size: XS",
+    "priority: medium"
+   ]
+  },
+  {
+   "repo": "pycubrid",
+   "number": 1077,
+   "title": "test(scripts): cover usage, missing-file and empty-section exits of extract_release_notes",
+   "url": "https://github.com/cubrid-lab/pycubrid/issues/1077",
+   "labels": [
+    "good first issue",
+    "testing",
+    "size: XS",
+    "priority: low"
+   ]
+  },
+  {
+   "repo": "pycubrid",
+   "number": 1078,
+   "title": "test(scripts): pin license and URL fallback order in the third-party license generator",
+   "url": "https://github.com/cubrid-lab/pycubrid/issues/1078",
+   "labels": [
+    "good first issue",
+    "testing",
+    "size: S",
+    "priority: low"
+   ]
+  },
+  {
+   "repo": "pycubrid",
+   "number": 1079,
+   "title": "test(ci): pin integration lane classification of the lane-audit collection plugin",
+   "url": "https://github.com/cubrid-lab/pycubrid/issues/1079",
+   "labels": [
+    "good first issue",
+    "testing",
+    "size: S",
+    "priority: low",
+    "area: ci"
+   ]
+  },
+  {
+   "repo": "pycubrid",
+   "number": 1085,
+   "title": "bug: Make the verbose logging example runnable on a fresh database",
+   "url": "https://github.com/cubrid-lab/pycubrid/issues/1085",
+   "labels": [
+    "bug",
+    "documentation",
+    "good first issue",
+    "size: XS",
+    "priority: low",
+    "status: needs triage"
+   ]
+  },
+  {
+   "repo": "pycubrid",
+   "number": 1087,
+   "title": "feat: Document the runnable example scripts and their cleanup steps",
+   "url": "https://github.com/cubrid-lab/pycubrid/issues/1087",
+   "labels": [
+    "documentation",
+    "enhancement",
+    "good first issue",
+    "size: S",
+    "priority: low",
+    "status: needs triage"
+   ]
+  },
+  {
+   "repo": "pycubrid",
+   "number": 1091,
+   "title": "bug: Update the bug-report version example and environment guidance",
+   "url": "https://github.com/cubrid-lab/pycubrid/issues/1091",
+   "labels": [
+    "bug",
+    "documentation",
+    "good first issue",
+    "size: XS",
+    "priority: low",
+    "status: needs triage"
+   ]
+  },
+  {
+   "repo": "pycubrid",
+   "number": 1092,
+   "title": "feat: Document virtual environment activation on Windows",
+   "url": "https://github.com/cubrid-lab/pycubrid/issues/1092",
+   "labels": [
+    "documentation",
+    "enhancement",
+    "good first issue",
+    "size: XS",
+    "priority: low",
+    "status: needs triage"
+   ]
+  },
+  {
+   "repo": "sqlalchemy-cubrid",
+   "number": 1070,
+   "title": "test(scripts): cover usage, missing-file and empty-section failures in extract_release_notes",
+   "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/issues/1070",
+   "labels": [
+    "good first issue",
+    "testing",
+    "priority: low",
+    "size: S",
+    "area: ci"
+   ]
+  },
+  {
+   "repo": "sqlalchemy-cubrid",
+   "number": 1071,
+   "title": "test(scripts): cover the main() exit codes and redacted failure message of the integration preflight",
+   "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/issues/1071",
+   "labels": [
+    "good first issue",
+    "testing",
+    "priority: low",
+    "size: S",
+    "area: ci"
+   ]
+  },
+  {
+   "repo": "sqlalchemy-cubrid",
+   "number": 1072,
+   "title": "test(scripts): cover the CUBRIDdb driver-row checks in check_support_claims",
+   "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/issues/1072",
+   "labels": [
+    "good first issue",
+    "testing",
+    "priority: low",
+    "size: S",
+    "area: docs"
+   ]
+  },
+  {
+   "repo": "sqlalchemy-cubrid",
+   "number": 1075,
+   "title": "bug: Correct misleading live-database CI claims in translated READMEs",
+   "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/issues/1075",
+   "labels": [
+    "bug",
+    "documentation",
+    "good first issue",
+    "priority: low",
+    "size: XS",
+    "status: needs triage"
+   ]
+  },
+  {
+   "repo": "sqlalchemy-cubrid",
+   "number": 1077,
+   "title": "feat: Add question and troubleshooting routes to the issue chooser",
+   "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/issues/1077",
+   "labels": [
+    "documentation",
+    "enhancement",
+    "good first issue",
+    "priority: medium",
+    "size: XS",
+    "status: needs triage"
+   ]
+  },
+  {
+   "repo": "sqlalchemy-cubrid",
+   "number": 1079,
+   "title": "feat: Capture the driver and URL scheme in bug reports",
+   "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/issues/1079",
+   "labels": [
+    "documentation",
+    "enhancement",
+    "good first issue",
+    "priority: low",
+    "size: XS",
+    "status: needs triage"
+   ]
+  },
+  {
+   "repo": "sqlalchemy-cubrid",
+   "number": 1081,
+   "title": "bug: Show the actual ImportError and authentication errors in Troubleshooting",
+   "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/issues/1081",
+   "labels": [
+    "bug",
+    "documentation",
+    "good first issue",
+    "priority: medium",
+    "size: S",
+    "status: needs triage"
+   ]
+  },
+  {
+   "repo": "sqlalchemy-cubrid",
+   "number": 1082,
+   "title": "bug: Correct the CUBRID 10.2 compatibility guidance",
+   "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/issues/1082",
+   "labels": [
+    "bug",
+    "documentation",
+    "good first issue",
+    "priority: low",
+    "size: XS",
+    "status: needs triage"
+   ]
+  },
+  {
+   "repo": "sqlalchemy-cubrid",
+   "number": 1083,
+   "title": "bug: Remove unsupported CUBRID-Python package advice from troubleshooting",
+   "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/issues/1083",
+   "labels": [
+    "bug",
+    "documentation",
+    "good first issue",
+    "priority: low",
+    "size: XS",
+    "status: needs triage"
+   ]
+  },
+  {
+   "repo": "sqlalchemy-cubrid",
+   "number": 1085,
+   "title": "bug: Make the FAQ and SQL inspection examples runnable",
+   "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/issues/1085",
+   "labels": [
+    "bug",
+    "documentation",
+    "good first issue",
+    "priority: low",
+    "size: S",
+    "status: needs triage"
+   ]
+  },
+  {
+   "repo": "sqlalchemy-cubrid",
+   "number": 1087,
+   "title": "feat: Add Windows virtual environment commands to the quickstart",
+   "url": "https://github.com/cubrid-lab/sqlalchemy-cubrid/issues/1087",
+   "labels": [
+    "documentation",
+    "enhancement",
+    "good first issue",
+    "priority: medium",
+    "size: XS",
+    "status: needs triage"
+   ]
+  }
+ ],
+ "excludedAccounts": {
+  "bots": [
+   "dependabot[bot]",
+   "github-actions[bot]",
+   "copilot-pull-request-reviewer",
+   "chatgpt-codex-connector",
+   "github-advanced-security",
+   "Copilot"
+  ],
+  "automation": [
+   "sisyphus-dev-ai (AI coding agent account; commit author only, no PRs)",
+   "claude (commit co-author only)"
+  ],
+  "anonymousCommitAuthors": "git-name-only entries in /contributors?anon=1 (e.g. \"Ubuntu\", \"Oracle Public Cloud User\", \"Yeongseon Choe\") not attributed to any login"
+ },
+ "method": "External contributor = GitHub account of type User, not yeongseon/paikend, not a bot/automation account, that authored at least one PR with merged_at set in one of the four repos (all such PRs target the default branch). Issues, unmerged PRs and reviews by other humans are listed separately under otherParticipants. /contributors commit data was reconciled: every human login appearing there also has a merged PR, except excluded automation accounts. Display names come from the public users/<login> name field (null if not set)."
+}

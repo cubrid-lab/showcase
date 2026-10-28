@@ -43,7 +43,7 @@ Usability 15 · OSS 15 · PT 10 · Demo 10 · Testing 10 · Community 5 · Licen
 
 | File | Purpose |
 |---|---|
-| SLIDES.md | Current 32-slide speaker script, collected from the speaker notes in `presentation/decks/2026-ossdevcon/slides.md` |
+| SLIDES.md | Current 23-slide speaker script, collected from the speaker notes in `presentation/decks/2026-ossdevcon/slides.md` |
 | APPENDIX.md | Technical reference for Q&A |
 | EXPECTED_QA.md | 12 anticipated questions + answers |
 | DEMO_RUNBOOK.md | Historical On-nara demo script (2 min) + checklist |
@@ -61,7 +61,7 @@ This folder was consolidated from two earlier versions:
 - `2026-ossdevcon/` (original, product-based demo)
 - `2026-ossdevon/` (evolved, reviewed On-nara demo)
 
-The current canonical presentation is the 32-slide story in
+The current canonical presentation is the 23-slide PyCUBRID team (파이큐브리드팀) story in
 [`presentation/decks/2026-ossdevcon/slides.md`](../../presentation/decks/2026-ossdevcon/slides.md), with its generated
 speaker script in [SLIDES.md](SLIDES.md). It uses code, documentation, repository,
 and PR screenshots without a live demo. Adoption charts follow the recorded

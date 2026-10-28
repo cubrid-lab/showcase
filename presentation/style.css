@@ -70,7 +70,8 @@
 .slidev-layout:is(.contest-deck, .showcase-deck) .shot { margin: 0; border-radius: 12px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 18px 40px -18px rgba(15, 27, 45, 0.35); background: #fff; }
 .slidev-layout:is(.contest-deck, .showcase-deck) .shot img { display: block; width: 100%; }
 .slidev-layout:is(.contest-deck, .showcase-deck) .shot.clip { max-height: 360px; }
-.slidev-layout:is(.contest-deck, .showcase-deck) .shot.clip img { object-fit: cover; object-position: left top; height: 360px; }
+/* Keep the full width of a screenshot visible; crop only from the bottom. */
+.slidev-layout:is(.contest-deck, .showcase-deck) .shot.clip img { width: 100%; height: auto; }
 
 /* ── Code in keynote size ── */
 .slidev-layout:is(.contest-deck, .showcase-deck) pre.slidev-code { border-radius: 12px !important; font-size: 1.05rem !important; line-height: 1.6 !important; padding: 18px 22px !important; }
@@ -144,3 +145,7 @@
 .slidev-layout:is(.contest-deck, .showcase-deck) .sub, .slidev-layout:is(.contest-deck, .showcase-deck) .lead, .slidev-layout:is(.contest-deck, .showcase-deck) .kicker, .slidev-layout:is(.contest-deck, .showcase-deck) .note-line { text-wrap: balance; }
 .slidev-layout:is(.contest-deck, .showcase-deck) li, .slidev-layout:is(.contest-deck, .showcase-deck) p { text-wrap: pretty; }
 .slidev-layout:is(.contest-deck, .showcase-deck) .nw { white-space: nowrap; }
+
+/* Contest deck: a product icon in front of a kicker. */
+.slidev-layout.contest-deck .proj { display: flex; align-items: center; gap: 8px; }
+.slidev-layout.contest-deck .proj .brand-mark { display: inline-block; }

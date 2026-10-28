@@ -23,7 +23,7 @@ sqlalchemy-hana에 기여하면서 데이터베이스 dialect 개발을 시작�
 | pycubrid | 순수 Python DB-API 2.0 드라이버 (asyncio, TLS) | 공개 |
 | sqlalchemy-cubrid | SQLAlchemy 2.0 dialect (ORM, Alembic, ENUM) | 공개 |
 | cubrid-cookbook-python | 50여 개 예제 + 7 템플릿 (FastAPI~AI Agent) | — |
-| cubrid-mcp-server | **세계 최초 CUBRID MCP 서버** (AI/LLM 접근) | 공개 |
+| cubrid-mcp-server | **CUBRID MCP 서버** (AI/LLM 접근, 기본 읽기 전용) | 공개 |
 
 ## 요청 사항
 
@@ -54,7 +54,7 @@ GitHub에서 받아 C 확장을 직접 빌드해야 해서 Python 개발자들�
 - `pip install pycubrid` 한 줄로 설치 (C 컴파일러 불필요)
 - asyncio 네이티브 지원 (공식 드라이버 미지원)
 - Python 3.10~3.14 지원
-- MCP를 통한 AI/LLM 접근 (세계 최초)
+- MCP를 통한 AI/LLM 접근 (기본 읽기 전용)
 - CI에서 커버리지 95% 하한과 20개 조합 라이브 DB 테스트로 검증
 
 이것이 공공부문 CUBRID 사용자(2,367개 설치, 2025년 말 행안부·NIA 보고서 표 46)에게 Python + AI 접근 경로를
