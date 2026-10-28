@@ -7,11 +7,13 @@ on:
     paths:
       - 'presentation/**'
       - 'scripts/build_site.mjs'
+      - 'scripts/package_presentations.py'
       - '.github/workflows/presentation-export.yml'
   pull_request:
     paths:
       - 'presentation/**'
       - 'scripts/build_site.mjs'
+      - 'scripts/package_presentations.py'
       - '.github/workflows/presentation-export.yml'
 
 permissions:
@@ -20,7 +22,7 @@ permissions:
 jobs:
   export:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -41,24 +43,33 @@ jobs:
         run: npm run build:site
         env:
           PAGES_BASE_PATH: /showcase
+          # Also build each deck with a relative base for the release HTML ZIP.
+          HTML_BUNDLE_DIR: ${{ github.workspace }}/presentation/exports/html
       - name: Export PDF and PPTX
         working-directory: presentation
         run: |
           npm run export:ossdevcon:pdf
           npm run export:ossdevcon:pptx
+          npm run export:operator:pdf
+          npm run export:operator:pptx
       - name: Verify outputs
         run: |
           test -s site-dist/index.html
-          test -s presentation/exports/ossdevcon.pdf
-          test -s presentation/exports/ossdevcon.pptx
+          test -s site-dist/contests/2026-ossdevcon/index.html
+          test -s site-dist/events/2026-builder-season4/01-validation/ko/index.html
+          test -s site-dist/events/2026-builder-season4/01-validation/en/index.html
+          # Checks every deck: page/slide/notes counts, blank pages, missing files.
           python3 -m pip install --no-cache-dir --target "$RUNNER_TEMP/verify-pydeps" pypdf==6.20.0
           (cd presentation && PYTHONPATH="$RUNNER_TEMP/verify-pydeps" python3 scripts/verify_exports.py)
+      - name: Package release files
+        run: |
+          PYTHONPATH="$RUNNER_TEMP/verify-pydeps" python3 scripts/package_presentations.py \
+            --html presentation/exports/html --out presentation/exports/releases
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
-          name: ossdevcon-presentation-${{ github.sha }}
+          name: presentations-${{ github.sha }}
           path: |
             site-dist/
-            presentation/exports/ossdevcon.pdf
-            presentation/exports/ossdevcon.pptx
+            presentation/exports/releases/
           if-no-files-found: error
           retention-days: 30

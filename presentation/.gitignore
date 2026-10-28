@@ -3,3 +3,4 @@ dist/
 .slidev/
 *.pdf
 *.pptx
+exports/

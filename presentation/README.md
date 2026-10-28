@@ -20,8 +20,8 @@ Naming rules for a new deck, round or language:
 - Entry: `<year>-<event>[-<round>][.<lang>].md` in this directory. It holds the
   deck-wide Slidev settings (theme, canvas width, fonts, export name) and
   `src: ./decks/...` pointing at the source, and no slides.
-- Register the entry in `scripts/build_site.mjs`, the npm scripts and the
-  export workflow, and link the source from the event brief.
+- Register the deck in `presentations.json` and add its `export:*` npm
+  scripts and workflow export step, and link the source from the event brief.
 
 The entry files cannot move into a subdirectory. Slidev treats the entry's
 directory as the project root, so an entry elsewhere would lose the shared
@@ -54,78 +54,117 @@ npm ci
 npm run build:site
 ```
 
-This builds all three decks into `../site-dist/` with their own URL base paths,
-plus a landing page. `PAGES_BASE_PATH` defaults to `/showcase`; set it to an
+This builds every deck in `presentations.json` into `../site-dist/` with its
+own URL base path, plus a landing page. `PAGES_BASE_PATH` defaults to `/showcase`; set it to an
 empty string for a domain-root deployment. Slide navigation uses hash routes.
 
 The Pages workflow rebuilds and deploys when presentation sources or site
 build files change on `main`, and supports manual dispatch. It uses the
 existing package lock; no additional npm dependency is required.
 
-## 2026 OSSDevCon deliverables: HTML, PDF, and PPTX
+## Deliverables: HTML, PDF and PPTX for every deck
 
-The canonical source is `decks/2026-ossdevcon/slides.md` (entry `2026-ossdevcon.md`). Generate all deliverables from the same
-checkout so they use the same content and active metrics snapshot.
+Each deck in [`presentations.json`](presentations.json) is published in three
+formats from the same checkout. The registry gives each deck its entry, public
+HTML route, export file name and release group; the site build, the export
+verification, the packaging script and the layout check all read it.
+
+| Deck | Latest HTML (follows `main`) | PDF / PPTX / HTML ZIP file names |
+|---|---|---|
+| 2026 OSS Developer Contest | `/contests/2026-ossdevcon/` | `ossdevcon.{pdf,pptx}`, `ossdevcon-html.zip` |
+| Builder Season 4, first validation (Korean) | `/events/2026-builder-season4/01-validation/ko/` | `operator-first-validation.ko.{pdf,pptx}`, `operator-first-validation.ko-html.zip` |
+| Builder Season 4, first validation (English) | `/events/2026-builder-season4/01-validation/en/` | `operator-first-validation.en.{pdf,pptx}`, `operator-first-validation.en-html.zip` |
 
 These are the same commands the CI export workflow runs, from `presentation/`:
 
 ```bash
 npm ci
-PAGES_BASE_PATH=/showcase npm run build:site
+HTML_BUNDLE_DIR=$PWD/exports/html PAGES_BASE_PATH=/showcase npm run build:site
 npm install --no-save --package-lock=false playwright-chromium@1.64.1
 npx playwright install chromium
 npm run export:ossdevcon:pdf
 npm run export:ossdevcon:pptx
-python3 -m pip install --target "${TMPDIR:-/tmp}/ossdevcon-verify-pydeps" pypdf==6.20.0
-PYTHONPATH="${TMPDIR:-/tmp}/ossdevcon-verify-pydeps" python3 scripts/verify_exports.py
+npm run export:operator:pdf     # Korean and English
+npm run export:operator:pptx    # Korean and English
+python3 -m pip install --target "${TMPDIR:-/tmp}/verify-pydeps" pypdf==6.20.0
+PYTHONPATH="${TMPDIR:-/tmp}/verify-pydeps" python3 scripts/verify_exports.py
+(cd .. && PYTHONPATH="${TMPDIR:-/tmp}/verify-pydeps" python3 scripts/package_presentations.py \
+  --html presentation/exports/html --out presentation/exports/releases)
 ```
 
 `PAGES_BASE_PATH` only sets the site's URL prefix. It defaults to `/showcase`,
 so set it to an empty string (`PAGES_BASE_PATH=`) for a root-hosted preview.
+`HTML_BUNDLE_DIR` is optional; when set, each deck is also built with a
+relative base so it can be zipped into a release.
 
 Outputs:
-- HTML: `../site-dist/index.html` and the linked presentation pages
-- PDF: `exports/ossdevcon.pdf`
-- PowerPoint: `exports/ossdevcon.pptx`
+- HTML site: `../site-dist/index.html` and the linked presentation pages
+- PDF and PowerPoint: `exports/<export name>.{pdf,pptx}`
+- Release groups: `exports/releases/<release>/` (see below)
 
 The export commands require Slidev's optional `playwright-chromium` peer and a
-Chromium browser. Slidev can exit successfully while a slide still shows its
-"Loading slide..." placeholder, so both export commands wait for network idle
-and then 5 seconds before capturing, and `scripts/verify_exports.py` fails if
-any PDF page is blank or shows the placeholder, or if the PDF page count or
-PPTX slide count differs from the slide count of the deck. The PPTX holds
-images only, so inspect it visually.
+Chromium browser. If Chromium requires system libraries, follow the
+[Playwright browser setup guide](https://playwright.dev/docs/browsers#install-system-dependencies).
+Slidev can exit successfully while a slide still shows its "Loading slide..."
+placeholder, so every export command waits for network idle and then 5 seconds
+before capturing. `scripts/verify_exports.py` checks every registered deck and
+fails if a file is missing, a PDF page is blank or shows the placeholder, or the
+PDF page count, PPTX slide count or PPTX speaker-note count differs from the
+deck's slide count. The PPTX holds images only, so inspect it visually. All
+exports use `--with-clicks false` so one source slide becomes one page.
+
+### CI artifact
 
 The CI export workflow (`.github/workflows/presentation-export.yml`) runs on
 pull requests and pushes to `main` that change presentation sources, the site
-build script or the workflow, and on manual dispatch. It installs the browser,
-fails if any of the three formats is missing or fails verification, and uploads
-the HTML site, PDF, and PPTX together as one artifact named
-`ossdevcon-presentation-<commit SHA>`. On pull request runs that SHA is
-GitHub's test merge commit, not the branch head, so take release deliverables
-from the run on `main` or from a manual dispatch. Download the artifact from
-the workflow run's **Artifacts** section; it is kept for 30 days and serves CI
-review only.
+build or packaging script or the workflow, and on manual dispatch. It exports
+and verifies every deck, packages the release groups, and uploads the HTML site
+and `exports/releases/` as one artifact named `presentations-<commit SHA>`.
+On pull request runs that SHA is GitHub's test merge commit, not the branch
+head, so take release deliverables from the run on `main` or from a manual
+dispatch. The artifact is kept for 30 days and serves CI review only.
 
-Durable copies are published as GitHub **prereleases** of this repository with
-the verified PDF and PPTX, a `presentation-manifest.json` (source commit,
-workflow run, metrics snapshot, file sizes and hashes) and `SHA256SUMS`. The
-current one is
-[`ossdevcon-2026-presentation-2026-10-25`](https://github.com/cubrid-lab/showcase/releases/tag/ossdevcon-2026-presentation-2026-10-25);
-the [contest README](../events/2026-ossdevcon/README.md#presentation) links
-its download URLs. To publish a new revision, take the artifact from a `main`
-run, run `scripts/verify_exports.py --pdf <file> --pptx <file>` against those
-exact files, inspect them visually, and create a new prerelease tag rather than
-replacing the assets of an existing one.
+### Publishing a version
 
-The default PPTX export uses an image per slide for visual consistency. It is
-suitable for presenting and reviewing, but slide text and shapes are not
-directly editable; web interactions and animations become static. If native
-PowerPoint editing is needed, evaluate Slidev's `pptx-editable` export as a
-separate output and manually review its layout. Export success does not replace
-visual inspection of the PDF and PPTX.
+`scripts/package_presentations.py` writes one directory per `release` value
+in the registry. Each holds every deck of that group in all three formats,
+`presentation-manifest.json` and `SHA256SUMS`. The manifest records the source
+commit, workflow run, tool versions, and for each deck its event, round,
+language, source file and SHA-256, slide and PDF page counts, metrics snapshot
+when the deck uses one, and the latest-HTML URL, which is labelled as following
+`main`.
 
-## Operator: web → PDF / PPTX
+To publish:
+
+1. Take the artifact from the `main` run (or a manual dispatch) of the commit you approve.
+2. Inspect the PDF, PPTX and unzipped HTML visually.
+3. Create a **new** prerelease tag named `<release>-<YYYY-MM-DD>` and upload the
+   files of `releases/<release>/` unchanged. Never replace the assets of an
+   existing release.
+4. Link the release from the event README and the root README.
+
+The HTML ZIP is the version-pinned HTML. Unzip it and serve the folder with any
+static server (for example `python3 -m http.server`). Browsers block the deck's
+scripts when `index.html` is opened directly from disk. The public Pages URLs
+always show the latest `main`, so they can differ from a frozen release.
+
+Releases made before this script existed use the older manifest format
+(schema version 1). Their HTML ZIPs were built later from the same source
+commit and added with a separate `HTML_SHA256SUMS`:
+[`ossdevcon-2026-presentation-2026-10-25`](https://github.com/cubrid-lab/showcase/releases/tag/ossdevcon-2026-presentation-2026-10-25)
+and [`builder-season4-validation-2026-10-28`](https://github.com/cubrid-lab/showcase/releases/tag/builder-season4-validation-2026-10-28).
+
+### PPTX format
+
+The default PPTX export uses an image per slide for visual consistency, with
+speaker notes as text. It is suitable for presenting and reviewing, but slide
+text and shapes are not directly editable; web interactions and animations
+become static. If native PowerPoint editing is needed, evaluate Slidev's
+`--format pptx-editable` export as a separate output and review its layout by
+hand. See the [official export guide](https://sli.dev/guide/exporting). Export
+success does not replace visual inspection of the PDF and PPTX.
+
+## Builder Season 4 first validation: local preview
 
 Run these commands from `presentation/` with Node.js 22.12 or newer:
 
@@ -139,32 +178,9 @@ npm run build:operator       # Both static web presentations
 The build outputs are `dist/operator-first-validation/operator-first-validation.ko/`
 and `dist/operator-first-validation/operator-first-validation.en/`. Each can be
 served as its own static site. Use `--base /your/path/` when building for a
-hosting subpath; publishing is a separate step.
-
-CLI export requires Slidev's optional `playwright-chromium` peer and its browser.
-Install it locally for export without changing the package manifest or lockfile:
-
-```bash
-npm install --no-save playwright-chromium
-npm run export:operator:pdf
-npm run export:operator:pptx
-```
-
-The optional install must be repeated after `npm ci`. If Chromium requires
-system libraries, follow the [Playwright browser setup guide](https://playwright.dev/docs/browsers#install-system-dependencies).
-For an existing browser, append `-- --executable-path /path/to/chrome` to an
-export command. Slidev also provides a browser export screen in the dev server.
-
-Both languages are exported to this directory as
-`operator-first-validation.{ko,en}.{pdf,pptx}`. The web sources are the source
-of truth: make changes there and regenerate the artifacts. Generated files
-and `dist/` are ignored by Git; preserve final deliverables as release attachments.
-
-The default PPTX uses an image per slide for visual consistency; its text is
-not directly editable, and web interactions/animations become static. Both
-formats use `--with-clicks false` so one source slide becomes one exported page.
-Slidev 53 also supports `--format pptx-editable` when native text/shapes are
-needed, with separate layout review. See the [official export guide](https://sli.dev/guide/exporting).
+hosting subpath; publishing is a separate step. For an existing browser, append
+`-- --executable-path /path/to/chrome` to an export command. Slidev also
+provides a browser export screen in the dev server.
 
 The Operator talk contains eighteen matched slides per language, speaker notes and
 [event Q&A preparation](../events/2026-builder-season4/01-validation/EXPECTED_QA.ko.md).
