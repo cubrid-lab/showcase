@@ -1,6 +1,6 @@
 # First-validation presentation — sources
 
-Presentation expanded on **2026-10-22 (KST)** to 18 slides per language; execution evidence remains fixed to **2026-10-20**, except the VM-lab backup and new-cluster restore runs of **2026-10-25** added to slides 11–12 on 2026-10-26. The main deck follows the seven items in the supplied
+Presentation expanded on **2026-10-22 (KST)** to 18 slides per language and reordered to 15 on **2026-10-28** (#75); execution evidence remains fixed to **2026-10-20**, except the VM-lab backup and new-cluster restore runs of **2026-10-25** (now slides 8–9). The main deck follows the seven items in the supplied
 Builder notice. Detailed source checks stay here and in speaker notes rather
 than becoming extra presentation sections.
 
@@ -8,16 +8,15 @@ than becoming extra presentation sections.
 
 | Announced requirement | Slides | Planned seconds |
 |---|---|---|
-| 1. Project and team | 1 | 20 |
-| Agenda | 2 | 15 |
-| 2. Problem, recovery scenario and initial users | 3–4 | 65 |
-| 3. Existing approaches and open-source comparison | 5–6 | 70 |
-| 4. Proposal, recorded evidence and validation gaps | 7, 11–12 | 115 |
-| 5. Components, data/control flow and write safety | 8–10 | 110 |
-| 6. Roadmap, responsibilities, v0.1 and later direction | 13–16 | 125 |
-| 7. Discussion topics | 17 | 25 |
-| Questions | 18 | 5 |
-| **Total** | **18 slides per language** | **550 + 50 seconds buffer** |
+| 1. Project and team, and what the Operator does today | 1–2 | 65 |
+| 2. Problem and initial users | 3 | 40 |
+| 5. Architecture, SQL and operations paths, what to check after a master fault | 4–5 | 95 |
+| 4. Write safety, recorded evidence and validation gaps | 6, 8–9 | 115 |
+| 3. Existing approaches and open-source comparison | 7 | 50 |
+| 6. Roadmap, responsibilities, v0.1 and later direction | 10–13 | 125 |
+| 7. Discussion topics | 14 | 25 |
+| Questions | 15 | 5 |
+| **Total** | **15 slides per language** | **520 + 80 seconds buffer** |
 
 The announced presentation limit is ten minutes plus separate ten-minute Q&A. Times are planning targets, not a rehearsal measurement.
 The expanded material deliberately separates hypothetical incident stories, user hypotheses, source comparison, executed evidence and work not yet proven.
@@ -145,3 +144,23 @@ abbreviations and internal scenario IDs are removed from the slides; every
 title fits one line; slide 18 is a closing questions slide. Slide 5 says
 recovery is *tested* with SQL and data, since both Operators use port checks
 at runtime. The plan is 550 seconds with a 50-second buffer.
+
+The 2026-10-28 restructure (#75) changes the order and the opening, not the
+evidence. Slide 2 now says what the Operator is and does before any incident,
+with each capability marked verified, built, or a v0.1 goal: three-member HA
+with RW/RO and backup restore are verified by the Kind/VM records above; role
+discovery is built (`DESIGN.md` section 11, implementation status), while RW
+write blocking during faults is still not built or verified; rejoin and
+rebuild are v0.1 goals. Slide 4 replaces the earlier two architecture slides
+with one drawing from `DESIGN.md` sections 7 and 10: YAML → Kubernetes API →
+Operator → resources; three HA members, each with Instance Manager and PVC;
+a separate RW/RO Broker tier behind the RW/RO Services, where RW Brokers find
+the master themselves (ADR-0002) and the Operator never relays SQL or picks
+the master (ADR-0001); and S3-compatible object storage for initial copy,
+backup and restore. Slide 5 walks through a master Pod fault as a *designed*
+flow and separates Pod availability (Kubernetes), DB HA state (CUBRID HA
+switches, the Operator records it), SQL access (Broker) and data (checked by
+E2E tests, not by the Operator). The official Operator comparison is one
+slide (7) placed after the proposal; its rows and source boundary are
+unchanged. The agenda slide and the old YAML-flow slide are removed. The plan
+is 520 seconds with an 80-second buffer.

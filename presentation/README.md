@@ -182,7 +182,7 @@ hosting subpath; publishing is a separate step. For an existing browser, append
 `-- --executable-path /path/to/chrome` to an export command. Slidev also
 provides a browser export screen in the dev server.
 
-The Operator talk contains eighteen matched slides per language, speaker notes and
+The Operator talk contains fifteen matched slides per language, speaker notes and
 [event Q&A preparation](../events/2026-builder-season4/01-validation/EXPECTED_QA.ko.md).
 The [delivery record](../events/2026-builder-season4/01-validation/DELIVERY.md)
 records exported artifacts and checks. Build/export checks do not certify a
