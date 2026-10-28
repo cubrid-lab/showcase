@@ -1,10 +1,16 @@
 # 1차 검증 발표자료 — 확장본 상태 및 이전 출력 기록
 
-## 2026-10-28 · 15장 제출용 출력 (현재 제출본)
+## 2026-10-28 · 15장 제출용 출력 r3 (현재 제출본)
+
+[r3 제출본](https://github.com/cubrid-lab/showcase/releases/tag/builder-season4-validation-2026-10-28-r3)은 r2와 같은 15장 구성에
+#94의 용어 정리(“3노드 CUBRID HA 클러스터”, 말하기 쉬운 문장)를 반영했습니다. `main`의 CI 출력(원본 커밋 `dbfd9d1`)을 그대로 올렸고,
+실행 근거와 숫자는 바뀌지 않았습니다. 디스코드에는 이 릴리스의 PPTX 두 개를 제출합니다.
+
+## 2026-10-28 · 15장 제출용 출력 r2 (이전 제출본)
 
 [15장 제출본](https://github.com/cubrid-lab/showcase/releases/tag/builder-season4-validation-2026-10-28-r2)에서
 한영 PPTX·PDF·HTML ZIP과 파일 식별 기록(`presentation-manifest.json`, `SHA256SUMS`)을 받습니다.
-디스코드에 제출할 파일은 이 릴리스의 PPTX 두 개입니다. `main`의 CI 출력(원본 커밋 `f07044c`)을 그대로 올렸습니다.
+`main`의 CI 출력(원본 커밋 `f07044c`)을 그대로 올렸습니다. r3로 대체되었습니다.
 
 #75에 따라 처음 보는 청중이 서비스를 먼저 이해하도록 순서를 바꿨습니다(18장 → 15장):
 2장 “무엇인가”(하는 일과 상태 표시), 4장 한 장 구성도(SQL 경로·운영 경로 분리), 5장 master Pod 장애 때 확인할 네 가지,
