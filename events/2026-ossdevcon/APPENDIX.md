@@ -19,10 +19,10 @@
 │  ├── Lob (BLOB/CLOB)                       │
 │  └── aio/ (asyncio native)                 │
 ├─────────────────────────────────────────────┤
-│  protocol.py (18 CAS packet types)         │
+│  protocol.py (20 CAS packet types)         │
 │  packet.py (PacketReader/PacketWriter)     │
 │  constants.py (41 function codes,          │
-│    27+ data types)                         │
+│    30 data types)                          │
 ├─────────────────────────────────────────────┤
 │  CAS Binary Protocol v8 (TCP:33000)        │
 │  [4B length][4B cas_info][payload]         │
@@ -97,15 +97,15 @@
 │  ├── batch-etl (Pandas)                    │
 │  └── ai-agent (MCP + RAG metadata)        │
 ├─────────────────────────────────────────────┤
-│  Fundamentals (68 examples)                │
+│  Fundamentals (50+ examples)               │
 │  ├── connect, crud, transactions           │
 │  ├── parameterized, error handling, LOB   │
 │  ├── orm-basics, pycubrid (22), sqlalchemy│
 │  ├── pandas (6), async, alembic, json     │
 │  └── isolation-levels                      │
 ├─────────────────────────────────────────────┤
-│  Nightly CI: 45 golden-verified examples  │
-│  on CUBRID 11.2 + 11.4 (docker)           │
+│  Nightly CI: golden-verified examples     │
+│  on CUBRID 11.4 (11.2 weekly, docker)     │
 └─────────────────────────────────────────────┘
 ```
 
@@ -249,7 +249,7 @@ average 6–25 on 6 cores), so the ratios are more reliable than the absolute ti
 
 | Language | Driver | Version | ORM | Version | Status |
 |---|---|---|---|---|---|
-| **Python** | pycubrid | v1.13.3 | sqlalchemy-cubrid | v1.11.5 | **Complete** |
+| **Python** | pycubrid | v1.13.3 | sqlalchemy-cubrid | v1.11.5 | **Complete** (versions as of the 2026-10-25 snapshot) |
 | TypeScript | cubrid-client | v1.1.0 | drizzle-cubrid | v0.2.1 | In progress |
 | Go | cubrid-go | v0.2.1 | gorm-cubrid | v0.1.0 | In progress |
 | Rust | cubrid-rs | v0.1.0 | sea-orm-cubrid | v0.1.0 | In progress |
@@ -263,7 +263,7 @@ average 6–25 on 6 cores), so the ratios are more reliable than the absolute ti
 | All 4 repos | MIT |
 | THIRD_PARTY_LICENSES.md | Every repo (pip-licenses generated) |
 | NOTICE | Every repo |
-| SPDX SBOM | Every GitHub Release |
+| SPDX SBOM | Recent GitHub Releases (not attached to the earliest ones) |
 | GPL dependencies | **Zero** (runtime + dev) |
 | CUBRID server license | Apache-2.0 / BSD (upstream COPYING verified) |
 | Our packages | Independent wire-protocol clients, no server code |

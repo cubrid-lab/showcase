@@ -164,7 +164,7 @@ sqlalchemy-hana에 기여하면서 dialect를 공부하다가, Mike Bayer의 저
     <div class="down">↓</div>
     <div class="node ours">sqlalchemy-cubrid <small>dialect · 2021</small></div>
     <div class="down">↓</div>
-    <div class="node ours">pycubrid <small>드라이버 · 2025</small></div>
+    <div class="node ours">pycubrid <small>드라이버 · 2026</small></div>
     <div class="down">↓</div>
     <div class="node db">CUBRID <small>CAS 프로토콜 · TCP 33000</small></div>
   </div>
@@ -180,7 +180,7 @@ sqlalchemy-hana에 기여하면서 dialect를 공부하다가, Mike Bayer의 저
   </div>
 </div>
 <div class="cook">
-  <b>cubrid-cookbook</b> <small>2026</small> — 이 모든 경로를 예제 68개 · 템플릿 7개로 보여주고, 매일 밤 실서버에서 검증합니다
+  <b>cubrid-cookbook</b> <small>2026</small> — 이 모든 경로를 예제 50여 개 · 템플릿 7개로 보여주고, 매일 밤 실서버에서 검증합니다
 </div>
 
 <style>
@@ -206,7 +206,7 @@ AI는 저희 MCP 서버를 거쳐 같은 드라이버로 닿습니다. 모든 �
   </div>
   <ul class="explain">
     <li><b>SQLAlchemy 2.0 기준</b>으로 새로 작성 — 2012년 코드는 가져오지 않았습니다</li>
-    <li><b>공식 테스트 스위트 통합</b> — feature flag 53개로 지원 범위를 명시</li>
+    <li><b>공식 테스트 스위트 통합</b> — feature flag 60여 개로 지원 범위를 명시</li>
     <li><b>schema reflection</b>, CUBRID 전용 <b>MERGE · ON DUPLICATE KEY · REPLACE</b></li>
     <li><b>Alembic 마이그레이션</b>, 동기·<b>비동기</b> 드라이버 URL 모두 지원</li>
   </ul>
@@ -226,7 +226,8 @@ SQLAlchemy 공식 테스트 스위트를 붙였고, schema reflection과 CUBRID 
 ```python
 from sqlalchemy import create_engine, MetaData, Table, select, func
 
-engine = create_engine("cubrid+pycubrid://dba@localhost:33000/demodb")
+engine = create_engine(
+    "cubrid+pycubrid://dba@localhost:33000/demodb")
 agencies = Table("agencies", MetaData(),
                  autoload_with=engine)          # schema reflection
 
@@ -253,16 +254,16 @@ pre.slidev-code { font-size: 0.9rem !important; }
 
 <p class="kicker">dialect를 올릴 드라이버를 찾아보니</p>
 <h1><span class="seal">2014년 5월 15일.</span></h1>
-<p class="sub">공식 Python 드라이버의 마지막 릴리스였습니다.</p>
+<p class="sub">PyPI에 올라온 공식 Python 드라이버의 마지막 릴리스였습니다.</p>
 <ul class="explain">
   <li><b>C 확장</b> — 설치하려면 컴파일러와 빌드 도구가 필요</li>
   <li><b>asyncio 없음</b> — FastAPI 같은 비동기 서버에서 쓰기 어려움</li>
-  <li><b>그 뒤 12년 동안 새 릴리스 없음</b> — dialect만 새로 써서는 해결되지 않았습니다</li>
+  <li><b>PyPI에는 그 뒤 12년 동안 새 릴리스 없음</b> — 이후 버전은 GitHub에서 받아 직접 빌드해야 합니다</li>
 </ul>
 
 <!--
 [15초 · 활용성]
-그런데 dialect가 올라설 드라이버를 찾아보니, 공식 Python 드라이버의 마지막 릴리스가 2014년 5월이었습니다.
+그런데 dialect가 올라설 드라이버를 찾아보니, PyPI에 올라온 공식 Python 드라이버의 마지막 릴리스가 2014년 5월이었습니다. 이후 버전은 GitHub에서 받아 직접 빌드해야 했습니다.
 C 확장이라 설치부터 어렵고 asyncio도 없었습니다. dialect만 새로 써서는 해결이 안 되는 문제였습니다.
 -->
 
@@ -291,8 +292,8 @@ C 확장이라 설치부터 어렵고 asyncio도 없었습니다. dialect만 새
 </ul>
 
 <div class="figures">
-  <div><b>18</b><span>패킷 타입</span></div>
-  <div><b>27</b><span>데이터 타입</span></div>
+  <div><b>20</b><span>패킷 타입</span></div>
+  <div><b>30</b><span>데이터 타입</span></div>
   <div><b class="accent">0</b><span>런타임 의존성</span></div>
 </div>
 
@@ -300,14 +301,14 @@ C 확장이라 설치부터 어렵고 asyncio도 없었습니다. dialect만 새
 [20초 · OSS 적절성 · 라이선스]
 그래서 BSD 라이선스인 node-cubrid와 공식 C 드라이버 소스를 나란히 놓고 한 줄씩 비교했습니다.
 모든 요청과 응답이 길이, 서버 상태, 본문이라는 한 가지 형식을 따른다는 걸 찾아냈고,
-그렇게 18개 패킷 타입과 27개 데이터 타입을 해독해서, 의존성이 하나도 없는 순수 Python 드라이버를 만들었습니다.
+그렇게 20개 패킷 타입과 30개 데이터 타입을 해독해서, 의존성이 하나도 없는 순수 Python 드라이버를 만들었습니다.
 -->
 
 ---
 
 <div class="split even">
   <div class="stack">
-    <p class="kicker">프로젝트 2 · pycubrid · 2025</p>
+    <p class="kicker">프로젝트 2 · pycubrid · 2026</p>
 
 ```bash
 pip install pycubrid
@@ -338,9 +339,9 @@ TLS 암호화와 대용량 데이터도 지원하고, 테스트와 커버리지 
     <p class="kicker">프로젝트 3 · cubrid-cookbook · 2026</p>
     <h2>만들고 나니,<br>쓰는 법이 필요했습니다</h2>
     <ul class="explain">
-      <li><b>fundamentals 68개</b> — 연결 · CRUD · 트랜잭션 · LOB · pandas · async · Alembic</li>
+      <li><b>fundamentals 50여 개</b> — 연결 · CRUD · 트랜잭션 · LOB · pandas · async · Alembic</li>
       <li><b>프로덕션 템플릿 7개</b> — FastAPI · Django · Flask · Streamlit 대시보드 · Celery · pandas ETL · AI 에이전트</li>
-      <li><b>문서 4개 사이트</b> · 한국어 34페이지</li>
+      <li><b>문서 4개 사이트</b> · 한국어 문서 포함</li>
     </ul>
   </div>
   <figure class="shot clip"><img src="/shots/docs-pycubrid.jpg" alt="pycubrid 문서 사이트"></figure>
@@ -349,8 +350,8 @@ TLS 암호화와 대용량 데이터도 지원하고, 테스트와 커버리지 
 <!--
 [25초 · 활용성]
 드라이버를 만들고 나니, 사람들이 실제로 쓰는 법을 보여줘야 했습니다.
-그래서 cookbook에 연결부터 비동기, pandas까지 68개 fundamentals 예제와, FastAPI, Django, 대시보드, AI 에이전트 같은 7개 템플릿을 만들었습니다.
-문서는 4개 사이트, 한국어로 34페이지를 썼습니다.
+그래서 cookbook에 연결부터 비동기, pandas까지 50여 개 fundamentals 예제와, FastAPI, Django, 대시보드, AI 에이전트 같은 7개 템플릿을 만들었습니다.
+문서는 4개 사이트로 만들고, 한국어 문서도 함께 씁니다.
 -->
 
 ---
@@ -360,22 +361,23 @@ TLS 암호화와 대용량 데이터도 지원하고, 테스트와 커버리지 
 
 <div class="nightly">
   <div class="node">매일 밤 CI</div><span class="arr">→</span>
-  <div class="node">golden test 45개 실행</div><span class="arr">→</span>
-  <div class="node db">실서버 CUBRID 11.2 · 11.4</div><span class="arr">→</span>
+  <div class="node">golden test 실행</div><span class="arr">→</span>
+  <div class="node db">실서버 CUBRID 11.4</div><span class="arr">→</span>
   <div class="node ours">결과가 기대값과 다르면 실패</div>
 </div>
 
 <p class="sub">니치 시장에서는 사용자가 버그를 알려주지 않습니다. 그래서 저희가 첫 번째 사용자가 됩니다 — 드라이버에 문제가 생기면 cookbook이 가장 먼저 잡습니다.</p>
 
 <style>
-.nightly { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.nightly { display: flex; align-items: center; gap: 8px; }
+.nightly .node { font-size: 0.82rem; padding: 6px 10px; white-space: nowrap; }
 .nightly .arr { color: var(--muted); }
 .nightly + .sub { max-width: 52ch; }
 </style>
 
 <!--
 [15초 · 기능테스트]
-이 예제들은 문서로 끝나지 않습니다. 매일 밤 45개 golden test를 실제 CUBRID 11.2와 11.4 서버에서 돌리고, 결과가 기대값과 다르면 실패합니다.
+이 예제들은 문서로 끝나지 않습니다. 매일 밤 golden test를 실제 CUBRID 11.4 서버에서 돌리고(11.2는 주 1회), 결과가 기대값과 다르면 실패합니다.
 그래서 드라이버에 문제가 생기면 사용자보다 cookbook이 먼저 잡습니다.
 -->
 
@@ -387,9 +389,9 @@ TLS 암호화와 대용량 데이터도 지원하고, 테스트와 커버리지 
     <h2>AI가 CUBRID에<br>직접 물어볼 수 있게</h2>
     <p class="sub">MCP는 AI가 외부 도구와 데이터에 접근하는 표준 프로토콜입니다.</p>
     <ul class="explain">
-      <li><b>tool 12개</b> — 테이블 목록 · 스키마 · 인덱스 · <span class="nw">실행 계획</span> · <span class="nw">쿼리 실행</span></li>
-      <li><b>기본 읽기 전용</b> — 쓰기는 운영자가 켤 때만</li>
-      <li>저희가 찾아본 범위에서 <b class="nw">세계 최초의 CUBRID MCP 서버</b> · <span class="nw">v0.5.4</span></li>
+      <li><b>tool 11개</b> — 테이블 목록 · 스키마 · 인덱스 · <span class="nw">실행 계획</span> · <span class="nw">쿼리 실행</span></li>
+      <li><b>기본 읽기 전용</b> — 쓰기 tool은 운영자가 켤 때만 추가</li>
+      <li>저희가 찾아본 범위에서 <b class="nw">세계 최초의 CUBRID MCP 서버</b></li>
     </ul>
   </div>
   <figure class="shot clip"><img src="/shots/repo-mcp.jpg" alt="cubrid-mcp-server 저장소"></figure>
@@ -398,7 +400,7 @@ TLS 암호화와 대용량 데이터도 지원하고, 테스트와 커버리지 
 <!--
 [25초 · 활용성 · OSS 적절성]
 그리고 AI가 데이터를 묻는 시대가 왔습니다. MCP는 Claude 같은 AI가 외부 도구에 접근하는 표준 프로토콜인데,
-CUBRID용 MCP 서버를 만들었습니다. 테이블 목록, 스키마, 인덱스, 실행 계획, 쿼리 실행까지 12개 도구를 제공하고, 기본은 읽기 전용입니다.
+CUBRID용 MCP 서버를 만들었습니다. 테이블 목록, 스키마, 인덱스, 실행 계획, 쿼리 실행까지 11개 도구를 제공하고, 기본은 읽기 전용입니다.
 저희가 찾아본 범위에서 세계 최초의 CUBRID MCP 서버입니다.
 -->
 
@@ -409,7 +411,7 @@ CUBRID용 MCP 서버를 만들었습니다. 테이블 목록, 스키마, 인덱�
 
 <ul class="explain wide">
   <li><b>domain knowledge 5종</b> — CUBRID의 LIMIT 문법, 컬렉션 타입, SHOW TRACE 같은 차이를 문서로 제공</li>
-  <li><b>expert prompt 5종</b> — 스키마 점검, 인덱스 후보 찾기, 실행 계획 해석 같은 자주 하는 작업</li>
+  <li><b>prompt 9종</b> — 스키마 점검, 인덱스 후보 찾기, 실행 계획 해석 같은 자주 하는 작업</li>
   <li><b>schema resource</b> — AI가 쿼리를 쓰기 전에 테이블 구조부터 읽게 합니다</li>
 </ul>
 
@@ -423,7 +425,7 @@ CUBRID용 MCP 서버를 만들었습니다. 테이블 목록, 스키마, 인덱�
 <!--
 [15초 · 활용성]
 그런데 AI는 CUBRID SQL을 잘 모릅니다. 그래서 서버가 가르칩니다.
-CUBRID 문법의 차이를 domain knowledge 문서로, 자주 하는 작업을 expert prompt로 제공해서, 사전 지식 없는 AI도 올바른 SQL을 쓰게 만들었습니다.
+CUBRID 문법의 차이를 domain knowledge 문서로, 자주 하는 작업을 prompt로 제공해서, 사전 지식 없는 AI도 올바른 SQL을 쓰게 만들었습니다.
 -->
 
 ---
@@ -433,7 +435,7 @@ CUBRID 문법의 차이를 domain knowledge 문서로, 자주 하는 작업을 e
 
 <ul class="explain wide2">
   <li><b>write tool은 보이지도 않습니다</b> — 기본 모드에서는 AI에게 <code>execute_write</code> 자체가 등록되지 않습니다</li>
-  <li><b>whitelist</b> — <code>execute_query</code>는 SELECT · SHOW · DESC · EXPLAIN · WITH만 실행하고, multi-statement는 거부합니다</li>
+  <li><b>whitelist</b> — <code>execute_query</code>는 SELECT · SHOW · DESC · WITH만 실행하고, multi-statement는 거부합니다. 실행 계획은 <code>explain_query</code>로 봅니다</li>
   <li><b>쓰기는 운영자가 연결별로 직접 켤 때만</b> — 그때도 INSERT · UPDATE · DELETE 한 문장씩만, DDL은 불가</li>
 </ul>
 <p class="note-line">실제 운영에서는 SELECT 권한만 가진 DB 계정으로 연결하기를 권합니다.</p>
@@ -497,22 +499,21 @@ AI에게 데이터베이스를 열어 주면 제일 먼저 나오는 질문이 "
 <div class="split even">
   <div class="stack">
     <p class="kicker">믿지 않아도 되게 만들었습니다</p>
-    <p class="huge sm">CI</p>
-    <h2>를 통과해야<br>머지됩니다</h2>
+    <h1 class="ci-gate"><span class="accent">CI</span>를 통과해야<br>머지됩니다</h1>
     <p class="small">테스트 수는 파라미터화와 workflow lane에 따라 달라져 고정 합계로 제시하지 않습니다.</p>
   </div>
   <ul class="explain">
     <li><b>타입 오류 0</b> — mypy strict</li>
-    <li><b>커버리지 95% 이상</b> — 미달이면 머지 불가</li>
+    <li><b>커버리지 95% 이상</b> — 전체 검증에서 미달이면 실패</li>
     <li><b class="nw">property-based test</b> — hypothesis로 <span class="nw">edge case</span> 탐색</li>
     <li><b>공개 API 변경 감지</b> — 몰래 바뀌면 실패</li>
     <li><b>SQLAlchemy 공식 test suite</b> — dialect 호환성</li>
-    <li><b>20개 조합</b> — Python 5 × CUBRID 4 라이브 DB</li>
+    <li><b>20개 조합</b> — 전체 라이브 검증, <span class="nw">Python 5 × CUBRID 4</span></li>
   </ul>
 </div>
 
 <style>
-.huge.sm { font-size: 5rem; }
+.ci-gate { font-size: 3rem; line-height: 1.15; }
 </style>
 
 <!--
@@ -577,7 +578,7 @@ ping을 SELECT 1 대신 CAS protocol 수준으로 바꿔 처리량이 3.8배, SQ
   <li>PEP 249 <span class="muted">— Python 표준 DB-API · pycubrid</span></li>
   <li>PEP 561 <span class="muted">— type hints 제공 (py.typed) · 세 패키지 모두</span></li>
   <li>SQLAlchemy Dialect API <span class="muted">— 공식 테스트 스위트 · sqlalchemy-cubrid</span></li>
-  <li>Model Context Protocol <span class="muted">— 도구 · 리소스 · 프롬프트 · cubrid-mcp-server</span></li>
+  <li>Model Context Protocol <span class="muted">— 도구 · 리소스 · 프롬프트 · <span class="nw">cubrid-mcp-server</span></span></li>
 </ul>
 <p class="note-line">기반 오픈소스: <span class="nw">SQLAlchemy (MIT)</span> · <span class="nw">node-cubrid (BSD, 프로토콜 참고)</span> · FastMCP · pytest · hypothesis</p>
 
@@ -598,12 +599,12 @@ ping을 SELECT 1 대신 CAS protocol 수준으로 바꿔 처리량이 3.8배, SQ
 <ul class="explain">
   <li><b>네 패키지 모두 MIT</b> — 의존성 어디에도 GPL 없음</li>
   <li><b>CUBRID 서버</b>(Apache-2.0 엔진 · BSD 커넥터) 라이선스도 원문으로 확인</li>
-  <li><b>모든 릴리스에 SBOM</b>(SPDX) · THIRD_PARTY_LICENSES · NOTICE</li>
+  <li><b>최근 릴리스마다 SBOM</b>(SPDX) · THIRD_PARTY_LICENSES · NOTICE</li>
 </ul>
 
 <!--
 [12초 · 라이선스]
-4개 패키지 모두 MIT입니다. 의존성 어디에도 GPL은 없고, CUBRID 서버 라이선스도 원문으로 확인했습니다. 모든 릴리스에는 SBOM을 붙입니다.
+4개 패키지 모두 MIT입니다. 의존성 어디에도 GPL은 없고, CUBRID 서버 라이선스도 원문으로 확인했습니다. 최근 릴리스마다 SBOM을 붙입니다.
 -->
 
 ---
@@ -611,8 +612,8 @@ ping을 SELECT 1 대신 CAS protocol 수준으로 바꿔 처리량이 3.8배, SQ
 <h2>저희 말 대신,<br><span class="accent">직접 확인해 보세요</span></h2>
 
 ```bash
-uvx cubrid-mcp-server             # current release v0.5.4
-docker compose up && make verify  # 전체 스택
+uvx cubrid-mcp-server          # PyPI 최신 릴리스
+make docker-up && make verify  # cookbook 저장소에서, 전체 스택
 ```
 
 <p class="sub"><b>VERIFY.md</b> — <span class="nw">드라이버 연결</span> → ORM → <span class="nw">MCP 서버</span> → <span class="nw">실서버 golden test</span> → <span class="nw">SBOM · 라이선스</span>.<br>단계마다 명령과 기대 결과를 적어 두었습니다.</p>
@@ -647,7 +648,7 @@ fork는 이 스냅숏에 기록되지 않아 제외했습니다. 클론 수는 C
 <p class="sub">Python에서 검증한 이 순서를<br>다른 언어에도 그대로 적용하고 있습니다.</p>
 
 <ul class="explain langs">
-  <li><b>Python</b> — pycubrid <span class="muted">v1.13.3</span> · sqlalchemy-cubrid <span class="muted">v1.11.5</span></li>
+  <li><b>Python</b> — pycubrid · sqlalchemy-cubrid <span class="muted">PyPI 공개</span></li>
   <li><b>TypeScript</b> — cubrid-client · drizzle-cubrid <span class="muted">진행 중</span></li>
   <li><b>Go</b> — cubrid-go · gorm-cubrid <span class="muted">진행 중</span></li>
   <li><b>Rust</b> — cubrid-rs · sea-orm-cubrid <span class="muted">진행 중</span></li>
@@ -670,7 +671,7 @@ Python은 끝이 아니라 레퍼런스입니다. 드라이버, ORM, 예제, AI�
   <div class="stack">
     <p class="kicker">6년 전 받은 것을, 다음 사람에게</p>
     <h1>If <span class="accent">you</span> are<br>interested.</h1>
-    <p class="sub">이번엔 저희가 말할 차례입니다.<br>네 저장소 모두, 이어갈 누군가에게 열려 있습니다.</p>
+    <p class="sub">이번엔 저희가 말할 차례입니다.<br>네 저장소 모두, 이어갈 누군가에게 <span class="nw">열려 있습니다.</span></p>
     <div class="links">
       <div><span>GitHub</span>github.com/cubrid-lab</div>
       <div><span>설치</span>pip install pycubrid</div>

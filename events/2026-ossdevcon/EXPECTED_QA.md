@@ -17,8 +17,9 @@ full ecosystem including the world's first CUBRID MCP server.
 ## Q1: Why not just use the official CUBRID Python driver?
 
 The official driver's last PyPI release was May 2014 — 12 years ago.
-It's a C extension requiring a compiler toolchain, doesn't support
-asyncio, and only works up to Python 3.4. Our pycubrid is pure Python,
+Newer versions (up to v11.3.0.51, September 2025) are published only as
+GitHub releases of a C extension you build yourself, and it has no
+asyncio support. Our pycubrid is pure Python,
 works on 3.10-3.14, and `pip install pycubrid` just works. We also
 support the old driver via `cubrid+cubriddb://` URLs in our dialect.
 
@@ -38,7 +39,8 @@ counts: GitHub clone traffic is dominated by our own CI runners (pycubrid:
 is 1,553 merged PRs, 61 published GitHub Releases across the three package repositories, and 129 stars — and a real market: CUBRID
 ranks second among the top five Korean public-sector DBMS vendors
 (2,367 installations; 13.24% of their combined total at end of
-2025, MOIS/NIA report), and before us it had no maintained Python driver.
+2025, MOIS/NIA report), and before us it had no Python driver you could
+`pip install` from a current PyPI release.
 
 ## Q4: Isn't CUBRID GPL? Does your MIT license conflict?
 
@@ -89,7 +91,7 @@ Audit logging is available (`CUBRID_MCP_AUDIT_LOG=1`).
 
 Our MCP server ships with 5 domain-knowledge guide documents that teach
 LLMs about CUBRID's LIMIT syntax, SHOW TRACE, collection types, etc.
-Plus 5 expert prompts for common workflows. Claude can write correct
+Plus 9 prompts for common workflows. Claude can write correct
 CUBRID SQL without prior knowledge — because the server teaches it.
 
 ## Q10: You mentioned contributing to SQLAlchemy — tell us more.
