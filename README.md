@@ -12,10 +12,12 @@ Presentations, event submissions, demonstration materials and public project ass
 
 ## Events and presentations
 
-| Event | Project | Presentations | Source and materials |
-|---|---|---|---|
-| 2026 OSS Developer Contest | CUBRID Python ecosystem | [HTML slides](https://cubrid-lab.github.io/showcase/contests/2026-ossdevcon/) · [PDF](https://github.com/cubrid-lab/showcase/releases/download/ossdevcon-2026-presentation-2026-10-25/ossdevcon.pdf) · [PPTX](https://github.com/cubrid-lab/showcase/releases/download/ossdevcon-2026-presentation-2026-10-25/ossdevcon.pptx) | [Contest materials](events/2026-ossdevcon/) |
-| 2026 Builder Season 4 | CUBRID Kubernetes Operator | First validation: [한국어](https://cubrid-lab.github.io/showcase/events/2026-builder-season4/01-validation/ko/) · [English](https://cubrid-lab.github.io/showcase/events/2026-builder-season4/01-validation/en/) | [Validation and submission brief](events/2026-builder-season4/01-validation/) |
+| Event | Project | Latest HTML (follows `main`) | Released PDF and PPTX | Source and materials |
+|---|---|---|---|---|
+| 2026 OSS Developer Contest | CUBRID Python ecosystem | [HTML slides](https://cubrid-lab.github.io/showcase/contests/2026-ossdevcon/) | [2026-10-25 release](https://github.com/cubrid-lab/showcase/releases/tag/ossdevcon-2026-presentation-2026-10-25): [PDF](https://github.com/cubrid-lab/showcase/releases/download/ossdevcon-2026-presentation-2026-10-25/ossdevcon.pdf) · [PPTX](https://github.com/cubrid-lab/showcase/releases/download/ossdevcon-2026-presentation-2026-10-25/ossdevcon.pptx) | [Contest materials](events/2026-ossdevcon/) |
+| 2026 Builder Season 4 | CUBRID Kubernetes Operator | First validation: [한국어](https://cubrid-lab.github.io/showcase/events/2026-builder-season4/01-validation/ko/) · [English](https://cubrid-lab.github.io/showcase/events/2026-builder-season4/01-validation/en/) | [2026-10-28 release](https://github.com/cubrid-lab/showcase/releases/tag/builder-season4-validation-2026-10-28): 한국어 [PDF](https://github.com/cubrid-lab/showcase/releases/download/builder-season4-validation-2026-10-28/operator-first-validation.ko.pdf) · [PPTX](https://github.com/cubrid-lab/showcase/releases/download/builder-season4-validation-2026-10-28/operator-first-validation.ko.pptx); English [PDF](https://github.com/cubrid-lab/showcase/releases/download/builder-season4-validation-2026-10-28/operator-first-validation.en.pdf) · [PPTX](https://github.com/cubrid-lab/showcase/releases/download/builder-season4-validation-2026-10-28/operator-first-validation.en.pptx) | [Validation and submission brief](events/2026-builder-season4/01-validation/) |
+
+The HTML slides are rebuilt from `main` on every presentation change, so they can be newer than a release's PDF and PPTX. Each release lists the source commit its files were exported from. Earlier versions stay available on the [releases page](https://github.com/cubrid-lab/showcase/releases).
 
 For upcoming rounds and program opportunities, see the [events index](events/).
 
