@@ -39,6 +39,32 @@ title: "CUBRID, 이제 Python으로 — 파이큐브리드팀"
 
 ---
 
+<p class="kicker">목차</p>
+<h2 class="one">오늘 말씀드릴 네 가지</h2>
+
+<div class="agenda">
+  <div><span>01</span><b>문제의 발견</b><p>왜 CUBRID Python 생태계를 만들기 시작했나</p></div>
+  <div><span>02</span><b>Python 생태계 구축</b><p>sqlalchemy-cubrid · pycubrid · cookbook · MCP 서버</p></div>
+  <div><span>03</span><b>개발 과정과 검증</b><p>에이전트와 사람의 역할 · CI · 호환성 · 성능</p></div>
+  <div><span>04</span><b>성과와 다음 단계</b><p>외부 기여 · 생태계 확장 계획</p></div>
+</div>
+
+<style>
+.agenda { display: grid; gap: 0; }
+.agenda > div { display: grid; grid-template-columns: 56px 240px minmax(0, 1fr); align-items: baseline; padding: 14px 0; border-top: 2px solid var(--line); }
+.agenda > div:last-child { border-bottom: 2px solid var(--line); }
+.agenda span { color: var(--blue); font-size: 1.5rem; font-weight: 800; font-variant-numeric: tabular-nums; }
+.agenda b { font-size: 1.3rem; }
+.agenda p { color: var(--muted); font-size: 1rem; white-space: nowrap; }
+</style>
+
+<!--
+[15초 · PT]
+오늘은 네 가지 순서로 말씀드리겠습니다. 왜 시작했는지, 무엇을 만들었는지, 어떻게 만들고 검증했는지, 그리고 지금까지의 성과와 다음 계획입니다.
+-->
+
+---
+
 <p class="kicker">2020년 오픈소스 컨트리뷰톤</p>
 <h2 class="one">SQLAlchemy에서 멘토와 멘티로 만났습니다</h2>
 
@@ -664,4 +690,195 @@ AI에게 데이터베이스를 열어 주면 제일 먼저 나오는 질문이 "
 <!--
 [20초 · PT · 커뮤니티]
 처음에 보여드린 README의 한 줄, "관심 있는 사람이 있다면"에 저희가 답했습니다. 멈춰 있던 dialect에서 시작한 일이 이제 드라이버와 ORM, 예제, AI 도구까지 이어졌고, 62명이 함께 고치는 생태계가 됐습니다. 네 저장소 모두 열려 있습니다. 들어 주셔서 감사합니다.
+-->
+
+---
+
+<p class="kicker">질의응답</p>
+<h2 class="one">Q&amp;A — 질문 받겠습니다</h2>
+
+<div class="qa-index">
+  <Link to="24"><span>A</span>기존 C 드라이버와 pycubrid<em>24</em></Link>
+  <Link to="25"><span>B</span>CAS 프로토콜과 참고 소스<em>25</em></Link>
+  <Link to="26"><span>C</span>호환성 테스트와 CI<em>26</em></Link>
+  <Link to="27"><span>D</span>벤치마크 방법<em>27</em></Link>
+  <Link to="28"><span>E</span>MCP 서버 보안<em>28</em></Link>
+  <Link to="29"><span>F</span>라이선스와 기여자 근거<em>29</em></Link>
+</div>
+<p class="note-line">질문에 맞는 보조 자료로 바로 이동합니다 · 각 자료에서 Q&amp;A로 돌아옵니다</p>
+
+<style>
+.qa-index { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 28px; }
+.qa-index a { display: flex; align-items: baseline; gap: 12px; padding: 12px 14px; border: 1.5px solid var(--line); border-radius: 10px; color: var(--ink); text-decoration: none; font-size: 1.1rem; font-weight: 650; }
+.qa-index a span { color: var(--blue); font-weight: 800; }
+.qa-index a em { margin-left: auto; font-style: normal; font-size: 0.85rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+</style>
+
+<!--
+[0초 · Q&A · 발표 시간 외]
+질의응답 화면입니다. 여기서 질문을 받고, 필요하면 아래 보조 자료로 이동했다가 돌아옵니다.
+-->
+
+---
+
+<p class="kicker">보조 자료 A · 기존 C 드라이버와 pycubrid</p>
+<h2 class="one">두 드라이버의 차이는 설치와 비동기입니다</h2>
+
+<table class="cmp">
+  <thead><tr><th></th><th>CUBRIDdb (공식 C 드라이버)</th><th>pycubrid</th></tr></thead>
+  <tbody>
+    <tr><td>설치</td><td>일부 Python 버전만 wheel, 나머지는 직접 빌드</td><td><code class="nw">pip install pycubrid</code></td></tr>
+    <tr><td>PyPI</td><td>9.3.0 (2014-05-15) · 최신은 GitHub 릴리스</td><td>최신 릴리스 게시</td></tr>
+    <tr><td>asyncio</td><td>지원 안 함</td><td><code>pycubrid.aio</code></td></tr>
+    <tr><td>구현</td><td>C 확장 (CCI 라이브러리)</td><td>순수 Python · 런타임 의존성 0</td></tr>
+    <tr><td>속도</td><td>기준 (100)</td><td>조금 느림 (보조 자료 D)</td></tr>
+  </tbody>
+</table>
+<style>
+.cmp { width: 100%; border-collapse: collapse; font-size: 0.98rem; }
+.cmp th { text-align: left; color: var(--blue); font-size: 0.88rem; padding: 8px 10px 8px 0; border-bottom: 2px solid var(--line); }
+.cmp td { padding: 9px 10px 9px 0; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.cmp td:first-child { font-weight: 700; width: 14%; }
+.back { margin-top: auto; font-size: 0.9rem; }
+.back a { color: var(--blue); text-decoration: none; border: 0; font-weight: 700; }
+</style>
+
+<p class="back"><Link to="23">← Q&amp;A로 돌아가기</Link></p>
+
+<!--
+[0초 · 보조 자료 A · 발표 시간 외]
+공식 드라이버는 잘 동작합니다. 차이는 설치 경로와 비동기 지원입니다. 공식 드라이버는 C 확장이라 일부 Python 버전만 wheel이 있고 나머지는 직접 빌드하며, PyPI에는 2014년 버전만 있습니다. pycubrid는 순수 Python이라 pip 한 줄로 설치되고 asyncio를 지원합니다. 대신 조금 느립니다.
+-->
+
+---
+
+<p class="kicker">보조 자료 B · CAS 프로토콜과 참고 소스</p>
+<h2 class="one">요청 하나는 이렇게 오갑니다</h2>
+
+<div class="flow">
+  <div class="node">pycubrid</div><span class="arr">→</span>
+  <div class="node">요청: 길이 4B + 서버 상태 4B + 본문</div><span class="arr">→</span>
+  <div class="node db">CAS broker · TCP 33000</div><span class="arr">→</span>
+  <div class="node">응답: 같은 형식</div>
+</div>
+<ul class="explain">
+  <li><a href="https://github.com/CUBRID/node-cubrid" target="_blank"><b>CUBRID/node-cubrid</b></a> — 순수 JavaScript라 요청 순서와 패킷 형식이 그대로 보임</li>
+  <li><b>공식 C 드라이버(CCI)</b>와 같은 동작인지 하나씩 대조 — 둘 다 참고 자료, 의존성 아님</li>
+  <li><b>20개 패킷 타입 · 30개 데이터 타입</b>을 구현</li>
+</ul>
+<style>
+.flow { display: flex; align-items: center; gap: 8px; }
+.flow .node { font-size: 0.85rem; padding: 7px 10px; white-space: nowrap; }
+.flow .arr { color: var(--muted); }
+.back { margin-top: auto; font-size: 0.9rem; }
+.back a { color: var(--blue); text-decoration: none; border: 0; font-weight: 700; }
+</style>
+
+<p class="back"><Link to="23">← Q&amp;A로 돌아가기</Link></p>
+
+<!--
+[0초 · 보조 자료 B · 발표 시간 외]
+모든 요청과 응답은 길이, 서버 상태, 본문이라는 같은 틀을 씁니다. node-cubrid는 순수 JavaScript라 이 흐름이 코드에 그대로 보여서 먼저 읽었고, 같은 동작을 공식 C 드라이버와 하나씩 대조했습니다. 두 저장소 모두 참고 자료일 뿐 의존성은 아닙니다.
+-->
+
+---
+
+<p class="kicker">보조 자료 C · 호환성 테스트와 CI</p>
+<h2 class="one">검사를 통과해야만 머지됩니다</h2>
+
+<ul class="explain">
+  <li><b>SQLAlchemy 호환성 테스트</b> — 공식 공통 테스트를 실제 CUBRID에서 실행</li>
+  <li><b>feature flag 60여 개</b> — CUBRID가 지원하지 않는 기능을 명시하고 건너뜀</li>
+  <li><b>20개 조합</b> — Python 5개 버전 × CUBRID 4개 버전의 실제 DB</li>
+  <li><b>커버리지 95% · mypy strict 0 · 공개 API 변경 감지</b></li>
+  <li><b>cookbook</b> — 매일 CUBRID 11.4에서 최신 릴리스로 모든 예제 실행 (월요일 11.2)</li>
+</ul>
+<style>
+.back { margin-top: auto; font-size: 0.9rem; }
+.back a { color: var(--blue); text-decoration: none; border: 0; font-weight: 700; }
+</style>
+
+<p class="back"><Link to="23">← Q&amp;A로 돌아가기</Link></p>
+
+<!--
+[0초 · 보조 자료 C · 발표 시간 외]
+dialect는 SQLAlchemy가 제공하는 공통 호환성 테스트를 실제 CUBRID에서 돌리고, 지원하지 않는 기능은 feature flag로 명시합니다. 드라이버와 dialect는 Python 5개 버전과 CUBRID 4개 버전 조합에서 검증하고, cookbook은 매일 최신 릴리스로 예제를 실행합니다.
+-->
+
+---
+
+<p class="kicker">보조 자료 D · 벤치마크 방법</p>
+<h2 class="one">같은 서버, 같은 작업, 걸린 시간을 비교했습니다</h2>
+
+<table class="cmp">
+  <tbody>
+    <tr><td>날짜</td><td>2026-10-25 (UTC)</td></tr>
+    <tr><td>서버</td><td>CUBRID 11.4.6 Docker 컨테이너 1개</td></tr>
+    <tr><td>드라이버</td><td>pycubrid 1.13.5 · CUBRIDdb v11.3.0.51 (소스 빌드)</td></tr>
+    <tr><td>도구</td><td>cubrid-benchmark 기존 하네스 그대로 · 드라이버당 5회, 순서 교대</td></tr>
+    <tr><td>결과</td><td>CUBRIDdb = 100 → PK 조회 112 · 1만 행 fetchall 125 · executemany 120</td></tr>
+    <tr><td>주의</td><td>공유 서버라 부하가 있었음 · 원본과 환경은 저장소 기록</td></tr>
+  </tbody>
+</table>
+<style>
+.cmp { width: 100%; border-collapse: collapse; font-size: 0.98rem; }
+.cmp td { padding: 9px 10px 9px 0; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.cmp td:first-child { font-weight: 700; width: 14%; color: var(--blue); }
+.back { margin-top: auto; font-size: 0.9rem; }
+.back a { color: var(--blue); text-decoration: none; border: 0; font-weight: 700; }
+</style>
+
+<p class="back"><Link to="23">← Q&amp;A로 돌아가기</Link></p>
+
+<!--
+[0초 · 보조 자료 D · 발표 시간 외]
+성능은 같은 CUBRID 11.4.6 서버에서 공식 C 드라이버와 같은 작업에 걸린 시간을 비교했습니다. 기존 벤치마크 하네스를 고치지 않고 돌렸고, 드라이버마다 다섯 번씩 순서를 바꿔 쟀습니다. 공유 서버라 부하가 있었다는 점도 기록에 남겼습니다. 원본 결과와 환경은 저장소에 있습니다.
+-->
+
+---
+
+<p class="kicker">보조 자료 E · MCP 서버 보안</p>
+<h2 class="one">AI에게는 읽기만 열고, 권한은 DB 계정으로 제한합니다</h2>
+
+<ul class="explain">
+  <li><b>기본 읽기 전용</b> — 쓰기 tool은 등록되지 않고, 쿼리는 SELECT · SHOW · DESC · WITH만</li>
+  <li><b>여러 문장은 거부</b> — 한 번에 한 문장만 실행</li>
+  <li><b>쓰기는 운영자가 켤 때만</b> — 그때도 한 문장씩, DDL 불가</li>
+  <li><b>읽기 전용 ≠ 행 단위 보안</b> — 민감한 데이터는 DB 권한과 뷰로 막아야 함</li>
+  <li><b>권장</b> — SELECT 권한만 가진 계정으로 연결 · 감사 로그 켜기</li>
+</ul>
+<style>
+.back { margin-top: auto; font-size: 0.9rem; }
+.back a { color: var(--blue); text-decoration: none; border: 0; font-weight: 700; }
+</style>
+
+<p class="back"><Link to="23">← Q&amp;A로 돌아가기</Link></p>
+
+<!--
+[0초 · 보조 자료 E · 발표 시간 외]
+기본 모드에서는 쓰기 도구가 등록되지 않고 조회 문장만 한 번에 하나씩 실행합니다. 쓰기는 운영자가 연결별로 켤 때만 열립니다. 다만 읽기 전용이 행 단위 보안은 아니어서, 민감한 데이터는 DB 권한으로 막고 조회 권한만 가진 계정으로 연결하기를 권합니다.
+-->
+
+---
+
+<p class="kicker">보조 자료 F · 라이선스와 기여자 근거</p>
+<h2 class="one">공개 조건과 기여 숫자는 모두 근거가 있습니다</h2>
+
+<ul class="explain">
+  <li><b>MIT × 4</b> · 의존성에 GPL 없음 · 서드파티 라이선스와 NOTICE 파일</li>
+  <li><b>SPDX SBOM</b> — pycubrid · sqlalchemy-cubrid · cubrid-mcp-server 최근 릴리스마다</li>
+  <li><b>외부 기여자 62명 · 머지된 PR 137개</b> — 2026-10-28 기준, 메인테이너·봇 제외</li>
+  <li><b>재현 절차</b> — VERIFY.md에 단계별 명령과 기대 결과</li>
+</ul>
+<p class="note-line">근거: events/2026-ossdevcon/metrics/contributors-2026-10-28.json · VERIFY.md</p>
+<style>
+.back { margin-top: auto; font-size: 0.9rem; }
+.back a { color: var(--blue); text-decoration: none; border: 0; font-weight: 700; }
+</style>
+
+<p class="back"><Link to="23">← Q&amp;A로 돌아가기</Link></p>
+
+<!--
+[0초 · 보조 자료 F · 발표 시간 외]
+네 저장소 모두 MIT이고 의존성에 GPL은 없습니다. 패키지 릴리스마다 SBOM을 붙입니다. 외부 기여 숫자는 10월 28일 기준으로 메인테이너와 봇을 뺀 머지된 PR이며, 명단과 방법은 저장소에 기록해 두었습니다.
 -->
