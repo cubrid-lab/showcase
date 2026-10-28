@@ -7,12 +7,16 @@
 
 ## 발표자료 바로 열기
 
-- [한국어 HTML 발표](https://cubrid-lab.github.io/showcase/events/2026-builder-season4/01-validation/ko/)
-- [English HTML presentation](https://cubrid-lab.github.io/showcase/events/2026-builder-season4/01-validation/en/)
-- [시즌4 전체 발표 목록](../README.md)
+| 언어 | 최신 HTML (`main` 기준) | 제출용 PDF (2026-10-28) | 제출용 PPTX (2026-10-28) |
+|---|---|---|---|
+| 한국어 | [한국어 HTML 발표](https://cubrid-lab.github.io/showcase/events/2026-builder-season4/01-validation/ko/) | [한국어 PDF](https://github.com/cubrid-lab/showcase/releases/download/builder-season4-validation-2026-10-28/operator-first-validation.ko.pdf) | [한국어 PPTX](https://github.com/cubrid-lab/showcase/releases/download/builder-season4-validation-2026-10-28/operator-first-validation.ko.pptx) |
+| English | [English HTML presentation](https://cubrid-lab.github.io/showcase/events/2026-builder-season4/01-validation/en/) | [English PDF](https://github.com/cubrid-lab/showcase/releases/download/builder-season4-validation-2026-10-28/operator-first-validation.en.pdf) | [English PPTX](https://github.com/cubrid-lab/showcase/releases/download/builder-season4-validation-2026-10-28/operator-first-validation.en.pptx) |
 
-브라우저에서 바로 넘겨 볼 수 있는 HTML 발표입니다. 현재 내용은
-한국어·영어 각 18장입니다. Markdown 원본과 출력 검증 기록은 아래에서 확인할 수 있습니다.
+PDF·PPTX는 [2026-10-28 제출본 릴리스](https://github.com/cubrid-lab/showcase/releases/tag/builder-season4-validation-2026-10-28)의 파일이며,
+원본 커밋 `3fb363e`에서 출력했습니다. 디스코드에는 이 릴리스의 PPTX 두 개를 제출합니다.
+HTML 발표는 `main`이 바뀔 때마다 다시 만들어지므로 이 고정본보다 새로울 수 있습니다.
+각 언어 18장이며, Markdown 원본과 출력 검증 기록은 아래에서 확인할 수 있습니다.
+[시즌4 전체 발표 목록](../README.md)
 
 ## 일정과 제출 요건
 
@@ -40,8 +44,8 @@
 | [한국어 진입 파일](../../../presentation/operator-first-validation.ko.md) | 공통 테마·웹·출력 설정 | 원본을 불러오는 Slidev 설정 |
 | [영어 진입 파일](../../../presentation/operator-first-validation.en.md) | 공통 테마·웹·출력 설정 | 원본을 불러오는 Slidev 설정 |
 | [SOURCES.md](SOURCES.md) | 고정된 근거·주장 경계·필수 항목 대응 | 10-20 고정 실행 근거 · 10-22 설명 확장 · 10-25 복원 근거 추가 |
-| `operator-first-validation.ko.pptx` / `.pdf` | 한국어 발표·제출용 출력물 | [출력·검수 기록](DELIVERY.md) |
-| `operator-first-validation.en.pptx` / `.pdf` | 영어 발표·제출용 출력물 | [출력·검수 기록](DELIVERY.md) |
+| `operator-first-validation.ko.pptx` / `.pdf` | 한국어 발표·제출용 출력물 | [2026-10-28 제출본](https://github.com/cubrid-lab/showcase/releases/tag/builder-season4-validation-2026-10-28) · [출력·검수 기록](DELIVERY.md) |
+| `operator-first-validation.en.pptx` / `.pdf` | 영어 발표·제출용 출력물 | [2026-10-28 제출본](https://github.com/cubrid-lab/showcase/releases/tag/builder-season4-validation-2026-10-28) · [출력·검수 기록](DELIVERY.md) |
 
 - [한국어 발표자 대본](SPEAKER_NOTES.ko.md): 슬라이드별 전환과 시간 배분
 - [질의응답 준비](EXPECTED_QA.ko.md): 질문별 30–60초 답변과 근거

@@ -2,8 +2,8 @@
 
 ## Presentation
 
-- **[View slides (HTML)](https://cubrid-lab.github.io/showcase/contests/2026-ossdevcon/)** — opens in the browser
-- **[Download PDF](https://github.com/cubrid-lab/showcase/releases/download/ossdevcon-2026-presentation-2026-10-25/ossdevcon.pdf)** · **[Download PowerPoint (PPTX)](https://github.com/cubrid-lab/showcase/releases/download/ossdevcon-2026-presentation-2026-10-25/ossdevcon.pptx)**
+- **[View slides (HTML)](https://cubrid-lab.github.io/showcase/contests/2026-ossdevcon/)** — latest version, rebuilt from `main`; opens in the browser
+- **[Download PDF, 2026-10-25 release](https://github.com/cubrid-lab/showcase/releases/download/ossdevcon-2026-presentation-2026-10-25/ossdevcon.pdf)** · **[Download PowerPoint (PPTX)](https://github.com/cubrid-lab/showcase/releases/download/ossdevcon-2026-presentation-2026-10-25/ossdevcon.pptx)**
 - [Release `ossdevcon-2026-presentation-2026-10-25`](https://github.com/cubrid-lab/showcase/releases/tag/ossdevcon-2026-presentation-2026-10-25) — version record: source commit, export workflow run, metrics snapshot and SHA-256 checksums
 
 | Format | Role |
