@@ -19,7 +19,7 @@ For this season, we're aiming for a v0.1 that we've run through in one setup: in
 
 <OperatorSlide class="op-compact" section="1 · What it is" index="02" total="15" source="Operator README · recorded runs" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/README.md">
 
-<h1 class="op-title">An Operator that runs CUBRID HA clusters on Kubernetes</h1><p class="op-lead">Describe the cluster in YAML. The Operator creates it, watches it, and coordinates backup and restore.</p><table class="op-comparison op-capabilities"><thead><tr><th>What it does</th><th>Where it stands</th></tr></thead><tbody><tr><td>Creates a 3-member HA cluster with RW/RO<small>CubridCluster</small></td><td><span class="op-status done">Verified</span>Install and access on Kind and VMs; data kept after rollout</td></tr><tr><td>Reads each member's role into the status<small>Conflicting answers stay “unresolved”</small></td><td><span class="op-status">Built</span>Blocking RW writes during faults: not yet built or verified</td></tr><tr><td>Backs up and restores into a new cluster<small>CubridBackup · object storage</small></td><td><span class="op-status done">Verified</span>5 of 7 VM runs passed; 2 inconclusive</td></tr><tr><td>Rejoins and rebuilds members after faults</td><td><span class="op-status plan">v0.1 goal</span>Fault tests not yet run</td></tr></tbody></table><p class="op-caption">Experimental and not for production. It does not replace the official CUBRID Operator.</p>
+<h1 class="op-title">An Operator that runs CUBRID HA clusters on Kubernetes</h1><p class="op-lead">Describe the cluster in YAML. The Operator creates it, watches it, and coordinates backup and restore.</p><table class="op-comparison op-capabilities"><thead><tr><th>What it does</th><th>Where it stands</th></tr></thead><tbody><tr><td>Creates a 3-member HA cluster with RW/RO<small>CubridCluster</small></td><td><span class="op-status done">Verified</span>Install and access on Kind and VMs; data kept after rollout</td></tr><tr><td>Reads each member's role into the status<small>Conflicting answers stay “unresolved”</small></td><td><span class="op-status">Built</span>Blocking RW writes during faults: not yet built or verified</td></tr><tr><td>Backs up and restores into a new cluster<small>CubridBackup · object storage</small></td><td><span class="op-status">First pass</span>5 of 7 VM runs passed; 2 inconclusive</td></tr><tr><td>Rejoins and rebuilds members after faults</td><td><span class="op-status plan">v0.1 goal</span>Rejoin and rebuild tests not yet run</td></tr></tbody></table><p class="op-caption">Experimental and not for production. It does not replace the official CUBRID Operator.</p>
 
 </OperatorSlide>
 
@@ -27,7 +27,7 @@ For this season, we're aiming for a v0.1 that we've run through in one setup: in
 [45s · 1 · What it is]
 CUBRID Kubernetes Operator is an experimental Operator for deploying and running CUBRID HA clusters on Kubernetes. You describe the cluster you want in YAML. The Operator creates a three-member HA cluster with write and read endpoints, reads each member's role and records it in the status. It also takes backups and restores them into a new cluster.
 
-The right column shows where we stand. We have verified installation, access, and backup restore ourselves. Role tracking is built, but blocking writes during a fault is not yet. Rejoining and rebuilding members after faults is a v0.1 goal. This is not for production, and it is not meant to replace the official Operator.
+The right column shows where we stand. We have verified installation and access ourselves, and restoring a backup into a new cluster has passed for the first time. Role tracking is built, but blocking writes during a fault is not yet. Rejoining and rebuilding members after faults is a v0.1 goal. This is not for production, and it is not meant to replace the official Operator.
 -->
 
 ---
@@ -80,7 +80,7 @@ So two teams see the same fault differently. The Kubernetes platform team sees t
 [50s · 2 · Architecture]
 Here is the whole picture. The blue dashed line at the top is the operations path. You apply YAML to the Kubernetes API, and the Operator creates the StatefulSet, Brokers, Services and volumes. It asks the Instance Manager inside each member to do work such as starting the database or taking a backup, and it reads each member's role into the status.
 
-The solid line on the left is the application's SQL path: an RW or RO Service, then a Broker that runs separately from the database, then CUBRID. The RW Broker finds the master by itself, so the Operator never relays SQL. CUBRID HA elects the master and replicates; the Operator never picks the master. Initial data copies and backup files go through the object storage at the bottom.
+The solid line on the left is the application's SQL path: an RW or RO Service, then a Broker that runs separately from the database, then CUBRID. The RW Broker finds the master by itself, so the Operator never relays SQL. CUBRID HA elects the master and replicates; the Operator does not pick the master during failover. Initial data copies and backup files go through the object storage at the bottom.
 -->
 
 ---

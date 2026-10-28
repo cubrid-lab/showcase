@@ -19,7 +19,7 @@
 
 CUBRID Kubernetes Operator는 Kubernetes에서 CUBRID HA 클러스터를 배포하고 운영하는 실험 단계의 Operator입니다. 사용자가 YAML에 원하는 구성을 적으면, Operator가 멤버 세 개짜리 HA 클러스터와 쓰기·읽기 접속 주소를 만들고, 멤버마다 역할을 조회해 상태로 기록합니다. 백업을 만들고 그 백업으로 새 클러스터를 복원하는 일도 맡습니다.
 
-오른쪽은 지금 어디까지 왔는지입니다. 설치와 접속, 백업 복원은 직접 확인했습니다. 역할 기록은 구현했지만, 장애 중에 쓰기를 막는 부분은 아직입니다. 장애 뒤 재합류와 재구축은 v0.1에서 검증할 목표입니다. 운영 환경용은 아니고, 공식 Operator를 대체하려는 것도 아닙니다.
+오른쪽은 지금 어디까지 왔는지입니다. 설치와 접속은 직접 확인했고, 백업으로 새 클러스터를 복원하는 시험은 처음 통과했습니다. 역할 기록은 구현했지만, 장애 중에 쓰기를 막는 부분은 아직입니다. 장애 뒤 재합류와 재구축은 v0.1에서 검증할 목표입니다. 운영 환경용은 아니고, 공식 Operator를 대체하려는 것도 아닙니다.
 
 ## 03. 40초 · 1 · 왜 필요한가
 
@@ -31,7 +31,7 @@ CUBRID Kubernetes Operator는 Kubernetes에서 CUBRID HA 클러스터를 배포�
 
 전체 구성입니다. 위쪽 파란 점선이 운영 경로입니다. 사용자가 YAML을 Kubernetes API에 올리면 Operator가 그것을 보고 StatefulSet, Broker, Service, 볼륨을 만듭니다. DB 시작이나 백업 같은 작업은 각 멤버 안의 Instance Manager에 요청하고, 멤버마다 역할을 조회해 상태로 기록합니다.
 
-왼쪽 실선이 애플리케이션의 SQL 경로입니다. RW나 RO Service에서 DB와 따로 떠 있는 Broker를 거쳐 CUBRID로 갑니다. RW Broker가 master를 직접 찾아가기 때문에 Operator는 SQL을 중계하지 않습니다. master 선출과 복제는 CUBRID HA가 직접 하고, Operator가 master를 정하지 않습니다. 초기 데이터 복사와 백업 파일은 아래쪽 오브젝트 저장소를 거칩니다.
+왼쪽 실선이 애플리케이션의 SQL 경로입니다. RW나 RO Service에서 DB와 따로 떠 있는 Broker를 거쳐 CUBRID로 갑니다. RW Broker가 master를 직접 찾아가기 때문에 Operator는 SQL을 중계하지 않습니다. master 선출과 복제는 CUBRID HA가 직접 하고, 장애 때 Operator가 master를 고르지 않습니다. 초기 데이터 복사와 백업 파일은 아래쪽 오브젝트 저장소를 거칩니다.
 
 ## 05. 45초 · 2 · 장애 흐름 예시
 

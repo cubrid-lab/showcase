@@ -19,7 +19,7 @@ title: "CUBRID Kubernetes Operator — 1차 검증"
 
 <OperatorSlide class="op-compact" section="1 · 무엇인가" index="02" total="15" source="Operator README·검증 기록" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/README.md">
 
-<h1 class="op-title">Kubernetes에서 CUBRID HA 클러스터를 운영하는 Operator</h1><p class="op-lead">YAML에 원하는 구성을 적으면 Operator가 클러스터를 만들고, 상태를 지켜보고, 백업·복원 같은 운영 작업을 조정합니다.</p><table class="op-comparison op-capabilities"><thead><tr><th>하는 일</th><th>지금 상태</th></tr></thead><tbody><tr><td>3멤버 HA 클러스터와 RW/RO 접속 만들기<small>CubridCluster</small></td><td><span class="op-status done">확인함</span>Kind·VM에서 설치·접속, 롤아웃 후 데이터 보존</td></tr><tr><td>멤버마다 역할을 조회해 상태로 기록<small>엇갈리면 “미확정”</small></td><td><span class="op-status">구현함</span>장애 중 RW 쓰기 차단은 아직 구현·검증 전</td></tr><tr><td>백업하고 새 클러스터로 복원<small>CubridBackup · 오브젝트 저장소</small></td><td><span class="op-status done">확인함</span>VM 7회 중 5회 통과, 2회 판정 보류</td></tr><tr><td>장애 뒤 멤버 재합류·재구축</td><td><span class="op-status plan">v0.1 목표</span>장애 시험 전</td></tr></tbody></table><p class="op-caption">실험 단계 프로젝트이며 운영 환경용이 아닙니다. 공식 CUBRID Operator를 대체하지 않습니다.</p>
+<h1 class="op-title">Kubernetes에서 CUBRID HA 클러스터를 운영하는 Operator</h1><p class="op-lead">YAML에 원하는 구성을 적으면 Operator가 클러스터를 만들고, 상태를 지켜보고, 백업·복원 같은 운영 작업을 조정합니다.</p><table class="op-comparison op-capabilities"><thead><tr><th>하는 일</th><th>지금 상태</th></tr></thead><tbody><tr><td>3멤버 HA 클러스터와 RW/RO 접속 만들기<small>CubridCluster</small></td><td><span class="op-status done">확인함</span>Kind·VM에서 설치·접속, 롤아웃 후 데이터 보존</td></tr><tr><td>멤버마다 역할을 조회해 상태로 기록<small>엇갈리면 “미확정”</small></td><td><span class="op-status">구현함</span>장애 중 RW 쓰기 차단은 아직 구현·검증 전</td></tr><tr><td>백업하고 새 클러스터로 복원<small>CubridBackup · 오브젝트 저장소</small></td><td><span class="op-status">첫 통과</span>VM 7회 중 5회 통과, 2회 판정 보류</td></tr><tr><td>장애 뒤 멤버 재합류·재구축</td><td><span class="op-status plan">v0.1 목표</span>재합류·재구축 시험 전</td></tr></tbody></table><p class="op-caption">실험 단계 프로젝트이며 운영 환경용이 아닙니다. 공식 CUBRID Operator를 대체하지 않습니다.</p>
 
 </OperatorSlide>
 
@@ -27,7 +27,7 @@ title: "CUBRID Kubernetes Operator — 1차 검증"
 [45초 · 1 · 무엇인가]
 CUBRID Kubernetes Operator는 Kubernetes에서 CUBRID HA 클러스터를 배포하고 운영하는 실험 단계의 Operator입니다. 사용자가 YAML에 원하는 구성을 적으면, Operator가 멤버 세 개짜리 HA 클러스터와 쓰기·읽기 접속 주소를 만들고, 멤버마다 역할을 조회해 상태로 기록합니다. 백업을 만들고 그 백업으로 새 클러스터를 복원하는 일도 맡습니다.
 
-오른쪽은 지금 어디까지 왔는지입니다. 설치와 접속, 백업 복원은 직접 확인했습니다. 역할 기록은 구현했지만, 장애 중에 쓰기를 막는 부분은 아직입니다. 장애 뒤 재합류와 재구축은 v0.1에서 검증할 목표입니다. 운영 환경용은 아니고, 공식 Operator를 대체하려는 것도 아닙니다.
+오른쪽은 지금 어디까지 왔는지입니다. 설치와 접속은 직접 확인했고, 백업으로 새 클러스터를 복원하는 시험은 처음 통과했습니다. 역할 기록은 구현했지만, 장애 중에 쓰기를 막는 부분은 아직입니다. 장애 뒤 재합류와 재구축은 v0.1에서 검증할 목표입니다. 운영 환경용은 아니고, 공식 Operator를 대체하려는 것도 아닙니다.
 -->
 
 ---
@@ -53,7 +53,7 @@ CUBRID Kubernetes Operator는 Kubernetes에서 CUBRID HA 클러스터를 배포�
 <defs><marker id="op-arch-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0f1b2d"/></marker><marker id="op-arch-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1f4e8c"/></marker><marker id="op-arch-mute" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#5b6b82"/></marker></defs>
 <rect class="box" x="0" y="8" width="150" height="62" rx="8"/><text x="75" y="29" text-anchor="middle">YAML</text><text class="s" x="75" y="47" text-anchor="middle">CubridCluster</text><text class="s" x="75" y="62" text-anchor="middle">CubridBackup</text>
 <rect class="box" x="180" y="8" width="150" height="62" rx="8"/><text x="255" y="44" text-anchor="middle">Kubernetes API</text>
-<rect class="box op" x="360" y="8" width="200" height="62" rx="8"/><text class="b" x="460" y="33" text-anchor="middle">Operator</text><text class="s" x="460" y="54" text-anchor="middle">관찰·조정 · master를 정하지 않음</text>
+<rect class="box op" x="360" y="8" width="200" height="62" rx="8"/><text class="b" x="460" y="33" text-anchor="middle">Operator</text><text class="s" x="460" y="54" text-anchor="middle">관찰·조정</text>
 <rect class="box" x="590" y="8" width="290" height="62" rx="8"/><text x="735" y="33" text-anchor="middle">Kubernetes 리소스</text><text class="s" x="735" y="54" text-anchor="middle">StatefulSet · Broker · Service · PVC</text>
 <path class="ctl" d="M150 39H176" marker-end="url(#op-arch-blue)"/><path class="ctl" d="M330 39H356" marker-end="url(#op-arch-blue)"/><path class="ctl" d="M560 39H586" marker-end="url(#op-arch-blue)"/>
 <path class="ctl" d="M440 70V108" marker-end="url(#op-arch-blue)"/><text class="s b" x="450" y="94">Instance Manager에 작업 요청·역할 조회</text>
@@ -80,7 +80,7 @@ CUBRID Kubernetes Operator는 Kubernetes에서 CUBRID HA 클러스터를 배포�
 [50초 · 2 · 구조]
 전체 구성입니다. 위쪽 파란 점선이 운영 경로입니다. 사용자가 YAML을 Kubernetes API에 올리면 Operator가 그것을 보고 StatefulSet, Broker, Service, 볼륨을 만듭니다. DB 시작이나 백업 같은 작업은 각 멤버 안의 Instance Manager에 요청하고, 멤버마다 역할을 조회해 상태로 기록합니다.
 
-왼쪽 실선이 애플리케이션의 SQL 경로입니다. RW나 RO Service에서 DB와 따로 떠 있는 Broker를 거쳐 CUBRID로 갑니다. RW Broker가 master를 직접 찾아가기 때문에 Operator는 SQL을 중계하지 않습니다. master 선출과 복제는 CUBRID HA가 직접 하고, Operator가 master를 정하지 않습니다. 초기 데이터 복사와 백업 파일은 아래쪽 오브젝트 저장소를 거칩니다.
+왼쪽 실선이 애플리케이션의 SQL 경로입니다. RW나 RO Service에서 DB와 따로 떠 있는 Broker를 거쳐 CUBRID로 갑니다. RW Broker가 master를 직접 찾아가기 때문에 Operator는 SQL을 중계하지 않습니다. master 선출과 복제는 CUBRID HA가 직접 하고, 장애 때 Operator가 master를 고르지 않습니다. 초기 데이터 복사와 백업 파일은 아래쪽 오브젝트 저장소를 거칩니다.
 -->
 
 ---
