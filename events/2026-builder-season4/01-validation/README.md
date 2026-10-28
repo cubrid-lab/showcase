@@ -71,7 +71,7 @@ npm run export:operator:pptx  # 한영 PPTX 각각 생성
 npm run export:operator:pdf   # 한영 PDF 각각 생성
 ```
 
-출력 파일은 `presentation/`에 언어별로 생성되며 Git에서는 제외합니다.
+출력 파일은 `presentation/exports/`에 언어별로 생성되며 Git에서는 제외합니다. CI는 PR과 `main`마다 한영 PDF·PPTX를 출력해 장수·메모 수를 검사합니다.
 정적 웹 빌드 경로, 브라우저 준비, 호스팅 경로 설정은
 [공통 도구 안내](../../../presentation/README.md#operator-web--pdf--pptx)를 참조합니다.
 최종 파일은 행사별 릴리스 첨부물로 보존하고 원본 커밋을 기록합니다.

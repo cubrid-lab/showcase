@@ -1,0 +1,32 @@
+{
+  "description": "Every published deck. Read by scripts/build_site.mjs, scripts/package_presentations.py, presentation/scripts/verify_exports.py and scripts/check_showcase_links.py. Decks with the same release value are published together.",
+  "decks": [
+    {
+      "entry": "2026-ossdevcon.md",
+      "release": "ossdevcon-2026-presentation",
+      "event": "2026 OSS Developer Contest",
+      "language": "ko",
+      "route": "contests/2026-ossdevcon",
+      "exportName": "ossdevcon",
+      "metricsSnapshot": true
+    },
+    {
+      "entry": "2026-builder-season4-01-validation.ko.md",
+      "release": "builder-season4-validation",
+      "event": "2026 Builder Season 4",
+      "round": "01-validation",
+      "language": "ko",
+      "route": "events/2026-builder-season4/01-validation/ko",
+      "exportName": "operator-first-validation.ko"
+    },
+    {
+      "entry": "2026-builder-season4-01-validation.en.md",
+      "release": "builder-season4-validation",
+      "event": "2026 Builder Season 4",
+      "round": "01-validation",
+      "language": "en",
+      "route": "events/2026-builder-season4/01-validation/en",
+      "exportName": "operator-first-validation.en"
+    }
+  ]
+}

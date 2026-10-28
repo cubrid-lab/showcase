@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import json
 import re
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
@@ -21,6 +22,11 @@ REQUIRED = (
     "presentation/decks/2026-ossdevcon/slides.md",
 )
 REMOVED = ("contests", "demo-videos", "press-kit", "programs")
+PUBLISHED_ROUTES = (
+    "contests/2026-ossdevcon",
+    "events/2026-builder-season4/01-validation/ko",
+    "events/2026-builder-season4/01-validation/en",
+)
 
 PRESENTATION = ROOT / "presentation"
 # Rules from presentation/README.md ("Where deck sources live").
@@ -56,12 +62,16 @@ def check_deck_layout() -> list[str]:
         if relative not in sources:
             failures.append(f"presentation/{relative}: deck source without an entry")
 
-    # Every entry named by the npm scripts or the site build must exist.
+    # Every registered deck and every entry named by an npm script must exist,
+    # and every entry must be registered so the site build and CI export it.
+    registry = json.loads((PRESENTATION / "presentations.json").read_text(encoding="utf-8"))
+    registered = {deck["entry"] for deck in registry["decks"]}
     scripts = (PRESENTATION / "package.json").read_text(encoding="utf-8")
     named = {name for args in SLIDEV_ARGS.findall(scripts) for name in args.split()}
-    named |= set(re.findall(r"\['([\w.-]+\.md)'", (ROOT / "scripts/build_site.mjs").read_text(encoding="utf-8")))
-    for name in sorted(named - set(entries)):
-        failures.append(f"Build or npm script uses a missing entry: {name}")
+    for name in sorted((named | registered) - set(entries)):
+        failures.append(f"presentations.json or an npm script uses a missing entry: {name}")
+    for name in sorted(set(entries) - registered):
+        failures.append(f"presentation/{name}: entry is not listed in presentations.json")
     return failures
 
 
@@ -95,15 +105,12 @@ def main() -> int:
             elif not local_path.exists():
                 failures.append(f"{document.relative_to(ROOT)}: broken link: {url}")
 
-    site = (ROOT / "scripts/build_site.mjs").read_text(encoding="utf-8")
-    index = (ROOT / "presentation/site.html").read_text(encoding="utf-8")
-    routes = (
-        "contests/2026-ossdevcon",
-        "events/2026-builder-season4/01-validation/ko",
-        "events/2026-builder-season4/01-validation/en",
-    )
-    for route in routes:
-        if route not in site or route not in index:
+    # Published HTML routes must not change; existing links depend on them.
+    routes = {deck["route"] for deck in json.loads(
+        (PRESENTATION / "presentations.json").read_text(encoding="utf-8"))["decks"]}
+    index = (PRESENTATION / "site.html").read_text(encoding="utf-8")
+    for route in PUBLISHED_ROUTES:
+        if route not in routes or route not in index:
             failures.append(f"Published route changed: {route}")
 
     for failure in failures:

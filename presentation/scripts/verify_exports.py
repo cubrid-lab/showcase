@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Reject incomplete OSSDevCon PDF/PPTX exports.
+"""Reject incomplete PDF/PPTX exports of the showcase decks.
 
 Usage (from presentation/, after the export commands):
-    python3 scripts/verify_exports.py [--entry 2026-ossdevcon.md]
-        [--pdf exports/ossdevcon.pdf] [--pptx exports/ossdevcon.pptx]
+    python3 scripts/verify_exports.py                 # every deck in presentations.json
+    python3 scripts/verify_exports.py --deck ENTRY PDF PPTX [--deck ...]
 
 Requires pypdf (pinned in the README and the export workflow) and Node with
 the presentation's node_modules installed.
@@ -14,15 +14,16 @@ the same parser the Slidev exporter uses for its page total
 
 A Slidev export can exit 0 while its print page still shows the
 "Loading slide..." placeholder (or nothing at all) for slides whose
-components had not rendered yet. Every real slide in this deck has text, so
-the PDF check fails on pages that contain the placeholder or no text.
-The PPTX holds one screenshot per slide, so only its structure and slide
-count can be checked here.
+components had not rendered yet. Every real slide in these decks has text,
+so the PDF check fails on pages that contain the placeholder or no text.
+The PPTX holds one screenshot per slide, so only its structure, slide count
+and speaker notes can be checked here; every slide in these decks has notes.
 """
 
 from __future__ import annotations
 
 import argparse
+import json
 import re
 import subprocess
 import sys
@@ -34,10 +35,16 @@ from pypdf import PdfReader
 PRESENTATION_DIR = Path(__file__).resolve().parent.parent
 PLACEHOLDER = "Loading slide"
 SLIDE_XML = re.compile(r"ppt/slides/slide\d+\.xml")
+NOTES_XML = re.compile(r"ppt/notesSlides/notesSlide\d+\.xml")
 COUNT_SLIDES_JS = (
     "const { load } = await import('@slidev/parser/fs');"
     "const data = await load(process.cwd(), process.argv[1]);"
     "console.log(data.slides.length);"
+)
+# Entry, PDF and PPTX written by the export:* npm scripts, per presentations.json.
+DECKS = tuple(
+    (deck["entry"], f"exports/{deck['exportName']}.pdf", f"exports/{deck['exportName']}.pptx")
+    for deck in json.loads((PRESENTATION_DIR / "presentations.json").read_text(encoding="utf-8"))["decks"]
 )
 
 
@@ -53,6 +60,8 @@ def expected_slide_count(entry: str) -> int:
 
 
 def check_pdf(path: Path, expected: int) -> list[str]:
+    if not path.is_file() or path.stat().st_size == 0:
+        return [f"{path}: missing or empty"]
     errors = []
     pages = PdfReader(path).pages
     if len(pages) != expected:
@@ -67,37 +76,45 @@ def check_pdf(path: Path, expected: int) -> list[str]:
 
 
 def check_pptx(path: Path, expected: int) -> list[str]:
+    if not path.is_file() or path.stat().st_size == 0:
+        return [f"{path}: missing or empty"]
     try:
         with zipfile.ZipFile(path) as archive:
             bad_member = archive.testzip()
-            slides = [name for name in archive.namelist() if SLIDE_XML.fullmatch(name)]
+            names = archive.namelist()
     except zipfile.BadZipFile as exc:
         return [f"{path}: not a valid zip ({exc})"]
+    slides = [name for name in names if SLIDE_XML.fullmatch(name)]
+    notes = [name for name in names if NOTES_XML.fullmatch(name)]
     errors = []
     if bad_member is not None:
         errors.append(f"{path}: corrupt zip member {bad_member}")
     if len(slides) != expected:
         errors.append(f"{path}: {len(slides)} slides, expected {expected}")
+    if len(notes) != expected:
+        errors.append(f"{path}: {len(notes)} speaker notes, expected {expected}")
     return errors
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    parser.add_argument("--entry", default="2026-ossdevcon.md")
-    parser.add_argument("--pdf", default="exports/ossdevcon.pdf")
-    parser.add_argument("--pptx", default="exports/ossdevcon.pptx")
+    parser.add_argument("--deck", nargs=3, action="append", metavar=("ENTRY", "PDF", "PPTX"),
+                        help="check one deck (repeatable); default: every deck")
     args = parser.parse_args()
 
-    expected = expected_slide_count(args.entry)
-    pdf = PRESENTATION_DIR / args.pdf
-    pptx = PRESENTATION_DIR / args.pptx
-    errors = check_pdf(pdf, expected) + check_pptx(pptx, expected)
-    for error in errors:
-        print(f"ERROR: {error}", file=sys.stderr)
-    if errors:
-        return 1
-    print(f"OK: {args.entry} has {expected} slides; {pdf.name} and {pptx.name} match")
-    return 0
+    failed = False
+    for entry, pdf_name, pptx_name in args.deck or DECKS:
+        expected = expected_slide_count(entry)
+        pdf = PRESENTATION_DIR / pdf_name
+        pptx = PRESENTATION_DIR / pptx_name
+        errors = check_pdf(pdf, expected) + check_pptx(pptx, expected)
+        for error in errors:
+            print(f"ERROR: {error}", file=sys.stderr)
+        if errors:
+            failed = True
+        else:
+            print(f"OK: {entry} has {expected} slides; {pdf.name} and {pptx.name} match")
+    return 1 if failed else 0
 
 
 if __name__ == "__main__":
