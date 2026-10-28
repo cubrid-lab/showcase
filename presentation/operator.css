@@ -330,3 +330,29 @@
 
 .slidev-layout.showcase-deck.operator-deck .op-cover .brand-mark { margin: 0 auto; }
 .slidev-layout.showcase-deck.operator-deck .op-notice { max-width: 46rem; margin: 0; font-size: 0.7rem; line-height: 1.5; color: var(--muted); }
+
+/* Slide 2: what the Operator does, with a status chip per capability. */
+.slidev-layout.showcase-deck.operator-deck .op-capabilities td:first-child { width: 44%; }
+.slidev-layout.showcase-deck.operator-deck .op-capabilities td small { display: block; color: var(--muted); font-size: .8rem; font-weight: 400; }
+.slidev-layout.showcase-deck.operator-deck .op-status { display: inline-block; min-width: 5.2em; margin-right: 10px; padding: 1px 8px; border: 1.5px solid var(--blue); border-radius: 4px; color: var(--blue); font-size: .78rem; font-weight: 760; text-align: center; white-space: nowrap; }
+.slidev-layout.showcase-deck.operator-deck .op-status.done { color: #fff; background: var(--blue); }
+.slidev-layout.showcase-deck.operator-deck .op-status.plan { color: var(--muted); border-color: var(--muted); border-style: dashed; }
+
+/* Slide 4: one architecture drawing; SQL path solid, operations path dashed blue. */
+.slidev-layout.showcase-deck.operator-deck .op-arch { width: 100%; height: auto; max-height: 352px; overflow: visible; }
+.slidev-layout.showcase-deck.operator-deck .op-arch text { fill: var(--ink); font-size: 15px; font-weight: 700; }
+.slidev-layout.showcase-deck.operator-deck .op-arch text.s { fill: var(--muted); font-size: 12.5px; font-weight: 400; }
+.slidev-layout.showcase-deck.operator-deck .op-arch text.b { fill: var(--blue); }
+.slidev-layout.showcase-deck.operator-deck .op-arch .box { fill: #fff; stroke: var(--line); stroke-width: 1.5; }
+.slidev-layout.showcase-deck.operator-deck .op-arch .box.ink { stroke: var(--ink); }
+.slidev-layout.showcase-deck.operator-deck .op-arch .box.op { fill: var(--blue-soft); stroke: var(--blue); }
+.slidev-layout.showcase-deck.operator-deck .op-arch .box.im { fill: var(--blue-soft); stroke: var(--blue); stroke-width: 1.2; }
+.slidev-layout.showcase-deck.operator-deck .op-arch .box.ha { fill: none; stroke: var(--ink); stroke-width: 2; }
+.slidev-layout.showcase-deck.operator-deck .op-arch .box.store { stroke-dasharray: 6 4; stroke: var(--muted); }
+.slidev-layout.showcase-deck.operator-deck .op-arch .sql { stroke: var(--ink); stroke-width: 2.2; fill: none; }
+.slidev-layout.showcase-deck.operator-deck .op-arch .ctl { stroke: var(--blue); stroke-width: 2.2; stroke-dasharray: 7 5; fill: none; }
+.slidev-layout.showcase-deck.operator-deck .op-arch .mgmt { stroke: var(--muted); stroke-width: 1.6; fill: none; }
+
+/* Slide 5: who answers each recovery question. */
+.slidev-layout.showcase-deck.operator-deck .op-checks td:first-child { width: 19%; white-space: nowrap; }
+.slidev-layout.showcase-deck.operator-deck .op-checks td:nth-child(2) { width: 25%; color: var(--blue); font-weight: 700; }
