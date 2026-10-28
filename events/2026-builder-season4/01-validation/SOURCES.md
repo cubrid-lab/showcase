@@ -27,7 +27,7 @@ The expanded material deliberately separates hypothetical incident stories, user
 - Operator main: [`39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb`](https://github.com/cubrid-lab/cubrid-kubernetes-operator/tree/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb).
 - Operator main for the 2026-10-25 restore records: [`4ac13fd4d3a37e04007d947568a63ae6e6b49ff6`](https://github.com/cubrid-lab/cubrid-kubernetes-operator/tree/4ac13fd4d3a37e04007d947568a63ae6e6b49ff6) (ROADMAP only; the runs used manager `d6df2ac`).
 - Official Operator: [`fa7b6c2cf26096769c4404a2e2bb683f3872aa1e`](https://github.com/CUBRID/cubrid-operator/tree/fa7b6c2cf26096769c4404a2e2bb683f3872aa1e).
-- Visual basis: the existing [contest source](../../../presentation/slides.md) and [shared styles](../../../presentation/style.css). Only the typography/color/layout vocabulary is reused; Python ecosystem achievements are not Operator evidence.
+- Visual basis: the existing [contest source](../../../presentation/decks/2026-ossdevcon/slides.md) and [shared styles](../../../presentation/style.css). Only the typography/color/layout vocabulary is reused; Python ecosystem achievements are not Operator evidence.
 
 ## Claim map
 

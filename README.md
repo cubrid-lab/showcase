@@ -40,13 +40,13 @@ For upcoming rounds and program opportunities, see the [events index](events/).
 | [presentation/](presentation/) | Shared Slidev project, canonical deck sources, themes, metrics snapshots and export configuration |
 | [scripts/](scripts/) | Shared build, export and metrics tools |
 
-Each event brief links to its source deck and supporting evidence. Slidev source files remain inside `presentation/` because the shared build uses that project root. This is a tooling constraint, not a second copy of the event material.
+Each event brief links to its source deck and supporting evidence. Deck sources live in `presentation/decks/<event>/[<round>/]`, inside the shared Slidev project, because the build needs that project root. This is a tooling constraint, not a second copy of the event material.
 
 ## Add a presentation
 
 1. Create `events/<year>-<event>/README.md` for a new event, and an event milestone directory when there are multiple presentation rounds.
 2. Record the project, audience, requirements, deadline and source of the event details in the event brief.
-3. Put the canonical slide source inside `presentation/` and link it from the brief. Keep event-specific runbooks, notes and evidence in the event directory.
+3. Put the canonical slide source at `presentation/decks/<year>-<event>/[<round>/]slides[.<lang>].md`, add a thin entry next to the other entries in `presentation/` ([naming rules](presentation/README.md#where-deck-sources-live)), and link the source from the brief. Keep event-specific runbooks, notes and evidence in the event directory.
 4. Update the events index and, when a public viewer exists, the HTML presentation index. Derive PDF/PPTX from the same source.
 5. Publish immutable deliverables as release assets with a source commit, and verify links and exports before publication.
 

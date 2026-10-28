@@ -2,7 +2,7 @@
 """Reject incomplete OSSDevCon PDF/PPTX exports.
 
 Usage (from presentation/, after the export commands):
-    python3 scripts/verify_exports.py [--entry slides.md]
+    python3 scripts/verify_exports.py [--entry 2026-ossdevcon.md]
         [--pdf exports/ossdevcon.pdf] [--pptx exports/ossdevcon.pptx]
 
 Requires pypdf (pinned in the README and the export workflow) and Node with
@@ -83,7 +83,7 @@ def check_pptx(path: Path, expected: int) -> list[str]:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    parser.add_argument("--entry", default="slides.md")
+    parser.add_argument("--entry", default="2026-ossdevcon.md")
     parser.add_argument("--pdf", default="exports/ossdevcon.pdf")
     parser.add_argument("--pptx", default="exports/ossdevcon.pptx")
     args = parser.parse_args()

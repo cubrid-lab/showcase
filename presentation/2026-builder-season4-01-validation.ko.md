@@ -1,6 +1,6 @@
 ---
 theme: default
-title: "CUBRID Kubernetes Operator — First Validation"
+title: "CUBRID Kubernetes Operator — 1차 검증"
 info: "Builder Season 4 · 2026-10-31 · Content 2026-10-27 · Evidence 2026-10-20/25"
 author: CUBRID Lab
 fonts:
@@ -15,9 +15,9 @@ class: showcase-deck operator-deck
 defaults:
   class: showcase-deck operator-deck
 htmlAttrs:
-  lang: en
-exportFilename: operator-first-validation.en
+  lang: ko
+exportFilename: operator-first-validation.ko
 export:
   withClicks: false
-src: ./decks/2026-builder-season4/01-validation/SLIDES.en.md
+src: ./decks/2026-builder-season4/01-validation/slides.ko.md
 ---

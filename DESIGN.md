@@ -5,7 +5,7 @@
 - Status: Active
 - Last refreshed: 2026-10-21
 - Primary product surfaces: HTML presentations, matching PDF/PPTX exports, presentation index.
-- Evidence reviewed: `presentation/slides.md`, `presentation/style.css`, `presentation/components/`, the published contest deck, the Builder first-validation notice, and the Operator README/DESIGN/ROADMAP/ADRs pinned in the event's `SOURCES.md`.
+- Evidence reviewed: `presentation/decks/2026-ossdevcon/slides.md`, `presentation/style.css`, `presentation/components/`, the published contest deck, the Builder first-validation notice, and the Operator README/DESIGN/ROADMAP/ADRs pinned in the event's `SOURCES.md`.
 - Existing evidence: the contest uses white backgrounds, bundled Pretendard, blue emphasis, chapter transitions, diagrams, screenshots, and speaker notes. Design decision: extend that language to the Operator talk rather than shipping a bullet outline.
 
 ## Brand

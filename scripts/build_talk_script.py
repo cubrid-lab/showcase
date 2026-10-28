@@ -1,12 +1,12 @@
 """Regenerate events/2026-ossdevcon/SLIDES.md (talk script) from the speaker
-notes in presentation/slides.md. Each note starts with "[N초 · criteria]" or
+notes in presentation/decks/2026-ossdevcon/slides.md. Each note starts with "[N초 · criteria]" or
 "[N분 · ...]"; slide time ranges are computed cumulatively from those."""
 import json
 import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SRC = ROOT / "presentation/slides.md"
+SRC = ROOT / "presentation/decks/2026-ossdevcon/slides.md"
 OUT = ROOT / "events/2026-ossdevcon/SLIDES.md"
 
 # Titles the extractor can't read cleanly (charts, code, lists)
@@ -77,7 +77,7 @@ def main():
 
     out = [
         "# 발표 대본 — 2026 오픈소스 개발자대회", "",
-        f"> 「If someone were interested — 멈춰 있던 CUBRID dialect를 이어받아 생태계가 되기까지」 · {len(parts)}장 · 약 {fmt(t)} (12분 슬롯). 화면은 `presentation/slides.md`, 이 문서는 그 발표자 노트를 모은 대본입니다 (`scripts/build_talk_script.py`로 생성).",
+        f"> 「If someone were interested — 멈춰 있던 CUBRID dialect를 이어받아 생태계가 되기까지」 · {len(parts)}장 · 약 {fmt(t)} (12분 슬롯). 화면은 `presentation/decks/2026-ossdevcon/slides.md`, 이 문서는 그 발표자 노트를 모은 대본입니다 (`scripts/build_talk_script.py`로 생성).",
         "> 심사 기준은 화면에 표시하지 않고 이야기 흐름 안에 녹였습니다. 각 장면이 채우는 기준은 대본 머리와 맨 끝 표에 적었습니다.",
         f"> 채택 지표는 `presentation/deck.json`이 선택한 {snapshot['snapshotDate']} 스냅숏 기준입니다: GitHub stars {metrics['stars']['total']:,}개, merged PRs {metrics['mergedPRs']['total']:,}개, published GitHub Releases {metrics['publishedReleases']['total']:,}회입니다. fork와 clone traffic은 채택 지표에서 제외했습니다.",
         "> 사진 두 장(`presentation/public/photos/team-2020.jpg`, `team-now.jpg`)은 받는 대로 넣습니다.", "",
