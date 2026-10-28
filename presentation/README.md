@@ -149,7 +149,7 @@ scripts when `index.html` is opened directly from disk. The public Pages URLs
 always show the latest `main`, so they can differ from a frozen release.
 
 Releases made before this script existed use the older manifest format
-(schema version 1). Their HTML ZIPs were built later from the same source
+(schema version 1). Their HTML ZIPs were built on 2026-10-28 from the same source
 commit and added with a separate `HTML_SHA256SUMS`:
 [`ossdevcon-2026-presentation-2026-10-25`](https://github.com/cubrid-lab/showcase/releases/tag/ossdevcon-2026-presentation-2026-10-25)
 and [`builder-season4-validation-2026-10-28`](https://github.com/cubrid-lab/showcase/releases/tag/builder-season4-validation-2026-10-28).
