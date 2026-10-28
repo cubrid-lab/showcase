@@ -531,34 +531,6 @@ AI에게 데이터베이스를 열어 주면 제일 먼저 나오는 질문이 "
 
 ---
 
-<p class="kicker">직접 확인</p>
-<h2 class="one">저희 말 대신, <span class="accent">직접 확인해 보세요</span></h2>
-
-```bash
-uvx cubrid-mcp-server          # PyPI 최신 릴리스
-make docker-up && make verify  # cookbook 저장소에서, 전체 스택
-```
-
-<p class="sub"><b>VERIFY.md</b>에 단계별 명령과 기대 결과를 적어 두었습니다.</p>
-
-<!--
-[15초 · 기능테스트]
-오늘 말씀드린 내용은 직접 확인하실 수 있습니다. 명령 한 줄로 AI 서버를 띄울 수 있고, VERIFY.md에 단계별 명령과 기대 결과를 모두 적어 두었습니다.
--->
-
----
-
-<SnapshotAdoptionCharts />
-
-<!--
-[20초 · 활용성 · 커뮤니티]
-지금 이 저장소들이 얼마나 움직이고 있는지 보여드리겠습니다. 스냅숏 날짜 기준의 GitHub star, 머지된 PR, GitHub 릴리스 수입니다. 이 숫자는 개발 활동을 보여 줄 뿐, 사용자 수가 아닙니다. 클론 수는 CI와 실제 사용자를 구분할 수 없어 쓰지 않았습니다.
-그리고 이 PR 가운데에는 저희 둘이 아닌 사람들이 보낸 것도 많습니다.
--->
-
----
-
-<p class="kicker">외부 기여 · 2026-10-28 12:20 UTC 기준</p>
 <h2 class="one">팀 밖의 <span class="accent">62명</span>이 보낸 PR <span class="accent">137개</span>가 머지됐습니다</h2>
 
 <div class="people">
@@ -635,14 +607,14 @@ make docker-up && make verify  # cookbook 저장소에서, 전체 스택
 
 <!--
 [25초 · 커뮤니티]
-저희가 가장 보여드리고 싶은 장입니다. 2026년 10월 28일 기준으로, 팀 밖의 62명이 보낸 PR 137개가 네 저장소에 머지됐습니다. 메인테이너와 봇은 뺀 숫자입니다.
+2026년 10월 28일 기준으로, 팀 밖의 62명이 보낸 PR 137개가 네 저장소에 머지됐습니다. 메인테이너와 봇은 뺀 숫자입니다.
 화면의 얼굴이 그 62명입니다. 테스트를 보강한 PR이 가장 많고, 문서와 버그 수정이 뒤를 잇습니다. 둘이 시작한 저장소를 이제 여러 사람이 함께 고치고 있습니다.
 -->
 
 ---
 
-<p class="kicker">다음 단계</p>
-<h2>드라이버 → ORM → 예제 → AI</h2>
+<p class="kicker">드라이버 → ORM → 예제 → AI</p>
+<h2 class="one">생태계 확장을 위한 다음 계획</h2>
 <p class="sub">Python에서 검증한 순서를 다른 언어에도 적용합니다.</p>
 
 <ul class="explain langs">
@@ -659,23 +631,23 @@ make docker-up && make verify  # cookbook 저장소에서, 전체 스택
 
 <!--
 [20초 · 커뮤니티 · 발전가능성]
-Python은 끝이 아니라 기준입니다. 드라이버, ORM, 예제, AI로 이어지는 같은 순서를 TypeScript, Go, Rust에서도 진행하고 있습니다. 처음 기여하실 분을 위해 good first issue를 46개 열어 두었고, 저장소마다 기여 절차를 적어 두었습니다.
+생태계 확장을 위한 다음 계획입니다. Python은 끝이 아니라 기준입니다. 드라이버, ORM, 예제, AI로 이어지는 같은 순서를 TypeScript, Go, Rust에서도 진행하고 있습니다. 처음 기여하실 분을 위해 good first issue를 46개 열어 두었고, 저장소마다 기여 절차를 적어 두었습니다.
 -->
 
 ---
 
 <p class="kicker">CUBRID, 이제 Python으로</p>
-<h1 class="one">다음은 <span class="accent">여러분</span> 차례입니다.</h1>
+<h2 class="one">감사합니다</h2>
+<p class="sub" style="white-space: nowrap">멈춰 있던 dialect에서 시작해, 지금은 62명이 함께 고치는 생태계가 됐습니다.</p>
 
 <div class="split even">
   <div class="stack">
-    <p class="sub" style="white-space: nowrap; font-size: 1.05rem">README의 한 줄에 답했고, 지금은 62명이 함께합니다.</p>
     <div class="links">
       <div><span>GitHub</span>github.com/cubrid-lab</div>
       <div><span>설치</span>pip install pycubrid</div>
       <div><span>AI</span>uvx cubrid-mcp-server</div>
     </div>
-    <p class="thanks">감사합니다 — 파이큐브리드팀 최영선 · 백경준</p>
+    <p class="thanks">파이큐브리드팀 최영선 · 백경준</p>
   </div>
   <div class="stack">
     <div class="frame"><Photo src="/photos/team-now.jpg" label="지금의 두 사람 사진" /></div>
@@ -684,13 +656,12 @@ Python은 끝이 아니라 기준입니다. 드라이버, ORM, 예제, AI로 이
 </div>
 
 <style>
-.frame { height: 230px; }
+.frame { height: 200px; }
 .thanks { font-size: 1.15rem; font-weight: 700; margin-top: 8px; }
-.notice { max-width: none; margin: 0; font-size: 0.62rem; line-height: 1.5; color: var(--muted); }
+.notice { max-width: 34em; margin: 0 0 18px; font-size: 0.62rem; line-height: 1.5; color: var(--muted); }
 </style>
 
 <!--
 [20초 · PT · 커뮤니티]
-처음에 보여드린 README의 한 줄, "관심 있는 사람이 있다면"에 저희가 답했습니다. 그리고 지금은 62명이 함께 고치고 있습니다.
-다음은 여러분 차례입니다. 네 저장소 모두 열려 있습니다. 감사합니다.
+처음에 보여드린 README의 한 줄, "관심 있는 사람이 있다면"에 저희가 답했습니다. 멈춰 있던 dialect에서 시작한 일이 이제 드라이버와 ORM, 예제, AI 도구까지 이어졌고, 62명이 함께 고치는 생태계가 됐습니다. 네 저장소 모두 열려 있습니다. 들어 주셔서 감사합니다.
 -->
