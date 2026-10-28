@@ -8,7 +8,7 @@
  */
 import React from 'react';
 import {AbsoluteFill, Easing, Img, Sequence, interpolate, spring, useCurrentFrame, useVideoConfig} from 'remotion';
-import {THEME, iconUrl, lockupUrl} from '../brand';
+import {THEME, iconUrl} from '../brand';
 import {MONO, SANS} from '../fonts';
 import {FootageProps} from './Footage';
 import {BrowserMockup, MockupProps, TerminalMockup, WindowMockup} from './Mockups';
@@ -309,7 +309,7 @@ export const BrandTilesShot: React.FC<{beat?: number}> = ({beat = 15}) => {
 		<IsoBackdrop>
 			<AbsoluteFill style={{alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 56, fontFamily: SANS}}>
 				<div style={{fontFamily: MONO, fontWeight: 700, fontSize: 26, letterSpacing: '0.14em', color: C.text2, opacity: ease(frame, 0, 10)}}>
-					CUBRID LAB · PYTHON STACK
+					파이큐브리드팀 · PYTHON STACK
 				</div>
 				<div style={{display: 'flex', gap: 72, alignItems: 'flex-start'}}>
 					{ROLES.map(([repo, label], i) => (
@@ -357,8 +357,8 @@ export const BrandLockupShot: React.FC = () => {
 						</div>
 					))}
 				</div>
-				<div style={{position: 'absolute', top: 370, opacity: lockIn >= 0.999 ? 1 : lockIn}}>
-					<Img src={lockupUrl('horizontal', 'dark')} style={{width: 900, display: 'block'}} alt="CUBRID Lab: Open Source for a More Connected World" />
+				<div style={{position: 'absolute', top: 400, opacity: lockIn >= 0.999 ? 1 : lockIn, fontSize: 120, fontWeight: 900, letterSpacing: '-0.04em', color: C.text}}>
+					파이큐브리드팀
 				</div>
 				<div style={{position: 'absolute', top: 650, display: 'flex', alignItems: 'center', gap: 28}}>
 					<div style={{fontSize: 52, fontWeight: 800, letterSpacing: '-0.02em', color: C.text, opacity: copyIn, transform: `translateY(${(1 - copyIn) * 20}px)`}}>
@@ -786,8 +786,8 @@ export const EndCardShot: React.FC<{installs: string[]; url: string; notices: st
 	return (
 		<IsoBackdrop opacity={0.08}>
 			<div style={{position: 'absolute', inset: '54px 96px 150px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', fontFamily: SANS}}>
-				<div style={{opacity: lock >= 0.999 ? 1 : lock}}>
-					<Img src={lockupUrl('horizontal', 'dark')} style={{width: 900, display: 'block'}} alt="CUBRID Lab: Open Source for a More Connected World" />
+				<div style={{opacity: lock >= 0.999 ? 1 : lock, fontSize: 120, fontWeight: 900, letterSpacing: '-0.04em', color: C.text}}>
+					파이큐브리드팀
 				</div>
 				<div style={{display: 'flex', gap: 28, marginTop: 56, flexWrap: 'wrap', justifyContent: 'center', maxWidth: 1700, opacity: cmd, transform: `translateY(${(1 - cmd) * 20}px)`}}>
 					{installs.map((c) => (

@@ -36,11 +36,16 @@ The client is shown by its recorded name; no vendor endorsement is implied.
 
 ## Narration
 
-MeloTTS Korean (`myshell-ai/MeloTTS-Korean`, speaker `KR`, seed 1234; code and model MIT),
-run locally; 23 lines, each placed at its shot start + 0.2 s (`narration.offset` = 6 frames).
-Every line fits its storyboard shot (`voice/manifest.json`: `fits: true`); C4 and K2 lines run
-into the second half of their split shots (C4b, K2b), which belong to the same storyboard shot.
-Disclosed on the end card: “내레이션: AI 생성 음성(TTS) · Narration: AI-generated voice”.
+Supertonic 3 (`Supertone/supertonic-3`, voice style `M5`, 16 steps, speed 1.05, `lang=ko`;
+Python package `supertonic` 1.3.1, MIT; model weights OpenRAIL) run locally on CPU; 23 lines,
+each placed at its shot start + 0.2 s (`narration.offset` = 6 frames), post-processed with the
+same trim, pad and two-pass loudnorm (-16 LUFS / -1.5 dBTP) as before. Every line fits its
+storyboard shot (`voice/manifest.json`: `fits: true`). Chosen on 2026-10-28 because MeloTTS read
+“큐브리드” close to “퓨브리드”; in a faster-whisper large-v3 check on ten names-heavy lines
+the M5 voice scored 0.91 against 0.81 for MeloTTS. Lines B2 and F2 were rewritten to name the
+파이큐브리드팀 instead of CUBRID Lab. The MeloTTS take of 2026-10-27 is kept outside git as
+`voice-melotts-2026-10-27/`.
+Disclosed on the end card: “내레이션: AI 생성 음성(Supertonic TTS) · Narration: AI-generated voice (Supertonic)”.
 
 ## Music
 
@@ -82,29 +87,29 @@ bb09b6b1c3f4d2fbc33d31b2dbcff57c1f17f38ebd9e332a5b89a0379687b437  footage/S3.mp4
 e60d96c37c4db6c3b2a417930defb25d4f398907a1dafa3076fef8cc80e86e09  mcp/C3.mp4
 661fb6ff039c7162b3d763928ff842d9eb8a6ac50c2043a0ca79c11adfcd6fcb  mcp/C4.mp4
 8058c2f39b642bfc6d1ed761ec2db665f905f7d2933094ff4caecb4aedf0d166  mcp/C4_script.mp4
-d5bee65c5a22c43c43c1ecd13a3fad1824e423f807bf8101964e4a71f8176498  voice/B1.wav
-601dd44ba75d848a817ee3fe0e321a0c8c1557e97c6d6eeb436ec10db60ffe36  voice/B2.wav
-b97014be3ecc43742c1becc7461673a3b0e639d227d2e8befd88dbd7feb10ff7  voice/C1.wav
-d9736abb21cd4a9cb9a716f5ce89b94e0cfa9556711179ec0c8df521bf88a90e  voice/C2.wav
-38dfeecb852637fec570f960ca97640ea721f6c5e5e6d14fb4653c6a9bf9ac43  voice/C3.wav
-a93bc600dce57f6479e6ecc5bc8cad76bafeea10fb41d9eecce8db8611020fda  voice/C4.wav
-9c1a4261a275ad3153a98ff909371e6c919ab35dc464a2478dad4dd101bc37d3  voice/C5.wav
-82fdfbe7daca3a731ae2badb1b8787dec9d5149a10c47a1b1df749f109ea64f3  voice/F1.wav
-99a2daf54df1a126b690221e73eb5c346b550d5c9d001690ad577b6fee95f6c7  voice/F2.wav
-2ae40ceb1d61312249e00b2c44952a27fc4edb40a0079fb4cb598908dfa4843f  voice/H1.wav
-48969d07fa2e77d1b3cce9ccb199224f1b48e937932b8b56abf6921b6ddcb589  voice/H2.wav
-6901275a45183c08a870c3e9af90f3038e724e90d2500141f472cc5bfe5073b6  voice/K1.wav
-afcc7a2e9fbb9f9f81d40cbd997c5754479ef8fd5bc3d3d1e201b8cb73927901  voice/K2.wav
-71db486ebb20b4e6bbe95794e8dc91ccec84b94ba9f27d8b651b0000fd2a1f6f  voice/K3.wav
-5c0c7311d4dfde598d37739e7b63f9b4ff833f75ea1617b30cc138c69f33b286  voice/P1.wav
-8061b08817a3361a080f9f8916b0aee235912b1c7bcf52ff6bfff64ccb03882e  voice/P2.wav
-694e6df2453c442edba03b386e4b963a96036fe42d2dcdb560aac2a4387472f9  voice/P3.wav
-7d63cf5fb57884b1d26a6436fbea09ddc92c5fb99b5bc9c05c305889ca7b6897  voice/P4.wav
-f67578256f67acd641369fa55788b39f0fd4d7b6c5464cc316ba23224632a95a  voice/P5.wav
-d75ad15f7ea922d527f3242f06496ad1595bd41240098b00ab276f110dfbb57f  voice/S1.wav
-8b58efc546cce1aa13beab1041f657d5ebc4ab3a5bbf68f3fdda70756fb9b768  voice/S2.wav
-8206eec34e8af004f2fe829ae93826d61ad4b2174cd01bbb1f13544c7d927acd  voice/S3.wav
-7a21c50c53f4092c995b8543e6107fd62154d535f35f6ac8f03e0ecc5bc9abbd  voice/S4.wav
+f572359103624695fc9ce1c00ff5fa0783b8ef17d7a70b633e451961bc828ad3  voice/B1.wav
+b9d6928eeaba3a5de010b21c9350ad4cf9638cc3a29f6264159e3b04ce1dc63d  voice/B2.wav
+58f168f3d27dd7d9f90719ffabab964852c0b83ff17ef81d28a61300d142f28a  voice/C1.wav
+7e3c5ffa2aacbf9e4c1cd8a18e4f30d9379baecc3b5de0f1d612ebc2f04e7687  voice/C2.wav
+b71c4ef1321af15d1c8bc36de07cad3ec4baf362299318e3d939b54a8c5c0857  voice/C3.wav
+629b80af7e719bc1e55a3e77892456ec40328680c9f753ba1e13bbd41cca8eb0  voice/C4.wav
+5ed36795066ad9da88c343b24090976c88b8a7bf323905c2bf3f2609fce339f2  voice/C5.wav
+edd70b3048cd146ba9440403905e4817e208c1444f442282b01a430fecc56c08  voice/F1.wav
+3a0a7f381888c2c9f7c0621902e2924dc01214e8abe8221b2d09ff3bbee85fe8  voice/F2.wav
+aff59aaf916df1abd7ef19609dd713692ffffabe6fe70e8b17412e52fff2e906  voice/H1.wav
+81eb79242a3a3cf9491c0cf21629e3930d3a1b4530dbd7c53000005ffddb8cc0  voice/H2.wav
+d9f4bb05a91fb1787bf01f58761c9d645eba8e5994481dabbd708a9632a1c833  voice/K1.wav
+ec9d6e6f05531884d5838e8137ccaaf4479e8790870e704c00681e14a788e95a  voice/K2.wav
+bfa5d3cda58e167301476e3a31234203f62daff40f9d5a7bf33c8d8110785355  voice/K3.wav
+8cef1543a70244ad4891f9c97b73b7698a93a28b1027e259ee62082ff886f393  voice/P1.wav
+686993a9ba1b013cd4a7671ccb775a44a055e72938373c0d41a33918a8d120f8  voice/P2.wav
+f9b8b29c9c3c497dd73a76b721151d5c2a93f1dc92b4c452dec4222a51a5896e  voice/P3.wav
+419a75ebd1a4db70c73f2fe11b3d485b776efb68fc2b11daf3c90f782231087a  voice/P4.wav
+2d704b6762ac73b7b9a10e7aff2f74e71820f7e662dc4be20df64236c80d1272  voice/P5.wav
+af843a5b88986a022d4095e59287995cd363b6bb9cc3933f378f1a4e7dbe61b6  voice/S1.wav
+62ff95af805cc1c2ce3092f4a1ebee45ec13d263da45923850d6a5db999516e6  voice/S2.wav
+99c6678dd57d4b3d4f5ea4233a8af4ac45d7202f35d8b53bbd7aff7d8fc149f7  voice/S3.wav
+991ef311a91cb7544d8d0ca9b1b624cdeb26b3afbb6a87dc8916a81f1449c58f  voice/S4.wav
 387761485fdde05d6ad743e5474df605b27752cd256230276cdcb088833f9cd1  music/bed.wav
 db5bfd9c1a60354067ae51e58009b717750c0ddd531bb8861e30fcef6c0af918  music/stems/bass.wav
 4fa5f246203db962816883252627d7560833c25efa450cf00b1c55c1dd28b70f  music/stems/drums.wav

@@ -1,6 +1,6 @@
 {
  "meta": {
-  "title": "CUBRID Lab introduction video 2026 — main cut (VIDEO_DESIGN.md, 25 shots, 2:56)",
+  "title": "PyCUBRID team introduction video 2026 — main cut (VIDEO_DESIGN.md, 25 shots, 2:56)",
   "fps": 30,
   "width": 1920,
   "height": 1080,
@@ -27,7 +27,7 @@
    "narration": {
     "src": "voice/H1.wav",
     "offset": 6,
-    "durationInFrames": 26
+    "durationInFrames": 23
    },
    "review": 40
   },
@@ -42,7 +42,7 @@
    "narration": {
     "src": "voice/H2.wav",
     "offset": 6,
-    "durationInFrames": 27
+    "durationInFrames": 22
    },
    "review": 40
   },
@@ -152,7 +152,7 @@
    "narration": {
     "src": "voice/B1.wav",
     "offset": 6,
-    "durationInFrames": 137
+    "durationInFrames": 98
    },
    "review": 150
   },
@@ -165,7 +165,7 @@
    "narration": {
     "src": "voice/B2.wav",
     "offset": 6,
-    "durationInFrames": 153
+    "durationInFrames": 135
    },
    "review": 150
   },
@@ -183,7 +183,7 @@
    "narration": {
     "src": "voice/P1.wav",
     "offset": 6,
-    "durationInFrames": 62
+    "durationInFrames": 40
    },
    "transitionIn": {
     "type": "keyWipe",
@@ -273,7 +273,7 @@
    "narration": {
     "src": "voice/P2.wav",
     "offset": 6,
-    "durationInFrames": 154
+    "durationInFrames": 176
    },
    "review": 200
   },
@@ -359,7 +359,7 @@
    "narration": {
     "src": "voice/P3.wav",
     "offset": 6,
-    "durationInFrames": 230
+    "durationInFrames": 184
    },
    "review": 320
   },
@@ -462,7 +462,7 @@
    "narration": {
     "src": "voice/P4.wav",
     "offset": 6,
-    "durationInFrames": 170
+    "durationInFrames": 162
    },
    "review": 180
   },
@@ -490,7 +490,7 @@
    "narration": {
     "src": "voice/P5.wav",
     "offset": 6,
-    "durationInFrames": 102
+    "durationInFrames": 95
    },
    "review": 150
   },
@@ -508,7 +508,7 @@
    "narration": {
     "src": "voice/S1.wav",
     "offset": 6,
-    "durationInFrames": 83
+    "durationInFrames": 68
    },
    "transitionIn": {
     "type": "keyWipe",
@@ -600,7 +600,7 @@
    "narration": {
     "src": "voice/S2.wav",
     "offset": 6,
-    "durationInFrames": 161
+    "durationInFrames": 137
    },
    "review": 215
   },
@@ -702,7 +702,7 @@
    "narration": {
     "src": "voice/S3.wav",
     "offset": 6,
-    "durationInFrames": 193
+    "durationInFrames": 180
    },
    "review": 385
   },
@@ -799,7 +799,7 @@
    "narration": {
     "src": "voice/S4.wav",
     "offset": 6,
-    "durationInFrames": 161
+    "durationInFrames": 126
    },
    "review": 210
   },
@@ -838,7 +838,7 @@
    "narration": {
     "src": "voice/C1.wav",
     "offset": 6,
-    "durationInFrames": 79
+    "durationInFrames": 60
    },
    "transitionIn": {
     "type": "keyWipe",
@@ -921,7 +921,7 @@
    "narration": {
     "src": "voice/C2.wav",
     "offset": 6,
-    "durationInFrames": 166
+    "durationInFrames": 155
    },
    "review": 120
   },
@@ -1027,7 +1027,7 @@
    "narration": {
     "src": "voice/C3.wav",
     "offset": 6,
-    "durationInFrames": 176
+    "durationInFrames": 159
    },
    "review": 150
   },
@@ -1113,7 +1113,7 @@
    "narration": {
     "src": "voice/C4.wav",
     "offset": 6,
-    "durationInFrames": 240
+    "durationInFrames": 191
    },
    "review": 135
   },
@@ -1273,7 +1273,7 @@
    "narration": {
     "src": "voice/K1.wav",
     "offset": 6,
-    "durationInFrames": 79
+    "durationInFrames": 68
    },
    "transitionIn": {
     "type": "keyWipe",
@@ -1360,7 +1360,7 @@
    "narration": {
     "src": "voice/K2.wav",
     "offset": 6,
-    "durationInFrames": 160
+    "durationInFrames": 144
    },
    "review": 145
   },
@@ -1542,7 +1542,7 @@
    "narration": {
     "src": "voice/K3.wav",
     "offset": 6,
-    "durationInFrames": 210
+    "durationInFrames": 163
    },
    "review": 200
   },
@@ -1586,7 +1586,7 @@
    "narration": {
     "src": "voice/F1.wav",
     "offset": 6,
-    "durationInFrames": 112
+    "durationInFrames": 76
    },
    "transitionIn": {
     "type": "keyWipe",
@@ -1607,15 +1607,15 @@
     ],
     "url": "cubrid-lab",
     "notices": [
-     "내레이션: AI 생성 음성(TTS) · Narration: AI-generated voice",
-     "CUBRID Lab은 CUBRID Corporation 및 공식 CUBRID 프로젝트와 제휴·후원·보증 관계가 없는 독립 프로젝트입니다. CUBRID는 해당 권리자의 상표입니다.",
-     "CUBRID Lab is independently maintained and is not affiliated with, sponsored by, or endorsed by CUBRID Corporation or the official CUBRID project."
+     "내레이션: AI 생성 음성(Supertonic TTS) · Narration: AI-generated voice (Supertonic)",
+     "파이큐브리드팀은 CUBRID Corporation 및 공식 CUBRID 프로젝트와 제휴·후원·보증 관계가 없는 독립 오픈소스 팀입니다. CUBRID는 해당 권리자의 상표입니다.",
+     "The PyCUBRID team is independent and is not affiliated with, sponsored by, or endorsed by CUBRID Corporation or the official CUBRID project."
     ]
    },
    "narration": {
     "src": "voice/F2.wav",
     "offset": 6,
-    "durationInFrames": 85
+    "durationInFrames": 48
    },
    "transitionIn": {
     "type": "fade",
