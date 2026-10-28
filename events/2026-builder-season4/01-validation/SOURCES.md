@@ -89,7 +89,7 @@ The deck presents both as co-maintainers. It makes the per-change owner/reviewer
   pinned README records no traffic encryption and empty DBA passwords; the
   slides do not claim production security.
 - Required first-release work still includes authenticated non-root lifecycle,
-  three-member HA/RW/RO, Pod/VM/Broker/Operator faults, write quarantine,
+  3-node CUBRID HA/RW/RO, Pod/VM/Broker/Operator faults, write quarantine,
   rejoin/rebuild, backup/new-cluster restore, retention/auth/disruption policy,
   truthful observability and reproducible S00–S15 evidence.
 - Compatible updates and disk-full testing remain conditional. Engine-version
@@ -147,14 +147,14 @@ at runtime. The plan is 550 seconds with a 50-second buffer.
 
 The 2026-10-28 restructure (#75) changes the order and the opening, not the
 evidence. Slide 2 now says what the Operator is and does before any incident,
-with each capability marked verified, built, or a v0.1 goal: three-member HA
+with each capability marked verified, built, or a v0.1 goal: 3-node CUBRID HA
 with RW/RO and backup restore are verified by the Kind/VM records above; role
 discovery is built (`DESIGN.md` section 11, implementation status), while RW
 write blocking during faults is still not built or verified; rejoin and
-rebuild are v0.1 goals; the backup restore chip says *first pass*, since
+rebuild are v0.1 goals; the backup restore chip says *partly verified*, since
 the 2026-10-25 runs are not a repeated qualification. Slide 4 replaces the earlier two architecture slides
 with one drawing from `DESIGN.md` sections 7 and 10: YAML → Kubernetes API →
-Operator → resources; three HA members, each with Instance Manager and PVC;
+Operator → resources; three CUBRID HA nodes (the Operator's per-node "members"), each with Instance Manager and PVC;
 a separate RW/RO Broker tier behind the RW/RO Services, where RW Brokers find
 the master themselves (ADR-0002), and the Operator never relays SQL and
 does not pick the master during failover (ADR-0001, ADR-0005; on a restore it
