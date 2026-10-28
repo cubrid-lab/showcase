@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" color="#FFD43B" role="img" aria-labelledby="sqlalchemy-cubrid-title sqlalchemy-cubrid-desc">
+  <title id="sqlalchemy-cubrid-title">CUBRID Lab orm icon — sqlalchemy-cubrid</title>
+  <desc id="sqlalchemy-cubrid-desc">Cube-based orm role symbol. Design selected; legal clearance pending.</desc>
+  <clipPath id="sqlalchemy-cubrid-layers-top"><path d="M 12 1 L 22 6.774 L 12 12.547 L 2 6.774 Z"/></clipPath>
+  <clipPath id="sqlalchemy-cubrid-layers-right"><path d="M 12.7 13.25 L 22 8 L 22 17.25 L 12.7 22.5 Z"/></clipPath>
+  <mask id="sqlalchemy-cubrid-layers" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
+    <rect width="24" height="24" fill="#fff"/>
+    <path d="M 16.533 12.239 L 17.733 11.546 L 3.733 3.463 L 2.533 4.156 Z" fill="#000" clip-path="url(#sqlalchemy-cubrid-layers-top)"/>
+    <path d="M 14.533 0 H 15.733 V 24 H 14.533 Z" fill="#000" clip-path="url(#sqlalchemy-cubrid-layers-right)"/>
+    <path d="M 20.267 10.084 L 21.467 9.391 L 7.467 1.308 L 6.267 2.001 Z" fill="#000" clip-path="url(#sqlalchemy-cubrid-layers-top)"/>
+    <path d="M 18.267 0 H 19.467 V 24 H 18.267 Z" fill="#000" clip-path="url(#sqlalchemy-cubrid-layers-right)"/>
+  </mask>
+  <g mask="url(#sqlalchemy-cubrid-layers)">
+    <path d="M 12 1 L 22 6.774 L 12 12.547 L 2 6.774 Z" fill="currentColor"/>
+    <path d="M 2 8 L 11.3 13.25 L 11.3 22.5 L 2 17.25 Z" fill="currentColor"/>
+    <path d="M 12.7 13.25 L 22 8 L 22 17.25 L 12.7 22.5 Z" fill="currentColor"/>
+    <path d="M 12 1 L 22 6.774 L 12 12.547 L 2 6.774 Z" fill="#fff" opacity="0.08"/>
+    <path d="M 2 8 L 11.3 13.25 L 11.3 22.5 L 2 17.25 Z" fill="#000" opacity="0.10"/>
+  </g>
+</svg>

@@ -38,7 +38,7 @@ pip install pycubrid  # 한 줄, C 컴파일러 불필요, 의존성 0개
 
 **④ cubrid-mcp-server** (2026)
 
-AI 시대니까. **세계 최초의 CUBRID MCP 서버**. 기본으로 읽기 도구 11개(쓰기 도구는 운영자가 켤 때만 추가), 읽기 전용 화이트리스트, AI 에이전트가 자연어로 CUBRID에 질의할 수 있다.
+AI 시대니까. **CUBRID MCP 서버**. 기본으로 읽기 도구 11개(쓰기 도구는 운영자가 켤 때만 추가), 읽기 전용 화이트리스트, AI 에이전트가 자연어로 CUBRID에 질의할 수 있다.
 
 ```bash
 uvx cubrid-mcp-server

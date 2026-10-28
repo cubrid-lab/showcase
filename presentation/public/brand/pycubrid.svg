@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" color="#FFD43B" role="img" aria-labelledby="pycubrid-title pycubrid-desc">
+  <title id="pycubrid-title">CUBRID Lab driver icon — pycubrid</title>
+  <desc id="pycubrid-desc">Cube-based driver role symbol. Design selected; legal clearance pending.</desc>
+  <mask id="pycubrid-layers" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
+    <rect width="24" height="24" fill="#fff"/>
+    <path d="M 0 9.154 L 11.3 15.533 L 11.3 16.733 L 0 10.354 Z" fill="#000"/>
+    <path d="M 12.7 15.533 L 24 9.154 L 24 10.354 L 12.7 16.733 Z" fill="#000"/>
+    <path d="M 0 12.638 L 11.3 19.017 L 11.3 20.217 L 0 13.838 Z" fill="#000"/>
+    <path d="M 12.7 19.017 L 24 12.638 L 24 13.838 L 12.7 20.217 Z" fill="#000"/>
+  </mask>
+  <g mask="url(#pycubrid-layers)">
+    <path d="M 12 1 L 22 6.774 L 12 12.547 L 2 6.774 Z" fill="currentColor"/>
+    <path d="M 2 8 L 11.3 13.25 L 11.3 22.5 L 2 17.25 Z" fill="currentColor"/>
+    <path d="M 12.7 13.25 L 22 8 L 22 17.25 L 12.7 22.5 Z" fill="currentColor"/>
+    <path d="M 12 1 L 22 6.774 L 12 12.547 L 2 6.774 Z" fill="#fff" opacity="0.08"/>
+    <path d="M 2 8 L 11.3 13.25 L 11.3 22.5 L 2 17.25 Z" fill="#000" opacity="0.10"/>
+  </g>
+</svg>

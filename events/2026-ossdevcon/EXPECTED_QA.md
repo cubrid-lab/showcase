@@ -12,7 +12,7 @@ We contributed to SQLAlchemy and sqlalchemy-hana, connected with Mike
 Bayer via Gitter, and started the SQLAlchemy Korea community. Mike Bayer
 had built a CUBRID dialect in 2012 but abandoned it. We rebuilt from
 scratch for SQLAlchemy 2.0, then built the pure Python driver, then the
-full ecosystem including the world's first CUBRID MCP server.
+full ecosystem, including a CUBRID MCP server for AI tools. As of 2026-10-28, 62 people outside the team have had pull requests merged.
 
 ## Q1: Why not just use the official CUBRID Python driver?
 

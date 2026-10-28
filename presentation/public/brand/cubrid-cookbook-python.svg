@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" color="#FFD43B" role="img" aria-labelledby="cubrid-cookbook-python-title cubrid-cookbook-python-desc">
+  <title id="cubrid-cookbook-python-title">CUBRID Lab cookbook icon — cubrid-cookbook-python</title>
+  <desc id="cubrid-cookbook-python-desc">Cube-based cookbook role symbol. Design selected; legal clearance pending.</desc>
+  <clipPath id="cubrid-cookbook-python-cube"><path d="M 12 1 L 22 6.774 L 22 17.25 L 12.7 22.5 L 11.3 22.5 L 2 17.25 L 2 6.774 Z"/></clipPath>
+  <mask id="cubrid-cookbook-python-knockout" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
+    <rect width="24" height="24" fill="#fff"/>
+    <g clip-path="url(#cubrid-cookbook-python-cube)">
+  <path d="M 5.6 13.3 Q 8.6 12.8 10.7 14.5 L 10.7 20.0 Q 8.6 18.3 5.6 18.8 Z M 18.4 13.3 Q 15.4 12.8 13.3 14.5 L 13.3 20.0 Q 15.4 18.3 18.4 18.8 Z" fill="#000"/>
+    </g>
+  </mask>
+  <g mask="url(#cubrid-cookbook-python-knockout)">
+    <path d="M 12 1 L 22 6.774 L 12 12.547 L 2 6.774 Z" fill="currentColor"/>
+    <path d="M 2 8 L 11.3 13.25 L 11.3 22.5 L 2 17.25 Z" fill="currentColor"/>
+    <path d="M 12.7 13.25 L 22 8 L 22 17.25 L 12.7 22.5 Z" fill="currentColor"/>
+    <g clip-path="url(#cubrid-cookbook-python-cube)">
+    <path d="M 5.6 13.3 Q 8.6 12.8 10.7 14.5 L 10.7 20.0 Q 8.6 18.3 5.6 18.8 Z M 18.4 13.3 Q 15.4 12.8 13.3 14.5 L 13.3 20.0 Q 15.4 18.3 18.4 18.8 Z" fill="currentColor" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/>
+  </g>
+    <path d="M 12 1 L 22 6.774 L 12 12.547 L 2 6.774 Z" fill="#fff" opacity="0.08"/>
+    <path d="M 2 8 L 11.3 13.25 L 11.3 22.5 L 2 17.25 Z" fill="#000" opacity="0.10"/>
+  </g>
+</svg>

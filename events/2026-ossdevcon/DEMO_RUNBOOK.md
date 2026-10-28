@@ -1,6 +1,6 @@
 # Demo Runbook — On-nara Scenario (backup only)
 
-> Historical optional rehearsal material. The current 32-slide presentation
+> Historical optional rehearsal material. The current 23-slide presentation
 > has no live demo; slide numbers and timing below describe the earlier
 > On-nara scenario. See [SLIDES.md](SLIDES.md) for the current talk script.
 
