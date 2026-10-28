@@ -12,7 +12,7 @@ title: "CUBRID Kubernetes Operator — First Validation"
 [20s · Opening · Project and team]
 Hi, we're Yeongseon Choe and Gyeongjun Paik from CUBRID Lab. We're building an Operator to manage CUBRID, a relational DBMS, on Kubernetes. We want it to cover installation and what happens when something fails and has to recover.
 
-For this season, we're aiming for a v0.1 that we've run through in one setup: install it, cause faults, and check that it recovers. Let me start with the problem we're trying to solve.
+For this season, we're aiming for a v0.1 that we've run through in one setup: install it, cause faults, and check that it recovers. Let me first show you today's outline.
 -->
 
 ---
@@ -22,9 +22,9 @@ For this season, we're aiming for a v0.1 that we've run through in one setup: in
 <h1 class="op-title">Today's outline</h1>
 <div class="op-agenda">
   <div><span>01</span><b>Why this matters</b><p>Pod recovery is not DB recovery</p></div>
-  <div><span>02</span><b>What we propose</b><p>Existing approaches, Operator, HA and Instance Manager</p></div>
-  <div><span>03</span><b>What we have validated</b><p>Evidence, gaps and the test roadmap</p></div>
-  <div><span>04</span><b>What we will release</b><p>Co-maintainers, v0.1 boundaries and next steps</p></div>
+  <div><span>02</span><b>What we propose</b><p>Operator, CUBRID HA and Instance Manager</p></div>
+  <div><span>03</span><b>What we have validated</b><p>What we confirmed and the risks that remain</p></div>
+  <div><span>04</span><b>What we will release</b><p>The 12-week plan and the v0.1 scope</p></div>
 </div>
 
 
@@ -84,7 +84,7 @@ We add three things. When members do not answer or disagree, we do not guess the
 
 <OperatorSlide class="op-compact" section="1 · Comparison" index="06" total="18" source="Official Operator source" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/SOURCES.md#comparison-boundaries">
 
-<h1 class="op-title">What exactly do we do differently?</h1><table class="op-comparison"><thead><tr><th></th><th>Official Operator (today)</th><th>What we change</th></tr></thead><tbody><tr><td><b>Finding the master</b></td><td>Uses the node list from<br>the first member that answers</td><td>Compares fresh answers from every member<br>Missing or conflicting: marked “unresolved”</td></tr><tr><td><b>Tracking backup work</b></td><td>Runs scheduled backups as a command in the Pod<br>Records backup status</td><td>Sends the request to Instance Manager; keeps its ID on the volume<br>Work cut off by a restart stays “Failed”</td></tr><tr><td><b>Restore</b></td><td>Sets the target Pod, script and storage</td><td>Checks the file list and checksums first<br>Always restores into a new cluster</td></tr><tr><td><b>Recovery check</b></td><td>Port checks</td><td>Same port checks<br>Tests also run real SQL writes, reads and data checks</td></tr></tbody></table><p class="op-caption">Compared from the source versions we reviewed. We have not yet tested which behaves better in real failures.</p>
+<h1 class="op-title">What exactly do we do differently?</h1><table class="op-comparison"><thead><tr><th></th><th>Official Operator (today)</th><th>What we change</th></tr></thead><tbody><tr><td><b>Finding the master</b></td><td>Uses the node list from<br>the first member that answers</td><td>Compares fresh answers from every member<br>Missing or conflicting: marked “unresolved”</td></tr><tr><td><b>Tracking backup work</b></td><td>Runs scheduled backups as a command in the Pod<br>Records backup status</td><td>Sends the request to Instance Manager; keeps its ID on the volume<br>Work cut off by a restart stays “Failed”</td></tr><tr><td><b>Restore</b></td><td>No restore feature found in the source<br>(backups only)</td><td>Checks the file list and checksums first<br>Always restores into a new cluster</td></tr><tr><td><b>Recovery check</b></td><td>Port checks</td><td>Same port checks<br>Tests also run real SQL writes, reads and data checks</td></tr></tbody></table><p class="op-caption">Compared from the source versions we reviewed. We have not yet tested which behaves better in real failures.</p>
 
 </OperatorSlide>
 
@@ -92,7 +92,7 @@ We add three things. When members do not answer or disagree, we do not guess the
 [40s · 1 · Comparison]
 Here is the difference from slide 5 in more detail. We built this table by reading both projects' source code.
 
-The official Operator takes the master from the first member that answers. We compare fresh answers from every member and leave the master unresolved when answers are missing or conflict. Operations such as backups go through Instance Manager, and their IDs stay on the volume, so interrupted work is recorded as failed. Before a restore we check the file list and checksums. Both projects use port checks at runtime, so our tests check SQL and data separately. We have not yet compared how the two behave in real failures.
+The official Operator takes the master from the first member that answers. We compare fresh answers from every member and leave the master unresolved when answers are missing or conflict. Operations such as backups go through Instance Manager, and their IDs stay on the volume, so interrupted work is recorded as failed. We did not find a restore feature in the official Operator's source; before a restore we check the file list and checksums. Both projects use port checks at runtime, so our tests check SQL and data separately. We have not yet compared how the two behave in real failures.
 -->
 
 ---
@@ -145,7 +145,7 @@ After a master fails, we first look at CUBRID's role change, query each member t
 <h1 class="op-title">Unknown master: safety before success</h1>
 <div class="op-safety">
  <div><span>WHAT WE CAN REPORT</span><h3>Keep master unresolved</h3><p>Missing or conflicting member observations must not be converted into an assumed master.</p><p class="op-mini">Status: uncertainty is visible</p></div>
- <div><span>WHAT v0.1 MUST PROVE</span><h3>Enforce RW write quarantine</h3><p>When writes must be blocked, confirm that real client SQL cannot succeed through Broker.</p><p class="op-mini">Status: still required and unproven</p></div>
+ <div><span>WHAT v0.1 MUST PROVE</span><h3>Enforce RW write quarantine</h3><p>When writes must be blocked, confirm that real client SQL cannot succeed through Broker.</p><p class="op-mini">Status: not yet implemented or verified</p></div>
 </div>
 <p class="op-boundary"><b>IMPORTANT</b>　Marking a condition “unknown” does not itself stop SQL writes.</p>
 
@@ -190,7 +190,7 @@ Second, on k3s VMs we checked connectivity and SQL, and a controlled rollout kep
   <div><span>03 · RESTORE</span><b>Repeated and interrupted restores</b><p>Does the data still match after many runs, or a restart in the middle of a restore?</p></div>
   <div><span>04 · REPRODUCE</span><b>Storage and independent runbooks</b><p>Can another maintainer repeat the result on one defined stack?</p></div>
 </div>
-<p class="op-boundary">All four must pass before we publish v0.1.</p>
+<p class="op-boundary">These four, along with every other required scenario, must pass before we publish v0.1.</p>
 
 </OperatorSlide>
 
@@ -235,7 +235,7 @@ We use the same approach for HA, backup and recovery, and installation docs. VM 
 
 <OperatorSlide class="op-compact" section="4 · v0.1 scope" index="15" total="18" source="v0.1 scope" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/ROADMAP.md#v01-scope">
 
-<h1 class="op-title">What goes into v0.1</h1><table class="op-comparison op-acceptance"><thead><tr><th>What is included</th><th>How we will check it</th></tr></thead><tbody><tr><td>Non-root · persistent DB<br>Three-member HA · RW/RO</td><td>Run SQL; check roles, commits and data</td></tr><tr><td>Faults · block writes<br>Rejoin · rebuild</td><td>Check state and data after Pod/VM/Broker/Operator faults</td></tr><tr><td>Backup<br>Restore to a new cluster</td><td>Build a new cluster from a backup and compare data</td></tr><tr><td>Retention · Instance Manager auth<br>Node maintenance · status · metrics</td><td>Run the required scenarios; follow installation, operations and recovery docs</td></tr></tbody></table><p class="op-boundary"><b>ALSO PUBLISH</b> Images · install manifests · supported setups · operations docs · test results</p><p class="op-caption">Supported: CUBRID 11.4.x · amd64 · one Kubernetes and storage setup · experimental</p>
+<h1 class="op-title">What goes into v0.1</h1><table class="op-comparison op-acceptance"><thead><tr><th>What is included</th><th>How we will check it</th></tr></thead><tbody><tr><td>Non-root · persistent DB<br>Three-member HA · RW/RO</td><td>Run SQL; check roles, commits and data</td></tr><tr><td>Faults · block writes<br>Rejoin · rebuild</td><td>Check state and data after Pod/VM/Broker/Operator faults</td></tr><tr><td>Backup<br>Restore to a new cluster</td><td>Build a new cluster from a backup and compare data</td></tr><tr><td>Retention · Instance Manager auth<br>Node maintenance · status · metrics</td><td>Run the required scenarios; follow installation, operations and recovery docs</td></tr></tbody></table><p class="op-boundary"><b>ALSO PUBLISH</b> Images · install manifests · supported setups · operations docs · test results</p><p class="op-caption">Supported: CUBRID 11.4.x · amd64 · one Kubernetes and storage setup · experimental · DB password and TLS after v0.1</p>
 
 </OperatorSlide>
 

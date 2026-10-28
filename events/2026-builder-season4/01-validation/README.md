@@ -122,7 +122,7 @@ npm run export:operator:pdf   # 한영 PDF 각각 생성
 - [x] 11월 29일 필수 시나리오·12월 27일 공개 **목표**와 첫 버전 범위 명시
 - [x] 2026-10-20 근거 커밋·Kind/VM 결과·남은 검증 구분
 - [x] 두 언어의 발표자 메모, 한국어 대본과 Q&A 준비
-- [ ] **18장 개정판** 정적 웹 빌드·PPTX/PDF 재생성·페이지/메모/폰트/레이아웃 확인
+- [x] **18장 개정판** PPTX/PDF 재생성·페이지/메모/레이아웃 확인: [2026-10-28 제출본](https://github.com/cubrid-lab/showcase/releases/tag/builder-season4-validation-2026-10-28)
 - [x] 10월 21일 **이전 11장 버전** 출력 검수 기록 보존: [DELIVERY 기록](DELIVERY.md)
 - [ ] 공식 프로그램명 최종 확인: 공지의 “빌더 시즌4” 표기 사용
 - [ ] 한국어 발표 실제 리허설 10분 이내
