@@ -571,34 +571,81 @@ make docker-up && make verify  # cookbook 저장소에서, 전체 스택
 <h2 class="one">팀 밖의 <span class="accent">62명</span>이 보낸 PR <span class="accent">137개</span>가 머지됐습니다</h2>
 
 <div class="people">
-  <a href="https://github.com/WilliamK112" target="_blank"><img src="/contributors/WilliamK112.jpg" alt=""><b>WilliamK112</b><span>PR 17</span></a>
-  <a href="https://github.com/Enard52" target="_blank"><img src="/contributors/Enard52.jpg" alt=""><b>Enard52</b><span>PR 16</span></a>
-  <a href="https://github.com/soyeladice-svg" target="_blank"><img src="/contributors/soyeladice-svg.jpg" alt=""><b>soyeladice-svg</b><span>PR 8</span></a>
-  <a href="https://github.com/HarshRajSinghania" target="_blank"><img src="/contributors/HarshRajSinghania.jpg" alt=""><b>HarshRajSinghania</b><span>PR 6</span></a>
-  <a href="https://github.com/kcncb" target="_blank"><img src="/contributors/kcncb.jpg" alt=""><b>kcncb</b><span>PR 6</span></a>
-  <a href="https://github.com/CloudCorpRecords" target="_blank"><img src="/contributors/CloudCorpRecords.jpg" alt=""><b>CloudCorpRecords</b><span>PR 5</span></a>
-  <a href="https://github.com/rahul05ranjan" target="_blank"><img src="/contributors/rahul05ranjan.jpg" alt=""><b>rahul05ranjan</b><span>PR 4</span></a>
-  <a href="https://github.com/WATSONSK14" target="_blank"><img src="/contributors/WATSONSK14.jpg" alt=""><b>WATSONSK14</b><span>PR 4</span></a>
-  <a href="https://github.com/awss1i" target="_blank"><img src="/contributors/awss1i.jpg" alt=""><b>awss1i</b><span>PR 3</span></a>
-  <a href="https://github.com/KeuqS" target="_blank"><img src="/contributors/KeuqS.jpg" alt=""><b>KeuqS</b><span>PR 3</span></a>
-  <a href="https://github.com/tayfuryldz" target="_blank"><img src="/contributors/tayfuryldz.jpg" alt=""><b>tayfuryldz</b><span>PR 3</span></a>
-  <div class="more"><b>+51</b><span>PR 1–2개</span></div>
+  <a href="https://github.com/WilliamK112" target="_blank" title="WilliamK112"><img src="/contributors/WilliamK112.jpg" alt="WilliamK112"></a>
+  <a href="https://github.com/Enard52" target="_blank" title="Enard52"><img src="/contributors/Enard52.jpg" alt="Enard52"></a>
+  <a href="https://github.com/soyeladice-svg" target="_blank" title="soyeladice-svg"><img src="/contributors/soyeladice-svg.jpg" alt="soyeladice-svg"></a>
+  <a href="https://github.com/HarshRajSinghania" target="_blank" title="HarshRajSinghania"><img src="/contributors/HarshRajSinghania.jpg" alt="HarshRajSinghania"></a>
+  <a href="https://github.com/kcncb" target="_blank" title="kcncb"><img src="/contributors/kcncb.jpg" alt="kcncb"></a>
+  <a href="https://github.com/CloudCorpRecords" target="_blank" title="CloudCorpRecords"><img src="/contributors/CloudCorpRecords.jpg" alt="CloudCorpRecords"></a>
+  <a href="https://github.com/rahul05ranjan" target="_blank" title="rahul05ranjan"><img src="/contributors/rahul05ranjan.jpg" alt="rahul05ranjan"></a>
+  <a href="https://github.com/WATSONSK14" target="_blank" title="WATSONSK14"><img src="/contributors/WATSONSK14.jpg" alt="WATSONSK14"></a>
+  <a href="https://github.com/awss1i" target="_blank" title="awss1i"><img src="/contributors/awss1i.jpg" alt="awss1i"></a>
+  <a href="https://github.com/KeuqS" target="_blank" title="KeuqS"><img src="/contributors/KeuqS.jpg" alt="KeuqS"></a>
+  <a href="https://github.com/tayfuryldz" target="_blank" title="tayfuryldz"><img src="/contributors/tayfuryldz.jpg" alt="tayfuryldz"></a>
+  <a href="https://github.com/Vieta100-omo" target="_blank" title="Vieta100-omo"><img src="/contributors/Vieta100-omo.jpg" alt="Vieta100-omo"></a>
+  <a href="https://github.com/Aaqibhafeezkhan" target="_blank" title="Aaqibhafeezkhan"><img src="/contributors/Aaqibhafeezkhan.jpg" alt="Aaqibhafeezkhan"></a>
+  <a href="https://github.com/bfs2021" target="_blank" title="bfs2021"><img src="/contributors/bfs2021.jpg" alt="bfs2021"></a>
+  <a href="https://github.com/bh-official" target="_blank" title="bh-official"><img src="/contributors/bh-official.jpg" alt="bh-official"></a>
+  <a href="https://github.com/Mr-Neutr0n" target="_blank" title="Mr-Neutr0n"><img src="/contributors/Mr-Neutr0n.jpg" alt="Mr-Neutr0n"></a>
+  <a href="https://github.com/rushikeshraghatate90" target="_blank" title="rushikeshraghatate90"><img src="/contributors/rushikeshraghatate90.jpg" alt="rushikeshraghatate90"></a>
+  <a href="https://github.com/ryanduguid" target="_blank" title="ryanduguid"><img src="/contributors/ryanduguid.jpg" alt="ryanduguid"></a>
+  <a href="https://github.com/thymeed" target="_blank" title="thymeed"><img src="/contributors/thymeed.jpg" alt="thymeed"></a>
+  <a href="https://github.com/UsmanGhias" target="_blank" title="UsmanGhias"><img src="/contributors/UsmanGhias.jpg" alt="UsmanGhias"></a>
+  <a href="https://github.com/VeldanDev" target="_blank" title="VeldanDev"><img src="/contributors/VeldanDev.jpg" alt="VeldanDev"></a>
+  <a href="https://github.com/abhishekjoshi13" target="_blank" title="abhishekjoshi13"><img src="/contributors/abhishekjoshi13.jpg" alt="abhishekjoshi13"></a>
+  <a href="https://github.com/Ai-Siiii" target="_blank" title="Ai-Siiii"><img src="/contributors/Ai-Siiii.jpg" alt="Ai-Siiii"></a>
+  <a href="https://github.com/alperensumeroglu" target="_blank" title="alperensumeroglu"><img src="/contributors/alperensumeroglu.jpg" alt="alperensumeroglu"></a>
+  <a href="https://github.com/anaylab" target="_blank" title="anaylab"><img src="/contributors/anaylab.jpg" alt="anaylab"></a>
+  <a href="https://github.com/anush-933" target="_blank" title="anush-933"><img src="/contributors/anush-933.jpg" alt="anush-933"></a>
+  <a href="https://github.com/anyingiit" target="_blank" title="anyingiit"><img src="/contributors/anyingiit.jpg" alt="anyingiit"></a>
+  <a href="https://github.com/AuraFamerCode" target="_blank" title="AuraFamerCode"><img src="/contributors/AuraFamerCode.jpg" alt="AuraFamerCode"></a>
+  <a href="https://github.com/Bryandero98" target="_blank" title="Bryandero98"><img src="/contributors/Bryandero98.jpg" alt="Bryandero98"></a>
+  <a href="https://github.com/chenzeyan54-commits" target="_blank" title="chenzeyan54-commits"><img src="/contributors/chenzeyan54-commits.jpg" alt="chenzeyan54-commits"></a>
+  <a href="https://github.com/dannyward630" target="_blank" title="dannyward630"><img src="/contributors/dannyward630.jpg" alt="dannyward630"></a>
+  <a href="https://github.com/Dikshant-Neupane" target="_blank" title="Dikshant-Neupane"><img src="/contributors/Dikshant-Neupane.jpg" alt="Dikshant-Neupane"></a>
+  <a href="https://github.com/goktugekin" target="_blank" title="goktugekin"><img src="/contributors/goktugekin.jpg" alt="goktugekin"></a>
+  <a href="https://github.com/itsdevcode" target="_blank" title="itsdevcode"><img src="/contributors/itsdevcode.jpg" alt="itsdevcode"></a>
+  <a href="https://github.com/jackgedge" target="_blank" title="jackgedge"><img src="/contributors/jackgedge.jpg" alt="jackgedge"></a>
+  <a href="https://github.com/Jah-yee" target="_blank" title="Jah-yee"><img src="/contributors/Jah-yee.jpg" alt="Jah-yee"></a>
+  <a href="https://github.com/Jaysanghani08" target="_blank" title="Jaysanghani08"><img src="/contributors/Jaysanghani08.jpg" alt="Jaysanghani08"></a>
+  <a href="https://github.com/kragent66-glitch" target="_blank" title="kragent66-glitch"><img src="/contributors/kragent66-glitch.jpg" alt="kragent66-glitch"></a>
+  <a href="https://github.com/laozhej" target="_blank" title="laozhej"><img src="/contributors/laozhej.jpg" alt="laozhej"></a>
+  <a href="https://github.com/MugdhoAI" target="_blank" title="MugdhoAI"><img src="/contributors/MugdhoAI.jpg" alt="MugdhoAI"></a>
+  <a href="https://github.com/Muhtasim-Munif-Fahim" target="_blank" title="Muhtasim-Munif-Fahim"><img src="/contributors/Muhtasim-Munif-Fahim.jpg" alt="Muhtasim-Munif-Fahim"></a>
+  <a href="https://github.com/Nandankumarjv" target="_blank" title="Nandankumarjv"><img src="/contributors/Nandankumarjv.jpg" alt="Nandankumarjv"></a>
+  <a href="https://github.com/nightcityblade" target="_blank" title="nightcityblade"><img src="/contributors/nightcityblade.jpg" alt="nightcityblade"></a>
+  <a href="https://github.com/Ochibueze474" target="_blank" title="Ochibueze474"><img src="/contributors/Ochibueze474.jpg" alt="Ochibueze474"></a>
+  <a href="https://github.com/OpenDeernet" target="_blank" title="OpenDeernet"><img src="/contributors/OpenDeernet.jpg" alt="OpenDeernet"></a>
+  <a href="https://github.com/Oscar-Williams" target="_blank" title="Oscar-Williams"><img src="/contributors/Oscar-Williams.jpg" alt="Oscar-Williams"></a>
+  <a href="https://github.com/PandaHUN777" target="_blank" title="PandaHUN777"><img src="/contributors/PandaHUN777.jpg" alt="PandaHUN777"></a>
+  <a href="https://github.com/Parth-Vasave" target="_blank" title="Parth-Vasave"><img src="/contributors/Parth-Vasave.jpg" alt="Parth-Vasave"></a>
+  <a href="https://github.com/petrovicistefan" target="_blank" title="petrovicistefan"><img src="/contributors/petrovicistefan.jpg" alt="petrovicistefan"></a>
+  <a href="https://github.com/pratham8499" target="_blank" title="pratham8499"><img src="/contributors/pratham8499.jpg" alt="pratham8499"></a>
+  <a href="https://github.com/pratipc" target="_blank" title="pratipc"><img src="/contributors/pratipc.jpg" alt="pratipc"></a>
+  <a href="https://github.com/rahemoth" target="_blank" title="rahemoth"><img src="/contributors/rahemoth.jpg" alt="rahemoth"></a>
+  <a href="https://github.com/randomcodeross" target="_blank" title="randomcodeross"><img src="/contributors/randomcodeross.jpg" alt="randomcodeross"></a>
+  <a href="https://github.com/SHIL0018" target="_blank" title="SHIL0018"><img src="/contributors/SHIL0018.jpg" alt="SHIL0018"></a>
+  <a href="https://github.com/srijavuppala" target="_blank" title="srijavuppala"><img src="/contributors/srijavuppala.jpg" alt="srijavuppala"></a>
+  <a href="https://github.com/Srikanthmadhan" target="_blank" title="Srikanthmadhan"><img src="/contributors/Srikanthmadhan.jpg" alt="Srikanthmadhan"></a>
+  <a href="https://github.com/SuellenQwQ" target="_blank" title="SuellenQwQ"><img src="/contributors/SuellenQwQ.jpg" alt="SuellenQwQ"></a>
+  <a href="https://github.com/tnalbant" target="_blank" title="tnalbant"><img src="/contributors/tnalbant.jpg" alt="tnalbant"></a>
+  <a href="https://github.com/tyza66" target="_blank" title="tyza66"><img src="/contributors/tyza66.jpg" alt="tyza66"></a>
+  <a href="https://github.com/varshith84" target="_blank" title="varshith84"><img src="/contributors/varshith84.jpg" alt="varshith84"></a>
+  <a href="https://github.com/xuu33030" target="_blank" title="xuu33030"><img src="/contributors/xuu33030.jpg" alt="xuu33030"></a>
+  <a href="https://github.com/yotam1001" target="_blank" title="yotam1001"><img src="/contributors/yotam1001.jpg" alt="yotam1001"></a>
 </div>
-<p class="note-line">머지된 PR 기준 · 메인테이너·봇 제외 · 사진은 PR 3개 이상 · 전체 명단은 저장소 기록</p>
+<p class="note-line">2026-10-28 기준 · 네 저장소에 PR이 머지된 외부 기여자 전원 · 메인테이너·봇 제외</p>
 
 <style>
-.people { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px 10px; }
-.people a, .people .more { display: grid; justify-items: center; gap: 3px; text-decoration: none; border: 0; color: var(--ink); }
-.people img { width: 62px; height: 62px; border-radius: 50%; object-fit: cover; border: 2px solid var(--line); }
-.people b { font-size: 0.68rem; font-weight: 700; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.people span { font-size: 0.64rem; color: var(--muted); }
-.people .more b { width: 62px; height: 62px; border-radius: 50%; display: grid; place-items: center; background: var(--blue-soft); color: var(--blue); font-size: 1.05rem; }
+.people { display: grid; grid-template-columns: repeat(13, 1fr); gap: 10px 8px; justify-items: center; }
+.people a { display: block; border: 0; }
+.people img { width: 46px; height: 46px; border-radius: 50%; object-fit: cover; border: 2px solid var(--line); display: block; }
 </style>
 
 <!--
 [25초 · 커뮤니티]
 저희가 가장 보여드리고 싶은 장입니다. 2026년 10월 28일 기준으로, 팀 밖의 62명이 보낸 PR 137개가 네 저장소에 머지됐습니다. 메인테이너와 봇은 뺀 숫자입니다.
-사진은 PR을 세 개 이상 보낸 분들입니다. 테스트를 보강한 PR이 가장 많고, 문서와 버그 수정이 뒤를 잇습니다. 둘이 시작한 저장소를 이제 여러 사람이 함께 고치고 있습니다.
+화면의 얼굴이 그 62명입니다. 테스트를 보강한 PR이 가장 많고, 문서와 버그 수정이 뒤를 잇습니다. 둘이 시작한 저장소를 이제 여러 사람이 함께 고치고 있습니다.
 -->
 
 ---
