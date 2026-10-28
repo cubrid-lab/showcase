@@ -1,18 +1,44 @@
 # Presentation Tooling — Slidev
 
 Shared Slidev tooling for the [showcase presentations](../README.md).
-`slides.md` remains the 2026 OSS Developer Contest deck; its existing commands
-and scripts continue to use that entry.
+
+## Where deck sources live
+
+Every deck has one editable source under `decks/` and one thin entry file in
+this directory:
+
+| Presentation | Edit this source | Slidev entry (configuration only) |
+|---|---|---|
+| 2026 OSS Developer Contest | [`decks/2026-ossdevcon/slides.md`](decks/2026-ossdevcon/slides.md) | [`2026-ossdevcon.md`](2026-ossdevcon.md) |
+| Builder Season 4, first validation (Korean) | [`decks/2026-builder-season4/01-validation/slides.ko.md`](decks/2026-builder-season4/01-validation/slides.ko.md) | [`2026-builder-season4-01-validation.ko.md`](2026-builder-season4-01-validation.ko.md) |
+| Builder Season 4, first validation (English) | [`decks/2026-builder-season4/01-validation/slides.en.md`](decks/2026-builder-season4/01-validation/slides.en.md) | [`2026-builder-season4-01-validation.en.md`](2026-builder-season4-01-validation.en.md) |
+
+Naming rules for a new deck, round or language:
+
+- Source: `decks/<year>-<event>/[<round>/]slides[.<lang>].md`. It holds the
+  slides and speaker notes. Its first frontmatter block only sets `title`.
+- Entry: `<year>-<event>[-<round>][.<lang>].md` in this directory. It holds the
+  deck-wide Slidev settings (theme, canvas width, fonts, export name) and
+  `src: ./decks/...` pointing at the source, and no slides.
+- Register the entry in `scripts/build_site.mjs`, the npm scripts and the
+  export workflow, and link the source from the event brief.
+
+The entry files cannot move into a subdirectory. Slidev treats the entry's
+directory as the project root, so an entry elsewhere would lose the shared
+`components/`, `public/`, `style.css` and theme. `scripts/check_showcase_links.py`
+fails if a Markdown file at this level is not a thin entry, or if a source
+under `decks/` does not follow the naming rule.
+
+Until 2026-10-28 the OSSDevCon source was `presentation/slides.md`, and the
+Builder sources were `SLIDES.ko.md`/`SLIDES.en.md` loaded by
+`operator-first-validation.{ko,en}.md` (#69). Links to those paths on `main` no
+longer resolve. Released files and the public HTML routes are unchanged, and
+the exported files keep their names.
 
 The supporting contest materials are in [events/2026-ossdevcon](../events/2026-ossdevcon/), while the published HTML slides deliberately retain the historical `/contests/2026-ossdevcon/` route for existing links.
 
-The Operator uses `operator-first-validation.ko.md` and
-`operator-first-validation.en.md` as thin entry files. They import the
-[event's web slide sources](decks/2026-builder-season4/01-validation/)
-inside the Slidev project root and share its installed theme and tooling.
-See the [event brief](../events/2026-builder-season4/01-validation/) for
-requirements. Edit the deck sources for content and the entry frontmatter for
-presentation configuration.
+See the [Builder Season 4 event brief](../events/2026-builder-season4/01-validation/)
+for that deck's requirements.
 
 ## Brand marks
 
@@ -38,7 +64,7 @@ existing package lock; no additional npm dependency is required.
 
 ## 2026 OSSDevCon deliverables: HTML, PDF, and PPTX
 
-The canonical source is `slides.md`. Generate all deliverables from the same
+The canonical source is `decks/2026-ossdevcon/slides.md` (entry `2026-ossdevcon.md`). Generate all deliverables from the same
 checkout so they use the same content and active metrics snapshot.
 
 These are the same commands the CI export workflow runs, from `presentation/`:
@@ -67,7 +93,7 @@ Chromium browser. Slidev can exit successfully while a slide still shows its
 "Loading slide..." placeholder, so both export commands wait for network idle
 and then 5 seconds before capturing, and `scripts/verify_exports.py` fails if
 any PDF page is blank or shows the placeholder, or if the PDF page count or
-PPTX slide count differs from the slide count of `slides.md`. The PPTX holds
+PPTX slide count differs from the slide count of the deck. The PPTX holds
 images only, so inspect it visually.
 
 The CI export workflow (`.github/workflows/presentation-export.yml`) runs on
@@ -162,7 +188,8 @@ npm run export     # PDF export
 
 ## Architecture
 
-- `slides.md` — Narrative + speaker notes (Slidev Markdown)
+- `decks/` — Narrative + speaker notes for each deck (Slidev Markdown)
+- `2026-*.md` — Thin Slidev entries, one per deck and language
 - `deck.json` — Points to the active metrics snapshot
 - `snapshots/*.json` — Immutable metrics snapshots with provenance
 - `references.json` — Evidence mapping for claims
@@ -170,7 +197,7 @@ npm run export     # PDF export
 
 ## Workflow
 
-1. Edit `slides.md` for narrative changes
+1. Edit the deck source under `decks/` for narrative changes
 2. Run `python ../scripts/collect_snapshot.py` to create a new snapshot (when needed)
 3. Update `deck.json` to point to the new snapshot
 4. Preview with `npm run dev`

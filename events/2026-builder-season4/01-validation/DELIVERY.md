@@ -48,8 +48,8 @@
 
 PPTX는 Slidev 기본 출력으로 각 슬라이드 화면을 이미지로 담습니다. 발표자 메모는
 텍스트이며, 본문을 PowerPoint에서 직접 편집하는 형식은 아닙니다. 수정은
-[한국어](../../../presentation/decks/2026-builder-season4/01-validation/SLIDES.ko.md)·
-[영어 원본](../../../presentation/decks/2026-builder-season4/01-validation/SLIDES.en.md)에 반영해 다시 출력합니다.
+[한국어](../../../presentation/decks/2026-builder-season4/01-validation/slides.ko.md)·
+[영어 원본](../../../presentation/decks/2026-builder-season4/01-validation/slides.en.md)에 반영해 다시 출력합니다.
 
 ## 검수 범위 (2026-10-21, 11장 구버전 기준)
 

@@ -1,6 +1,6 @@
 # 발표 대본 — 2026 오픈소스 개발자대회
 
-> 「If someone were interested — 멈춰 있던 CUBRID dialect를 이어받아 생태계가 되기까지」 · 32장 · 약 8:47 (12분 슬롯). 화면은 `presentation/slides.md`, 이 문서는 그 발표자 노트를 모은 대본입니다 (`scripts/build_talk_script.py`로 생성).
+> 「If someone were interested — 멈춰 있던 CUBRID dialect를 이어받아 생태계가 되기까지」 · 32장 · 약 8:47 (12분 슬롯). 화면은 `presentation/decks/2026-ossdevcon/slides.md`, 이 문서는 그 발표자 노트를 모은 대본입니다 (`scripts/build_talk_script.py`로 생성).
 > 심사 기준은 화면에 표시하지 않고 이야기 흐름 안에 녹였습니다. 각 장면이 채우는 기준은 대본 머리와 맨 끝 표에 적었습니다.
 > 채택 지표는 `presentation/deck.json`이 선택한 2026-10-25 스냅숏 기준입니다: GitHub stars 129개, merged PRs 1,553개, published GitHub Releases 61회입니다. fork와 clone traffic은 채택 지표에서 제외했습니다.
 > 사진 두 장(`presentation/public/photos/team-2020.jpg`, `team-now.jpg`)은 받는 대로 넣습니다.

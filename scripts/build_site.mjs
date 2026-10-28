@@ -14,9 +14,9 @@ if (segments.some(segment => !/^[a-zA-Z0-9_-]+$/.test(segment))) {
 const base = segments.length ? `/${segments.join('/')}/` : '/'
 const cli = join(presentation, 'node_modules/@slidev/cli/bin/slidev.mjs')
 const decks = [
-  ['slides.md', 'contests/2026-ossdevcon'],
-  ['operator-first-validation.ko.md', 'events/2026-builder-season4/01-validation/ko'],
-  ['operator-first-validation.en.md', 'events/2026-builder-season4/01-validation/en'],
+  ['2026-ossdevcon.md', 'contests/2026-ossdevcon'],
+  ['2026-builder-season4-01-validation.ko.md', 'events/2026-builder-season4/01-validation/ko'],
+  ['2026-builder-season4-01-validation.en.md', 'events/2026-builder-season4/01-validation/en'],
 ]
 
 // Only this fixed, generated directory is replaced; normal deck builds stay intact.

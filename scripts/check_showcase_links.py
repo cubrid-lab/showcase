@@ -17,9 +17,52 @@ REQUIRED = (
     "projects/cubrid-lab/intro-video/README.md",
     "projects/cubrid-python-ecosystem/press-kit/README.md",
     "templates/README.md",
-    "presentation/slides.md",
+    "presentation/2026-ossdevcon.md",
+    "presentation/decks/2026-ossdevcon/slides.md",
 )
 REMOVED = ("contests", "demo-videos", "press-kit", "programs")
+
+PRESENTATION = ROOT / "presentation"
+# Rules from presentation/README.md ("Where deck sources live").
+ENTRY_NAME = re.compile(r"\d{4}-[a-z0-9-]+(?:\.[a-z]{2})?\.md")
+SOURCE_PATH = re.compile(r"decks/\d{4}-[a-z0-9-]+/(?:[a-z0-9-]+/)?slides(?:\.[a-z]{2})?\.md")
+ENTRY = re.compile(r"---\n(?P<head>.*?\n)---\s*", re.S)
+SRC = re.compile(r"^src:\s*\./(\S+)\s*$", re.M)
+SLIDEV_ARGS = re.compile(r"slidev(?: (?:build|export))?((?: [\w.-]+\.md)+)")
+
+
+def check_deck_layout() -> list[str]:
+    """Each deck: one thin entry in presentation/ plus one source under decks/."""
+    failures = []
+    sources: dict[str, str] = {}
+    entries = []
+    for entry in sorted(PRESENTATION.glob("*.md")):
+        if entry.name == "README.md":
+            continue
+        entries.append(entry.name)
+        match = ENTRY.fullmatch(entry.read_text(encoding="utf-8"))
+        src = SRC.search(match.group("head")) if match else None
+        if not ENTRY_NAME.fullmatch(entry.name) or not src:
+            failures.append(f"presentation/{entry.name}: not a thin entry; put slides in "
+                            "decks/ and keep only settings plus src: here")
+            continue
+        sources[src.group(1)] = entry.name
+        if not SOURCE_PATH.fullmatch(src.group(1)):
+            failures.append(f"presentation/{entry.name}: src {src.group(1)} breaks the naming rule")
+        elif not (PRESENTATION / src.group(1)).is_file():
+            failures.append(f"presentation/{entry.name}: src {src.group(1)} does not exist")
+    for source in sorted((PRESENTATION / "decks").rglob("*.md")):
+        relative = source.relative_to(PRESENTATION).as_posix()
+        if relative not in sources:
+            failures.append(f"presentation/{relative}: deck source without an entry")
+
+    # Every entry named by the npm scripts or the site build must exist.
+    scripts = (PRESENTATION / "package.json").read_text(encoding="utf-8")
+    named = {name for args in SLIDEV_ARGS.findall(scripts) for name in args.split()}
+    named |= set(re.findall(r"\['([\w.-]+\.md)'", (ROOT / "scripts/build_site.mjs").read_text(encoding="utf-8")))
+    for name in sorted(named - set(entries)):
+        failures.append(f"Build or npm script uses a missing entry: {name}")
+    return failures
 
 
 def main() -> int:
@@ -31,6 +74,8 @@ def main() -> int:
     for item in REMOVED:
         if (ROOT / item).exists():
             failures.append(f"Legacy top-level directory remains: {item}")
+
+    failures += check_deck_layout()
 
     checks = 0
     for document in sorted(ROOT.rglob("*.md")):

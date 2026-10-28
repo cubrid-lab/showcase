@@ -28,7 +28,7 @@ fi
 # Step 2: Build static HTML
 echo "Building static HTML..."
 # Base "/" so `python3 -m http.server` from dist/ resolves assets (no Pages deploy)
-npx slidev build slides.md --base / --out dist
+npx slidev build 2026-ossdevcon.md --base / --out dist
 
 # Offline guard: finals must not load anything from the network
 if grep -rEoh '(href|src)="https?://[^"]+"' dist --include='*.html' --include='*.css'; then

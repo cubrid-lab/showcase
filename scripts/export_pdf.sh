@@ -20,7 +20,7 @@ fi
 npx playwright install chromium 2>/dev/null || true
 
 echo "Exporting PDF..."
-npx slidev export slides.md --output slides.pdf --timeout 60000
+npx slidev export 2026-ossdevcon.md --output slides.pdf --timeout 60000
 
 if [[ -f slides.pdf ]]; then
     echo "PDF exported: $PRES_DIR/slides.pdf"

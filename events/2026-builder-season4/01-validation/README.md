@@ -39,10 +39,10 @@ HTML 발표는 `main`이 바뀔 때마다 다시 만들어지므로 이 고정�
 
 | 파일 | 용도 | 준비 상태 |
 |---|---|---|
-| [SLIDES.ko.md](../../../presentation/decks/2026-builder-season4/01-validation/SLIDES.ko.md) | 한국어 웹 발표 원본과 발표자 메모 | 18장 · 550초 시간 배분 · 발표자 메모 포함 |
-| [SLIDES.en.md](../../../presentation/decks/2026-builder-season4/01-validation/SLIDES.en.md) | 영어 웹 발표 원본과 발표자 메모 | 18장 · 550초 시간 배분 · 발표자 메모 포함 |
-| [한국어 진입 파일](../../../presentation/operator-first-validation.ko.md) | 공통 테마·웹·출력 설정 | 원본을 불러오는 Slidev 설정 |
-| [영어 진입 파일](../../../presentation/operator-first-validation.en.md) | 공통 테마·웹·출력 설정 | 원본을 불러오는 Slidev 설정 |
+| [slides.ko.md](../../../presentation/decks/2026-builder-season4/01-validation/slides.ko.md) | 한국어 웹 발표 원본과 발표자 메모 | 18장 · 550초 시간 배분 · 발표자 메모 포함 |
+| [slides.en.md](../../../presentation/decks/2026-builder-season4/01-validation/slides.en.md) | 영어 웹 발표 원본과 발표자 메모 | 18장 · 550초 시간 배분 · 발표자 메모 포함 |
+| [한국어 진입 파일](../../../presentation/2026-builder-season4-01-validation.ko.md) | 공통 테마·웹·출력 설정 | 원본을 불러오는 Slidev 설정 |
+| [영어 진입 파일](../../../presentation/2026-builder-season4-01-validation.en.md) | 공통 테마·웹·출력 설정 | 원본을 불러오는 Slidev 설정 |
 | [SOURCES.md](SOURCES.md) | 고정된 근거·주장 경계·필수 항목 대응 | 10-20 고정 실행 근거 · 10-22 설명 확장 · 10-25 복원 근거 추가 |
 | `operator-first-validation.ko.pptx` / `.pdf` | 한국어 발표·제출용 출력물 | [2026-10-28 제출본](https://github.com/cubrid-lab/showcase/releases/tag/builder-season4-validation-2026-10-28) · [출력·검수 기록](DELIVERY.md) |
 | `operator-first-validation.en.pptx` / `.pdf` | 영어 발표·제출용 출력물 | [2026-10-28 제출본](https://github.com/cubrid-lab/showcase/releases/tag/builder-season4-validation-2026-10-28) · [출력·검수 기록](DELIVERY.md) |
