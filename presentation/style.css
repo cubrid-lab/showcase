@@ -149,3 +149,7 @@
 /* Contest deck: a product icon in front of a kicker. */
 .slidev-layout.contest-deck .proj { display: flex; align-items: center; gap: 8px; }
 .slidev-layout.contest-deck .proj .brand-mark { display: inline-block; }
+
+/* Contest deck: a claim headline stays on one line. */
+.slidev-layout.contest-deck :is(h1, h2).one { font-size: 1.95rem; line-height: 1.25; white-space: nowrap; }
+.slidev-layout.contest-deck .note-line { white-space: nowrap; max-width: none; }

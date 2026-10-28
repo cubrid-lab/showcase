@@ -1,6 +1,6 @@
 ---
 theme: default
-title: "멈춰 있던 연결을 다시 잇다 — 파이큐브리드팀"
+title: "CUBRID, 이제 Python으로 — 파이큐브리드팀"
 info: "2026 오픈소스 개발자대회"
 author: "CUBRID Lab — 최영선 · 백경준"
 drawings:

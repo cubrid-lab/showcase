@@ -21,10 +21,10 @@ TITLE_OVERRIDES = {
 CRITERIA = [
     "| 활용성 | 15 | 멈춰 있던 dialect 발견 (3) → 연결 구조 (4) → SQLAlchemy 코드 (6) → 기존 드라이버의 걸림돌 (7) → pip install (9) → cookbook (10) → AI 접근 (12–14) → 저장소 활동 지표 (20) |",
     "| OSS 적절성 | 15 | Mike Bayer의 README에 응답해 dialect 새 구현·호환성 테스트 (3, 5) → node-cubrid와 C 드라이버 소스 대조 (8) → 표준 (18) |",
-    "| PT | 10 | 표지 (1) · 제목 \"멈춰 있던 연결을 다시 잇다\"가 README (3)와 마지막 장 (23)을 잇는 구조 · 전환 문장 (6, 7, 16) |",
+    "| PT | 10 | 표지 (1) · 제목 \"CUBRID, 이제 Python으로\" · README 인용 (3)이 마지막 장 (23) \"다음은 여러분 차례\"로 이어지는 구조 · 전환 문장 (6, 7, 16) |",
     "| 데모 | 10 | 라이브 데모 없음 — 실행해 본 코드 (6), 실제 문서·저장소·PR 화면 (10, 12, 15)으로 대신 |",
     "| 기능테스트 | 10 | 매일 실서버 예제 검증 (11) → 읽기 전용 설계 (14) → CI 게이트 (16) → 성능 비교 (17) → 직접 확인 (19) |",
-    "| 커뮤니티 | 5 | 컨트리뷰톤·SQLAlchemy Korea (2) → 이어받음 (3) → 에이전트와 사람의 역할 (15) → 외부 기여자 62명 (21) → good first issue (22) → 함께 이어 주세요 (23) |",
+    "| 커뮤니티 | 5 | 컨트리뷰톤·SQLAlchemy Korea (2) → 이어받음 (3) → 에이전트와 사람의 역할 (15) → 외부 기여자 62명 (21) → good first issue (22) → 다음은 여러분 차례 (23) |",
     "| 라이선스 | 5 | 소스 참고 (8) → MIT × 4 · SBOM · 서드파티 라이선스 (18) |",
 ]
 
@@ -74,7 +74,7 @@ def main():
 
     out = [
         "# 발표 대본 — 2026 오픈소스 개발자대회", "",
-        f"> 「멈춰 있던 연결을 다시 잇다 — 파이큐브리드팀의 CUBRID Python 생태계 구축기」 · {len(parts)}장 · 약 {fmt(t)} (12분 슬롯). 화면은 `presentation/decks/2026-ossdevcon/slides.md`, 이 문서는 그 발표자 노트를 모은 대본입니다 (`scripts/build_talk_script.py`로 생성).",
+        f"> 「CUBRID, 이제 Python으로 — feat. CUBRID Python 생태계 구축기」 · 파이큐브리드팀 · {len(parts)}장 · 약 {fmt(t)} (12분 슬롯). 화면은 `presentation/decks/2026-ossdevcon/slides.md`, 이 문서는 그 발표자 노트를 모은 대본입니다 (`scripts/build_talk_script.py`로 생성).",
         "> 심사 기준은 화면에 표시하지 않고 이야기 흐름 안에 녹였습니다. 각 장면이 채우는 기준은 대본 머리와 맨 끝 표에 적었습니다.",
         f"> 채택 지표는 `presentation/deck.json`이 선택한 {snapshot['snapshotDate']} 스냅숏 기준입니다: GitHub stars {metrics['stars']['total']:,}개, merged PRs {metrics['mergedPRs']['total']:,}개, published GitHub Releases {metrics['publishedReleases']['total']:,}회입니다. fork와 clone traffic은 채택 지표에서 제외했습니다.",
         "> 사진 두 장(`presentation/public/photos/team-2020.jpg`, `team-now.jpg`)은 받는 대로 넣습니다.", "",
