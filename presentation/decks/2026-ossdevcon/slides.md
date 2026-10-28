@@ -327,8 +327,18 @@ TLS 암호화와 대용량 데이터도 지원하고, 테스트와 커버리지 
       <li><b>문서 4개 사이트</b> · 한국어 포함</li>
     </ul>
   </div>
-  <figure class="shot clip"><img src="/shots/docs-pycubrid.jpg" alt="pycubrid 문서 사이트"></figure>
+  <div class="docs-grid">
+    <figure class="shot"><img src="/shots/docs-pycubrid.jpg" alt="pycubrid 문서 사이트"></figure>
+    <figure class="shot"><img src="/shots/docs-sqlalchemy-cubrid.jpg" alt="sqlalchemy-cubrid 문서 사이트"></figure>
+    <figure class="shot"><img src="/shots/docs-mcp.jpg" alt="cubrid-mcp-server 문서 사이트"></figure>
+    <figure class="shot"><img src="/shots/docs-cookbook.jpg" alt="cubrid-cookbook-python 문서 사이트"></figure>
+  </div>
 </div>
+
+<style>
+.docs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.docs-grid .shot { box-shadow: 0 8px 18px -10px rgba(15, 27, 45, 0.35); border-radius: 8px; }
+</style>
 
 <!--
 [20초 · 활용성]
@@ -377,7 +387,7 @@ TLS 암호화와 대용량 데이터도 지원하고, 테스트와 커버리지 
       <li><b>감사 로그</b> — tool 사용 기록</li>
     </ul>
   </div>
-  <figure class="shot clip"><img src="/shots/repo-mcp.jpg" alt="cubrid-mcp-server 저장소"></figure>
+  <figure class="shot clip"><img src="/shots/docs-mcp.jpg" alt="cubrid-mcp-server 문서 사이트"></figure>
 </div>
 
 <!--
