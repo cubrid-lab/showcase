@@ -188,3 +188,12 @@ adds slide 10, which shows the control loop (desired state, reconcilers,
 Instance Manager observation, status and Conditions) and the SQL, backup and
 status data flows from DESIGN.md sections 7, 9, 15–16 and 18–19 as a designed
 flow, not as verified behaviour. The plan is 560 seconds with a 40-second buffer.
+
+Slide 9 then became one full architecture picture: the user and Kubernetes
+API, the Operator with its reconcilers, observability output, the Kubernetes
+resources it creates (StatefulSet, PVC, Secret, headless and per-member alias
+Services, NetworkPolicy, Broker Deployment), the three CUBRID HA nodes with
+their Instance Managers and roles, the application SQL path through RW/RO
+Services and Brokers, and S3-compatible storage for initial copies and
+backups. Its numbered operations arrows (1-4) match the control loop on
+slide 10. The content follows DESIGN.md sections 7, 9, 10, 14-16, 18 and 19.

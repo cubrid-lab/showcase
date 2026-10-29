@@ -131,47 +131,54 @@ CUBRID에는 이미 공식 Operator가 있고, HA 상태 조회와 스토리지,
 
 ---
 
-<OperatorSlide class="op-compact" section="05 · 구성도" index="09" total="16" source="구성도·Broker 설계" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/DESIGN.md#7-high-level-architecture">
+<OperatorSlide class="op-compact" section="05 · 전체 아키텍처" index="09" total="16" source="전체 아키텍처·Broker 설계" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/DESIGN.md#7-high-level-architecture">
 
-<h1 class="op-title">HA는 CUBRID가, 상태 확인과 운영 작업은 Operator가 맡습니다</h1><svg class="op-arch" viewBox="0 0 880 352" role="img" aria-label="Operator 구성도: YAML에서 Kubernetes API, Operator, Kubernetes 리소스로 이어지는 운영 경로와, 애플리케이션에서 RW/RO Service, Broker를 거쳐 CUBRID HA 노드 3개로 가는 SQL 경로. 각 노드에는 Instance Manager와 PVC가 있고, 백업 저장소와 연결됩니다.">
+<h1 class="op-title">HA는 CUBRID가, 상태 확인과 운영 작업은 Operator가 맡습니다</h1><svg class="op-arch" style="max-height:372px" viewBox="0 0 900 384" role="img" aria-label="전체 아키텍처: 사용자가 Kubernetes API에 YAML을 적용하면 Operator가 spec을 읽고 Kubernetes 리소스를 만들며, 각 노드의 Instance Manager에 역할을 조회하고 결과를 status에 기록합니다. 애플리케이션 SQL은 RW/RO Service와 Broker를 거쳐 CUBRID HA 3노드로 가고, 백업은 S3 호환 저장소에 저장됩니다.">
 <defs><marker id="op-arch-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0f1b2d"/></marker><marker id="op-arch-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1f4e8c"/></marker><marker id="op-arch-mute" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#5b6b82"/></marker></defs>
-<rect class="box" x="0" y="8" width="150" height="62" rx="8"/><text x="75" y="29" text-anchor="middle">YAML</text><text class="s" x="75" y="47" text-anchor="middle">CubridCluster</text><text class="s" x="75" y="62" text-anchor="middle">CubridBackup</text>
-<rect class="box" x="180" y="8" width="150" height="62" rx="8"/><text x="255" y="44" text-anchor="middle">Kubernetes API</text>
-<rect class="box op" x="360" y="8" width="200" height="62" rx="8"/><text class="b" x="460" y="33" text-anchor="middle">Operator</text><text class="s" x="460" y="54" text-anchor="middle">상태 확인·조정</text>
-<rect class="box" x="590" y="8" width="290" height="62" rx="8"/><text x="735" y="33" text-anchor="middle">Kubernetes 리소스</text><text class="s" x="735" y="54" text-anchor="middle">StatefulSet · Broker · Service · PVC</text>
-<path class="ctl" d="M150 39H176" marker-end="url(#op-arch-blue)"/><path class="ctl" d="M330 39H356" marker-end="url(#op-arch-blue)"/><path class="ctl" d="M560 39H586" marker-end="url(#op-arch-blue)"/>
-<path class="ctl" d="M440 70V108" marker-end="url(#op-arch-blue)"/><text class="s b" x="450" y="94">Instance Manager에 작업 요청·역할 조회</text>
-<path class="mgmt" d="M800 70V108" marker-end="url(#op-arch-mute)"/><text class="s" x="790" y="94" text-anchor="end">생성·관리</text>
-<rect class="box ha" x="330" y="112" width="550" height="150" rx="10"/><text x="346" y="136">CUBRID HA 3노드 — master 선출과 복제는 CUBRID가 직접</text>
-<rect class="box ink" x="346" y="148" width="168" height="104" rx="7"/><text x="430" y="171" text-anchor="middle">HA 노드 0</text><rect class="box im" x="358" y="182" width="144" height="30" rx="5"/><text class="b" x="430" y="202" text-anchor="middle" style="font-size:13px">Instance Manager</text><text class="s" x="430" y="238" text-anchor="middle">CUBRID · PVC</text>
-<rect class="box ink" x="523" y="148" width="168" height="104" rx="7"/><text x="607" y="171" text-anchor="middle">HA 노드 1</text><rect class="box im" x="535" y="182" width="144" height="30" rx="5"/><text class="b" x="607" y="202" text-anchor="middle" style="font-size:13px">Instance Manager</text><text class="s" x="607" y="238" text-anchor="middle">CUBRID · PVC</text>
-<rect class="box ink" x="700" y="148" width="168" height="104" rx="7"/><text x="784" y="171" text-anchor="middle">HA 노드 2</text><rect class="box im" x="712" y="182" width="144" height="30" rx="5"/><text class="b" x="784" y="202" text-anchor="middle" style="font-size:13px">Instance Manager</text><text class="s" x="784" y="238" text-anchor="middle">CUBRID · PVC</text>
-<rect class="box" x="0" y="112" width="230" height="40" rx="8"/><text x="115" y="137" text-anchor="middle">애플리케이션</text>
-<path class="sql" d="M115 152V166" marker-end="url(#op-arch-ink)"/>
-<rect class="box" x="0" y="168" width="230" height="40" rx="8"/><text x="115" y="193" text-anchor="middle">RW / RO Service</text>
-<path class="sql" d="M115 208V220" marker-end="url(#op-arch-ink)"/>
-<rect class="box ink" x="0" y="222" width="230" height="52" rx="8"/><text x="115" y="243" text-anchor="middle">Broker (RW · RO)</text><text class="s" x="115" y="263" text-anchor="middle">DB와 분리 · RW가 master를 찾음</text>
-<path class="sql" d="M230 242H326" marker-end="url(#op-arch-ink)"/><text x="278" y="233" text-anchor="middle" style="font-size:13px">SQL</text>
-<rect class="box store" x="330" y="296" width="550" height="48" rx="8"/><text x="605" y="317" text-anchor="middle">백업 저장소</text><text class="s" x="605" y="335" text-anchor="middle">S3 호환 오브젝트 저장소 · 초기 복사 · 백업 · 복원</text>
-<path class="mgmt" d="M605 266V292" marker-start="url(#op-arch-mute)" marker-end="url(#op-arch-mute)"/>
-<path class="sql" d="M0 306H40"/><text class="s" x="48" y="310">SQL 경로 · Operator는 SQL을 중계하지 않음</text>
-<path class="ctl" d="M0 330H40"/><text class="s" x="48" y="334">운영 경로 · 설정·작업 요청·상태</text>
+<rect class="box" x="150" y="0" width="750" height="328" rx="10" style="fill:none;stroke-dasharray:3 4"/><text class="s" x="162" y="16">Kubernetes 클러스터</text>
+<rect class="box" x="0" y="14" width="130" height="50" rx="8"/><text x="65" y="35" text-anchor="middle">사용자</text><text class="s" x="65" y="53" text-anchor="middle">kubectl · YAML 적용</text>
+<path class="ctl" d="M130 39H166" marker-end="url(#op-arch-blue)"/><text class="s b" x="148" y="32" text-anchor="middle">①</text>
+<rect class="box" x="170" y="24" width="120" height="62" rx="8"/><text x="230" y="46" text-anchor="middle">Kubernetes API</text><text class="s" x="230" y="63" text-anchor="middle">CubridCluster</text><text class="s" x="230" y="78" text-anchor="middle">CubridBackup</text>
+<path class="ctl" d="M290 44H336" marker-end="url(#op-arch-blue)"/><text class="s b" x="313" y="37" text-anchor="middle">② spec</text>
+<path class="ctl" d="M338 70H292" marker-end="url(#op-arch-blue)"/><text class="s b" x="315" y="84" text-anchor="middle">④ status</text>
+<rect class="box op" x="340" y="20" width="290" height="96" rx="8"/><text class="b" x="485" y="43" text-anchor="middle">CUBRID Kubernetes Operator</text><text class="s" x="485" y="64" text-anchor="middle">Reconciler: 클러스터 · HA · 서비스</text><text class="s" x="485" y="81" text-anchor="middle">스토리지 · 백업 · 업데이트</text><text class="s" x="485" y="101" text-anchor="middle">→ 하나의 상태 머신으로 조정</text>
+<path class="mgmt" d="M630 50H656" marker-end="url(#op-arch-mute)"/>
+<rect class="box" x="660" y="24" width="228" height="62" rx="8"/><text x="774" y="46" text-anchor="middle">관측</text><text class="s" x="774" y="63" text-anchor="middle">cubrid_cluster_* · cubrid_instance_*</text><text class="s" x="774" y="78" text-anchor="middle">Events · JSON 로그</text>
+<path class="mgmt" d="M400 116V136" marker-end="url(#op-arch-mute)"/><text class="s" x="392" y="131" text-anchor="end">생성·관리</text>
+<path class="ctl" d="M600 116V150" marker-end="url(#op-arch-blue)"/><text class="s b" x="610" y="135">③ 역할 조회·작업 요청 (토큰 인증)</text>
+<rect class="box" x="170" y="138" width="262" height="84" rx="8"/><text x="301" y="159" text-anchor="middle">Kubernetes 리소스</text><text class="s" x="301" y="177" text-anchor="middle">StatefulSet · PVC · Secret</text><text class="s" x="301" y="194" text-anchor="middle">Service: headless · 노드별 alias</text><text class="s" x="301" y="211" text-anchor="middle">NetworkPolicy · Broker Deployment</text>
+<rect class="box ha" x="450" y="152" width="440" height="152" rx="10"/><text x="464" y="174">CUBRID HA 3노드 — master 선출과 복제는 CUBRID가 직접</text>
+<rect class="box ink" x="462" y="184" width="126" height="108" rx="7"/><text class="b" x="525" y="205" text-anchor="middle">노드 0 · master</text><rect class="box im" x="467" y="215" width="116" height="28" rx="5"/><text class="b" x="525" y="234" text-anchor="middle" style="font-size:11px">Instance Manager</text><text class="s" x="525" y="270" text-anchor="middle">CUBRID · PVC</text>
+<rect class="box ink" x="604" y="184" width="126" height="108" rx="7"/><text x="667" y="205" text-anchor="middle">노드 1 · slave</text><rect class="box im" x="609" y="215" width="116" height="28" rx="5"/><text class="b" x="667" y="234" text-anchor="middle" style="font-size:11px">Instance Manager</text><text class="s" x="667" y="270" text-anchor="middle">CUBRID · PVC</text>
+<rect class="box ink" x="746" y="184" width="126" height="108" rx="7"/><text x="809" y="205" text-anchor="middle">노드 2 · slave</text><rect class="box im" x="751" y="215" width="116" height="28" rx="5"/><text class="b" x="809" y="234" text-anchor="middle" style="font-size:11px">Instance Manager</text><text class="s" x="809" y="270" text-anchor="middle">CUBRID · PVC</text>
+<path class="sql" d="M588 262H602" marker-end="url(#op-arch-ink)"/><path class="sql" d="M730 262H744" marker-end="url(#op-arch-ink)"/>
+<rect class="box" x="0" y="240" width="130" height="46" rx="8"/><text x="65" y="268" text-anchor="middle">애플리케이션</text>
+<path class="sql" d="M130 263H166" marker-end="url(#op-arch-ink)"/>
+<rect class="box" x="170" y="243" width="128" height="40" rx="8"/><text x="234" y="268" text-anchor="middle">RW / RO Service</text>
+<path class="sql" d="M298 263H310" marker-end="url(#op-arch-ink)"/>
+<rect class="box ink" x="312" y="235" width="126" height="56" rx="8"/><text x="375" y="257" text-anchor="middle">Broker (RW · RO)</text><text class="s" x="375" y="277" text-anchor="middle">RW가 master를 찾음</text>
+<path class="sql" d="M438 263H458" marker-end="url(#op-arch-ink)"/>
+<path class="mgmt" d="M670 304V340" marker-start="url(#op-arch-mute)" marker-end="url(#op-arch-mute)"/><text class="s" x="680" y="326">백업 업로드 · 복원</text>
+<rect class="box store" x="450" y="342" width="440" height="40" rx="8"/><text x="670" y="360" text-anchor="middle">S3 호환 오브젝트 저장소</text><text class="s" x="670" y="376" text-anchor="middle">초기 복사 · 백업 파일 · 파일 목록·체크섬</text>
+<path class="sql" d="M0 346H40"/><text class="s" x="48" y="350">SQL 경로 · 복제 (Operator는 SQL을 중계하지 않음)</text>
+<path class="ctl" d="M0 364H40"/><text class="s" x="48" y="368">운영 경로 ①–④ (10쪽의 제어 루프)</text>
+<path class="mgmt" d="M0 382H40"/><text class="s" x="48" y="386">생성·관리 · 백업 데이터 · 관측</text>
 </svg>
 
 </OperatorSlide>
 
 <!--
-[50초 · 05 · 구성도]
-이제 아키텍처 초안입니다. 먼저 연동하는 플랫폼과 주요 구성 요소입니다. 위쪽 파란 점선이 운영 경로입니다. 사용자가 YAML을 Kubernetes API에 올리면 Operator가 그것을 보고 StatefulSet, Broker, Service, 볼륨을 만듭니다. DB 시작이나 백업 같은 작업은 각 노드의 Instance Manager에 요청하고, 노드마다 역할을 조회해 상태에 기록합니다.
+[50초 · 05 · 전체 아키텍처]
+이제 아키텍처 초안입니다. 한 장에 전체를 담았습니다. 사용자가 YAML을 Kubernetes API에 적용하면, Operator가 spec을 읽고 StatefulSet과 볼륨, Secret, Service, Broker, NetworkPolicy를 만듭니다. Operator 안의 reconciler는 클러스터, HA, 서비스, 스토리지, 백업, 업데이트를 하나의 상태 머신으로 조정합니다. 각 노드의 Instance Manager에 토큰 인증으로 역할을 묻고 작업을 요청하며, 결과를 다시 CubridCluster status에 기록합니다. 메트릭과 Events, 로그도 여기서 나옵니다.
 
-왼쪽 실선이 애플리케이션의 SQL 경로입니다. RW나 RO Service에서 DB와 따로 떠 있는 Broker를 거쳐 CUBRID로 갑니다. RW Broker가 master를 직접 찾아가기 때문에 Operator는 SQL을 중계하지 않습니다. master 선출과 복제는 CUBRID HA가 직접 하고, 장애 때 Operator가 master를 고르지 않습니다. 초기 데이터 복사와 백업 파일은 아래쪽 오브젝트 저장소를 거칩니다.
+아래쪽 실선은 애플리케이션의 SQL 경로입니다. RW나 RO Service에서 DB와 따로 떠 있는 Broker를 거쳐 CUBRID로 갑니다. Operator는 SQL을 중계하지 않고, master 선출과 복제는 CUBRID HA가 직접 합니다. 초기 데이터 복사와 백업 파일은 오른쪽 아래 S3 호환 저장소를 거칩니다.
 -->
 
 ---
 
 <OperatorSlide class="op-compact" section="05 · 제어·데이터 흐름" index="10" total="16" source="아키텍처·관측·보안 설계" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/DESIGN.md#7-high-level-architecture">
 
-<h1 class="op-title">Operator는 관찰하고, 기록하고, 다시 조정합니다</h1><p class="op-kicker">아키텍처 초안 · 제어 루프와 데이터 처리 과정 · 설계 기준</p><div class="op-timeline"><div><small>① 원하는 상태</small><b>YAML로 선언</b><p>CubridCluster·CubridBackup<br>spec에 원하는 구성</p></div><div><small>② 조정</small><b>Reconciler</b><p>클러스터·HA·서비스·스토리지<br>백업·업데이트를<br>하나의 상태 머신으로</p></div><div><small>③ 관찰</small><b>Instance Manager</b><p>노드마다 HA 역할 조회<br>토큰 인증 · pods/exec 미사용</p></div><div><small>④ 기록</small><b>status·Conditions</b><p>currentPrimary · 엇갈리면 “미확정”<br>Events·메트릭·로그<br>→ ②로 돌아가 다시 조정</p></div></div><table class="op-comparison"><thead><tr><th>데이터</th><th>처리 과정</th></tr></thead><tbody><tr><td><b>SQL</b></td><td>앱 → RW/RO Service → Broker → CUBRID · 복제와 master 전환은 CUBRID HA</td></tr><tr><td><b>백업·복원</b></td><td>Instance Manager가 S3 호환 저장소에 업로드 → 파일 목록·체크섬 확인 → 새 CubridCluster로 복원</td></tr><tr><td><b>상태</b></td><td>Instance Manager 응답 → Operator → CubridCluster status · 메트릭(cubrid_cluster_*, cubrid_instance_*)</td></tr></tbody></table>
+<h1 class="op-title">Operator는 관찰하고, 기록하고, 다시 조정합니다</h1><p class="op-kicker">9쪽 그림의 ①–④ 제어 루프와 데이터 처리 과정 · 설계 기준</p><div class="op-timeline"><div><small>① 원하는 상태</small><b>YAML로 선언</b><p>CubridCluster·CubridBackup<br>spec에 원하는 구성</p></div><div><small>② 조정</small><b>Reconciler</b><p>클러스터·HA·서비스·스토리지<br>백업·업데이트를<br>하나의 상태 머신으로</p></div><div><small>③ 관찰</small><b>Instance Manager</b><p>노드마다 HA 역할 조회<br>토큰 인증 · pods/exec 미사용</p></div><div><small>④ 기록</small><b>status·Conditions</b><p>currentPrimary · 엇갈리면 “미확정”<br>Events·메트릭·로그<br>→ ②로 돌아가 다시 조정</p></div></div><table class="op-comparison"><thead><tr><th>데이터</th><th>처리 과정</th></tr></thead><tbody><tr><td><b>SQL</b></td><td>앱 → RW/RO Service → Broker → CUBRID · 복제와 master 전환은 CUBRID HA</td></tr><tr><td><b>백업·복원</b></td><td>Instance Manager가 S3 호환 저장소에 업로드 → 파일 목록·체크섬 확인 → 새 CubridCluster로 복원</td></tr><tr><td><b>상태</b></td><td>Instance Manager 응답 → Operator → CubridCluster status · 메트릭(cubrid_cluster_*, cubrid_instance_*)</td></tr></tbody></table>
 
 </OperatorSlide>
 

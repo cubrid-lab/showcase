@@ -55,11 +55,11 @@ CUBRID에는 이미 공식 Operator가 있고, HA 상태 조회와 스토리지,
 
 둘째, k3s VM에서 접속과 SQL, 롤아웃 전후 기존 데이터와 RW/RO 동작을 확인했습니다. 셋째, 로드맵에서 2~4주차 목표로 잡은 백업 복원 초기 시험을 10월 25일 VM에서 일곱 번 했습니다. 다섯 번 통과했고, 두 번은 데이터 확인을 마친 뒤 DB 세션이 끊겨 판정을 보류했습니다. 세션이 끊긴 원인은 아직 찾는 중입니다. 백업 파일을 일부러 변조했을 때는 복원을 거부했습니다. 다만 이 결과를 어떤 장애에서도 복구된다는 증거로 보지는 않겠습니다.
 
-## 09. 50초 · 05 · 구성도
+## 09. 50초 · 05 · 전체 아키텍처
 
-이제 아키텍처 초안입니다. 먼저 연동하는 플랫폼과 주요 구성 요소입니다. 위쪽 파란 점선이 운영 경로입니다. 사용자가 YAML을 Kubernetes API에 올리면 Operator가 그것을 보고 StatefulSet, Broker, Service, 볼륨을 만듭니다. DB 시작이나 백업 같은 작업은 각 노드의 Instance Manager에 요청하고, 노드마다 역할을 조회해 상태에 기록합니다.
+이제 아키텍처 초안입니다. 한 장에 전체를 담았습니다. 사용자가 YAML을 Kubernetes API에 적용하면, Operator가 spec을 읽고 StatefulSet과 볼륨, Secret, Service, Broker, NetworkPolicy를 만듭니다. Operator 안의 reconciler는 클러스터, HA, 서비스, 스토리지, 백업, 업데이트를 하나의 상태 머신으로 조정합니다. 각 노드의 Instance Manager에 토큰 인증으로 역할을 묻고 작업을 요청하며, 결과를 다시 CubridCluster status에 기록합니다. 메트릭과 Events, 로그도 여기서 나옵니다.
 
-왼쪽 실선이 애플리케이션의 SQL 경로입니다. RW나 RO Service에서 DB와 따로 떠 있는 Broker를 거쳐 CUBRID로 갑니다. RW Broker가 master를 직접 찾아가기 때문에 Operator는 SQL을 중계하지 않습니다. master 선출과 복제는 CUBRID HA가 직접 하고, 장애 때 Operator가 master를 고르지 않습니다. 초기 데이터 복사와 백업 파일은 아래쪽 오브젝트 저장소를 거칩니다.
+아래쪽 실선은 애플리케이션의 SQL 경로입니다. RW나 RO Service에서 DB와 따로 떠 있는 Broker를 거쳐 CUBRID로 갑니다. Operator는 SQL을 중계하지 않고, master 선출과 복제는 CUBRID HA가 직접 합니다. 초기 데이터 복사와 백업 파일은 오른쪽 아래 S3 호환 저장소를 거칩니다.
 
 ## 10. 40초 · 05 · 제어·데이터 흐름
 
