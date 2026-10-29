@@ -1,22 +1,22 @@
 # CUBRID Kubernetes Operator — 빌더 시즌4 1차 검증
 
 아이디어와 프로젝트 방향성을 설명하는 한국어·영어 **각 16장** 발표자료입니다.
-2026-10-20 시험 결과를 기준으로 운영 사례와 v0.1 이후 계획을 담았습니다. 2026-10-22에 장애 시나리오, 사용자, 기존 대안, 안전성, 시험 근거를 추가해 발표 흐름을 확장했고, 2026-10-26에는 10월 25일 VM 백업 복원 결과를 더했습니다. 2026-10-27에 장마다 겹치는 문장을 덜어내고 마지막에 질의응답 장을 붙였습니다. 2026-10-28에는 처음 보는 청중이 서비스를 먼저 이해하도록 순서를 바꿨습니다: 무엇인가 → 왜 필요한가 → 구성도 → 장애 흐름 → 공식 Operator와 차이 → 근거 → 계획(#75).
+2026-10-20 시험 결과를 기준으로 운영 사례와 v0.1 이후 계획을 담았습니다. 2026-10-22에 장애 시나리오, 사용자, 기존 대안, 안전성, 시험 근거를 추가해 발표 흐름을 확장했고, 2026-10-26에는 10월 25일 VM 백업 복원 결과를 더했습니다. 2026-10-27에 장마다 겹치는 문장을 덜어내고 마지막에 질의응답 장을 붙였습니다. 2026-10-28에는 처음 보는 청중이 서비스를 먼저 이해하도록 순서를 바꿨습니다: 무엇인가 → 왜 필요한가 → 구성도 → 장애 흐름 → 공식 Operator와 차이 → 근거 → 계획(#75). 2026-10-29에는 발표 순서 장을 넣고, 프로젝트 목표와 공식 Operator 비교표를 정리했습니다(#108).
 프로그램 공식 명칭은 확인 전이며, 폴더명은 전달받은 “시즌4 빌더” 공지를
 기준으로 정했습니다.
 
 ## 발표자료 바로 열기
 
-| 언어 | 최신 HTML (`main` 기준) | 제출용 PDF (15장) | 제출용 PPTX (15장) | 같은 버전 HTML ZIP |
+| 언어 | 최신 HTML (`main` 기준) | 제출용 PDF (16장) | 제출용 PPTX (16장) | 같은 버전 HTML ZIP |
 |---|---|---|---|---|
-| 한국어 | [한국어 HTML 발표](https://cubrid-lab.github.io/showcase/events/2026-builder-season4/01-validation/ko/) | [한국어 PDF](https://github.com/cubrid-lab/showcase/releases/download/builder-season4-validation-2026-10-28-r3/operator-first-validation.ko.pdf) | [한국어 PPTX](https://github.com/cubrid-lab/showcase/releases/download/builder-season4-validation-2026-10-28-r3/operator-first-validation.ko.pptx) | [한국어 HTML ZIP](https://github.com/cubrid-lab/showcase/releases/download/builder-season4-validation-2026-10-28-r3/operator-first-validation.ko-html.zip) |
-| English | [English HTML presentation](https://cubrid-lab.github.io/showcase/events/2026-builder-season4/01-validation/en/) | [English PDF](https://github.com/cubrid-lab/showcase/releases/download/builder-season4-validation-2026-10-28-r3/operator-first-validation.en.pdf) | [English PPTX](https://github.com/cubrid-lab/showcase/releases/download/builder-season4-validation-2026-10-28-r3/operator-first-validation.en.pptx) | [English HTML ZIP](https://github.com/cubrid-lab/showcase/releases/download/builder-season4-validation-2026-10-28-r3/operator-first-validation.en-html.zip) |
+| 한국어 | [한국어 HTML 발표](https://cubrid-lab.github.io/showcase/events/2026-builder-season4/01-validation/ko/) | [한국어 PDF](https://github.com/cubrid-lab/showcase/releases/download/builder-season4-validation-2026-10-29-r4/operator-first-validation.ko.pdf) | [한국어 PPTX](https://github.com/cubrid-lab/showcase/releases/download/builder-season4-validation-2026-10-29-r4/operator-first-validation.ko.pptx) | [한국어 HTML ZIP](https://github.com/cubrid-lab/showcase/releases/download/builder-season4-validation-2026-10-29-r4/operator-first-validation.ko-html.zip) |
+| English | [English HTML presentation](https://cubrid-lab.github.io/showcase/events/2026-builder-season4/01-validation/en/) | [English PDF](https://github.com/cubrid-lab/showcase/releases/download/builder-season4-validation-2026-10-29-r4/operator-first-validation.en.pdf) | [English PPTX](https://github.com/cubrid-lab/showcase/releases/download/builder-season4-validation-2026-10-29-r4/operator-first-validation.en.pptx) | [English HTML ZIP](https://github.com/cubrid-lab/showcase/releases/download/builder-season4-validation-2026-10-29-r4/operator-first-validation.en-html.zip) |
 
-PDF·PPTX는 [2026-10-28 제출본 릴리스](https://github.com/cubrid-lab/showcase/releases/tag/builder-season4-validation-2026-10-28-r3)의 파일이며,
-원본 커밋 `dbfd9d1`에서 출력한 15장 제출본(r3, 용어 정리 반영)입니다. 이전 18장 제출본은 [2026-10-28 릴리스](https://github.com/cubrid-lab/showcase/releases/tag/builder-season4-validation-2026-10-28)에 그대로 보존합니다. 디스코드에는 이 릴리스의 PPTX 두 개를 제출합니다.
+PDF·PPTX는 [2026-10-29 제출본 릴리스](https://github.com/cubrid-lab/showcase/releases/tag/builder-season4-validation-2026-10-29-r4)의 파일이며,
+원본 커밋 `a6662b8`에서 출력한 16장 제출본(r4)입니다. 이전 15장 제출본은 [r3 릴리스](https://github.com/cubrid-lab/showcase/releases/tag/builder-season4-validation-2026-10-28-r3)에 보존합니다. 이전 18장 제출본은 [2026-10-28 릴리스](https://github.com/cubrid-lab/showcase/releases/tag/builder-season4-validation-2026-10-28)에 그대로 보존합니다. 디스코드에는 이 릴리스의 PPTX 두 개를 제출합니다.
 HTML 발표는 `main`이 바뀔 때마다 다시 만들어지므로 이 고정본보다 새로울 수 있습니다.
 HTML ZIP은 같은 커밋으로 만든 HTML이며, 압축을 풀고 `python3 -m http.server`로 열어 봅니다.
-각 언어 15장입니다. Markdown 원본과 출력 검증 기록은 아래에서 확인할 수 있습니다.
+각 언어 16장입니다. Markdown 원본과 출력 검증 기록은 아래에서 확인할 수 있습니다.
 [시즌4 전체 발표 목록](../README.md)
 
 ## 일정과 제출 요건
@@ -45,8 +45,8 @@ HTML ZIP은 같은 커밋으로 만든 HTML이며, 압축을 풀고 `python3 -m 
 | [한국어 진입 파일](../../../presentation/2026-builder-season4-01-validation.ko.md) | 공통 테마·웹·출력 설정 | 원본을 불러오는 Slidev 설정 |
 | [영어 진입 파일](../../../presentation/2026-builder-season4-01-validation.en.md) | 공통 테마·웹·출력 설정 | 원본을 불러오는 Slidev 설정 |
 | [SOURCES.md](SOURCES.md) | 고정된 근거·주장 경계·필수 항목 대응 | 10-20 고정 실행 근거 · 10-22 설명 확장 · 10-25 복원 근거 추가 |
-| `operator-first-validation.ko.pptx` / `.pdf` | 한국어 발표·제출용 출력물 | [15장 제출본](https://github.com/cubrid-lab/showcase/releases/tag/builder-season4-validation-2026-10-28-r3) · [출력·검수 기록](DELIVERY.md) |
-| `operator-first-validation.en.pptx` / `.pdf` | 영어 발표·제출용 출력물 | [15장 제출본](https://github.com/cubrid-lab/showcase/releases/tag/builder-season4-validation-2026-10-28-r3) · [출력·검수 기록](DELIVERY.md) |
+| `operator-first-validation.ko.pptx` / `.pdf` | 한국어 발표·제출용 출력물 | [16장 제출본](https://github.com/cubrid-lab/showcase/releases/tag/builder-season4-validation-2026-10-29-r4) · [출력·검수 기록](DELIVERY.md) |
+| `operator-first-validation.en.pptx` / `.pdf` | 영어 발표·제출용 출력물 | [16장 제출본](https://github.com/cubrid-lab/showcase/releases/tag/builder-season4-validation-2026-10-29-r4) · [출력·검수 기록](DELIVERY.md) |
 
 - [한국어 발표자 대본](SPEAKER_NOTES.ko.md): 슬라이드별 전환과 시간 배분
 - [질의응답 준비](EXPECTED_QA.ko.md): 질문별 30–60초 답변과 근거
@@ -126,7 +126,8 @@ npm run export:operator:pdf   # 한영 PDF 각각 생성
 - [x] 11월 29일 필수 시나리오·12월 27일 공개 **목표**와 첫 버전 범위 명시
 - [x] 2026-10-20 근거 커밋·Kind/VM 결과·남은 검증 구분
 - [x] 두 언어의 발표자 메모, 한국어 대본과 Q&A 준비
-- [x] **15장 개정판**(#75) PPTX/PDF/HTML 재생성·장 수/메모/레이아웃 확인: [15장 제출본](https://github.com/cubrid-lab/showcase/releases/tag/builder-season4-validation-2026-10-28-r3)
+- [x] **16장 개정판**(#108) PPTX/PDF/HTML 재생성·장 수/메모/레이아웃 확인: [16장 제출본](https://github.com/cubrid-lab/showcase/releases/tag/builder-season4-validation-2026-10-29-r4)
+- [x] 이전 **15장 개정판**(#75) PPTX/PDF/HTML 재생성·장 수/메모/레이아웃 확인: [15장 제출본](https://github.com/cubrid-lab/showcase/releases/tag/builder-season4-validation-2026-10-28-r3)
 - [x] 이전 **18장** 출력 보존: [2026-10-28 릴리스](https://github.com/cubrid-lab/showcase/releases/tag/builder-season4-validation-2026-10-28)
 - [x] 10월 21일 **이전 11장 버전** 출력 검수 기록 보존: [DELIVERY 기록](DELIVERY.md)
 - [ ] 공식 프로그램명 최종 확인: 공지의 “빌더 시즌4” 표기 사용
