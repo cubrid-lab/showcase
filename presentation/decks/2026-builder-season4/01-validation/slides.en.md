@@ -131,47 +131,54 @@ Second, on k3s VMs we checked connectivity and SQL, and a controlled rollout kep
 
 ---
 
-<OperatorSlide class="op-compact" section="05 · Components" index="09" total="16" source="Architecture · Broker design" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/DESIGN.md#7-high-level-architecture">
+<OperatorSlide class="op-compact" section="05 · Full architecture" index="09" total="16" source="Architecture · Broker design" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/DESIGN.md#7-high-level-architecture">
 
-<h1 class="op-title">CUBRID runs HA; the Operator watches and operates</h1><svg class="op-arch" viewBox="0 0 880 352" role="img" aria-label="Operator architecture: an operations path from YAML through the Kubernetes API and the Operator to Kubernetes resources, and an SQL path from the application through RW/RO Services and Brokers to three CUBRID HA nodes. Each node has an Instance Manager and a PVC and connects to backup storage.">
+<h1 class="op-title">CUBRID runs HA; the Operator watches and operates</h1><svg class="op-arch" style="max-height:372px" viewBox="0 0 900 384" role="img" aria-label="Full architecture: a user applies YAML to the Kubernetes API; the Operator reads the spec, creates Kubernetes resources, asks each node Instance Manager for its role and records the result in status. Application SQL goes through RW/RO Services and Brokers to the three CUBRID HA nodes; backups go to S3-compatible storage.">
 <defs><marker id="op-arch-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0f1b2d"/></marker><marker id="op-arch-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1f4e8c"/></marker><marker id="op-arch-mute" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#5b6b82"/></marker></defs>
-<rect class="box" x="0" y="8" width="150" height="62" rx="8"/><text x="75" y="29" text-anchor="middle">YAML</text><text class="s" x="75" y="47" text-anchor="middle">CubridCluster</text><text class="s" x="75" y="62" text-anchor="middle">CubridBackup</text>
-<rect class="box" x="180" y="8" width="150" height="62" rx="8"/><text x="255" y="44" text-anchor="middle">Kubernetes API</text>
-<rect class="box op" x="360" y="8" width="200" height="62" rx="8"/><text class="b" x="460" y="33" text-anchor="middle">Operator</text><text class="s" x="460" y="54" text-anchor="middle">Status checks · coordination</text>
-<rect class="box" x="590" y="8" width="290" height="62" rx="8"/><text x="735" y="33" text-anchor="middle">Kubernetes resources</text><text class="s" x="735" y="54" text-anchor="middle">StatefulSet · Broker · Service · PVC</text>
-<path class="ctl" d="M150 39H176" marker-end="url(#op-arch-blue)"/><path class="ctl" d="M330 39H356" marker-end="url(#op-arch-blue)"/><path class="ctl" d="M560 39H586" marker-end="url(#op-arch-blue)"/>
-<path class="ctl" d="M440 70V108" marker-end="url(#op-arch-blue)"/><text class="s b" x="450" y="94">Work and role reads via Instance Manager</text>
-<path class="mgmt" d="M800 70V108" marker-end="url(#op-arch-mute)"/><text class="s" x="790" y="94" text-anchor="end">Creates · manages</text>
-<rect class="box ha" x="330" y="112" width="550" height="150" rx="10"/><text x="346" y="136">CUBRID HA (3 nodes) elects the master and replicates by itself</text>
-<rect class="box ink" x="346" y="148" width="168" height="104" rx="7"/><text x="430" y="171" text-anchor="middle">HA node 0</text><rect class="box im" x="358" y="182" width="144" height="30" rx="5"/><text class="b" x="430" y="202" text-anchor="middle" style="font-size:13px">Instance Manager</text><text class="s" x="430" y="238" text-anchor="middle">CUBRID · PVC</text>
-<rect class="box ink" x="523" y="148" width="168" height="104" rx="7"/><text x="607" y="171" text-anchor="middle">HA node 1</text><rect class="box im" x="535" y="182" width="144" height="30" rx="5"/><text class="b" x="607" y="202" text-anchor="middle" style="font-size:13px">Instance Manager</text><text class="s" x="607" y="238" text-anchor="middle">CUBRID · PVC</text>
-<rect class="box ink" x="700" y="148" width="168" height="104" rx="7"/><text x="784" y="171" text-anchor="middle">HA node 2</text><rect class="box im" x="712" y="182" width="144" height="30" rx="5"/><text class="b" x="784" y="202" text-anchor="middle" style="font-size:13px">Instance Manager</text><text class="s" x="784" y="238" text-anchor="middle">CUBRID · PVC</text>
-<rect class="box" x="0" y="112" width="230" height="40" rx="8"/><text x="115" y="137" text-anchor="middle">Application</text>
-<path class="sql" d="M115 152V166" marker-end="url(#op-arch-ink)"/>
-<rect class="box" x="0" y="168" width="230" height="40" rx="8"/><text x="115" y="193" text-anchor="middle">RW / RO Service</text>
-<path class="sql" d="M115 208V220" marker-end="url(#op-arch-ink)"/>
-<rect class="box ink" x="0" y="222" width="230" height="52" rx="8"/><text x="115" y="243" text-anchor="middle">Broker (RW · RO)</text><text class="s" x="115" y="263" text-anchor="middle">Separate from DB · RW finds the master</text>
-<path class="sql" d="M230 242H326" marker-end="url(#op-arch-ink)"/><text x="278" y="233" text-anchor="middle" style="font-size:13px">SQL</text>
-<rect class="box store" x="330" y="296" width="550" height="48" rx="8"/><text x="605" y="317" text-anchor="middle">Backup storage</text><text class="s" x="605" y="335" text-anchor="middle">S3-compatible object storage · initial copy · backup · restore</text>
-<path class="mgmt" d="M605 266V292" marker-start="url(#op-arch-mute)" marker-end="url(#op-arch-mute)"/>
-<path class="sql" d="M0 306H40"/><text class="s" x="48" y="310">SQL path · the Operator does not relay SQL</text>
-<path class="ctl" d="M0 330H40"/><text class="s" x="48" y="334">Operations path · settings, work, status</text>
+<rect class="box" x="150" y="0" width="750" height="328" rx="10" style="fill:none;stroke-dasharray:3 4"/><text class="s" x="162" y="16">Kubernetes cluster</text>
+<rect class="box" x="0" y="14" width="130" height="50" rx="8"/><text x="65" y="35" text-anchor="middle">User</text><text class="s" x="65" y="53" text-anchor="middle">kubectl · apply YAML</text>
+<path class="ctl" d="M130 39H166" marker-end="url(#op-arch-blue)"/><text class="s b" x="148" y="32" text-anchor="middle">①</text>
+<rect class="box" x="170" y="24" width="120" height="62" rx="8"/><text x="230" y="46" text-anchor="middle">Kubernetes API</text><text class="s" x="230" y="63" text-anchor="middle">CubridCluster</text><text class="s" x="230" y="78" text-anchor="middle">CubridBackup</text>
+<path class="ctl" d="M290 44H336" marker-end="url(#op-arch-blue)"/><text class="s b" x="313" y="37" text-anchor="middle">② spec</text>
+<path class="ctl" d="M338 70H292" marker-end="url(#op-arch-blue)"/><text class="s b" x="315" y="84" text-anchor="middle">④ status</text>
+<rect class="box op" x="340" y="20" width="290" height="96" rx="8"/><text class="b" x="485" y="43" text-anchor="middle">CUBRID Kubernetes Operator</text><text class="s" x="485" y="64" text-anchor="middle">Reconcilers: cluster · HA · Services</text><text class="s" x="485" y="81" text-anchor="middle">storage · backup · updates</text><text class="s" x="485" y="101" text-anchor="middle">→ one state machine</text>
+<path class="mgmt" d="M630 50H656" marker-end="url(#op-arch-mute)"/>
+<rect class="box" x="660" y="24" width="228" height="62" rx="8"/><text x="774" y="46" text-anchor="middle">Observability</text><text class="s" x="774" y="63" text-anchor="middle">cubrid_cluster_* · cubrid_instance_*</text><text class="s" x="774" y="78" text-anchor="middle">Events · JSON logs</text>
+<path class="mgmt" d="M400 116V136" marker-end="url(#op-arch-mute)"/><text class="s" x="392" y="131" text-anchor="end">creates · manages</text>
+<path class="ctl" d="M600 116V150" marker-end="url(#op-arch-blue)"/><text class="s b" x="610" y="135">③ role reads · work requests (token auth)</text>
+<rect class="box" x="170" y="138" width="262" height="84" rx="8"/><text x="301" y="159" text-anchor="middle">Kubernetes resources</text><text class="s" x="301" y="177" text-anchor="middle">StatefulSet · PVC · Secret</text><text class="s" x="301" y="194" text-anchor="middle">Services: headless · per-member alias</text><text class="s" x="301" y="211" text-anchor="middle">NetworkPolicy · Broker Deployment</text>
+<rect class="box ha" x="450" y="152" width="440" height="152" rx="10"/><text x="464" y="174">CUBRID HA, 3 nodes — CUBRID elects and replicates</text>
+<rect class="box ink" x="462" y="184" width="126" height="108" rx="7"/><text class="b" x="525" y="205" text-anchor="middle">node 0 · master</text><rect class="box im" x="467" y="215" width="116" height="28" rx="5"/><text class="b" x="525" y="234" text-anchor="middle" style="font-size:11px">Instance Manager</text><text class="s" x="525" y="270" text-anchor="middle">CUBRID · PVC</text>
+<rect class="box ink" x="604" y="184" width="126" height="108" rx="7"/><text x="667" y="205" text-anchor="middle">node 1 · slave</text><rect class="box im" x="609" y="215" width="116" height="28" rx="5"/><text class="b" x="667" y="234" text-anchor="middle" style="font-size:11px">Instance Manager</text><text class="s" x="667" y="270" text-anchor="middle">CUBRID · PVC</text>
+<rect class="box ink" x="746" y="184" width="126" height="108" rx="7"/><text x="809" y="205" text-anchor="middle">node 2 · slave</text><rect class="box im" x="751" y="215" width="116" height="28" rx="5"/><text class="b" x="809" y="234" text-anchor="middle" style="font-size:11px">Instance Manager</text><text class="s" x="809" y="270" text-anchor="middle">CUBRID · PVC</text>
+<path class="sql" d="M588 262H602" marker-end="url(#op-arch-ink)"/><path class="sql" d="M730 262H744" marker-end="url(#op-arch-ink)"/>
+<rect class="box" x="0" y="240" width="130" height="46" rx="8"/><text x="65" y="268" text-anchor="middle">Application</text>
+<path class="sql" d="M130 263H166" marker-end="url(#op-arch-ink)"/>
+<rect class="box" x="170" y="243" width="128" height="40" rx="8"/><text x="234" y="268" text-anchor="middle">RW / RO Service</text>
+<path class="sql" d="M298 263H310" marker-end="url(#op-arch-ink)"/>
+<rect class="box ink" x="312" y="235" width="126" height="56" rx="8"/><text x="375" y="257" text-anchor="middle">Broker (RW · RO)</text><text class="s" x="375" y="277" text-anchor="middle">RW finds the master</text>
+<path class="sql" d="M438 263H458" marker-end="url(#op-arch-ink)"/>
+<path class="mgmt" d="M670 304V340" marker-start="url(#op-arch-mute)" marker-end="url(#op-arch-mute)"/><text class="s" x="680" y="326">backup upload · restore</text>
+<rect class="box store" x="450" y="342" width="440" height="40" rx="8"/><text x="670" y="360" text-anchor="middle">S3-compatible object storage</text><text class="s" x="670" y="376" text-anchor="middle">initial copy · backup files · file list and checksums</text>
+<path class="sql" d="M0 346H40"/><text class="s" x="48" y="350">SQL path · replication (the Operator relays no SQL)</text>
+<path class="ctl" d="M0 364H40"/><text class="s" x="48" y="368">operations path ①–④ (control loop on slide 10)</text>
+<path class="mgmt" d="M0 382H40"/><text class="s" x="48" y="386">creates · manages · backup data · observability</text>
 </svg>
 
 </OperatorSlide>
 
 <!--
-[50s · 05 · Components]
-Now the architecture draft, starting with the platforms we integrate with and the main components. The blue dashed line at the top is the operations path. You apply YAML to the Kubernetes API, and the Operator creates the StatefulSet, Brokers, Services and volumes. It asks the Instance Manager on each node to do work such as starting the database or taking a backup, and it reads each node's role into the status.
+[50s · 05 · Full architecture]
+Now the architecture draft, on one page. A user applies YAML to the Kubernetes API. The Operator reads the spec and creates the StatefulSet, volumes, Secrets, Services, Brokers and NetworkPolicies. Inside the Operator, the reconcilers handle the cluster, HA, Services, storage, backup and updates as one state machine. They ask each node's Instance Manager for its role and send work requests with token authentication, then record the result in the CubridCluster status. Metrics, Events and logs come from here too.
 
-The solid line on the left is the application's SQL path: an RW or RO Service, then a Broker that runs separately from the database, then CUBRID. The RW Broker finds the master by itself, so the Operator never relays SQL. CUBRID HA elects the master and replicates; the Operator does not pick the master during failover. Initial data copies and backup files go through the object storage at the bottom.
+The solid line at the bottom is the application's SQL path: from the RW or RO Service through a Broker, which runs separately from the database, to CUBRID. The Operator relays no SQL, and CUBRID HA elects the master and replicates by itself. Initial copies and backup files go through the S3-compatible storage at the bottom right.
 -->
 
 ---
 
 <OperatorSlide class="op-compact" section="05 · Control and data flow" index="10" total="16" source="Architecture · observability · security design" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/DESIGN.md#7-high-level-architecture">
 
-<h1 class="op-title">The Operator observes, records and reconciles again</h1><p class="op-kicker">ARCHITECTURE DRAFT · CONTROL LOOP AND DATA FLOWS · DESIGNED FLOW</p><div class="op-timeline"><div><small>① Desired state</small><b>Declared in YAML</b><p>CubridCluster · CubridBackup<br>spec</p></div><div><small>② Reconcile</small><b>Reconcilers</b><p>Cluster · HA · Services<br>storage · backup · updates<br>in one state machine</p></div><div><small>③ Observe</small><b>Instance Manager</b><p>Reads each node's HA role<br>Token auth · no pods/exec</p></div><div><small>④ Record</small><b>status · Conditions</b><p>currentPrimary<br>“unresolved” on conflict<br>Events · metrics · logs<br>→ back to ②</p></div></div><table class="op-comparison"><thead><tr><th>Data</th><th>How it flows</th></tr></thead><tbody><tr><td><b>SQL</b></td><td>App → RW/RO Service → Broker → CUBRID · CUBRID HA replicates and switches</td></tr><tr><td><b>Backup · restore</b></td><td>Instance Manager → S3-compatible storage → checksums checked → new CubridCluster</td></tr><tr><td><b>Status</b></td><td>Instance Manager → Operator → CubridCluster status · cubrid_* metrics</td></tr></tbody></table>
+<h1 class="op-title">The Operator observes, records and reconciles again</h1><p class="op-kicker">THE ①–④ CONTROL LOOP FROM SLIDE 9 AND THE DATA FLOWS · DESIGNED FLOW</p><div class="op-timeline"><div><small>① Desired state</small><b>Declared in YAML</b><p>CubridCluster · CubridBackup<br>spec</p></div><div><small>② Reconcile</small><b>Reconcilers</b><p>Cluster · HA · Services<br>storage · backup · updates<br>in one state machine</p></div><div><small>③ Observe</small><b>Instance Manager</b><p>Reads each node's HA role<br>Token auth · no pods/exec</p></div><div><small>④ Record</small><b>status · Conditions</b><p>currentPrimary<br>“unresolved” on conflict<br>Events · metrics · logs<br>→ back to ②</p></div></div><table class="op-comparison"><thead><tr><th>Data</th><th>How it flows</th></tr></thead><tbody><tr><td><b>SQL</b></td><td>App → RW/RO Service → Broker → CUBRID · CUBRID HA replicates and switches</td></tr><tr><td><b>Backup · restore</b></td><td>Instance Manager → S3-compatible storage → checksums checked → new CubridCluster</td></tr><tr><td><b>Status</b></td><td>Instance Manager → Operator → CubridCluster status · cubrid_* metrics</td></tr></tbody></table>
 
 </OperatorSlide>
 
