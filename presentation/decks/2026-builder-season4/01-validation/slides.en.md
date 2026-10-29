@@ -2,7 +2,7 @@
 title: "CUBRID Kubernetes Operator — First Validation"
 ---
 
-<OperatorSlide section="Opening · Project and team" index="01" total="16" source="Project and team" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/SOURCES.md">
+<OperatorSlide section="Opening · Project and team" index="01" total="15" source="Project and team" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/SOURCES.md">
 
 <div class="op-cover"><BrandMark name="cubrid-kubernetes-operator" alt="CUBRID Lab Operator icon" :height="84" /><p class="op-kicker">BUILDER SEASON 4 · FIRST VALIDATION · 2026.10.31</p><h1 class="op-title">CUBRID K8s Operator</h1><p class="op-lead">Running CUBRID HA on Kubernetes and confirming recovery after a fault</p><div class="op-meta"><b>CUBRID Lab</b><span>Yeongseon Choe · Gyeongjun Paik · Co-maintainers</span></div></div>
 
@@ -17,7 +17,7 @@ For this season, we're aiming to publish a v0.1 that we have run through in one 
 
 ---
 
-<OperatorSlide class="op-compact" section="Agenda · Talk outline" index="02" total="16" source="Presentation outline" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/README.md">
+<OperatorSlide class="op-compact" section="Agenda · Talk outline" index="02" total="15" source="Presentation outline" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/README.md">
 
 <h1 class="op-title">Today's outline</h1><div class="op-agenda"><div><span>01</span><b>What we are building</b><p>Project goals</p></div><div><span>02</span><b>Why it matters</b><p>Pod recovery is not DB recovery</p></div><div><span>03</span><b>How it works</b><p>Architecture · fault flow · safety · vs the official Operator</p></div><div><span>04</span><b>Where we are</b><p>Recorded results and next tests</p></div><div><span>05</span><b>What comes next</b><p>12-week plan · team · v0.1 scope · after v0.1</p></div></div>
 
@@ -30,7 +30,7 @@ We will go through five parts: what we are building, why it matters, how it work
 
 ---
 
-<OperatorSlide class="op-compact" section="01 · What we are building" index="03" total="16" source="Operator README · recorded runs" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/README.md">
+<OperatorSlide class="op-compact" section="01 · What we are building" index="03" total="15" source="Operator README · recorded runs" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/README.md">
 
 <h1 class="op-title">An Operator to run CUBRID HA safely on Kubernetes</h1><p class="op-lead">The goal goes beyond automated install: confirm that the database really recovered after a fault.</p><div class="op-goals"><div><span>01</span><b>Declarative setup</b><p>One YAML file sets up a 3-node CUBRID HA cluster with RW/RO access</p></div><div><span>02</span><b>Database-aware status</b><p>Checks each node's HA role and leaves the master “unresolved” when unsure</p></div><div><span>03</span><b>Tracked backup and restore</b><p>Records each job by ID and checks files and checksums before a restore</p></div><div><span>04</span><b>Recovery checked with SQL</b><p>Judges recovery by real writes, reads and data, not by Pod status</p></div></div><p class="op-caption">Experimental and not for production · Does not replace the official CUBRID Operator · Progress on slide 9</p>
 
@@ -45,7 +45,7 @@ There are four goals. First, one YAML file sets up a 3-node CUBRID HA cluster wi
 
 ---
 
-<OperatorSlide section="02 · Why it matters" index="04" total="16" source="Initial user hypotheses" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/SOURCES.md#claim-map">
+<OperatorSlide section="02 · Why it matters" index="04" total="15" source="Initial user hypotheses" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/SOURCES.md#claim-map">
 
 <h1 class="op-title">A recovered Pod is not a recovered database</h1><p class="op-kicker">RESTARTING A POD AND ATTACHING ITS VOLUME DOES NOT SHOW THE DATABASE HAS RECOVERED</p><div class="op-scene"><div class="op-actor"><div class="op-bubble">The Pod is back.<br>Are we done?</div><svg class="op-person" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="20" r="12"/><path d="M8 62c0-14 10.7-24 24-24s24 10 24 24z"/></svg><b>Kubernetes platform team</b></div><div class="op-incident"><span>⚡</span><b>Same fault</b></div><div class="op-actor op-actor-db"><div class="op-bubble">Who is master now?<br>Is the data safe?</div><svg class="op-person" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="20" r="12"/><path d="M8 62c0-14 10.7-24 24-24s24 10 24 24z"/></svg><b>CUBRID database team</b></div></div><p class="op-boundary">Our goal is to let both teams confirm “recovered” from the same view.</p>
 
@@ -60,7 +60,7 @@ So two teams see the same fault differently. The Kubernetes platform team sees t
 
 ---
 
-<OperatorSlide class="op-compact" section="03 · Architecture" index="05" total="16" source="Architecture · Broker design" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/DESIGN.md#7-high-level-architecture">
+<OperatorSlide class="op-compact" section="03 · Architecture" index="05" total="15" source="Architecture · Broker design" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/DESIGN.md#7-high-level-architecture">
 
 <h1 class="op-title">CUBRID runs HA; the Operator watches and operates</h1><svg class="op-arch" viewBox="0 0 880 352" role="img" aria-label="Operator architecture: an operations path from YAML through the Kubernetes API and the Operator to Kubernetes resources, and an SQL path from the application through RW/RO Services and Brokers to three CUBRID HA nodes. Each node has an Instance Manager and a PVC and connects to backup storage.">
 <defs><marker id="op-arch-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0f1b2d"/></marker><marker id="op-arch-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1f4e8c"/></marker><marker id="op-arch-mute" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#5b6b82"/></marker></defs>
@@ -98,7 +98,7 @@ The solid line on the left is the application's SQL path: an RW or RO Service, t
 
 ---
 
-<OperatorSlide class="op-compact" section="03 · Fault flow" index="06" total="16" source="What to check after a fault" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/DESIGN.md#12-failover-and-split-brain-model">
+<OperatorSlide class="op-compact" section="03 · Fault flow" index="06" total="15" source="What to check after a fault" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/DESIGN.md#12-failover-and-split-brain-model">
 
 <h1 class="op-title">When the master Pod goes away, check four things</h1><p class="op-kicker">EXAMPLE: THE MASTER POD DISAPPEARS AND COMES BACK · DESIGNED FLOW</p><table class="op-comparison op-checks"><thead><tr><th>What to check</th><th>Who answers</th><th>What we look at</th></tr></thead><tbody><tr><td>① Pod availability</td><td>Kubernetes</td><td>Is the Pod Ready again? Is the volume attached?</td></tr><tr><td>② DB HA state</td><td>CUBRID HA switches<br>Operator records it</td><td>Compare every node's role<br>Missing or conflicting: “unresolved”</td></tr><tr><td>③ SQL access</td><td>Broker</td><td>Does the RW Broker reach the new master?<br>Do RW writes and RO reads work?</td></tr><tr><td>④ Data</td><td>E2E tests</td><td>Are rows committed before the fault still there?<br>The Operator does not check this itself</td></tr></tbody></table><p class="op-boundary"><b>KEY POINT</b>　We go past Pod status (①) and check HA roles, SQL access and data (② to ④) as one flow.</p>
 
@@ -113,7 +113,7 @@ Second, CUBRID HA switches the master, and the Operator reads every node's role 
 
 ---
 
-<OperatorSlide section="03 · Safety principle" index="07" total="16" source="Write-quarantine evidence" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/SOURCES.md#recorded-execution-evidence">
+<OperatorSlide section="03 · Safety principle" index="07" total="15" source="Write-quarantine evidence" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/SOURCES.md#recorded-execution-evidence">
 
 <h1 class="op-title">If the master is uncertain, the Operator does not guess</h1>
 <div class="op-safety">
@@ -133,7 +133,7 @@ In an earlier Kind test, RW writes succeeded during an unresolved-master state. 
 
 ---
 
-<OperatorSlide class="op-compact" section="03 · vs the official Operator" index="08" total="16" source="Official Operator source" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/SOURCES.md#comparison-boundaries">
+<OperatorSlide class="op-compact" section="03 · vs the official Operator" index="08" total="15" source="Official Operator source" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/SOURCES.md#comparison-boundaries">
 
 <h1 class="op-title">How is it different from the official Operator?</h1><p class="op-kicker">COMPARED WITH: <a href="https://github.com/CUBRID/cubrid-operator" target="_blank">github.com/CUBRID/cubrid-operator</a></p><table class="op-comparison"><thead><tr><th></th><th>Official CUBRID Operator</th><th>CUBRID Kubernetes Operator (this project)</th></tr></thead><tbody><tr><td><b>In common</b></td><td>HA status · storage · scheduled backups</td><td>HA status · storage · backups</td></tr><tr><td><b>Finding the master</b></td><td>Uses the node info in the first successful answer</td><td>Compares fresh answers from every node · conflicts stay “unresolved”</td></tr><tr><td><b>Backup records</b></td><td>Runs a command in the Pod · records status</td><td>Asks Instance Manager · keeps the job ID on the volume</td></tr><tr><td><b>Restore</b></td><td>No restore feature found in the source</td><td>Checks file list and checksums, restores into a new cluster</td></tr><tr><td><b>Recovery check</b></td><td>Port checks</td><td>Port checks + SQL writes, reads and data in tests</td></tr></tbody></table><p class="op-caption">Compared with <a href="https://github.com/CUBRID/cubrid-operator/tree/fa7b6c2cf26096769c4404a2e2bb683f3872aa1e" target="_blank">official source fa7b6c2</a> · We have not yet tested which behaves better in real failures.</p>
 
@@ -148,7 +148,7 @@ In the source, the official Operator uses the node information from the first su
 
 ---
 
-<OperatorSlide section="04 · Recorded results" index="09" total="16" source="Recorded executions · Oct 20–25" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/SOURCES.md#recorded-execution-evidence">
+<OperatorSlide section="04 · Recorded results" index="09" total="15" source="Recorded executions · Oct 20–25" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/SOURCES.md#recorded-execution-evidence">
 
 <h1 class="op-title">What we have verified so far</h1>
 <div class="op-evidence-list">
@@ -169,7 +169,7 @@ Second, on k3s VMs we checked connectivity and SQL, and a controlled rollout kep
 
 ---
 
-<OperatorSlide section="04 · Next tests" index="10" total="16" source="v0.1 validation gates" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/SOURCES.md#evidence-boundaries-retained-in-the-notes">
+<OperatorSlide section="04 · Next tests" index="10" total="15" source="v0.1 validation gates" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/SOURCES.md#evidence-boundaries-retained-in-the-notes">
 
 <h1 class="op-title">Next, we check that it stays safe during faults</h1>
 <div class="op-gates">
@@ -191,7 +191,7 @@ We also need an explicit Kubernetes and CSI environment and independent runbook 
 
 ---
 
-<OperatorSlide section="05 · Twelve-week plan" index="11" total="16" source="Schedule" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/ROADMAP.md#stp-iv-delivery-stages">
+<OperatorSlide section="05 · Twelve-week plan" index="11" total="15" source="Schedule" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/ROADMAP.md#stp-iv-delivery-stages">
 
 <h1 class="op-title">Targets: one full pass in November, repeats in December</h1><div class="op-timeline"><div><small>Week 1 · Oct 05–11</small><b>Choose the setup</b><p>Set environment and scenarios<br>Check standalone SQL</p></div><div><small>Weeks 2–4 · Oct 12–Nov 01</small><b>HA and the test setup</b><p>3-node HA · RW/RO<br>Run on VMs<br>Try backup and recovery</p></div><div><small>Weeks 5–8 · Nov 02–29</small><b>Test faults and recovery</b><p>Block writes · rejoin<br>Rebuild · restore backups<br>Aim for a first full pass</p></div><div><small>Weeks 9–12 · Nov 30–Dec 27</small><b>Repeat on one candidate</b><p>Repeat faults<br>24h load target<br>Someone else tries the docs<br>Fix issues · release files</p></div></div><p class="op-boundary"><b>11.29</b> Aim: first pass of every required scenario　→　<b>12.27</b> v0.1 publication target</p>
 
@@ -206,7 +206,7 @@ By the end of November, specifically November 29, we want every required scenari
 
 ---
 
-<OperatorSlide section="05 · Team" index="12" total="16" source="Team" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/CONTRIBUTING.md#development-workflow">
+<OperatorSlide section="05 · Team" index="12" total="15" source="Team" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/CONTRIBUTING.md#development-workflow">
 
 <h1 class="op-title">Two maintainers who check each other</h1><div class="op-meta"><b>Yeongseon Choe @yeongseon</b><b>Gyeongjun Paik @paikend</b><span>Co-maintainers</span></div><table class="op-comparison"><thead><tr><th>Who</th><th>What they do</th></tr></thead><tbody><tr><td>The issue owner</td><td>Reproduce the problem; write code, tests, docs and experiment records</td></tr><tr><td>The other person</td><td>Review the code and check the results</td></tr><tr><td>Together</td><td>Test installation, HA and recovery; decide whether to release</td></tr></tbody></table><p class="op-boundary">The author is never the final reviewer; we decide on a release together.</p>
 
@@ -221,7 +221,7 @@ We use the same approach for HA, backup and recovery, and installation docs. VM 
 
 ---
 
-<OperatorSlide class="op-compact" section="05 · v0.1 scope" index="13" total="16" source="v0.1 scope" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/ROADMAP.md#v01-scope">
+<OperatorSlide class="op-compact" section="05 · v0.1 scope" index="13" total="15" source="v0.1 scope" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/ROADMAP.md#v01-scope">
 
 <h1 class="op-title">What goes into v0.1</h1><table class="op-comparison op-acceptance"><thead><tr><th>What is included</th><th>How we will check it</th></tr></thead><tbody><tr><td>Non-root · persistent DB<br>3-node HA · RW/RO</td><td>Run SQL; check roles, commits and data</td></tr><tr><td>Faults · block writes<br>Rejoin · rebuild</td><td>Check state and data after Pod/VM/Broker/Operator faults</td></tr><tr><td>Backup<br>Restore to a new cluster</td><td>Build a new cluster from a backup and compare data</td></tr><tr><td>Retention · Instance Manager auth<br>Kubernetes node maintenance · status · metrics</td><td>Run the required scenarios; follow installation, operations and recovery docs</td></tr></tbody></table><p class="op-boundary"><b>ALSO PUBLISH</b> Images · install manifests · supported setups · operations docs · test results</p><p class="op-caption">Supported: CUBRID 11.4.x · amd64 · one Kubernetes and storage setup · experimental · DB password and TLS after v0.1</p>
 
@@ -236,7 +236,7 @@ We want to publish the images, install manifests, supported-environment table, o
 
 ---
 
-<OperatorSlide section="05 · After v0.1" index="14" total="16" source="After v0.1" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/SOURCES.md#post-v01-direction">
+<OperatorSlide section="05 · After v0.1" index="14" total="15" source="After v0.1" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/SOURCES.md#post-v01-direction">
 
 <h1 class="op-title">After v0.1</h1><div class="op-release"><div><h3>First, fix what people run into while using it</h3><ul class="op-list"><li><b>Improve logs and diagnostics</b><small>Work on recurring issues and recovery steps</small></li><li><b>Features needed for actual use</b><small>DB authentication · TLS · compatible updates</small></li></ul></div><div><h3>Then, try more setups</h3><ul class="op-list"><li><b>More Kubernetes/CSI combinations</b><small>Test faults and recovery in each</small></li><li><b>arm64 · multiple availability zones</b><small>Check support separately</small></li></ul></div><div><h3>Work that will take longer · not scheduled</h3><ul class="op-list"><li><b>Changing CUBRID versions</b><small>Data compatibility, downtime and how to roll back</small></li><li><b>More replication setups</b><small>For example, non-promotable replicas</small></li></ul></div></div><p class="op-boundary">We will test v0.1 first, then decide what matters most from the problems people find.</p>
 
@@ -251,28 +251,13 @@ Then we'll add Kubernetes and CSI combinations one at a time, testing faults and
 
 ---
 
-<OperatorSlide section="Closing · Feedback" index="15" total="16" source="Feedback and help" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/SOURCES.md">
-
-<h1 class="op-title">We would like your feedback</h1><ol class="op-questions op-big"><li>What do you check first before calling it recovered?</li><li>Which Kubernetes CSI driver should v0.1 support first?</li><li>Would you try our install and recovery docs in December?</li></ol>
-
-</OperatorSlide>
-
-<!--
-[25s · Closing · Feedback]
-Finally, three things we'd like to ask. In a recent incident, what did you check before calling it recovered? Which Kubernetes CSI driver would you want v0.1 to support first, and what should we watch out for when testing faults on it?
-
-And could you try our installation and recovery docs in December and tell us where you get stuck?
--->
-
----
-
-<OperatorSlide section="Q&amp;A" index="16" total="16" source="Expected questions" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/EXPECTED_QA.ko.md">
+<OperatorSlide section="Q&amp;A" index="15" total="15" source="Expected questions" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/EXPECTED_QA.ko.md">
 
 <div class="op-cover op-closing"><h1 class="op-title">Q&amp;A</h1><p class="op-lead">Thank you</p><div class="op-meta"><b>CUBRID Lab</b><span>Yeongseon Choe · Gyeongjun Paik</span></div><BrandMark name="lockup-horizontal" alt="CUBRID Lab" :height="40" /><p class="op-notice">CUBRID Lab is independently maintained and is not affiliated with, sponsored by, or endorsed by CUBRID Corporation or the official CUBRID project.</p></div>
 
 </OperatorSlide>
 
 <!--
-[5s · Q&A]
-Thank you. We are happy to take your questions.
+[15s · Q&A]
+Thank you. We are happy to take your questions. We would also like to hear what you check first after a fault, and which Kubernetes CSI driver v0.1 should support first.
 -->
