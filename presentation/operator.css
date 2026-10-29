@@ -356,3 +356,19 @@
 /* Slide 5: who answers each recovery question. */
 .slidev-layout.showcase-deck.operator-deck .op-checks td:first-child { width: 19%; white-space: nowrap; }
 .slidev-layout.showcase-deck.operator-deck .op-checks td:nth-child(2) { width: 25%; color: var(--blue); font-weight: 700; }
+
+/* Slide headlines stay on one line (the cover title is sized on its own). */
+.slidev-layout.showcase-deck.operator-deck .op-frame .op-title { white-space: nowrap; font-size: 2.1rem; }
+.slidev-layout.showcase-deck.operator-deck .op-cover .op-title { font-size: 3.65rem; }
+.slidev-layout.showcase-deck.operator-deck .op-frame.op-compact .op-title { font-size: 2.1rem; }
+
+/* Slide 3: four project goals. */
+.slidev-layout.showcase-deck.operator-deck .op-goals { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
+.slidev-layout.showcase-deck.operator-deck .op-goals > div { display: grid; align-content: start; gap: 8px; padding-top: 12px; border-top: 3px solid var(--blue); }
+.slidev-layout.showcase-deck.operator-deck .op-goals span { color: var(--blue); font-weight: 800; font-size: 1.2rem; }
+.slidev-layout.showcase-deck.operator-deck .op-goals b { font-size: 1.12rem; line-height: 1.3; }
+.slidev-layout.showcase-deck.operator-deck .op-goals p { color: var(--muted); font-size: 0.95rem; line-height: 1.45; }
+.slidev-layout.showcase-deck.operator-deck .op-kicker a, .slidev-layout.showcase-deck.operator-deck .op-caption a { color: var(--blue); }
+
+/* Content slides start at the same height; the cover and Q&A stay centered. */
+.slidev-layout.showcase-deck.operator-deck .op-body:not(:has(> .op-cover)) { justify-content: flex-start; padding-top: 8px; }
