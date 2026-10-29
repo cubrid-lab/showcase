@@ -1,6 +1,6 @@
 # First-validation presentation — sources
 
-Presentation expanded on **2026-10-22 (KST)** to 18 slides per language and reordered to 15 on **2026-10-28** (#75), then given an agenda slide (16) on **2026-10-29**; execution evidence remains fixed to **2026-10-20**, except the VM-lab backup and new-cluster restore runs of **2026-10-25** (now slides 8 and 13). The main deck follows the seven items in the supplied
+Presentation expanded on **2026-10-22 (KST)** to 18 slides per language and reordered to 15 on **2026-10-28** (#75), then given an agenda slide (16) on **2026-10-29**; execution evidence remains fixed to **2026-10-20**, except the VM-lab backup and new-cluster restore runs of **2026-10-25** (now slides 8 and 14). The main deck follows the seven items in the supplied
 Builder notice. Detailed source checks stay here and in speaker notes rather
 than becoming extra presentation sections.
 
@@ -12,10 +12,10 @@ than becoming extra presentation sections.
 | 2. Problem and initial users | 4 | 40 |
 | 3. Existing approaches and open-source comparison | 5 | 50 |
 | 4. Proposed solution: four checks after a fault, unresolved-master rule, recorded evidence | 6–8 | 120 |
-| 5. Architecture draft: platforms and components, control loop and data flows | 9–10 | 90 |
-| 6. Roadmap, responsibilities, v0.1 gates and scope, later direction | 11–15 | 165 |
-| 7. Discussion topics and questions | 16 | 15 |
-| **Total** | **16 slides per language** | **560 + 40 seconds buffer** |
+| 5. Architecture draft: full architecture, control loop and data flows, inside the Operator | 9–11 | 125 |
+| 6. Roadmap, responsibilities, v0.1 gates and scope, later direction | 12–16 | 165 |
+| 7. Discussion topics and questions | 17 | 15 |
+| **Total** | **17 slides per language** | **595 + 5 seconds buffer** |
 
 The announced presentation limit is ten minutes plus separate ten-minute Q&A. Times are planning targets, not a rehearsal measurement.
 The expanded material deliberately separates hypothetical incident stories, user hypotheses, source comparison, executed evidence and work not yet proven.
@@ -32,14 +32,14 @@ The expanded material deliberately separates hypothetical incident stories, user
 | Slides | Evidence basis | Claim boundary |
 |---|---|---|
 | 1, 3–4 | [Operator README](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/README.md), [DESIGN](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/DESIGN.md) | Recovery scenario is illustrative, not a customer incident. Initial target users are hypotheses, not proven adoption/interviews |
-| 6, 9–10 | [Architecture](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/DESIGN.md#7-high-level-architecture) and [Broker flows](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/DESIGN.md#10-broker-and-service-architecture) | CUBRID owns HA promotion. IM is integrated in DB container; Operator never proxies SQL |
+| 6, 9–11 | [Architecture](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/DESIGN.md#7-high-level-architecture) and [Broker flows](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/DESIGN.md#10-broker-and-service-architecture) | CUBRID owns HA promotion. IM is integrated in DB container; Operator never proxies SQL |
 | 7 | [Fault-safety ADR](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/docs/adr/0005-failover-split-brain.md), [write-quarantine issue](https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/113) | Reported unknown master is not automatic RW write isolation; mandatory work remains |
 | 5 | [Official README](https://github.com/CUBRID/cubrid-operator/blob/fa7b6c2cf26096769c4404a2e2bb683f3872aa1e/README.md), [status controller](https://github.com/CUBRID/cubrid-operator/blob/fa7b6c2cf26096769c4404a2e2bb683f3872aa1e/internal/controller/cubriddb_controller_status.go#L68), [backup controller](https://github.com/CUBRID/cubrid-operator/blob/fa7b6c2cf26096769c4404a2e2bb683f3872aa1e/internal/controller/backupdb_controller.go#L317) | Upstream already has HA observation, storage and scheduled backup. Comparison is source-level, not field reliability benchmarking |
-| 8, 13 | [Kind, VM and rollout records](#recorded-execution-evidence), [v0.1 gates](#evidence-boundaries-retained-in-the-notes) | Kind 27/27 specs, VM SQL and the first S12 restore passes are not completed S00–S15 fault/restore certification |
-| 11, 14 | [ROADMAP](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/ROADMAP.md); the 24-hour load target is from [final integration issue #95](https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/95) ("initial target of 24 hours") | Nov 29 full first pass, Dec 27 candidate release are goals, not passed or promised milestones |
-| 12 | [CONTRIBUTING](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/CONTRIBUTING.md) and team record below | Both are co-maintainers; per-issue owner and reviewer, no invented permanent feature assignment |
-| 15 | [Post-v0.1 direction](#post-v01-direction) | Unsheduled proposal, not support or release commitment |
-| 16 (speaker note) | Builder validation notice | Discussion: incident criteria, the first CSI driver to support, independent runbook review |
+| 8, 14 | [Kind, VM and rollout records](#recorded-execution-evidence), [v0.1 gates](#evidence-boundaries-retained-in-the-notes) | Kind 27/27 specs, VM SQL and the first S12 restore passes are not completed S00–S15 fault/restore certification |
+| 12, 15 | [ROADMAP](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/ROADMAP.md); the 24-hour load target is from [final integration issue #95](https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/95) ("initial target of 24 hours") | Nov 29 full first pass, Dec 27 candidate release are goals, not passed or promised milestones |
+| 13 | [CONTRIBUTING](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/CONTRIBUTING.md) and team record below | Both are co-maintainers; per-issue owner and reviewer, no invented permanent feature assignment |
+| 16 | [Post-v0.1 direction](#post-v01-direction) | Unsheduled proposal, not support or release commitment |
+| 17 (speaker note) | Builder validation notice | Discussion: incident criteria, the first CSI driver to support, independent runbook review |
 
 ## Recorded execution evidence
 
@@ -115,7 +115,7 @@ Both projects observe periodically. Polling is not presented as a differentiator
 
 ## Post-v0.1 direction
 
-Slide 15 is a **direction proposal prompted by presentation feedback**, not an approved new release plan. The first version remains the required, bounded recovery qualification described by the pinned ROADMAP; no mandatory safety condition is moved to a later version.
+Slide 16 is a **direction proposal prompted by presentation feedback**, not an approved new release plan. The first version remains the required, bounded recovery qualification described by the pinned ROADMAP; no mandatory safety condition is moved to a later version.
 
 1. Learn from independent installations and incident reproduction; improve failure diagnosis and operating procedures. Qualify DB authentication/TLS and compatible updates as adoption needs. These are not claimed supported today; IM authentication is distinct. Compatible updates remain conditional in v0.1 until their gates pass.
 2. Expand Kubernetes/CSI coverage only with per-configuration recovery evidence. Consider arm64 and multi-zone tests separately; do not generalize single-lab results.
@@ -197,3 +197,20 @@ their Instance Managers and roles, the application SQL path through RW/RO
 Services and Brokers, and S3-compatible storage for initial copies and
 backups. Its numbered operations arrows (1-4) match the control loop on
 slide 10. The content follows DESIGN.md sections 7, 9, 10, 14-16, 18 and 19.
+
+Slide 11 shows the inside of the Operator as the code stands at
+[`986b775`](https://github.com/cubrid-lab/cubrid-kubernetes-operator/tree/986b77521a1a2fa2a9da5a3ccce4e5a0c0b2fdd7)
+(2026-10-29). Two controllers run in one controller-runtime manager
+(`cmd/main.go`). `CubridClusterReconciler` watches CubridCluster and owns
+StatefulSets, Deployments, Services, ConfigMaps, Secrets and NetworkPolicies.
+It reconciles them in order: headless and member Services, the Instance Manager
+token Secret, HA configuration, NetworkPolicies, the StatefulSet. Then status
+covers HA bootstrap, role reads and the master decision, restore bootstrap, the
+update guard and rolling replacement, and the Broker tier
+(`internal/controller/cubridcluster_controller.go`). `CubridBackupReconciler`
+picks a target, starts a backup with an idempotency key, polls the operation and
+records the result (`cubridbackup_controller.go`). Both call each Pod's Instance
+Manager over HTTP with a bearer token (`roleprober.go`, `imclient.go`). The
+Instance Manager endpoints are listed from `internal/instancemanager/server.go`.
+Slides 9 and 10 now say "two controllers" instead of the design document's six
+named reconcilers. The plan is 595 seconds with a 5-second buffer.
