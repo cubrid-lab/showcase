@@ -16,8 +16,8 @@
 
 | 파일 | 내용 |
 |---|---|
-| [slides.ko.md](slides.ko.md) | 한국어 슬라이드와 발표자 메모 (16장) |
-| [slides.en.md](slides.en.md) | 영어 슬라이드와 발표자 메모 (16장) |
+| [slides.ko.md](slides.ko.md) | 한국어 슬라이드와 발표자 메모 (17장) |
+| [slides.en.md](slides.en.md) | 영어 슬라이드와 발표자 메모 (17장) |
 
 발표 설정은 진입 파일 [`presentation/2026-builder-season4-01-validation.ko.md`](../../../2026-builder-season4-01-validation.ko.md)와 [`.en.md`](../../../2026-builder-season4-01-validation.en.md)에 있습니다.
 일정·제출 요건·대본·Q&A·근거는 [1차 검증 안내](../../../../events/2026-builder-season4/01-validation/)를 봅니다.
