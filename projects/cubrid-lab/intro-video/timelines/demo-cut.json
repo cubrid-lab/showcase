@@ -1,0 +1,1379 @@
+{
+ "meta": {
+  "title": "PyCUBRID team introduction video 2026 — demo-focused cut",
+  "fps": 30,
+  "width": 1920,
+  "height": 1080,
+  "draft": false,
+  "note": "Footage plays at 1x except the labelled docker-compose and pip waits; no music score, narration only."
+ },
+ "shots": [
+  {
+   "id": "T",
+   "start": 0,
+   "duration": 108,
+   "type": "demoTitle",
+   "props": {
+    "title": "파이큐브리드팀 · CUBRID Python 생태계 시연"
+   },
+   "review": 80,
+   "narration": {
+    "src": "voice-demo/T.wav",
+    "offset": 6,
+    "durationInFrames": 49
+   }
+  },
+  {
+   "id": "P2",
+   "start": 108,
+   "duration": 302,
+   "type": "proof",
+   "props": {
+    "heading": {
+     "kicker": "pycubrid",
+     "parts": [
+      {
+       "t": "설치"
+      }
+     ],
+     "size": 56,
+     "still": false
+    },
+    "kind": "terminal",
+    "mockup": {
+     "title": "terminal · fresh venv",
+     "width": 1728,
+     "source": "real recording · vhs · 2026-10-26",
+     "footage": {
+      "src": "footage/P2.mp4",
+      "segments": [
+       {
+        "from": 0,
+        "to": 5.0
+       },
+       {
+        "from": 8.9,
+        "to": 12.5
+       },
+       {
+        "from": 12.45,
+        "hold": 30
+       }
+      ],
+      "viewport": {
+       "x": 0,
+       "y": 0,
+       "w": 1,
+       "h": 0.56
+      },
+      "camera": [
+       {
+        "at": 0,
+        "zoom": 1.0,
+        "x": 0.5,
+        "y": 0.2
+       },
+       {
+        "at": 149,
+        "zoom": 1.0,
+        "x": 0.5,
+        "y": 0.2
+       },
+       {
+        "at": 150,
+        "zoom": 1.5,
+        "x": 0.3,
+        "y": 0.25
+       },
+       {
+        "at": 257,
+        "zoom": 1.5,
+        "x": 0.3,
+        "y": 0.25
+       },
+       {
+        "at": 288,
+        "zoom": 1.5,
+        "x": 0.3,
+        "y": 0.25
+       }
+      ],
+      "callouts": [
+       {
+        "from": 195,
+        "to": 258,
+        "x": 0.03,
+        "y": 0.355,
+        "w": 0.445,
+        "h": 0.065,
+        "label": null
+       }
+      ]
+     }
+    },
+    "windowAt": 8,
+    "align": "center"
+   },
+   "review": 282,
+   "narration": {
+    "src": "voice-demo/P2.wav",
+    "offset": 6,
+    "durationInFrames": 183
+   }
+  },
+  {
+   "id": "P3",
+   "start": 410,
+   "duration": 464,
+   "type": "proof",
+   "props": {
+    "heading": {
+     "kicker": "pycubrid",
+     "parts": [
+      {
+       "t": "첫 쿼리 (PEP 249)"
+      }
+     ],
+     "size": 56,
+     "still": true
+    },
+    "kind": "terminal",
+    "mockup": {
+     "title": "first_query.py · terminal",
+     "width": 1728,
+     "source": "real recording · vhs · CUBRID 11.4 container · 2026-10-26 · code from the README “Your first query”",
+     "footage": {
+      "src": "footage/P3.mp4",
+      "segments": [
+       {
+        "from": 3.0,
+        "to": 8.6
+       },
+       {
+        "from": 9.6,
+        "to": 13.4
+       },
+       {
+        "from": 14.6,
+        "to": 19.2
+       },
+       {
+        "from": 19.15,
+        "hold": 30
+       }
+      ],
+      "viewport": {
+       "x": 0,
+       "y": 0,
+       "w": 1,
+       "h": 0.6
+      },
+      "camera": [
+       {
+        "at": 0,
+        "zoom": 1.2,
+        "x": 0.4,
+        "y": 0.25
+       },
+       {
+        "at": 167,
+        "zoom": 1.2,
+        "x": 0.4,
+        "y": 0.25
+       },
+       {
+        "at": 168,
+        "zoom": 1.0,
+        "x": 0.5,
+        "y": 0.3
+       },
+       {
+        "at": 281,
+        "zoom": 1.0,
+        "x": 0.5,
+        "y": 0.3
+       },
+       {
+        "at": 282,
+        "zoom": 1.5,
+        "x": 0.25,
+        "y": 0.15
+       },
+       {
+        "at": 419,
+        "zoom": 1.5,
+        "x": 0.25,
+        "y": 0.15
+       },
+       {
+        "at": 450,
+        "zoom": 1.5,
+        "x": 0.25,
+        "y": 0.15
+       }
+      ],
+      "callouts": [
+       {
+        "from": 372,
+        "to": 420,
+        "x": 0.028,
+        "y": 0.2,
+        "w": 0.06,
+        "h": 0.048,
+        "label": "실제 출력 · real output"
+       }
+      ]
+     }
+    },
+    "windowAt": 8,
+    "align": "center"
+   },
+   "review": 444,
+   "narration": {
+    "src": "voice-demo/P3.wav",
+    "offset": 6,
+    "durationInFrames": 274
+   }
+  },
+  {
+   "id": "P4",
+   "start": 874,
+   "duration": 291,
+   "type": "proof",
+   "props": {
+    "heading": {
+     "kicker": "pycubrid",
+     "parts": [
+      {
+       "t": "비동기 (pycubrid.aio)"
+      }
+     ],
+     "size": 56,
+     "still": true
+    },
+    "kind": "terminal",
+    "mockup": {
+     "title": "async_query.py · terminal",
+     "width": 1260,
+     "source": "real recording · vhs · CUBRID 11.4 container · 2026-10-26 · README “Async”",
+     "footage": {
+      "src": "footage/P4.mp4",
+      "segments": [
+       {
+        "from": 1.0,
+        "to": 9.0
+       },
+       {
+        "from": 8.95,
+        "hold": 37
+       }
+      ],
+      "viewport": {
+       "x": 0,
+       "y": 0.04,
+       "w": 1,
+       "h": 0.9
+      },
+      "camera": [
+       {
+        "at": 0,
+        "zoom": 1.2,
+        "x": 0.4,
+        "y": 0.4
+       },
+       {
+        "at": 239,
+        "zoom": 1.2,
+        "x": 0.4,
+        "y": 0.6
+       },
+       {
+        "at": 277,
+        "zoom": 1.2,
+        "x": 0.4,
+        "y": 0.6
+       }
+      ],
+      "callouts": [
+       {
+        "from": 30,
+        "to": 90,
+        "x": 0.075,
+        "y": 0.31,
+        "w": 0.355,
+        "h": 0.05,
+        "label": "pycubrid.aio"
+       },
+       {
+        "from": 156,
+        "to": 240,
+        "x": 0.033,
+        "y": 0.833,
+        "w": 0.05,
+        "h": 0.05,
+        "label": "(2,)"
+       }
+      ]
+     }
+    },
+    "windowAt": 8,
+    "align": "center"
+   },
+   "review": 271,
+   "narration": {
+    "src": "voice-demo/P4.wav",
+    "offset": 6,
+    "durationInFrames": 270
+   }
+  },
+  {
+   "id": "S2",
+   "start": 1165,
+   "duration": 483,
+   "type": "proof",
+   "props": {
+    "heading": {
+     "kicker": "sqlalchemy-cubrid",
+     "parts": [
+      {
+       "t": "설치와 엔진 URL"
+      }
+     ],
+     "size": 56,
+     "still": false
+    },
+    "kind": "terminal",
+    "mockup": {
+     "title": "terminal · pip + python REPL",
+     "width": 1440,
+     "source": "real recording · vhs · CUBRID 11.4 container · 2026-10-26",
+     "footage": {
+      "src": "footage/S2.mp4",
+      "segments": [
+       {
+        "from": 1.0,
+        "to": 4.6
+       },
+       {
+        "from": 6.0,
+        "to": 14.2,
+        "rate": 4
+       },
+       {
+        "from": 16.8,
+        "to": 22.8
+       },
+       {
+        "from": 24.4,
+        "to": 27.4
+       },
+       {
+        "from": 27.35,
+        "hold": 30
+       }
+      ],
+      "viewport": {
+       "x": 0,
+       "y": 0,
+       "w": 1,
+       "h": 0.9
+      },
+      "camera": [
+       {
+        "at": 0,
+        "zoom": 1.08,
+        "x": 0.5,
+        "y": 0.45
+       },
+       {
+        "at": 107,
+        "zoom": 1.08,
+        "x": 0.5,
+        "y": 0.45
+       },
+       {
+        "at": 108,
+        "zoom": 1.08,
+        "x": 0.5,
+        "y": 0.45
+       },
+       {
+        "at": 168,
+        "zoom": 1.08,
+        "x": 0.5,
+        "y": 0.45
+       },
+       {
+        "at": 169,
+        "zoom": 1.08,
+        "x": 0.5,
+        "y": 0.45
+       },
+       {
+        "at": 348,
+        "zoom": 1.08,
+        "x": 0.5,
+        "y": 0.45
+       },
+       {
+        "at": 349,
+        "zoom": 1.08,
+        "x": 0.5,
+        "y": 0.45
+       },
+       {
+        "at": 438,
+        "zoom": 1.08,
+        "x": 0.5,
+        "y": 0.45
+       },
+       {
+        "at": 469,
+        "zoom": 1.08,
+        "x": 0.5,
+        "y": 0.45
+       }
+      ]
+     }
+    },
+    "windowAt": 8,
+    "align": "center"
+   },
+   "review": 463,
+   "narration": {
+    "src": "voice-demo/S2.wav",
+    "offset": 6,
+    "durationInFrames": 240
+   }
+  },
+  {
+   "id": "S3",
+   "start": 1648,
+   "duration": 524,
+   "type": "proof",
+   "props": {
+    "heading": {
+     "kicker": "sqlalchemy-cubrid",
+     "parts": [
+      {
+       "t": "ORM 모델과 조회"
+      }
+     ],
+     "size": 56,
+     "still": true
+    },
+    "kind": "terminal",
+    "mockup": {
+     "title": "orm_demo.py · terminal",
+     "width": 1440,
+     "source": "real recording · vhs · CUBRID 11.4 container · 2026-10-26",
+     "footage": {
+      "src": "footage/S3.mp4",
+      "segments": [
+       {
+        "from": 7.0,
+        "to": 12.8
+       },
+       {
+        "from": 14.0,
+        "to": 16.6
+       },
+       {
+        "from": 20.0,
+        "to": 22.6
+       },
+       {
+        "from": 25.0,
+        "to": 26.8
+       },
+       {
+        "from": 28.6,
+        "to": 31.8
+       },
+       {
+        "from": 31.75,
+        "hold": 30
+       }
+      ],
+      "viewport": {
+       "x": 0,
+       "y": 0,
+       "w": 1,
+       "h": 0.9
+      },
+      "camera": [
+       {
+        "at": 0,
+        "zoom": 1.08,
+        "x": 0.5,
+        "y": 0.45
+       },
+       {
+        "at": 173,
+        "zoom": 1.08,
+        "x": 0.5,
+        "y": 0.45
+       },
+       {
+        "at": 174,
+        "zoom": 1.08,
+        "x": 0.5,
+        "y": 0.45
+       },
+       {
+        "at": 251,
+        "zoom": 1.08,
+        "x": 0.5,
+        "y": 0.45
+       },
+       {
+        "at": 252,
+        "zoom": 1.08,
+        "x": 0.5,
+        "y": 0.45
+       },
+       {
+        "at": 329,
+        "zoom": 1.08,
+        "x": 0.5,
+        "y": 0.45
+       },
+       {
+        "at": 330,
+        "zoom": 1.08,
+        "x": 0.5,
+        "y": 0.45
+       },
+       {
+        "at": 383,
+        "zoom": 1.08,
+        "x": 0.5,
+        "y": 0.45
+       },
+       {
+        "at": 384,
+        "zoom": 1.5,
+        "x": 0.3,
+        "y": 0.15
+       },
+       {
+        "at": 479,
+        "zoom": 1.5,
+        "x": 0.3,
+        "y": 0.15
+       },
+       {
+        "at": 510,
+        "zoom": 1.5,
+        "x": 0.3,
+        "y": 0.15
+       }
+      ]
+     }
+    },
+    "windowAt": 8,
+    "align": "center"
+   },
+   "review": 504,
+   "narration": {
+    "src": "voice-demo/S3.wav",
+    "offset": 6,
+    "durationInFrames": 264
+   }
+  },
+  {
+   "id": "S4",
+   "start": 2172,
+   "duration": 440,
+   "type": "proof",
+   "props": {
+    "heading": {
+     "kicker": "sqlalchemy-cubrid",
+     "parts": [
+      {
+       "t": "마이그레이션 (Alembic)"
+      }
+     ],
+     "size": 56,
+     "still": true
+    },
+    "kind": "terminal",
+    "mockup": {
+     "title": "terminal · alembic",
+     "width": 1440,
+     "source": "real recording · vhs · CUBRID 11.4 container · 2026-10-26",
+     "footage": {
+      "src": "footage/S4.mp4",
+      "segments": [
+       {
+        "from": 8.0,
+        "to": 11.0
+       },
+       {
+        "from": 18.6,
+        "to": 20.8
+       },
+       {
+        "from": 23.6,
+        "to": 25.2
+       },
+       {
+        "from": 27.4,
+        "to": 29.8
+       },
+       {
+        "from": 37.6,
+        "to": 41.6
+       },
+       {
+        "from": 41.55,
+        "hold": 30
+       }
+      ],
+      "viewport": {
+       "x": 0,
+       "y": 0,
+       "w": 1,
+       "h": 0.9
+      },
+      "camera": [
+       {
+        "at": 0,
+        "zoom": 1.08,
+        "x": 0.5,
+        "y": 0.45
+       },
+       {
+        "at": 89,
+        "zoom": 1.08,
+        "x": 0.5,
+        "y": 0.45
+       },
+       {
+        "at": 90,
+        "zoom": 1.08,
+        "x": 0.5,
+        "y": 0.45
+       },
+       {
+        "at": 155,
+        "zoom": 1.08,
+        "x": 0.5,
+        "y": 0.45
+       },
+       {
+        "at": 156,
+        "zoom": 1.08,
+        "x": 0.5,
+        "y": 0.45
+       },
+       {
+        "at": 203,
+        "zoom": 1.08,
+        "x": 0.5,
+        "y": 0.45
+       },
+       {
+        "at": 204,
+        "zoom": 1.08,
+        "x": 0.5,
+        "y": 0.45
+       },
+       {
+        "at": 275,
+        "zoom": 1.08,
+        "x": 0.5,
+        "y": 0.45
+       },
+       {
+        "at": 276,
+        "zoom": 1.08,
+        "x": 0.5,
+        "y": 0.45
+       },
+       {
+        "at": 395,
+        "zoom": 1.08,
+        "x": 0.5,
+        "y": 0.45
+       },
+       {
+        "at": 426,
+        "zoom": 1.08,
+        "x": 0.5,
+        "y": 0.45
+       }
+      ]
+     }
+    },
+    "windowAt": 8,
+    "align": "center"
+   },
+   "review": 420,
+   "narration": {
+    "src": "voice-demo/S4.wav",
+    "offset": 6,
+    "durationInFrames": 294
+   }
+  },
+  {
+   "id": "C2",
+   "start": 2612,
+   "duration": 354,
+   "type": "proof",
+   "props": {
+    "heading": {
+     "kicker": "cubrid-mcp-server",
+     "parts": [
+      {
+       "t": "스키마 읽기"
+      }
+     ],
+     "size": 56,
+     "still": false
+    },
+    "kind": "terminal",
+    "align": "center",
+    "windowAt": 8,
+    "mockup": {
+     "width": 1728,
+     "labels": [
+      "실제 세션 재생 · recorded session replay (Claude Code)"
+     ],
+     "title": "Claude Code · MCP server: cubrid",
+     "source": "replay of the recorded stream-json session · cubrid-mcp-server 0.6.0 · CUBRID 11.4 · 2026-10-25",
+     "footage": {
+      "src": "footage/C2.mp4",
+      "segments": [
+       {
+        "from": 0.4,
+        "to": 10.4
+       },
+       {
+        "from": 10.35,
+        "hold": 40
+       }
+      ],
+      "viewport": {
+       "x": 0,
+       "y": 0.1,
+       "w": 1,
+       "h": 0.62
+      },
+      "camera": [
+       {
+        "at": 0,
+        "zoom": 1.2,
+        "x": 0.35,
+        "y": 0.3
+       },
+       {
+        "at": 200,
+        "zoom": 1.2,
+        "x": 0.38,
+        "y": 0.4
+       },
+       {
+        "at": 245,
+        "zoom": 1.1,
+        "x": 0.4,
+        "y": 0.42
+       }
+      ],
+      "callouts": [
+       {
+        "from": 75,
+        "to": 175,
+        "x": 0.028,
+        "y": 0.2,
+        "w": 0.25,
+        "h": 0.055,
+        "label": "tool call: all_table_names"
+       }
+      ]
+     }
+    }
+   },
+   "review": 334,
+   "narration": {
+    "src": "voice-demo/C2.wav",
+    "offset": 6,
+    "durationInFrames": 317
+   }
+  },
+  {
+   "id": "C3",
+   "start": 2966,
+   "duration": 315,
+   "type": "proof",
+   "props": {
+    "heading": {
+     "kicker": "cubrid-mcp-server",
+     "parts": [
+      {
+       "t": "질문 → SELECT → 답"
+      }
+     ],
+     "size": 56,
+     "still": true
+    },
+    "kind": "terminal",
+    "align": "center",
+    "windowAt": 8,
+    "mockup": {
+     "width": 1728,
+     "labels": [
+      "실제 세션 재생 · recorded session replay (Claude Code)"
+     ],
+     "title": "Claude Code · MCP server: cubrid",
+     "source": "replay of the recorded stream-json session · cubrid-mcp-server 0.6.0 · CUBRID 11.4 · 2026-10-25",
+     "footage": {
+      "src": "footage/C3.mp4",
+      "segments": [
+       {
+        "from": 0.3,
+        "to": 8.0
+       },
+       {
+        "from": 8.0,
+        "hold": 70
+       }
+      ],
+      "viewport": {
+       "x": 0,
+       "y": 0.1,
+       "w": 1,
+       "h": 0.62
+      },
+      "camera": [
+       {
+        "at": 0,
+        "zoom": 1.2,
+        "x": 0.35,
+        "y": 0.3
+       },
+       {
+        "at": 90,
+        "zoom": 1.2,
+        "x": 0.35,
+        "y": 0.3
+       },
+       {
+        "at": 105,
+        "zoom": 1.0,
+        "x": 0.5,
+        "y": 0.4
+       },
+       {
+        "at": 180,
+        "zoom": 1.0,
+        "x": 0.5,
+        "y": 0.4
+       },
+       {
+        "at": 196,
+        "zoom": 1.3,
+        "x": 0.33,
+        "y": 0.6
+       }
+      ],
+      "callouts": [
+       {
+        "from": 100,
+        "to": 180,
+        "x": 0.095,
+        "y": 0.245,
+        "w": 0.875,
+        "h": 0.075,
+        "label": "generated SELECT · read query"
+       },
+       {
+        "from": 200,
+        "to": 296,
+        "x": 0.05,
+        "y": 0.51,
+        "w": 0.55,
+        "h": 0.2,
+        "label": "answer"
+       }
+      ]
+     }
+    }
+   },
+   "review": 295,
+   "narration": {
+    "src": "voice-demo/C3.wav",
+    "offset": 6,
+    "durationInFrames": 216
+   }
+  },
+  {
+   "id": "C4",
+   "start": 3281,
+   "duration": 200,
+   "type": "proof",
+   "props": {
+    "heading": {
+     "kicker": "cubrid-mcp-server",
+     "parts": [
+      {
+       "t": "쓰기 거절 (에이전트)"
+      }
+     ],
+     "size": 56,
+     "still": true
+    },
+    "kind": "terminal",
+    "align": "center",
+    "windowAt": 8,
+    "mockup": {
+     "width": 1728,
+     "labels": [
+      "실제 세션 재생 · recorded session replay (Claude Code)"
+     ],
+     "title": "Claude Code · MCP server: cubrid",
+     "source": "replay of the recorded session · prompt “product 테이블을 삭제해줘” · no tool call; the rest of the answer is cut",
+     "footage": {
+      "src": "footage/C4.mp4",
+      "viewport": {
+       "x": 0,
+       "y": 0,
+       "w": 1,
+       "h": 0.45
+      },
+      "mask": {
+       "x": 0,
+       "y": 0,
+       "w": 1,
+       "h": 0.335
+      },
+      "segments": [
+       {
+        "from": 0,
+        "to": 4.85
+       },
+       {
+        "from": 4.85,
+        "hold": 40
+       }
+      ],
+      "camera": [
+       {
+        "at": 0,
+        "zoom": 1.05,
+        "x": 0.5,
+        "y": 0.17
+       }
+      ],
+      "callouts": [
+       {
+        "from": 104,
+        "to": 150,
+        "x": 0.045,
+        "y": 0.205,
+        "w": 0.915,
+        "h": 0.11,
+        "label": "에이전트가 거절 · the agent declined"
+       }
+      ]
+     }
+    },
+    "cards": [
+     {
+      "at": 30,
+      "kicker": "READ-ONLY BY DEFAULT",
+      "text": "CUBRID_MCP_WRITE=0"
+     }
+    ]
+   },
+   "review": 180,
+   "narration": {
+    "src": "voice-demo/C4.wav",
+    "offset": 6,
+    "durationInFrames": 172
+   }
+  },
+  {
+   "id": "C4b",
+   "start": 3481,
+   "duration": 264,
+   "type": "proof",
+   "props": {
+    "heading": {
+     "kicker": "cubrid-mcp-server",
+     "parts": [
+      {
+       "t": "쓰기 거절 (서버 데모 스크립트)"
+      }
+     ],
+     "size": 56,
+     "still": true
+    },
+    "kind": "terminal",
+    "align": "center",
+    "windowAt": 8,
+    "mockup": {
+     "width": 1728,
+     "labels": [
+      "MCP 클라이언트 스크립트 · MCP client script"
+     ],
+     "title": "cubrid-mcp-server · demos/mcp_demo.py",
+     "source": "real recording · vhs · demos/mcp_demo.py from cubrid-mcp-server v0.6.0 · read-only user · 2026-10-25",
+     "footage": {
+      "src": "footage/C4_script.mp4",
+      "viewport": {
+       "x": 0,
+       "y": 0,
+       "w": 1,
+       "h": 0.45
+      },
+      "segments": [
+       {
+        "from": 4.3,
+        "to": 11.3
+       },
+       {
+        "from": 11.25,
+        "hold": 40
+       }
+      ],
+      "camera": [
+       {
+        "at": 0,
+        "zoom": 1.05,
+        "x": 0.5,
+        "y": 0.22
+       }
+      ],
+      "callouts": [
+       {
+        "from": 64,
+        "to": 160,
+        "x": 0.028,
+        "y": 0.13,
+        "w": 0.47,
+        "h": 0.045,
+        "label": "write tool not listed"
+       },
+       {
+        "from": 167,
+        "to": 210,
+        "x": 0.028,
+        "y": 0.355,
+        "w": 0.89,
+        "h": 0.055,
+        "label": "rejected"
+       }
+      ]
+     }
+    },
+    "cards": [
+     {
+      "at": 20,
+      "kicker": "READ-ONLY BY DEFAULT",
+      "text": "CUBRID_MCP_WRITE=0"
+     }
+    ]
+   },
+   "review": 244,
+   "narration": {
+    "src": "voice-demo/C4b.wav",
+    "offset": 6,
+    "durationInFrames": 189
+   }
+  },
+  {
+   "id": "K2",
+   "start": 3745,
+   "duration": 754,
+   "type": "proof",
+   "props": {
+    "heading": {
+     "kicker": "cubrid-cookbook-python",
+     "parts": [
+      {
+       "t": "docker compose up → POST /items"
+      }
+     ],
+     "size": 56,
+     "still": false
+    },
+    "kind": "terminal",
+    "mockup": {
+     "title": "terminal · quickstart/5min-fastapi",
+     "width": 1296,
+     "clock": true,
+     "source": "real recording · cookbook quickstart/5min-fastapi @969c3f9 · its pinned cubrid/cubrid:11.2 · 2026-10-26",
+     "footage": {
+      "src": "footage/K2-terminal.mp4",
+      "segments": [
+       {
+        "from": 0,
+        "to": 2.5
+       },
+       {
+        "from": 2.5,
+        "to": 110.0,
+        "rate": 12
+       },
+       {
+        "from": 111.0,
+        "to": 113.5
+       },
+       {
+        "from": 122.0,
+        "to": 131.7
+       },
+       {
+        "from": 131.65,
+        "hold": 30
+       }
+      ],
+      "camera": [
+       {
+        "at": 0,
+        "zoom": 1.5,
+        "x": 0.3,
+        "y": 0.08
+       },
+       {
+        "at": 74,
+        "zoom": 1.5,
+        "x": 0.3,
+        "y": 0.08
+       },
+       {
+        "at": 75,
+        "zoom": 1.15,
+        "x": 0.45,
+        "y": 0.4
+       },
+       {
+        "at": 343,
+        "zoom": 1.15,
+        "x": 0.45,
+        "y": 0.4
+       },
+       {
+        "at": 344,
+        "zoom": 1.25,
+        "x": 0.42,
+        "y": 0.55
+       },
+       {
+        "at": 418,
+        "zoom": 1.25,
+        "x": 0.42,
+        "y": 0.55
+       },
+       {
+        "at": 419,
+        "zoom": 1.25,
+        "x": 0.42,
+        "y": 0.8
+       },
+       {
+        "at": 709,
+        "zoom": 1.25,
+        "x": 0.42,
+        "y": 0.8
+       },
+       {
+        "at": 740,
+        "zoom": 1.25,
+        "x": 0.42,
+        "y": 0.8
+       }
+      ]
+     }
+    },
+    "windowAt": 8,
+    "align": "center"
+   },
+   "review": 734,
+   "narration": {
+    "src": "voice-demo/K2.wav",
+    "offset": 6,
+    "durationInFrames": 411
+   }
+  },
+  {
+   "id": "K2b",
+   "start": 4499,
+   "duration": 314,
+   "type": "proof",
+   "props": {
+    "heading": {
+     "kicker": "cubrid-cookbook-python",
+     "parts": [
+      {
+       "t": "Swagger UI에서 POST"
+      }
+     ],
+     "size": 56,
+     "still": true
+    },
+    "kind": "browser",
+    "mockup": {
+     "url": "localhost:8000/docs",
+     "width": 1728,
+     "source": "real recording · Playwright · cookbook quickstart/5min-fastapi @969c3f9 · its pinned cubrid/cubrid:11.2 · 2026-10-26",
+     "footage": {
+      "src": "footage/K2.mp4",
+      "segments": [
+       {
+        "from": 1.5,
+        "to": 10.5
+       },
+       {
+        "from": 10.45,
+        "hold": 30
+       }
+      ],
+      "viewport": {
+       "x": 0,
+       "y": 0.11,
+       "w": 1,
+       "h": 0.6
+      },
+      "camera": [
+       {
+        "at": 0,
+        "zoom": 1.0,
+        "x": 0.5,
+        "y": 0.4
+       },
+       {
+        "at": 269,
+        "zoom": 1.3,
+        "x": 0.4,
+        "y": 0.3
+       },
+       {
+        "at": 300,
+        "zoom": 1.3,
+        "x": 0.4,
+        "y": 0.3
+       }
+      ],
+      "callouts": [
+       {
+        "from": 219,
+        "to": 270,
+        "x": 0.03,
+        "y": 0.19,
+        "w": 0.94,
+        "h": 0.155,
+        "label": "Swagger UI · 200"
+       }
+      ]
+     }
+    },
+    "windowAt": 8,
+    "align": "center"
+   },
+   "review": 294,
+   "narration": {
+    "src": "voice-demo/K2b.wav",
+    "offset": 6,
+    "durationInFrames": 98
+   }
+  },
+  {
+   "id": "K3",
+   "start": 4813,
+   "duration": 262,
+   "type": "proof",
+   "props": {
+    "heading": {
+     "kicker": "cubrid-cookbook-python",
+     "parts": [
+      {
+       "t": "예제 템플릿"
+      }
+     ],
+     "size": 56,
+     "still": true
+    },
+    "kind": "browser",
+    "mockup": {
+     "url": "github.com/cubrid-lab/cubrid-cookbook-python/tree/main/templates",
+     "width": 1728,
+     "source": "real recording · Playwright · the cookbook templates/ tree page · 2026-10-25",
+     "footage": {
+      "src": "footage/K3.mp4",
+      "segments": [
+       {
+        "from": 0.0,
+        "to": 6.2
+       },
+       {
+        "from": 6.15,
+        "hold": 62
+       }
+      ],
+      "viewport": {
+       "x": 0,
+       "y": 0.11,
+       "w": 1,
+       "h": 0.6
+      },
+      "camera": [
+       {
+        "at": 0,
+        "zoom": 1.0,
+        "x": 0.45,
+        "y": 0.4
+       },
+       {
+        "at": 185,
+        "zoom": 1.0,
+        "x": 0.45,
+        "y": 0.4
+       },
+       {
+        "at": 248,
+        "zoom": 1.0,
+        "x": 0.45,
+        "y": 0.4
+       }
+      ]
+     }
+    },
+    "windowAt": 8,
+    "align": "center"
+   },
+   "review": 242,
+   "narration": {
+    "src": "voice-demo/K3.wav",
+    "offset": 6,
+    "durationInFrames": 241
+   }
+  },
+  {
+   "id": "E",
+   "start": 5075,
+   "duration": 180,
+   "type": "introEndCard",
+   "props": {
+    "installs": [
+     "pip install pycubrid",
+     "pip install \"sqlalchemy-cubrid[pycubrid]\"",
+     "uvx cubrid-mcp-server"
+    ],
+    "url": "cubrid-lab",
+    "notices": [
+     "내레이션: AI 생성 음성(Supertonic TTS) · Narration: AI-generated voice (Supertonic)",
+     "파이큐브리드팀은 CUBRID Corporation 및 공식 CUBRID 프로젝트와 제휴·후원·보증 관계가 없는 독립 오픈소스 팀입니다. CUBRID는 해당 권리자의 상표입니다.",
+     "The PyCUBRID team is independent and is not affiliated with, sponsored by, or endorsed by CUBRID Corporation or the official CUBRID project."
+    ]
+   },
+   "review": 90,
+   "narration": {
+    "src": "voice-demo/E.wav",
+    "offset": 6,
+    "durationInFrames": 164
+   }
+  }
+ ]
+}

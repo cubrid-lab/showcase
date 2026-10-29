@@ -47,6 +47,28 @@ the M5 voice scored 0.91 against 0.81 for MeloTTS. Lines B2 and F2 were rewritte
 `voice-melotts-2026-10-27/`.
 Disclosed on the end card: “내레이션: AI 생성 음성(Supertonic TTS) · Narration: AI-generated voice (Supertonic)”.
 
+## Demo-focused cut (`timelines/demo-cut.json`)
+
+A second cut of the same material ([#55](https://github.com/cubrid-lab/showcase/issues/55)), built
+by `scripts/build_demo_timeline.py`; the main cut above is unchanged. It uses the same footage files
+(P2, P3, P4, S2, S3, S4, C2, C3, C4, C4_script, K2-terminal, K2, K3) and the same window framing,
+crops, masks and source lines. Differences:
+
+- Footage plays at 1×; idle typing and waits are cut with jump cuts (`segments`). Sped-up spans, both
+  with the “×N” badge: the pip download in S2 (×4) and K2-terminal's two-minute `docker compose up`
+  (×12, with the recording's `rec m:ss` clock; the narration says so).
+- C4 keeps the rule above: the agent replay is cut before its SQL block (top 34 % only); the real
+  rejection comes from `C4_script.mp4`. Both keep the persistent replay/script labels.
+- Narration: 15 new lines (`scripts/demo_cut_lines.json`), same engine and post-processing as the
+  main cut (Supertonic 3, voice M5, 16 steps, speed 1.05, `lang=ko`, same trim/pad/loudnorm), written to
+  `voice-demo/` (not committed); project names are given in Hangul reading for the TTS input. Every
+  line fits its shot (`build_demo_timeline.py` asserts it).
+- Music: only the `pads` and `keys` stems of the main score, ducked as before, no drums, bass or fx
+  hits; mastered to the same −14 LUFS / −1 dBTP.
+- End card: same installs, links and notices as the main cut's F2 (AI-voice disclosure and independence
+  notice). Captions: `captions/cubrid-lab-intro-2026-demo.{ko,en}.{srt,vtt}`, cue times split by
+  character count within each narration line.
+
 ## Music
 
 Original procedural score (`music/src/generate.py`, numpy/scipy, seed 51; no samples, loops or

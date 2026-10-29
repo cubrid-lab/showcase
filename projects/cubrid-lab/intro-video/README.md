@@ -27,12 +27,14 @@ npm run studio            # Remotion Studio (also generates placeholders)
 npm run render:main       # Main composition  -> out/main.mp4   (timelines/main.json)
 npm run render:short      # Short composition -> out/short.mp4  (timelines/short.json)
 npm run render:demo       # 20 s pipeline demo -> out/demo.mp4  (timelines/demo.json)
+npm run render:demo-cut   # demo-focused cut, full pipeline -> /data/video-intro-assets/out-demo-cut/ (DemoCut, timelines/demo-cut.json)
 npm run render:stills -- Main 120 900 2700   # single frames -> out/stills/main-<frame>.png
 npm run stills:demo       # 4 JPEG stills from out/demo.mp4 -> stills/
 npm run placeholders      # (re)generate PLACEHOLDER media in public/placeholder/
 npm run typecheck
 scripts/render-final.sh [assetsDir] [outDir]   # main cut: render, mix, master, MP4 + WebM, captions, contact sheet
 DRAFT=1 scripts/render-final.sh                # 960x540 draft of the same pipeline
+TIMELINE=demo-cut COMPOSITION=DemoCut NAME=cubrid-lab-intro-2026-demo STEMS=pads,keys scripts/render-final.sh   # what render:demo-cut runs
 ```
 
 `render:stills` defaults to four frames of `Demo`. `scripts/extract-stills.mjs
@@ -78,10 +80,10 @@ src/
     EndCard.tsx             lockup, install commands, links, AI-voice + independence notices
     Transitions.tsx         CubeWipe (three org-colour 30° panels), KeyWipe (main cut), FadeThrough
     Intro.tsx               main-cut shots: hook, flash, brand tiles/lockup, chapter, proof, config, cards, finale, end card
-timelines/            main.json, short.json, demo.json
+timelines/            main.json, demo-cut.json (generated), short.json, demo.json (placeholder pipeline demo)
 public/               footage/, voice/, music/ (gitignored media), subtitles/
 scripts/              make-placeholders.mjs, render-stills.mjs, extract-stills.mjs,
-                      build_main_timeline.py, prepare-media.mjs, render-final.sh, mix_audio.py,
+                      build_main_timeline.py, build_demo_timeline.py, demo_cut_lines.json, synth_demo_voice.py, prepare-media.mjs, render-final.sh, mix_audio.py,
                       loudness_report.py, contact-sheet.mjs, review-stills.mjs
 captions/             ko/en .srt/.vtt of the main cut
 stills/               4 frames of the pipeline demo render
@@ -221,6 +223,27 @@ scripts/render-final.sh /data/video-intro-assets /data/video-intro-assets/out
 
 `node scripts/review-stills.mjs Main out/review 0.5 [shotId …]` renders single shots straight
 from the source for quick checks.
+
+### Demo cut
+
+`DemoCut` (`timelines/demo-cut.json`, 2:55) is a second, demo-focused cut: a 3.6 s title card, four
+demo sections (pycubrid, sqlalchemy-cubrid, cubrid-mcp-server, cubrid-cookbook-python) built from
+the same real footage as the main cut, and a 6 s end card with the install commands, the AI-voice
+disclosure and the independence notice. No hook, flash, brand lockup, chapter cards or finale; the
+heading kicker names the product in every shot. Footage plays at 1× with jump cuts over idle typing
+and waits; only two spans are sped up and both carry the “×N” badge: the pip download in the
+sqlalchemy-cubrid install (×4) and the 2-minute `docker compose up` (×12, with the recording's own
+clock). The score is replaced by a quiet pads/keys bed. The main cut is untouched.
+
+```bash
+/data/video-intro-assets/envs/supertonic/bin/python scripts/synth_demo_voice.py scripts/demo_cut_lines.json   # voice -> $INTRO_ASSETS/voice-demo/ (Supertonic 3, M5)
+python3 scripts/build_demo_timeline.py                            # timelines/demo-cut.json + captions/*-demo.*
+npm run render:demo-cut                                           # master, mix, MP4/WebM, contact sheet, loudness report
+```
+
+`render-final.sh` and its helpers take `TIMELINE`, `COMPOSITION`, `NAME` and `STEMS` (see the script
+header); the defaults render the main cut. `build_demo_timeline.py` refuses a shot shorter than its
+narration needs (0.2 s offset + line ≤ shot length − 0.3 s).
 
 ### Captions
 

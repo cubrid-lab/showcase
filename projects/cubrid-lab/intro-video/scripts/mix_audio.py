@@ -35,7 +35,7 @@ RELEASE_S = 0.35
 FADE_OUT_S = 1.5
 TARGET_I = -14.0
 TARGET_TP = -1.0
-STEMS = ("drums", "bass", "pads", "keys")
+STEMS = ("drums", "bass", "pads", "keys")  # --stems overrides; the fx stem is added unless --stems is given
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -75,11 +75,13 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--assets", default="/data/video-intro-assets")
     ap.add_argument("--out", default=str(ROOT / "out" / "audio"))
+    ap.add_argument("--timeline", default="main", help="timelines/<name>.json")
+    ap.add_argument("--stems", default="", help="comma-separated music stems to use (no fx stem), e.g. pads,keys; default: all")
     args = ap.parse_args()
     assets, out = Path(args.assets), Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
 
-    tl = json.loads((ROOT / "timelines" / "main.json").read_text())
+    tl = json.loads((ROOT / "timelines" / f"{args.timeline}.json").read_text())
     total = max(s["start"] + s["duration"] for s in tl["shots"])
     n = round(total / FPS * SR)
 
@@ -110,9 +112,11 @@ def main() -> None:
     fade = np.clip((total / FPS - t) / FADE_OUT_S, 0, 1)
 
     music = np.zeros((n, 2), np.float32)
-    for stem in STEMS:
+    stems = tuple(args.stems.split(",")) if args.stems else STEMS
+    for stem in stems:
         music += read_wav(assets / "music" / "stems" / f"{stem}.wav")[:n] * (g_main * fade)[:, None]
-    music += read_wav(assets / "music" / "stems" / "fx.wav")[:n] * (g_fx * fade)[:, None]
+    if not args.stems:
+        music += read_wav(assets / "music" / "stems" / "fx.wav")[:n] * (g_fx * fade)[:, None]
 
     mix = vox + music
     write_wav_float(out / "mix.wav", mix)

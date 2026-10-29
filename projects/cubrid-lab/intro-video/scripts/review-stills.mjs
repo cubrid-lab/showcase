@@ -10,7 +10,7 @@ import {fileURLToPath} from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const [comp = 'Main', outDir = 'out/review', scale = '0.5', ...only] = process.argv.slice(2);
-const timeline = JSON.parse(readFileSync(join(root, 'timelines', `${comp.toLowerCase()}.json`), 'utf8'));
+const timeline = JSON.parse(readFileSync(join(root, 'timelines', `${process.env.TIMELINE ?? comp.toLowerCase()}.json`), 'utf8'));
 mkdirSync(join(root, outDir), {recursive: true});
 
 const serveUrl = await bundle({entryPoint: join(root, 'src', 'index.ts'), publicDir: join(root, 'public')});
