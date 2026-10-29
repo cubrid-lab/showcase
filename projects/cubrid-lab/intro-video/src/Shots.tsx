@@ -3,6 +3,7 @@ import {AbsoluteFill, interpolate, useCurrentFrame} from 'remotion';
 import {THEME} from './brand';
 import {SANS} from './fonts';
 import {BrandCubeAssemble} from './components/BrandCubeAssemble';
+import {DemoTitleShot} from './components/DemoCut';
 import {EndCard, EndCardProps} from './components/EndCard';
 import {KineticTitle, KineticTitleProps} from './components/KineticTitle';
 import {BrowserMockup, MockupProps, TerminalMockup, WindowMockup} from './components/Mockups';
@@ -157,5 +158,6 @@ export const SHOT_TYPES: Record<string, ShotComponent> = {
 	config: ({props}) => <ConfigShot {...(props as React.ComponentProps<typeof ConfigShot>)} />,
 	cards: ({props}) => <CardsShot {...(props as React.ComponentProps<typeof CardsShot>)} />,
 	finale: ({props}) => <FinaleShot {...(props as React.ComponentProps<typeof FinaleShot>)} />,
+	demoTitle: ({props}) => <DemoTitleShot {...(props as React.ComponentProps<typeof DemoTitleShot>)} />,
 	introEndCard: ({props}) => <IntroEndCardShot {...(props as React.ComponentProps<typeof IntroEndCardShot>)} />,
 };

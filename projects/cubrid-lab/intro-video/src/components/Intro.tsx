@@ -178,7 +178,7 @@ const settle = (frame: number, at: number, len = 12) => {
 };
 
 /** Icon standing on its tile. */
-const IconOnTile: React.FC<{repo: string; size: number; tileAt: number; iconAt: number; from?: 'drop' | 'scale'}> = ({
+export const IconOnTile: React.FC<{repo: string; size: number; tileAt: number; iconAt: number; from?: 'drop' | 'scale'}> = ({
 	repo,
 	size,
 	tileAt,

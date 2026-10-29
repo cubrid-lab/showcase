@@ -5,7 +5,7 @@
 // assetsDir layout (see README "Production"): footage/*.mp4, mcp/*.mp4, voice/<shot>.wav,
 // music/bed.wav + music/stems/*.wav. Pretendard comes from presentation/public/fonts in this
 // repository. Files are hard-linked when possible (same filesystem), otherwise copied.
-// Every file the main timeline needs is checked; a missing one is an error.
+// TIMELINE=<name> picks timelines/<name>.json (default main). Every file the timeline needs is checked; a missing one is an error.
 import {copyFileSync, existsSync, linkSync, mkdirSync, readFileSync, rmSync} from 'node:fs';
 import {dirname, join, resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
@@ -36,7 +36,7 @@ for (const f of ['C2', 'C3', 'C4', 'C4_script']) {
 }
 place(join(assets, 'music', 'bed.wav'), 'music/bed.wav');
 
-const timeline = JSON.parse(readFileSync(join(root, 'timelines', 'main.json'), 'utf8'));
+const timeline = JSON.parse(readFileSync(join(root, 'timelines', `${process.env.TIMELINE ?? 'main'}.json`), 'utf8'));
 for (const shot of timeline.shots) {
 	if (shot.narration) {
 		place(join(assets, shot.narration.src), shot.narration.src);

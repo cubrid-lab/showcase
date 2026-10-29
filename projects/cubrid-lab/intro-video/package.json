@@ -13,7 +13,9 @@
     "render:stills": "node scripts/render-stills.mjs",
     "stills:demo": "node scripts/extract-stills.mjs out/demo.mp4 stills 1.2 7.8 12.6 18.5",
     "render:final": "bash scripts/render-final.sh",
-    "timeline:main": "python3 scripts/build_main_timeline.py"
+    "timeline:main": "python3 scripts/build_main_timeline.py",
+    "timeline:demo-cut": "python3 scripts/build_demo_timeline.py",
+    "render:demo-cut": "TIMELINE=demo-cut COMPOSITION=DemoCut NAME=cubrid-lab-intro-2026-demo STEMS=pads,keys bash scripts/render-final.sh /data/video-intro-assets /data/video-intro-assets/out-demo-cut"
   },
   "dependencies": {
     "@remotion/cli": "4.0.534",

@@ -6,6 +6,8 @@
 #     outDir     deliverables (default: <assetsDir>/out)
 #   DRAFT=1      960x540 draft (scale 0.5, CRF 26) instead of the master; no WebM
 #   CONCURRENCY  Remotion render concurrency (default 4)
+#   TIMELINE / COMPOSITION / NAME / STEMS  pick another cut (defaults: main / Main /
+#                cubrid-lab-intro-2026 / all stems); the demo cut: npm run render:demo-cut
 #
 # Steps: link media -> Remotion render (video only) -> narration/music mix + master to -14 LUFS /
 # -1 dBTP -> mux MP4 (H.264 High + AAC 48 kHz 320k) -> WebM (VP9 + Opus) -> captions ->
@@ -15,7 +17,12 @@ cd "$(dirname "$0")/.."
 
 ASSETS=${1:-${INTRO_ASSETS:-/data/video-intro-assets}}
 OUT=${2:-$ASSETS/out}
-NAME=cubrid-lab-intro-2026
+NAME=${NAME:-cubrid-lab-intro-2026}
+TIMELINE=${TIMELINE:-main}
+COMPOSITION=${COMPOSITION:-Main}
+MIX_ARGS=(--timeline "$TIMELINE")
+[[ -n "${STEMS:-}" ]] && MIX_ARGS+=(--stems "$STEMS")
+export TIMELINE
 CONCURRENCY=${CONCURRENCY:-4}
 mkdir -p "$OUT" out
 
@@ -23,18 +30,18 @@ node scripts/prepare-media.mjs "$ASSETS"
 npx tsc --noEmit
 
 if [[ "${DRAFT:-0}" == 1 ]]; then
-	npx remotion render src/index.ts Main out/video-draft.mp4 --muted --scale=0.5 --crf=26 \
+	npx remotion render src/index.ts "$COMPOSITION" out/video-draft.mp4 --muted --scale=0.5 --crf=26 \
 		--concurrency="$CONCURRENCY" --log=error
-	python3 scripts/mix_audio.py --assets "$ASSETS" --out out/audio
+	python3 scripts/mix_audio.py --assets "$ASSETS" --out out/audio "${MIX_ARGS[@]}"
 	ffmpeg -nostdin -v error -y -i out/video-draft.mp4 -i out/audio/master.wav -map 0:v -map 1:a \
 		-c:v copy -c:a aac -b:a 192k -ar 48000 -shortest -movflags +faststart "$OUT/$NAME-draft-540p.mp4"
 	echo "draft: $OUT/$NAME-draft-540p.mp4"
 	exit 0
 fi
 
-npx remotion render src/index.ts Main out/video-master.mp4 --muted --codec=h264 --crf=16 \
+npx remotion render src/index.ts "$COMPOSITION" out/video-master.mp4 --muted --codec=h264 --crf=16 \
 	--x264-preset=slow --pixel-format=yuv420p --concurrency="$CONCURRENCY" --log=error
-python3 scripts/mix_audio.py --assets "$ASSETS" --out out/audio
+python3 scripts/mix_audio.py --assets "$ASSETS" --out out/audio "${MIX_ARGS[@]}"
 
 ffmpeg -nostdin -v error -y -i out/video-master.mp4 -i out/audio/master.wav -map 0:v -map 1:a \
 	-c:v copy -c:a aac -b:a 320k -ar 48000 -shortest -movflags +faststart "$OUT/$NAME.mp4"

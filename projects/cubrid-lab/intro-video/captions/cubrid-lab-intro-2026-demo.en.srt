@@ -1,0 +1,150 @@
+1
+00:00:00,200 --> 00:00:01,833
+This is the PyCUBRID team demo.
+
+2
+00:00:03,800 --> 00:00:04,943
+First, pycubrid.
+
+3
+00:00:04,943 --> 00:00:09,873
+In a fresh virtual environment, one
+pip install line is all it takes.
+
+4
+00:00:13,867 --> 00:00:15,106
+A first query.
+
+5
+00:00:15,106 --> 00:00:20,063
+Open a connection, create a
+cursor and run SELECT 1 + 1.
+
+6
+00:00:20,063 --> 00:00:22,985
+Run the file and the result is 2.
+
+7
+00:00:29,333 --> 00:00:32,571
+The same code works asynchronously.
+
+8
+00:00:32,571 --> 00:00:34,051
+Import pycubrid.
+
+9
+00:00:34,051 --> 00:00:38,306
+aio and run it with await
+for the same result.
+
+10
+00:00:39,033 --> 00:00:41,215
+Next, sqlalchemy-cubrid.
+
+11
+00:00:41,215 --> 00:00:47,031
+Install it with pip and write the
+engine URL as cubrid+pycubrid.
+
+12
+00:00:55,133 --> 00:00:58,954
+Declare the model the way
+you always do with the ORM.
+
+13
+00:00:58,954 --> 00:01:03,928
+Create the table, insert two rows
+and query them: keyboard and mouse.
+
+14
+00:01:12,600 --> 00:01:14,381
+Migrations work too.
+
+15
+00:01:14,381 --> 00:01:21,774
+Initialize Alembic, create a revision and
+upgrade, and the tag table is created and
+
+16
+00:01:21,774 --> 00:01:22,397
+listed.
+
+17
+00:01:27,267 --> 00:01:29,557
+Third, cubrid-mcp-server.
+
+18
+00:01:29,557 --> 00:01:36,886
+Ask an AI agent which tables exist and
+it calls tools to read the table list and
+
+19
+00:01:36,886 --> 00:01:37,802
+structure.
+
+20
+00:01:39,067 --> 00:01:44,351
+Ask for product counts per category and the
+agent writes a SELECT query, runs it and
+
+21
+00:01:44,351 --> 00:01:46,238
+sums up the result in a table.
+
+22
+00:01:49,567 --> 00:01:51,822
+Writes are blocked by default.
+
+23
+00:01:51,822 --> 00:01:55,280
+Ask the agent to drop a
+table and it declines.
+
+24
+00:01:56,233 --> 00:01:58,752
+The server's demo script behaves the same.
+
+25
+00:01:58,752 --> 00:02:02,529
+The write tool is not listed,
+and the drop attempt is rejected.
+
+26
+00:02:05,033 --> 00:02:07,453
+Last, cubrid-cookbook-python.
+
+27
+00:02:07,453 --> 00:02:14,296
+Starting the database and API with Docker
+Compose takes about two minutes, so this
+
+28
+00:02:14,296 --> 00:02:16,048
+part is shown at 12x.
+
+29
+00:02:16,048 --> 00:02:18,718
+When healthy, we send a request.
+
+30
+00:02:30,167 --> 00:02:33,403
+In the Swagger UI, the POST
+request also returns 200.
+
+31
+00:02:40,633 --> 00:02:46,447
+The repository has example directories
+such as agent, async worker, batch,
+
+32
+00:02:46,447 --> 00:02:48,646
+dashboard, Django and Flask.
+
+33
+00:02:49,367 --> 00:02:52,961
+Install commands and the
+repository are on screen.
+
+34
+00:02:52,961 --> 00:02:54,830
+The voice is AI-generated.

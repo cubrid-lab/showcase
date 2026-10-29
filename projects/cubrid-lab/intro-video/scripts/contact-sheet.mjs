@@ -15,7 +15,7 @@ if (!video || !out) {
 }
 const stills = stillsArg ?? join(dirname(out), `${basename(out, extname(out))}-stills`);
 mkdirSync(stills, {recursive: true});
-const {shots, meta} = JSON.parse(readFileSync(join(root, 'timelines', 'main.json'), 'utf8'));
+const {shots, meta} = JSON.parse(readFileSync(join(root, 'timelines', `${process.env.TIMELINE ?? 'main'}.json`), 'utf8'));
 const ff = (args) => execFileSync('ffmpeg', ['-nostdin', '-hide_banner', '-loglevel', 'error', '-y', ...args]);
 const files = [];
 for (const [i, shot] of shots.entries()) {
