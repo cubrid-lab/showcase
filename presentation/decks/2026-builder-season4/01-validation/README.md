@@ -2,14 +2,14 @@
 
 이 폴더에는 웹 발표의 Markdown 원본만 있습니다. PPTX·PDF는 이 원본에서 만든 출력물이라 저장소에 넣지 않고 릴리스에 올립니다.
 
-## 제출본 받기 (r5, 2026-10-29)
+## 제출본 받기 (r6, 2026-10-29)
 
 | 언어 | PPTX (디스코드 제출용) | PDF | 웹 발표 (최신) |
 |---|---|---|---|
-| 한국어 | [operator-first-validation.ko.pptx](https://github.com/cubrid-lab/showcase/releases/download/builder-season4-validation-2026-10-29-r5/operator-first-validation.ko.pptx) | [operator-first-validation.ko.pdf](https://github.com/cubrid-lab/showcase/releases/download/builder-season4-validation-2026-10-29-r5/operator-first-validation.ko.pdf) | [한국어 HTML](https://cubrid-lab.github.io/showcase/events/2026-builder-season4/01-validation/ko/) |
-| English | [operator-first-validation.en.pptx](https://github.com/cubrid-lab/showcase/releases/download/builder-season4-validation-2026-10-29-r5/operator-first-validation.en.pptx) | [operator-first-validation.en.pdf](https://github.com/cubrid-lab/showcase/releases/download/builder-season4-validation-2026-10-29-r5/operator-first-validation.en.pdf) | [English HTML](https://cubrid-lab.github.io/showcase/events/2026-builder-season4/01-validation/en/) |
+| 한국어 | [operator-first-validation.ko.pptx](https://github.com/cubrid-lab/showcase/releases/download/builder-season4-validation-2026-10-29-r6/operator-first-validation.ko.pptx) | [operator-first-validation.ko.pdf](https://github.com/cubrid-lab/showcase/releases/download/builder-season4-validation-2026-10-29-r6/operator-first-validation.ko.pdf) | [한국어 HTML](https://cubrid-lab.github.io/showcase/events/2026-builder-season4/01-validation/ko/) |
+| English | [operator-first-validation.en.pptx](https://github.com/cubrid-lab/showcase/releases/download/builder-season4-validation-2026-10-29-r6/operator-first-validation.en.pptx) | [operator-first-validation.en.pdf](https://github.com/cubrid-lab/showcase/releases/download/builder-season4-validation-2026-10-29-r6/operator-first-validation.en.pdf) | [English HTML](https://cubrid-lab.github.io/showcase/events/2026-builder-season4/01-validation/en/) |
 
-릴리스 전체(HTML ZIP, 파일 해시 포함): [builder-season4-validation-2026-10-29-r5](https://github.com/cubrid-lab/showcase/releases/tag/builder-season4-validation-2026-10-29-r5).
+릴리스 전체(HTML ZIP, 파일 해시 포함): [builder-season4-validation-2026-10-29-r6](https://github.com/cubrid-lab/showcase/releases/tag/builder-season4-validation-2026-10-29-r6).
 웹 발표는 `main`이 바뀔 때마다 다시 만들어지므로 위 PPTX·PDF보다 새로울 수 있습니다.
 
 ## 파일
