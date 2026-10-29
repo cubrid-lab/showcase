@@ -15,7 +15,8 @@ this directory:
 
 Naming rules for a new deck, round or language:
 
-- Source: `decks/<year>-<event>/[<round>/]slides[.<lang>].md`. It holds the
+- Source: `decks/<year>-<event>/[<round>/]slides[.<lang>].md`, next to a `README.md`
+  that links the released PDF/PPTX. It holds the
   slides and speaker notes. Its first frontmatter block only sets `title`.
 - Entry: `<year>-<event>[-<round>][.<lang>].md` in this directory. It holds the
   deck-wide Slidev settings (theme, canvas width, fonts, export name) and

@@ -58,6 +58,8 @@ def check_deck_layout() -> list[str]:
         elif not (PRESENTATION / src.group(1)).is_file():
             failures.append(f"presentation/{entry.name}: src {src.group(1)} does not exist")
     for source in sorted((PRESENTATION / "decks").rglob("*.md")):
+        if source.name == "README.md":  # folder guide, not a deck source
+            continue
         relative = source.relative_to(PRESENTATION).as_posix()
         if relative not in sources:
             failures.append(f"presentation/{relative}: deck source without an entry")
