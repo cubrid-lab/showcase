@@ -14,9 +14,8 @@ than becoming extra presentation sections.
 | 4. Write safety, recorded evidence and validation gaps | 7, 9–10 | 115 |
 | 3. Existing approaches and open-source comparison | 8 | 50 |
 | 6. Roadmap, responsibilities, v0.1 and later direction | 11–14 | 125 |
-| 7. Discussion topics | 15 | 25 |
-| Questions | 16 | 5 |
-| **Total** | **16 slides per language** | **535 + 65 seconds buffer** |
+| 7. Discussion topics and questions | 15 | 15 |
+| **Total** | **15 slides per language** | **520 + 80 seconds buffer** |
 
 The announced presentation limit is ten minutes plus separate ten-minute Q&A. Times are planning targets, not a rehearsal measurement.
 The expanded material deliberately separates hypothetical incident stories, user hypotheses, source comparison, executed evidence and work not yet proven.
@@ -40,7 +39,7 @@ The expanded material deliberately separates hypothetical incident stories, user
 | 11, 13 | [ROADMAP](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/ROADMAP.md); the 24-hour load target is from [final integration issue #95](https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/95) ("initial target of 24 hours") | Nov 29 full first pass, Dec 27 candidate release are goals, not passed or promised milestones |
 | 12 | [CONTRIBUTING](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/CONTRIBUTING.md) and team record below | Both are co-maintainers; per-issue owner and reviewer, no invented permanent feature assignment |
 | 14 | [Post-v0.1 direction](#post-v01-direction) | Unsheduled proposal, not support or release commitment |
-| 15 | Builder validation notice | Discussion: incident criteria, the first CSI driver to support, independent runbook review |
+| 15 (speaker note) | Builder validation notice | Discussion: incident criteria, the first CSI driver to support, independent runbook review |
 
 ## Recorded execution evidence
 
@@ -174,3 +173,8 @@ project goals instead of a status table. Slide 8 compares the two Operators in
 one table and links the official repository and its pinned source. Headlines
 fit on one line, and wording was smoothed. Evidence, numbers and source
 revisions are unchanged. The plan is 535 seconds with a 65-second buffer.
+
+Later on 2026-10-29 the separate feedback slide was removed at the maintainer's
+request. The Q&A slide (now 15) keeps the discussion topics in its speaker
+note: what people check first after a fault and which CSI driver v0.1 should
+support first. The plan returns to 520 seconds with an 80-second buffer.
