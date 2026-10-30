@@ -57,6 +57,14 @@ no new PR merge gate and preserves existing design and release standards.
 
 ## Human-readable communication (all agents)
 
+The canonical rule is section 6 of the organization standard,
+[Explanations in code, tests, reviews and agent-written text](https://github.com/cubrid-lab/.github/blob/main/docs/ISSUE_PR_COMMIT_STANDARD.md#6-explanations-in-code-tests-reviews-and-agent-written-text).
+The notes below apply it here, including to slide narrations and speaker
+notes, diagram captions and alt text, test descriptions and script comments.
+This repository's rules on published URLs, slide anchors, historical
+artifacts, attribution, licensed assets and presentation output keep
+precedence; do not rewrite published slides only to change wording.
+
 Use this rule for text authored or edited by Codex, Claude Code, OpenCode,
 ChatGPT, Copilot, or any other agent. It applies to issues, PRs, reviews,
 comments, checklists, status updates, commit summaries, release notes,
