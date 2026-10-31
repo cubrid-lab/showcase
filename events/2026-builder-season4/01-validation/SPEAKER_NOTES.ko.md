@@ -33,9 +33,13 @@ CUBRID Kubernetes Operator는 Kubernetes에서 CUBRID HA 클러스터를 안전�
 
 ## 05. 50초 · 03 · 기존 방식의 한계
 
-CUBRID에는 이미 공식 Operator가 있고, HA 상태 조회와 스토리지, 예약 백업을 제공합니다. 그럼 무엇이 다를까요? 표는 두 프로젝트의 소스를 직접 읽고 정리한 것입니다.
+CUBRID에는 이미 공식 Operator가 있고, HA 상태 조회와 스토리지, 예약 백업을 제공합니다. 그래서 5번 슬라이드에서는 두 구조를 나란히 비교합니다.
 
-소스를 보면 공식 Operator는 처음 성공한 응답 하나에 담긴 노드 정보를 HA 상태에 그대로 씁니다. 저희는 모든 노드의 최신 응답을 비교하고, 빠지거나 엇갈리면 미확정으로 둡니다. 백업 같은 작업은 Instance Manager에 요청하고 작업 ID를 볼륨에 남겨서, 중간에 끊기면 실패로 기록합니다. 공식 Operator 소스에서는 복원 기능을 찾지 못했습니다. 저희는 복원 전에 파일 목록과 체크섬을 확인합니다. 소스상 두 프로젝트 모두 운영 중에는 포트 검사를 쓰므로, 저희는 시험에서 SQL 쓰기·읽기와 데이터를 따로 확인합니다. 실제 장애에서 어느 쪽이 더 안정적인지는 아직 비교하지 못했습니다.
+공식 Operator는 DB Pod 안에서 CUBRID DB와 CMS, Broker를 함께 실행합니다. Operator가 CMS API와 `pods/exec`로 DB를 관리하고, 애플리케이션은 DB Pod 내부 Broker로 SQL을 보냅니다.
+
+우리 구조에서는 DB Pod 안에 CUBRID DB와 Instance Manager가 함께 실행되며, RW/RO Broker는 별도 Deployment에 있습니다. Operator는 IM API로 노드 역할을 조회하고 관리 작업을 요청하며, 작업 ID를 볼륨에 기록합니다.
+
+두 Operator 모두 master 선출과 복제는 CUBRID 자체 HA가 합니다. 관리 인터페이스와 Broker 배치가 다르다는 것까지는 코드로 확인했습니다. 하지만 실제 장애 안전성이나 성능에서 어느 쪽이 더 낫다는 비교 결과는 아직 없습니다.
 
 ## 06. 45초 · 04 · 해결 방법
 
