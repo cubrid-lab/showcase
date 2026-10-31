@@ -695,24 +695,24 @@ PR에서는 변경 위험에 맞는 검사만 선택하고, 릴리스와 수동 
 ---
 
 <p class="kicker">드라이버 → ORM → 예제 → AI</p>
-<h2 class="one">생태계 확장을 위한 다음 계획</h2>
-<p class="sub">Python에서 검증한 순서를 다른 언어에도 적용합니다.</p>
+<h2 class="one">다음 계획: 당분간 Python에 집중합니다</h2>
+<p class="sub">이미 공개한 네 저장소를 더 단단하게 만듭니다.</p>
 
-<ul class="explain langs">
-  <li><b>Python</b> — pycubrid · sqlalchemy-cubrid <span class="muted">PyPI 공개</span></li>
-  <li><b>TypeScript</b> — cubrid-client · drizzle-cubrid <span class="muted">진행 중</span></li>
-  <li><b>Go</b> — cubrid-go · gorm-cubrid <span class="muted">진행 중</span></li>
-  <li><b>Rust</b> — cubrid-rs · sea-orm-cubrid <span class="muted">진행 중</span></li>
+<ul class="explain plans">
+  <li><b>pycubrid · sqlalchemy-cubrid</b> — CUBRID 12 정식 출시 후 호환성 테스트와 필요한 수정</li>
+  <li><b>cubrid-mcp-server</b> — 보안 검증 · 관찰성 · 실무 예제 보강</li>
+  <li><b>Vector · AI</b> — 서버 사양이 확정되면 파서·타입 매핑 시제품부터 검증</li>
+  <li><b>국내 개발자 커뮤니티</b> — 파이콘 한국 등에서 발표하고 사용자 의견 모으기</li>
 </ul>
 <p class="note-line"><b>처음 기여하기</b> — good first issue 33개 · 절차는 각 저장소 CONTRIBUTING.md</p>
 
 <style>
-.langs li { font-size: 1.12rem; }
+.plans li { font-size: 1.05rem; }
 </style>
 
 <!--
 [20초 · 커뮤니티 · 발전가능성]
-생태계 확장을 위한 다음 계획입니다. Python은 끝이 아니라 기준입니다. 드라이버, ORM, 예제, AI로 이어지는 같은 순서를 TypeScript, Go, Rust에서도 진행하고 있습니다. 처음 기여하실 분을 위해 good first issue를 33개 열어 두었고, 저장소마다 기여 절차를 적어 두었습니다.
+다음 계획입니다. 당분간은 Python에 집중해 이미 공개한 네 저장소를 더 단단하게 만들겠습니다. CUBRID 12가 정식 출시되면 드라이버와 dialect의 호환성을 바로 시험하고 고치겠습니다. MCP 서버는 보안 검증과 관찰성, 실무 예제를 보강하고, Vector는 서버 사양이 정해지면 시제품부터 검증하겠습니다. 파이콘 한국 같은 국내 개발자 커뮤니티에서도 발표하며 실제 사용자의 의견을 모으려고 합니다. 처음 기여하실 분을 위해 good first issue를 33개 열어 두었습니다.
 -->
 
 ---
@@ -1178,7 +1178,6 @@ MCP의 SQL allowlist는 문장 종류를 통제하지, 업무 승인 규칙이�
 <tr><td>Python 드라이버·dialect</td><td>Python 3.11–3.15 · CUBRID 10.2–11.4 지원</td><td>CUBRID 12 정식 출시 후 호환성 테스트·필요한 수정</td></tr>
 <tr><td>Vector / AI</td><td>upstream 개발 브랜치의 포맷·인덱스 구조 조사</td><td>서버 사양 확정 후 파서·타입 매핑 시제품 검증</td></tr>
 <tr><td>MCP</td><td>스키마 탐색·읽기 쿼리·기본 차단 정책 구현</td><td>보안 검증·관찰성·실무 예제 지속 개선</td></tr>
-<tr><td>다른 언어</td><td>TypeScript·Go·Rust 생태계 작업 진행 중</td><td>각 언어별 호환성·릴리스 성숙도 별도 검증</td></tr>
 </tbody>
 </table>
 <div class="proof-grid" style="margin-top:10px">
