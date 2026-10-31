@@ -50,7 +50,7 @@ Visual transition only. Move on without additional narration.
 </OperatorSlide>
 
 <!--
-[45s · 01 · Project and team]
+[40s · 01 · Project and team]
 CUBRID Kubernetes Operator is an experimental Operator whose goal is to run CUBRID HA clusters safely on Kubernetes. It should not stop at automating the install: we want an operations flow that confirms the database really recovered after a fault.
 
 There are four goals. First, one YAML file sets up a 3-node CUBRID HA cluster with write and read endpoints; these nodes are CUBRID HA database nodes, not Kubernetes worker nodes. Second, it checks each node's HA role and, when it is not sure, leaves the master unresolved instead of guessing. Third, backups and restores are tracked by job ID, and files and checksums are checked before a restore. Fourth, recovery is judged by real SQL and data, not by Pod status. I will show how far we have verified this later, with results.
@@ -80,7 +80,7 @@ So two teams see the same fault differently. The Kubernetes platform team sees t
 </OperatorSlide>
 
 <!--
-[50s · 03 · Existing approach]
+[45s · 03 · Existing approach]
 CUBRID already has an official Operator, and it provides HA status, storage and scheduled backups. So what is different? We built this table by reading both projects' source code.
 
 In the source, the official Operator uses the node information from the first successful response for HA status. We compare fresh answers from every node and leave the master unresolved when answers are missing or conflict. Operations such as backups go through Instance Manager, and their IDs stay on the volume, so interrupted work is recorded as failed. We did not find a restore feature in the official Operator's source; before a restore we check the file list and checksums. In the source, both projects use port checks at runtime, so our tests check SQL and data separately. We have not yet compared how the two behave in real failures.
@@ -194,7 +194,7 @@ Second, on k3s VMs we checked connectivity and SQL, and a controlled rollout kep
 </OperatorSlide>
 
 <!--
-[50s · 05 · Full architecture]
+[45s · 05 · Full architecture]
 Now the architecture draft, on one page. A user applies YAML to the Kubernetes API. The Operator reads the spec and creates the StatefulSet, volumes, Secrets, Services, Brokers and NetworkPolicies. Inside the Operator, two controllers handle HA, Services, storage, backup and updates as one state machine; the next slide shows them. They ask each node's Instance Manager for its role and send work requests with token authentication, then record the result in the CubridCluster status. Metrics, Events and logs come from here too.
 
 The solid line at the bottom is the application's SQL path: from the RW or RO Service through a Broker, which runs separately from the database, to CUBRID. The Operator relays no SQL, and CUBRID HA elects the master and replicates by itself. Initial copies and backup files go through the S3-compatible storage at the bottom right.
