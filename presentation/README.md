@@ -2,6 +2,8 @@
 
 Shared Slidev tooling for the [showcase presentations](../README.md).
 
+For every new deck, follow the [CUBRID Lab Presentation Standard](PRESENTATION_STANDARD.md): section top-left, project top-right, **bottom-left blank**, automatically numbered bottom-right, and short chapter dividers at major transitions. Existing decks use [ChapterDivider.vue](components/ChapterDivider.vue) to share the composition.
+
 ## Where deck sources live
 
 Every deck has one editable source under `decks/` and one thin entry file in
