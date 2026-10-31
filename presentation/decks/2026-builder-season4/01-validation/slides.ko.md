@@ -196,13 +196,25 @@ CUBRID에는 이미 공식 Operator가 있고, HA 상태 조회와 스토리지,
 
 ---
 
-<OperatorSlide section="04 · 확인한 결과" source="2026.10.20–25 실행 기록" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/SOURCES.md#recorded-execution-evidence">
+<OperatorSlide class="op-compact" section="04 · 확인한 결과" source="2026.10.20–25 실행 기록" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/SOURCES.md#recorded-execution-evidence">
 
 <h1 class="op-title">지금까지 확인한 결과입니다</h1>
-<div class="op-evidence-list">
-  <div><span class="op-evidence-number">27 / 27</span><div><b>Kind E2E 테스트 항목 통과</b><p>2026.10.20 실행 기준 · 테스트 항목 수이며, 필수 복구 시나리오 완료 수는 아닙니다.</p></div></div>
-  <div><span class="op-evidence-number">RW / RO</span><div><b>VM 접속과 롤아웃 후 기존 데이터 확인</b><p>k3s / CUBRID 11.4.6 · 기존 볼륨·행 보존, RW 쓰기 / RO 읽기 / RO 쓰기 거부 확인 · VM 전원 장애 시험은 아님</p></div></div>
-  <div><span class="op-evidence-number">5 / 7</span><div><b>VM 백업 → 새 클러스터 복원 시험 중 5회 통과</b><p>2026.10.25 실행 기준 · 나머지 2회는 세션 끊김(원인 조사 중, #238)으로 판정 보류 · 변조한 백업은 복원 거부</p></div></div>
+<div class="op-specs-head"><span class="op-evidence-number">27 / 27</span><div><b>Kind E2E 테스트 27개 통과</b><p>2026.10.20 실행 · 테스트 항목 수이며, 필수 복구 시나리오를 모두 마쳤다는 뜻은 아닙니다.</p></div></div>
+<div class="op-specs">
+  <div><b>Operator 기본 <i>2</i></b><ul><li>컨트롤러 실행</li><li>메트릭 엔드포인트 응답</li></ul></div>
+  <div><b>단일 DB <i>2</i></b><ul><li>root 아닌 Pod로 SQL 응답</li><li>Pod 삭제 뒤 데이터 유지</li></ul></div>
+  <div><b>연결 구조 · DB 없이 <i>2</i></b><ul><li>멤버별 Service로 master 확인</li><li>객체 변화 없는 역할 변경 추적</li></ul></div>
+  <div><b>HA 구성 <i>6</i></b><ul><li>DB는 한 멤버에만 생성</li><li>나머지는 slave로 합류</li><li>master 행이 slave 둘에 복제</li><li>RW·RO Service로 SQL</li><li>받은 쓰기 응답이 데이터와 일치</li><li>Ready · master를 primary로 표시</li></ul></div>
+  <div><b>HA 동작 <i>2</i></b><ul><li>master 1·slave 2, 쓰기는 RW로만</li><li>행·스키마·롤백 복제, 교체한 slave 포함</li></ul></div>
+  <div><b>master Pod 삭제 <i>3</i></b><ul><li>정상 종료 · 강제 종료 · 첫 멤버 강제 종료</li><li>master가 다시 하나, 확인된 쓰기 유지</li></ul></div>
+  <div><b>Broker 장애 <i>3</i></b><ul><li>Broker 프로세스 · Broker Pod 1개 · RW Broker 전부</li><li>클라이언트 복구, DB 전환 없음</li></ul></div>
+  <div><b>Operator 장애 <i>2</i></b><ul><li>Operator 종료 중에도 SQL 유지</li><li>Operator 없이 전환, 복귀 뒤 새 master 보고</li></ul></div>
+  <div><b>복제 이상 감지 <i>2</i></b><ul><li>복제를 멈춘 slave 보고, 교체 뒤 해제</li><li>CUBRID 프로세스가 멈춘 멤버 재시작</li></ul></div>
+  <div><b>Instance Manager 인증 <i>3</i></b><ul><li>토큰 없는 요청 거부 · 토큰 비노출</li><li>토큰 교체 중에도 연결 유지</li><li>교체 시각 없는 Secret 이전</li></ul></div>
+</div>
+<div class="op-specs-more">
+  <div><span class="op-evidence-number">RW / RO</span><p><b>VM 접속·롤아웃 후 데이터 확인</b> k3s / CUBRID 11.4.6 · 기존 볼륨·행 보존 · VM 전원 장애 시험은 아님</p></div>
+  <div><span class="op-evidence-number">5 / 7</span><p><b>VM 백업 → 새 클러스터 복원</b> 2026.10.25 · 2회는 세션 끊김(#238)으로 판정 보류 · 변조한 백업은 거부</p></div>
 </div>
 <p class="op-boundary">동작하는 경로는 확인했고, 장애·복원 전체 검증은 다음 단계입니다.</p>
 
@@ -210,9 +222,9 @@ CUBRID에는 이미 공식 Operator가 있고, HA 상태 조회와 스토리지,
 
 <!--
 [40초 · 04 · 확인한 결과]
-현재까지 직접 확인한 결과입니다. 첫째, 10월 20일 기준 Kind E2E 테스트 항목 27개 중 27개가 통과했습니다. 테스트 항목 수일 뿐, S00부터 S15까지 필수 시나리오 16개를 모두 통과했다는 뜻은 아닙니다.
+현재까지 직접 확인한 결과입니다. 첫째, 10월 20일 Kind에서 E2E 테스트 27개가 모두 통과했습니다. 화면에 열 묶음으로 나눠 두었습니다. 설치와 HA 구성부터 master Pod 삭제, Broker·Operator 장애, 복제 이상 감지, Instance Manager 인증까지입니다. 테스트 항목 수일 뿐, S00부터 S15까지 필수 시나리오 16개를 모두 통과했다는 뜻은 아닙니다.
 
-둘째, k3s VM에서 접속과 SQL, 롤아웃 전후 기존 데이터와 RW/RO 동작을 확인했습니다. 셋째, 로드맵에서 2~4주차 목표로 잡은 백업 복원 초기 시험을 10월 25일 VM에서 일곱 번 했습니다. 다섯 번 통과했고, 두 번은 데이터 확인을 마친 뒤 DB 세션이 끊겨 판정을 보류했습니다. 세션이 끊긴 원인은 아직 찾는 중입니다. 백업 파일을 일부러 변조했을 때는 복원을 거부했습니다. 다만 이 결과를 어떤 장애에서도 복구된다는 증거로 보지는 않겠습니다.
+둘째, k3s VM에서 접속과 SQL, 롤아웃 전후 기존 데이터와 RW/RO 동작을 확인했습니다. 셋째, 10월 25일 VM에서 백업을 새 클러스터로 복원하는 시험을 일곱 번 했습니다. 다섯 번 통과했고, 두 번은 데이터 확인 뒤 DB 세션이 끊겨 판정을 보류했습니다. 원인은 아직 찾는 중입니다. 변조한 백업은 복원을 거부했습니다. 다만 어떤 장애에서도 복구된다는 증거로 보지는 않겠습니다.
 -->
 
 ---

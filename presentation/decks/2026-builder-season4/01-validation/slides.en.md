@@ -136,13 +136,25 @@ In an earlier Kind test, RW writes succeeded during an unresolved-master state. 
 
 ---
 
-<OperatorSlide section="04 · Recorded results" source="Recorded executions · Oct 20–25" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/SOURCES.md#recorded-execution-evidence">
+<OperatorSlide class="op-compact" section="04 · Recorded results" source="Recorded executions · Oct 20–25" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/SOURCES.md#recorded-execution-evidence">
 
 <h1 class="op-title">What we have verified so far</h1>
-<div class="op-evidence-list">
-  <div><span class="op-evidence-number">27 / 27</span><div><b>Kind E2E test items passed</b><p>Recorded October 20, 2026. This counts test items, not completed required recovery scenarios.</p></div></div>
-  <div><span class="op-evidence-number">RW / RO</span><div><b>VM connection and post-rollout data checks</b><p>k3s and CUBRID 11.4.6. Known volumes and rows retained; RW/RO routing and RO rejection checked. Not a VM power-loss test.</p></div></div>
-  <div><span class="op-evidence-number">5 / 7</span><div><b>VM runs restoring a backup into a new cluster: 5 passed</b><p>Recorded October 25, 2026. The other 2 were blocked by a dropped session, cause under investigation (#238). A tampered backup was refused.</p></div></div>
+<div class="op-specs-head"><span class="op-evidence-number">27 / 27</span><div><b>27 Kind E2E tests passed</b><p>Oct 20, 2026 · test items, not completed required recovery scenarios</p></div></div>
+<div class="op-specs">
+  <div><b>Operator basics <i>2</i></b><ul><li>Controller runs</li><li>Metrics endpoint answers</li></ul></div>
+  <div><b>Single database <i>2</i></b><ul><li>Non-root Pod answers SQL</li><li>Data kept after Pod deletion</li></ul></div>
+  <div><b>Wiring, no database <i>2</i></b><ul><li>Reaches each member, finds master</li><li>Tracks a role-only change</li></ul></div>
+  <div><b>HA setup <i>6</i></b><ul><li>Database made on one member</li><li>Others join as slaves</li><li>Row reaches both slaves</li><li>SQL via RW and RO</li><li>Acknowledged writes kept</li><li>Ready; master is primary</li></ul></div>
+  <div><b>HA behavior <i>2</i></b><ul><li>1 master, 2 slaves; RW writes</li><li>Rows, schema, rollbacks replicate</li></ul></div>
+  <div><b>Master Pod deleted <i>3</i></b><ul><li>Graceful, abrupt, first member</li><li>One master, no lost writes</li></ul></div>
+  <div><b>Broker failure <i>3</i></b><ul><li>Process, one Pod, all RW</li><li>Clients recover, no failover</li></ul></div>
+  <div><b>Operator failure <i>2</i></b><ul><li>SQL continues while killed</li><li>Reports failover on return</li></ul></div>
+  <div><b>Replication faults <i>2</i></b><ul><li>Flags a stalled slave</li><li>Restarts a stopped member</li></ul></div>
+  <div><b>Instance Manager auth <i>3</i></b><ul><li>No token, refused; never shown</li><li>Survives token rotation</li><li>Migrates an old token Secret</li></ul></div>
+</div>
+<div class="op-specs-more">
+  <div><span class="op-evidence-number">RW / RO</span><p><b>VM SQL and post-rollout data</b> k3s, CUBRID 11.4.6 · rows kept · not a power-loss test</p></div>
+  <div><span class="op-evidence-number">5 / 7</span><p><b>VM backup into a new cluster</b> Oct 25 · 2 blocked (#238) · tampered copy refused</p></div>
 </div>
 <p class="op-boundary">The working paths are confirmed; full fault and restore testing comes next.</p>
 
@@ -150,9 +162,9 @@ In an earlier Kind test, RW writes succeeded during an unresolved-master state. 
 
 <!--
 [40s · 04 · Recorded results]
-We are separating actual observations from targets. First, all 27 of 27 Kind E2E test items in the cited run passed on October 20. That counts test items; it is not the same as passing all mandatory scenarios S00 through S15.
+We are separating actual observations from targets. First, all 27 Kind E2E tests in the cited run passed on October 20. The slide groups them into ten areas, from installation and HA setup to master Pod deletion, Broker and Operator failures, replication faults and Instance Manager authentication. That counts test items; it is not the same as passing all mandatory scenarios S00 through S15.
 
-Second, on k3s VMs we checked connectivity and SQL, and a controlled rollout kept known storage and rows, with RW and RO behavior checked. Third, the roadmap set an early backup-restore test for weeks 2 to 4, and on October 25 we ran it seven times on the VMs, restoring a backup into a new cluster. Five runs passed. Two were blocked when a database session dropped after the data checks had passed, and we're still looking for the cause. When we tampered with a backup file, the restore was refused. None of this guarantees recovery after arbitrary faults.
+Second, on k3s VMs we checked connectivity and SQL, and a controlled rollout kept known storage and rows, with RW and RO behavior checked. Third, on October 25 we restored a backup into a new cluster seven times on the VMs. Five runs passed. Two were blocked when a database session dropped after the data checks had passed; the cause is still open. A tampered backup was refused. None of this guarantees recovery after arbitrary faults.
 -->
 
 ---

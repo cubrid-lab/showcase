@@ -420,3 +420,29 @@
 .slidev-layout.showcase-deck.operator-deck .op-compare-takeaway span { font-weight: 600; }
 
 .slidev-layout.showcase-deck.operator-deck .op-compare-svg .op-compare-node-text { fill: var(--ink); font-size: 14px; font-weight: 700; }
+
+/* Slide 8: the 27 Kind E2E specs in ten groups, then the two VM results. */
+.slidev-layout.showcase-deck.operator-deck .op-frame:has(.op-specs) .op-body { gap: 10px; }
+.slidev-layout.showcase-deck.operator-deck .op-frame:has(.op-specs) .op-title { font-size: 2.1rem; }
+.slidev-layout.showcase-deck.operator-deck .op-frame:has(.op-specs) .op-boundary { padding-top: 10px; font-size: .95rem; }
+.slidev-layout.showcase-deck.operator-deck .op-specs-head { display: flex; align-items: baseline; gap: 18px; }
+.slidev-layout.showcase-deck.operator-deck .op-specs-head b { font-size: 1.05rem; }
+.slidev-layout.showcase-deck.operator-deck .op-specs-head p { display: inline; margin-left: 10px; color: var(--muted); font-size: .82rem; }
+.slidev-layout.showcase-deck.operator-deck .op-specs-head > div { display: block; }
+.slidev-layout.showcase-deck.operator-deck .op-specs-head .op-evidence-number,
+.slidev-layout.showcase-deck.operator-deck .op-specs-more .op-evidence-number {
+  font-variant-numeric: tabular-nums; font-weight: 810; color: var(--blue); white-space: nowrap;
+}
+.slidev-layout.showcase-deck.operator-deck .op-specs-head .op-evidence-number { font-size: 1.6rem; }
+.slidev-layout.showcase-deck.operator-deck .op-specs { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px 14px; }
+.slidev-layout.showcase-deck.operator-deck .op-specs > div { border-top: 2px solid var(--blue); padding-top: 5px; min-width: 0; }
+.slidev-layout.showcase-deck.operator-deck .op-specs b { display: flex; justify-content: space-between; gap: 6px; font-size: .78rem; line-height: 1.3; }
+.slidev-layout.showcase-deck.operator-deck .op-specs i { font-style: normal; color: var(--blue); font-variant-numeric: tabular-nums; }
+.slidev-layout.showcase-deck.operator-deck .op-specs ul { margin: 3px 0 0; padding: 0; list-style: none; }
+.slidev-layout.showcase-deck.operator-deck .op-specs li { margin: 0; padding: 1px 0 1px 9px; position: relative; color: var(--muted); font-size: .7rem; line-height: 1.32; }
+.slidev-layout.showcase-deck.operator-deck .op-specs li::before { content: "·"; position: absolute; left: 1px; }
+.slidev-layout.showcase-deck.operator-deck .op-specs-more { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 28px; }
+.slidev-layout.showcase-deck.operator-deck .op-specs-more > div { display: flex; align-items: baseline; gap: 12px; border-top: 1px solid var(--line); padding-top: 7px; }
+.slidev-layout.showcase-deck.operator-deck .op-specs-more .op-evidence-number { font-size: 1.15rem; }
+.slidev-layout.showcase-deck.operator-deck .op-specs-more p { color: var(--muted); font-size: .76rem; line-height: 1.35; }
+.slidev-layout.showcase-deck.operator-deck .op-specs-more p b { display: block; color: var(--ink); font-size: .86rem; }
