@@ -96,7 +96,7 @@ CUBRID version and workloads differ.
 | Record | What it is | Status |
 |---|---|---|
 | pycubrid vs PyMySQL, 2026-03-16 | Run `2026-03-16_initial` in cubrid-benchmark: pycubrid 0.5.0 against CUBRID 11.2, PyMySQL against a **MySQL 8.0** server. PyMySQL is a pure Python driver, not a C extension. This compares two database engines as well as two drivers, so it does not isolate driver overhead. It predates a pycubrid `fetchall` fix and an autocommit correction. | [Run directory](https://github.com/cubrid-lab/cubrid-benchmark/tree/b002085822054fdd48075a97b52c75921a73fda3/experiments/baseline-multilang/runs/2026-03-16_initial); not quoted in the talk |
-| Optimization results (native ping +280% throughput, SQLAlchemy `pool_pre_ping` +588%, bulk insert 1,000 rows 12.3% faster, select-all 19.9% faster, fetch 10,000 rows 96 → 78 ms) | Earlier profiling-driven changes. Run date, harness and library versions are **not recorded**, so they are not a current measurement. | Kept as recorded; the slides show only the throughput gains, labeled earlier results |
+| Optimization results (native ping +280% throughput, SQLAlchemy `pool_pre_ping` +588%, bulk insert 1,000 rows 12.3% faster, select-all 19.9% faster, fetch 10,000 rows 96 → 78 ms) | Earlier profiling-driven changes. Run date, harness and library versions are **not recorded**, so they are not a current measurement. | Kept here as recorded; no longer shown on the slides (since 2026-11-01 the performance slide shows the 2026-10-28 comparison with pycubrid 1.10.0 instead) |
 
 Tracking and any future rerun: [issue #44](https://github.com/cubrid-lab/showcase/issues/44).
 
