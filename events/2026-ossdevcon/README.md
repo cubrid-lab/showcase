@@ -2,7 +2,7 @@
 
 ## Presentation
 
-The deck has 29 slides: a 22-slide talk (cover, agenda, four sections, closing), then a Q&A page (slide 23) and six optional backup slides (24–29) that are not part of the talk time. On the Q&A page, click a topic to jump to its backup slide; each backup slide links back to Q&A. In PDF/PPTX, go to the slide number shown on the Q&A page.
+The deck has 32 slides: a 22-slide talk (cover, agenda, four sections, closing), then a Q&A page (slide 23) and nine evidence-oriented backup slides (24–32) that are not part of the talk time. On the Q&A page, click a topic to jump to its backup slide; each backup slide links back to Q&A. In PDF/PPTX, go to the slide number shown on the Q&A page.
 
 - **[View slides (HTML)](https://cubrid-lab.github.io/showcase/contests/2026-ossdevcon/)** — latest version, rebuilt from `main`; opens in the browser
 - **[Download PDF, 2026-10-25 release](https://github.com/cubrid-lab/showcase/releases/download/ossdevcon-2026-presentation-2026-10-25/ossdevcon.pdf)** · **[Download PowerPoint (PPTX)](https://github.com/cubrid-lab/showcase/releases/download/ossdevcon-2026-presentation-2026-10-25/ossdevcon.pptx)** · [HTML ZIP of the same version](https://github.com/cubrid-lab/showcase/releases/download/ossdevcon-2026-presentation-2026-10-25/ossdevcon-html.zip) (unzip and serve with `python3 -m http.server`)
@@ -45,7 +45,7 @@ Usability 15 · OSS 15 · PT 10 · Demo 10 · Testing 10 · Community 5 · Licen
 
 | File | Purpose |
 |---|---|
-| SLIDES.md | Speaker script (22-slide talk, then the Q&A page and six backup slides), collected from the speaker notes in `presentation/decks/2026-ossdevcon/slides.md` |
+| SLIDES.md | Speaker script (22-slide talk, then the Q&A page and nine backup slides), collected from the speaker notes in `presentation/decks/2026-ossdevcon/slides.md` |
 | APPENDIX.md | Source-linked technical evidence for judges: architecture, performance, community, licenses, with links to raw data |
 | EXPECTED_QA.md | 18 anticipated questions with prepared spoken answers |
 | DEMO_RUNBOOK.md | Historical On-nara demo script (2 min) + checklist |
