@@ -702,17 +702,17 @@ PR에서는 변경 위험에 맞는 검사만 선택하고, 릴리스와 수동 
   <li><b>pycubrid · sqlalchemy-cubrid</b> — CUBRID 12 정식 출시 후 호환성 테스트와 필요한 수정</li>
   <li><b>cubrid-mcp-server</b> — 보안 검증 · 관찰성 · 실무 예제 보강</li>
   <li><b>Vector · AI</b> — 서버 사양이 확정되면 파서·타입 매핑 시제품부터 검증</li>
+  <li><b>CUBRID 공식 저장소</b> — 작업 중 찾은 문제를 cubrid · cubrid-python에 이슈와 PR로 전달</li>
   <li><b>국내 개발자 커뮤니티</b> — 파이콘 한국 등에서 발표하고 사용자 의견 모으기</li>
 </ul>
-<p class="note-line"><b>처음 기여하기</b> — good first issue 33개 · 절차는 각 저장소 CONTRIBUTING.md</p>
 
 <style>
-.plans li { font-size: 1.05rem; }
+.plans li { font-size: 1rem; }
 </style>
 
 <!--
 [20초 · 커뮤니티 · 발전가능성]
-다음 계획입니다. 당분간은 Python에 집중해 이미 공개한 네 저장소를 더 단단하게 만들겠습니다. CUBRID 12가 정식 출시되면 드라이버와 dialect의 호환성을 바로 시험하고 고치겠습니다. MCP 서버는 보안 검증과 관찰성, 실무 예제를 보강하고, Vector는 서버 사양이 정해지면 시제품부터 검증하겠습니다. 파이콘 한국 같은 국내 개발자 커뮤니티에서도 발표하며 실제 사용자의 의견을 모으려고 합니다. 처음 기여하실 분을 위해 good first issue를 33개 열어 두었습니다.
+다음 계획입니다. 당분간은 Python에 집중해 이미 공개한 네 저장소를 더 단단하게 만들겠습니다. CUBRID 12가 정식 출시되면 드라이버와 dialect의 호환성을 바로 시험하고 고치겠습니다. MCP 서버는 보안 검증과 관찰성, 실무 예제를 보강하고, Vector는 서버 사양이 정해지면 시제품부터 검증하겠습니다. 드라이버와 dialect를 만들며 찾은 문제는 CUBRID 공식 저장소에도 이슈와 PR로 전달하겠습니다. 파이콘 한국 같은 국내 개발자 커뮤니티에서도 발표하며 실제 사용자의 의견을 모으려고 합니다.
 -->
 
 ---
@@ -1159,7 +1159,7 @@ MCP의 SQL allowlist는 문장 종류를 통제하지, 업무 승인 규칙이�
 </table>
 <div class="proof-grid" style="margin-top:10px">
   <div class="proof-card"><h3>운영 장치</h3><p>main 검증 · 릴리스 전체 매트릭스 · cookbook 예제 주기 검증 · 공개 코드·MIT</p></div>
-  <div class="proof-card"><h3>지켜야 할 표현</h3><p><b>예정은 예정입니다.</b> CUBRID 12와 Vector 지원 완료 또는 운영 환경 검증 완료로 표현하지 않습니다.</p></div>
+  <div class="proof-card"><h3>현재 상태</h3><p>CUBRID 12와 Vector 지원은 <b>아직 계획 단계</b>입니다. 정식 출시와 운영 환경 검증을 거친 뒤 지원한다고 말씀드리겠습니다.</p></div>
 </div>
 <div class="proof-source">근거 · <a href="https://github.com/cubrid-lab/pycubrid/blob/main/docs/CI_POLICY.md">검증 운영 정책</a> · <a href="https://github.com/cubrid-lab/showcase/blob/main/events/2026-ossdevcon/EXPECTED_QA.md">로드맵 질의응답</a></div>
 <div class="proof-footer"><Link to="27">← Q&amp;A로 돌아가기</Link></div>
