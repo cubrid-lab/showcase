@@ -34,7 +34,7 @@ def clean(x):
 
 
 def title_of(part):
-    divider = re.search(r'<ChapterDivider\\b[^>]*number="(\\d+)"[^>]*title="([^"]+)"', part)
+    divider = re.search(r'<ChapterDivider\b[^>]*number="(\d+)"[^>]*title="([^"]+)"', part)
     if divider:
         return f"〔{divider.group(1)}〕 {divider.group(2)}", True
     m = re.search(r'<div class="chapter"><span class="no">(\d+)</span><h1>(.*?)</h1>', part)
