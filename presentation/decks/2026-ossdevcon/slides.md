@@ -800,7 +800,6 @@ PR에서는 변경 위험에 맞는 검사만 선택하고, 릴리스와 수동 
 .proof-source { margin-top: 7px; font-size: 0.75rem; color: var(--muted); line-height: 1.3; overflow-wrap: break-word; }
 .proof-source a { color: var(--blue); text-decoration: none; }
 .proof-footer { margin-top: auto; display: flex; align-items: baseline; justify-content: flex-end; gap: 12px; padding-top: 8px; font-size: 0.77rem; line-height: 1.4; }
-
 .proof-footer a { color: var(--blue); text-decoration: none; font-weight: 700; }
 .proof-flow { display: flex; align-items: stretch; gap: 8px; margin: 17px 0; }
 .proof-flow .step { flex: 1; min-width: 0; display: flex; justify-content: center; align-items: center; padding: 10px 8px; border: 1.5px solid var(--line); border-radius: 10px; text-align: center; font-size: 0.88rem; font-weight: 700; line-height: 1.35; }
@@ -851,7 +850,6 @@ PR에서는 변경 위험에 맞는 검사만 선택하고, 릴리스와 수동 
 .proof-source { margin-top: 7px; font-size: 0.75rem; color: var(--muted); line-height: 1.3; overflow-wrap: break-word; }
 .proof-source a { color: var(--blue); text-decoration: none; }
 .proof-footer { margin-top: auto; display: flex; align-items: baseline; justify-content: flex-end; gap: 12px; padding-top: 8px; font-size: 0.77rem; line-height: 1.4; }
-
 .proof-footer a { color: var(--blue); text-decoration: none; font-weight: 700; }
 .proof-flow { display: flex; align-items: stretch; gap: 8px; margin: 17px 0; }
 .proof-flow .step { flex: 1; min-width: 0; display: flex; justify-content: center; align-items: center; padding: 10px 8px; border: 1.5px solid var(--line); border-radius: 10px; text-align: center; font-size: 0.88rem; font-weight: 700; line-height: 1.35; }
@@ -906,7 +904,6 @@ PR에서는 변경 위험에 맞는 검사만 선택하고, 릴리스와 수동 
 .proof-source { margin-top: 7px; font-size: 0.75rem; color: var(--muted); line-height: 1.3; overflow-wrap: break-word; }
 .proof-source a { color: var(--blue); text-decoration: none; }
 .proof-footer { margin-top: auto; display: flex; align-items: baseline; justify-content: flex-end; gap: 12px; padding-top: 8px; font-size: 0.77rem; line-height: 1.4; }
-
 .proof-footer a { color: var(--blue); text-decoration: none; font-weight: 700; }
 .proof-flow { display: flex; align-items: stretch; gap: 8px; margin: 17px 0; }
 .proof-flow .step { flex: 1; min-width: 0; display: flex; justify-content: center; align-items: center; padding: 10px 8px; border: 1.5px solid var(--line); border-radius: 10px; text-align: center; font-size: 0.88rem; font-weight: 700; line-height: 1.35; }
@@ -959,7 +956,6 @@ PR에서는 변경 위험에 맞는 검사만 선택하고, 릴리스와 수동 
 .proof-source { margin-top: 7px; font-size: 0.75rem; color: var(--muted); line-height: 1.3; overflow-wrap: break-word; }
 .proof-source a { color: var(--blue); text-decoration: none; }
 .proof-footer { margin-top: auto; display: flex; align-items: baseline; justify-content: flex-end; gap: 12px; padding-top: 8px; font-size: 0.77rem; line-height: 1.4; }
-
 .proof-footer a { color: var(--blue); text-decoration: none; font-weight: 700; }
 .proof-flow { display: flex; align-items: stretch; gap: 8px; margin: 17px 0; }
 .proof-flow .step { flex: 1; min-width: 0; display: flex; justify-content: center; align-items: center; padding: 10px 8px; border: 1.5px solid var(--line); border-radius: 10px; text-align: center; font-size: 0.88rem; font-weight: 700; line-height: 1.35; }
@@ -1009,7 +1005,6 @@ C 기반 드라이버를 기준으로 PK SELECT는 4%, 1만 행 조회는 17% �
 .proof-source { margin-top: 7px; font-size: 0.75rem; color: var(--muted); line-height: 1.3; overflow-wrap: break-word; }
 .proof-source a { color: var(--blue); text-decoration: none; }
 .proof-footer { margin-top: auto; display: flex; align-items: baseline; justify-content: flex-end; gap: 12px; padding-top: 8px; font-size: 0.77rem; line-height: 1.4; }
-
 .proof-footer a { color: var(--blue); text-decoration: none; font-weight: 700; }
 .proof-flow { display: flex; align-items: stretch; gap: 8px; margin: 17px 0; }
 .proof-flow .step { flex: 1; min-width: 0; display: flex; justify-content: center; align-items: center; padding: 10px 8px; border: 1.5px solid var(--line); border-radius: 10px; text-align: center; font-size: 0.88rem; font-weight: 700; line-height: 1.35; }
@@ -1058,7 +1053,6 @@ MCP의 SQL allowlist는 문장 종류를 통제하지, 업무 승인 규칙이�
 .proof-source { margin-top: 7px; font-size: 0.75rem; color: var(--muted); line-height: 1.3; overflow-wrap: break-word; }
 .proof-source a { color: var(--blue); text-decoration: none; }
 .proof-footer { margin-top: auto; display: flex; align-items: baseline; justify-content: flex-end; gap: 12px; padding-top: 8px; font-size: 0.77rem; line-height: 1.4; }
-
 .proof-footer a { color: var(--blue); text-decoration: none; font-weight: 700; }
 .proof-flow { display: flex; align-items: stretch; gap: 8px; margin: 17px 0; }
 .proof-flow .step { flex: 1; min-width: 0; display: flex; justify-content: center; align-items: center; padding: 10px 8px; border: 1.5px solid var(--line); border-radius: 10px; text-align: center; font-size: 0.88rem; font-weight: 700; line-height: 1.35; }
@@ -1106,7 +1100,6 @@ MCP의 SQL allowlist는 문장 종류를 통제하지, 업무 승인 규칙이�
 .proof-source { margin-top: 7px; font-size: 0.75rem; color: var(--muted); line-height: 1.3; overflow-wrap: break-word; }
 .proof-source a { color: var(--blue); text-decoration: none; }
 .proof-footer { margin-top: auto; display: flex; align-items: baseline; justify-content: flex-end; gap: 12px; padding-top: 8px; font-size: 0.77rem; line-height: 1.4; }
-
 .proof-footer a { color: var(--blue); text-decoration: none; font-weight: 700; }
 .proof-flow { display: flex; align-items: stretch; gap: 8px; margin: 17px 0; }
 .proof-flow .step { flex: 1; min-width: 0; display: flex; justify-content: center; align-items: center; padding: 10px 8px; border: 1.5px solid var(--line); border-radius: 10px; text-align: center; font-size: 0.88rem; font-weight: 700; line-height: 1.35; }
@@ -1156,7 +1149,6 @@ MCP의 SQL allowlist는 문장 종류를 통제하지, 업무 승인 규칙이�
 .proof-source { margin-top: 7px; font-size: 0.75rem; color: var(--muted); line-height: 1.3; overflow-wrap: break-word; }
 .proof-source a { color: var(--blue); text-decoration: none; }
 .proof-footer { margin-top: auto; display: flex; align-items: baseline; justify-content: flex-end; gap: 12px; padding-top: 8px; font-size: 0.77rem; line-height: 1.4; }
-
 .proof-footer a { color: var(--blue); text-decoration: none; font-weight: 700; }
 .proof-flow { display: flex; align-items: stretch; gap: 8px; margin: 17px 0; }
 .proof-flow .step { flex: 1; min-width: 0; display: flex; justify-content: center; align-items: center; padding: 10px 8px; border: 1.5px solid var(--line); border-radius: 10px; text-align: center; font-size: 0.88rem; font-weight: 700; line-height: 1.35; }
@@ -1208,7 +1200,6 @@ MCP의 SQL allowlist는 문장 종류를 통제하지, 업무 승인 규칙이�
 .proof-source { margin-top: 7px; font-size: 0.75rem; color: var(--muted); line-height: 1.3; overflow-wrap: break-word; }
 .proof-source a { color: var(--blue); text-decoration: none; }
 .proof-footer { margin-top: auto; display: flex; align-items: baseline; justify-content: flex-end; gap: 12px; padding-top: 8px; font-size: 0.77rem; line-height: 1.4; }
-
 .proof-footer a { color: var(--blue); text-decoration: none; font-weight: 700; }
 .proof-flow { display: flex; align-items: stretch; gap: 8px; margin: 17px 0; }
 .proof-flow .step { flex: 1; min-width: 0; display: flex; justify-content: center; align-items: center; padding: 10px 8px; border: 1.5px solid var(--line); border-radius: 10px; text-align: center; font-size: 0.88rem; font-weight: 700; line-height: 1.35; }

@@ -45,7 +45,7 @@ title: "CUBRID Kubernetes Operator — 1차 검증"
 
 <OperatorSlide class="op-compact" section="01 · 프로젝트 소개" source="Operator README·검증 기록" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/README.md">
 
-<h1 class="op-title">Kubernetes에서 CUBRID HA를 안전하게 운영하는 Operator</h1><p class="op-lead">설치 자동화에서 끝나지 않고, 장애 뒤 DB가 정말 복구됐는지까지 확인하는 것이 목표입니다.</p><div class="op-goals"><div><span>01</span><b>선언형 설치</b><p>YAML 하나로 3노드 CUBRID HA 클러스터와 RW/RO 접속을 구성</p></div><div><span>02</span><b>DB를 아는 상태 판단</b><p>노드마다 HA 역할을 확인하고, 확실하지 않으면 “미확정”으로 남김</p></div><div><span>03</span><b>추적되는 백업·복원</b><p>작업을 ID로 기록하고, 복원 전에 파일 목록과 체크섬을 확인</p></div><div><span>04</span><b>SQL로 확인하는 복구</b><p>Pod 상태가 아니라 실제 쓰기·읽기와 데이터로 복구를 판단</p></div></div><p class="op-caption">실험 단계 프로젝트로 운영 환경용이 아닙니다 · 공식 CUBRID Operator를 대체하지 않습니다 · 진행 상황은 8쪽</p>
+<h1 class="op-title">Kubernetes에서 CUBRID HA를 안전하게 운영하는 Operator</h1><p class="op-lead">설치 자동화에서 끝나지 않고, 장애 뒤 DB가 정말 복구됐는지까지 확인하는 것이 목표입니다.</p><div class="op-goals"><div><span>01</span><b>선언형 설치</b><p>YAML 하나로 3노드 CUBRID HA 클러스터와 RW/RO 접속을 구성</p></div><div><span>02</span><b>DB를 아는 상태 판단</b><p>노드마다 HA 역할을 확인하고, 확실하지 않으면 “미확정”으로 남김</p></div><div><span>03</span><b>추적되는 백업·복원</b><p>작업을 ID로 기록하고, 복원 전에 파일 목록과 체크섬을 확인</p></div><div><span>04</span><b>SQL로 확인하는 복구</b><p>Pod 상태가 아니라 실제 쓰기·읽기와 데이터로 복구를 판단</p></div></div><p class="op-caption">실험 단계 프로젝트로 운영 환경용이 아닙니다 · 공식 CUBRID Operator를 대체하지 않습니다 · 진행 상황은 10쪽</p>
 
 </OperatorSlide>
 
@@ -247,7 +247,7 @@ CUBRID에는 이미 공식 Operator가 있고, HA 상태 조회와 스토리지,
 <path class="mgmt" d="M670 304V340" marker-start="url(#op-arch-mute)" marker-end="url(#op-arch-mute)"/><text class="s" x="680" y="326">백업 업로드 · 복원</text>
 <rect class="box store" x="450" y="342" width="440" height="40" rx="8"/><text x="670" y="360" text-anchor="middle">S3 호환 오브젝트 저장소</text><text class="s" x="670" y="376" text-anchor="middle">초기 복사 · 백업 파일 · 파일 목록·체크섬</text>
 <path class="sql" d="M0 346H40"/><text class="s" x="48" y="350">SQL 경로 · 복제 (Operator는 SQL을 중계하지 않음)</text>
-<path class="ctl" d="M0 364H40"/><text class="s" x="48" y="368">운영 경로 ①–④ (10쪽의 제어 루프)</text>
+<path class="ctl" d="M0 364H40"/><text class="s" x="48" y="368">운영 경로 ①–④ (12쪽의 제어 루프)</text>
 <path class="mgmt" d="M0 382H40"/><text class="s" x="48" y="386">생성·관리 · 백업 데이터 · 관측</text>
 </svg>
 
@@ -264,7 +264,7 @@ CUBRID에는 이미 공식 Operator가 있고, HA 상태 조회와 스토리지,
 
 <OperatorSlide class="op-compact" section="05 · 제어·데이터 흐름" source="아키텍처·관측·보안 설계" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/DESIGN.md#7-high-level-architecture">
 
-<h1 class="op-title">Operator는 관찰하고, 기록하고, 다시 조정합니다</h1><p class="op-kicker">9쪽 그림의 ①–④ 제어 루프와 데이터 처리 과정 · 설계 기준</p><div class="op-timeline"><div><small>① 원하는 상태</small><b>YAML로 선언</b><p>CubridCluster·CubridBackup<br>spec에 원하는 구성</p></div><div><small>② 조정</small><b>두 컨트롤러</b><p>CubridCluster · CubridBackup<br>HA·서비스·스토리지·백업·업데이트를<br>하나의 상태 머신으로</p></div><div><small>③ 관찰</small><b>Instance Manager</b><p>노드마다 HA 역할 조회<br>토큰 인증 · pods/exec 미사용</p></div><div><small>④ 기록</small><b>status·Conditions</b><p>currentPrimary · 엇갈리면 “미확정”<br>Events·메트릭·로그<br>→ ②로 돌아가 다시 조정</p></div></div><table class="op-comparison"><thead><tr><th>데이터</th><th>처리 과정</th></tr></thead><tbody><tr><td><b>SQL</b></td><td>앱 → RW/RO Service → Broker → CUBRID · 복제와 master 전환은 CUBRID HA</td></tr><tr><td><b>백업·복원</b></td><td>Instance Manager가 S3 호환 저장소에 업로드 → 파일 목록·체크섬 확인 → 새 CubridCluster로 복원</td></tr><tr><td><b>상태</b></td><td>Instance Manager 응답 → Operator → CubridCluster status · 메트릭(cubrid_cluster_*, cubrid_instance_*)</td></tr></tbody></table>
+<h1 class="op-title">Operator는 관찰하고, 기록하고, 다시 조정합니다</h1><p class="op-kicker">11쪽 그림의 ①–④ 제어 루프와 데이터 처리 과정 · 설계 기준</p><div class="op-timeline"><div><small>① 원하는 상태</small><b>YAML로 선언</b><p>CubridCluster·CubridBackup<br>spec에 원하는 구성</p></div><div><small>② 조정</small><b>두 컨트롤러</b><p>CubridCluster · CubridBackup<br>HA·서비스·스토리지·백업·업데이트를<br>하나의 상태 머신으로</p></div><div><small>③ 관찰</small><b>Instance Manager</b><p>노드마다 HA 역할 조회<br>토큰 인증 · pods/exec 미사용</p></div><div><small>④ 기록</small><b>status·Conditions</b><p>currentPrimary · 엇갈리면 “미확정”<br>Events·메트릭·로그<br>→ ②로 돌아가 다시 조정</p></div></div><table class="op-comparison"><thead><tr><th>데이터</th><th>처리 과정</th></tr></thead><tbody><tr><td><b>SQL</b></td><td>앱 → RW/RO Service → Broker → CUBRID · 복제와 master 전환은 CUBRID HA</td></tr><tr><td><b>백업·복원</b></td><td>Instance Manager가 S3 호환 저장소에 업로드 → 파일 목록·체크섬 확인 → 새 CubridCluster로 복원</td></tr><tr><td><b>상태</b></td><td>Instance Manager 응답 → Operator → CubridCluster status · 메트릭(cubrid_cluster_*, cubrid_instance_*)</td></tr></tbody></table>
 
 </OperatorSlide>
 

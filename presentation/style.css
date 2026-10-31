@@ -159,3 +159,24 @@
 .slidev-layout.contest-deck { justify-content: flex-start; padding: 52px 72px 40px; }
 .slidev-layout.contest-deck:has(> .cover) { justify-content: center; }
 
+
+/* ── Q&A backup slides (those with a .proof-footer return link): denser
+   spacing so the evidence, its sources and the return link fit the canvas. ── */
+.slidev-layout.contest-deck:has(.proof-footer) { padding: 32px 72px 24px; gap: 7px; justify-content: flex-start; }
+.slidev-layout.contest-deck:has(.proof-footer) h2 { font-size: 1.55rem; }
+.slidev-layout.contest-deck:has(.proof-footer) .proof-lead { font-size: 0.9rem; margin: 0; }
+.slidev-layout.contest-deck:has(.proof-footer) .proof-table { font-size: 0.8rem; }
+.slidev-layout.contest-deck:has(.proof-footer) .proof-table th,
+.slidev-layout.contest-deck:has(.proof-footer) .proof-table td { padding: 3px 8px; line-height: 1.28; }
+.slidev-layout.contest-deck:has(.proof-footer) .proof-card { padding: 6px 10px; }
+.slidev-layout.contest-deck:has(.proof-footer) .proof-card h3 { font-size: 0.92rem; margin-bottom: 4px; }
+.slidev-layout.contest-deck:has(.proof-footer) .proof-card p,
+.slidev-layout.contest-deck:has(.proof-footer) .proof-card li { font-size: 0.76rem; line-height: 1.3; }
+.slidev-layout.contest-deck:has(.proof-footer) .proof-stat { font-size: 1.4rem; line-height: 1.15; }
+.slidev-layout.contest-deck:has(.proof-footer) .proof-flow { margin: 6px 0; }
+.slidev-layout.contest-deck:has(.proof-footer) .proof-flow .step { padding: 7px 8px; font-size: 0.8rem; }
+.slidev-layout.contest-deck:has(.proof-footer) .proof-line { font-size: 0.8rem; padding: 5px 10px; margin-top: 2px; }
+.slidev-layout.contest-deck:has(.proof-footer) .proof-grid { gap: 8px; }
+/* Keep the return link clear of the page number at the bottom right. */
+.slidev-layout.contest-deck:has(.proof-footer) .proof-footer { padding-top: 2px; padding-right: 64px; }
+.slidev-layout.contest-deck:has(.proof-footer) .proof-source { margin-top: 2px; }
