@@ -45,13 +45,13 @@ title: "CUBRID, 이제 Python으로 — 파이큐브리드팀"
 <div class="agenda">
   <div><span>01</span><b>왜 시작했는가</b><p>오픈소스 기여 경험과 멈춰 있던 CUBRID dialect</p></div>
   <div><span>02</span><b>무엇을 만들었는가</b><p>Python 드라이버부터 ORM · 예제 · AI 연결까지</p></div>
-  <div><span>03</span><b>어떻게 검증했는가</b><p>사람의 코드 리뷰 · CI · 실서버 테스트 · 성능 비교</p></div>
+  <div><span>03</span><b>어떻게 믿고 쓸 수 있게 했는가</b><p>사람의 리뷰 · CI · 성능 실측 · 표준과 공개</p></div>
   <div><span>04</span><b>어떻게 이어갈 것인가</b><p>외부 기여 성과와 오픈소스 생태계 확장</p></div>
 </div>
 
 <style>
 .agenda { display: grid; gap: 0; }
-.agenda > div { display: grid; grid-template-columns: 56px 240px minmax(0, 1fr); align-items: baseline; padding: 14px 0; border-top: 2px solid var(--line); }
+.agenda > div { display: grid; grid-template-columns: 56px 290px minmax(0, 1fr); align-items: baseline; padding: 14px 0; border-top: 2px solid var(--line); }
 .agenda > div:last-child { border-bottom: 2px solid var(--line); }
 .agenda span { color: var(--blue); font-size: 1.5rem; font-weight: 800; font-variant-numeric: tabular-nums; }
 .agenda b { font-size: 1.3rem; }
@@ -60,7 +60,7 @@ title: "CUBRID, 이제 Python으로 — 파이큐브리드팀"
 
 <!--
 [15초 · PT]
-오늘은 네 가지 질문에 답하겠습니다. 왜 시작했는지, 무엇을 만들었는지, 어떻게 검증했는지, 마지막으로 이 오픈소스 생태계를 어떻게 이어갈 것인지 말씀드리겠습니다.
+오늘은 네 가지 질문에 답하겠습니다. 왜 시작했는지, 무엇을 만들었는지, 어떻게 믿고 쓸 수 있게 했는지, 마지막으로 이 오픈소스 생태계를 어떻게 이어갈 것인지 말씀드리겠습니다.
 -->
 
 ---
@@ -259,7 +259,7 @@ with engine.connect() as conn:
 ---
 
 <p class="kicker">dialect 아래에 둘 드라이버를 찾아보니</p>
-<h2 class="one">공식 드라이버는 설치와 비동기가 걸림돌이었습니다</h2>
+<h2 class="one">공식 드라이버에 더하고 싶었던 것: 간편한 설치와 비동기</h2>
 
 <ul class="explain wide">
   <li><b>C 확장</b> — 일부 Python 버전만 wheel, 나머지는 컴파일러로 직접 빌드</li>
@@ -466,7 +466,7 @@ AI에게 데이터베이스를 열어 주면 제일 먼저 나오는 질문이 "
 
 ---
 
-<ChapterDivider number="03" title="어떻게 검증했는가" subtitle="사람의 리뷰와 CI, 실서버 호환성·성능 측정" />
+<ChapterDivider number="03" title="어떻게 믿고 쓸 수 있게 했는가" subtitle="사람의 리뷰와 CI, 성능 실측, 표준을 따른 공개" />
 
 <!--
 [0초 · 챕터 전환 · 검증과 품질]
@@ -698,7 +698,7 @@ PR에서는 변경 위험에 맞는 검사만 선택하고, 릴리스와 수동 
 ---
 
 <p class="kicker">드라이버 → ORM → 예제 → AI</p>
-<h2 class="one">다음 계획: 당분간 Python에 집중합니다</h2>
+<h2 class="one">다음 계획: Python에 집중합니다</h2>
 <p class="sub">이미 공개한 네 저장소를 더 단단하게 만듭니다.</p>
 
 <ul class="explain plans">
@@ -715,7 +715,7 @@ PR에서는 변경 위험에 맞는 검사만 선택하고, 릴리스와 수동 
 
 <!--
 [20초 · 커뮤니티 · 발전가능성]
-다음 계획입니다. 당분간은 Python에 집중해 이미 공개한 네 저장소를 더 단단하게 만들겠습니다. CUBRID 12가 정식 출시되면 드라이버와 dialect의 호환성을 바로 시험하고 고치겠습니다. MCP 서버는 보안 검증과 관찰성, 실무 예제를 보강하고, Vector는 서버 사양이 정해지면 시제품부터 검증하겠습니다. 드라이버와 dialect를 만들며 찾은 문제는 CUBRID 공식 저장소에도 이슈와 PR로 전달하겠습니다. 파이콘 한국 같은 국내 개발자 커뮤니티에서도 발표하며 실제 사용자의 의견을 모으려고 합니다.
+다음 계획입니다. Python에 집중해 이미 공개한 네 저장소를 더 단단하게 만들겠습니다. CUBRID 12가 정식 출시되면 드라이버와 dialect의 호환성을 바로 시험하고 고치겠습니다. MCP 서버는 보안 검증과 관찰성, 실무 예제를 보강하고, Vector는 서버 사양이 정해지면 시제품부터 검증하겠습니다. 드라이버와 dialect를 만들며 찾은 문제는 CUBRID 공식 저장소에도 이슈와 PR로 전달하겠습니다. 파이콘 한국 같은 국내 개발자 커뮤니티에서도 발표하며 실제 사용자의 의견을 모으려고 합니다.
 -->
 
 ---
