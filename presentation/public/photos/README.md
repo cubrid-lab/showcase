@@ -1,6 +1,6 @@
 # Team photos
 
-The deck shows a placeholder frame until these files exist:
+Until a file exists, its photo slot is hidden and the slide uses the full width for its text. Add the file and the photo appears on the next build:
 
 | File | Slide | What |
 |---|---|---|
