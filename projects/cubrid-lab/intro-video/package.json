@@ -11,7 +11,7 @@
     "render:short": "npm run placeholders && remotion render src/index.ts Short out/short.mp4",
     "render:demo": "npm run placeholders && remotion render src/index.ts Demo out/demo.mp4",
     "render:stills": "node scripts/render-stills.mjs",
-    "stills:demo": "node scripts/extract-stills.mjs out/demo.mp4 stills 1.2 7.8 12.6 18.5",
+    "stills:demo": "node scripts/extract-stills.mjs out/demo.mp4 out/stills-demo 1.2 7.8 12.6 18.5",
     "render:final": "bash scripts/render-final.sh",
     "timeline:main": "python3 scripts/build_main_timeline.py",
     "timeline:demo-cut": "python3 scripts/build_demo_timeline.py",
