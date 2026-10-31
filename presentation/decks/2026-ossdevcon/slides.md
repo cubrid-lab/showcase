@@ -604,7 +604,7 @@ PR에서는 변경 위험에 맞는 검사만 선택하고, 릴리스와 수동 
 
 ---
 
-<h2 class="one">팀 밖의 <span class="accent">62명</span>이 보낸 PR <span class="accent">137개</span>가 머지됐습니다</h2>
+<h2 class="one">팀 밖의 <span class="accent">67명</span>이 보낸 PR <span class="accent">153개</span>가 머지됐습니다</h2>
 
 <div class="people">
   <a href="https://github.com/WilliamK112" target="_blank" title="WilliamK112"><img src="/contributors/WilliamK112.jpg" alt="WilliamK112"></a>
@@ -669,19 +669,24 @@ PR에서는 변경 위험에 맞는 검사만 선택하고, 릴리스와 수동 
   <a href="https://github.com/varshith84" target="_blank" title="varshith84"><img src="/contributors/varshith84.jpg" alt="varshith84"></a>
   <a href="https://github.com/xuu33030" target="_blank" title="xuu33030"><img src="/contributors/xuu33030.jpg" alt="xuu33030"></a>
   <a href="https://github.com/yotam1001" target="_blank" title="yotam1001"><img src="/contributors/yotam1001.jpg" alt="yotam1001"></a>
+  <a href="https://github.com/sarankumar1325" target="_blank" title="sarankumar1325"><img src="/contributors/sarankumar1325.jpg" alt="sarankumar1325"></a>
+  <a href="https://github.com/Vamsi-2581" target="_blank" title="Vamsi-2581"><img src="/contributors/Vamsi-2581.jpg" alt="Vamsi-2581"></a>
+  <a href="https://github.com/a3643605788" target="_blank" title="a3643605788"><img src="/contributors/a3643605788.jpg" alt="a3643605788"></a>
+  <a href="https://github.com/Chaitanya-code0" target="_blank" title="Chaitanya-code0"><img src="/contributors/Chaitanya-code0.jpg" alt="Chaitanya-code0"></a>
+  <a href="https://github.com/inmassat" target="_blank" title="inmassat"><img src="/contributors/inmassat.jpg" alt="inmassat"></a>
 </div>
-<p class="note-line">2026-10-28 기준 · 네 저장소에 PR이 머지된 외부 기여자 전원 · 메인테이너·봇 제외</p>
+<p class="note-line">2026-11-01 기준 · 네 저장소에 PR이 머지된 외부 기여자 전원 · 메인테이너·봇 제외</p>
 
 <style>
-.people { display: grid; grid-template-columns: repeat(13, 1fr); gap: 10px 8px; justify-items: center; }
+.people { display: grid; grid-template-columns: repeat(14, 1fr); gap: 8px 6px; justify-items: center; }
 .people a { display: block; border: 0; }
-.people img { width: 46px; height: 46px; border-radius: 50%; object-fit: cover; border: 2px solid var(--line); display: block; }
+.people img { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 2px solid var(--line); display: block; }
 </style>
 
 <!--
 [25초 · 커뮤니티]
-2026년 10월 28일 기준으로, 팀 밖의 62명이 보낸 PR 137개가 네 저장소에 머지됐습니다. 메인테이너와 봇은 뺀 숫자입니다.
-화면의 얼굴이 그 62명입니다. 테스트를 보강한 PR이 가장 많고, 문서와 버그 수정이 뒤를 잇습니다. 둘이 시작한 저장소를 이제 여러 사람이 함께 고치고 있습니다.
+2026년 11월 1일 기준으로, 팀 밖의 67명이 보낸 PR 153개가 네 저장소에 머지됐습니다. 메인테이너와 봇은 뺀 숫자입니다.
+화면의 얼굴이 그 67명입니다. 테스트를 보강한 PR이 가장 많고, 문서와 버그 수정이 뒤를 잇습니다. 둘이 시작한 저장소를 이제 여러 사람이 함께 고치고 있습니다.
 -->
 
 ---
@@ -696,7 +701,7 @@ PR에서는 변경 위험에 맞는 검사만 선택하고, 릴리스와 수동 
   <li><b>Go</b> — cubrid-go · gorm-cubrid <span class="muted">진행 중</span></li>
   <li><b>Rust</b> — cubrid-rs · sea-orm-cubrid <span class="muted">진행 중</span></li>
 </ul>
-<p class="note-line"><b>처음 기여하기</b> — good first issue 46개 · 절차는 각 저장소 CONTRIBUTING.md</p>
+<p class="note-line"><b>처음 기여하기</b> — good first issue 33개 · 절차는 각 저장소 CONTRIBUTING.md</p>
 
 <style>
 .langs li { font-size: 1.12rem; }
@@ -704,14 +709,14 @@ PR에서는 변경 위험에 맞는 검사만 선택하고, 릴리스와 수동 
 
 <!--
 [20초 · 커뮤니티 · 발전가능성]
-생태계 확장을 위한 다음 계획입니다. Python은 끝이 아니라 기준입니다. 드라이버, ORM, 예제, AI로 이어지는 같은 순서를 TypeScript, Go, Rust에서도 진행하고 있습니다. 처음 기여하실 분을 위해 good first issue를 46개 열어 두었고, 저장소마다 기여 절차를 적어 두었습니다.
+생태계 확장을 위한 다음 계획입니다. Python은 끝이 아니라 기준입니다. 드라이버, ORM, 예제, AI로 이어지는 같은 순서를 TypeScript, Go, Rust에서도 진행하고 있습니다. 처음 기여하실 분을 위해 good first issue를 33개 열어 두었고, 저장소마다 기여 절차를 적어 두었습니다.
 -->
 
 ---
 
 <p class="kicker">CUBRID, 이제 Python으로</p>
 <h2 class="one">감사합니다</h2>
-<p class="sub" style="white-space: nowrap">멈춰 있던 dialect에서 시작해, 지금은 62명이 함께 고치는 생태계가 됐습니다.</p>
+<p class="sub" style="white-space: nowrap">멈춰 있던 dialect에서 시작해, 지금은 67명이 함께 고치는 생태계가 됐습니다.</p>
 
 <div class="split even">
   <div class="stack">
@@ -736,7 +741,7 @@ PR에서는 변경 위험에 맞는 검사만 선택하고, 릴리스와 수동 
 
 <!--
 [20초 · PT · 커뮤니티]
-처음에 보여드린 README의 한 줄, "관심 있는 사람이 있다면"에 저희가 답했습니다. 멈춰 있던 dialect에서 시작한 일이 이제 드라이버와 ORM, 예제, AI 도구까지 이어졌고, 62명이 함께 고치는 생태계가 됐습니다. 네 저장소 모두 열려 있습니다. 들어 주셔서 감사합니다.
+처음에 보여드린 README의 한 줄, "관심 있는 사람이 있다면"에 저희가 답했습니다. 멈춰 있던 dialect에서 시작한 일이 이제 드라이버와 ORM, 예제, AI 도구까지 이어졌고, 67명이 함께 고치는 생태계가 됐습니다. 네 저장소 모두 열려 있습니다. 들어 주셔서 감사합니다.
 -->
 
 ---
@@ -1025,16 +1030,16 @@ MCP의 SQL allowlist는 문장 종류를 통제하지, 업무 승인 규칙이�
 <h2 class="one">오픈소스로 계속 운영될 근거가 있나요?</h2>
 <p class="proof-lead">사람의 참여 실적과 운영 장치를 분리해서 보여드립니다. 숫자는 사용자 수가 아닌 <b>기여·유지관리 지표</b>입니다.</p>
 <div class="proof-grid three">
-  <div class="proof-card"><div class="proof-stat">62명</div><h3>팀 외부 기여자</h3><p>메인테이너·봇 제외, 2026-10-28</p></div>
-  <div class="proof-card"><div class="proof-stat">137개</div><h3>외부 머지 PR</h3><p>4개 저장소에서 실제 병합된 PR</p></div>
+  <div class="proof-card"><div class="proof-stat">67명</div><h3>팀 외부 기여자</h3><p>메인테이너·봇 제외, 2026-11-01</p></div>
+  <div class="proof-card"><div class="proof-stat">153개</div><h3>외부 머지 PR</h3><p>4개 저장소에서 실제 병합된 PR</p></div>
   <div class="proof-card"><div class="proof-stat">MIT × 4</div><h3>독립 OSS 라이선스</h3><p>서드파티 고지 및 SBOM 운영</p></div>
 </div>
 <div class="proof-grid" style="margin-top:8px">
   <div class="proof-card"><h3>유지관리 체계</h3><p>필수 CI 게이트, 릴리스 검증, 공개 API 변경 감지, 문서·예제 실서버 검사</p></div>
-  <div class="proof-card"><h3>통계의 범위</h3><p>62명은 저장소 간 중복을 제외한 외부 인간 기여자입니다. 137개는 그들이 병합한 PR 건수입니다.</p></div>
+  <div class="proof-card"><h3>통계의 범위</h3><p>67명은 저장소 간 중복을 제외한 외부 인간 기여자입니다. 153개는 그들이 병합한 PR 건수입니다.</p></div>
 </div>
-<div class="proof-line"><b>주장 범위:</b> 커뮤니티 참여가 확인된다는 뜻이지, 62개 조직이 서비스를 운영 중이라는 뜻은 아닙니다.</div>
-<div class="proof-source">근거 · <a href="https://github.com/cubrid-lab/showcase/blob/main/events/2026-ossdevcon/metrics/contributors-2026-10-28.json">기여자별 PR 원본</a> · <a href="https://github.com/cubrid-lab/showcase/blob/main/events/2026-ossdevcon/APPENDIX.md">라이선스·릴리스 근거</a></div>
+<div class="proof-line"><b>주장 범위:</b> 커뮤니티 참여가 확인된다는 뜻이지, 67개 조직이 서비스를 운영 중이라는 뜻은 아닙니다.</div>
+<div class="proof-source">근거 · <a href="https://github.com/cubrid-lab/showcase/blob/main/events/2026-ossdevcon/metrics/contributors-2026-11-01.json">기여자별 PR 원본</a> · <a href="https://github.com/cubrid-lab/showcase/blob/main/events/2026-ossdevcon/APPENDIX.md">라이선스·릴리스 근거</a></div>
 <div class="proof-footer"><Link to="27">← Q&amp;A로 돌아가기</Link></div>
 <style>
 .proof-lead { font-size: 1.12rem; line-height: 1.4; margin: 0 0 8px; color: var(--ink); }
@@ -1064,7 +1069,7 @@ MCP의 SQL allowlist는 문장 종류를 통제하지, 업무 승인 규칙이�
 </style>
 <!--
 [0초 · 보조 자료 F · 발표 시간 외]
-실제 외부 기여자 62명과 이들이 보낸 머지 PR 137건은 2026년 10월 28일 기준 자료입니다. 네 저장소의 라이선스는 MIT이고, CI와 릴리스 게이트를 운영합니다. 개발 활동의 규모를 실제 사용자 수 또는 운영 기관 수로 바꾸어 말하지 않습니다.
+실제 외부 기여자 67명과 이들이 보낸 머지 PR 153건은 2026년 11월 1일 기준 자료입니다. 네 저장소의 라이선스는 MIT이고, CI와 릴리스 게이트를 운영합니다. 개발 활동의 규모를 실제 사용자 수 또는 운영 기관 수로 바꾸어 말하지 않습니다.
 -->
 
 ---
@@ -1074,14 +1079,14 @@ MCP의 SQL allowlist는 문장 종류를 통제하지, 업무 승인 규칙이�
 <p class="proof-lead"><b>아닙니다.</b> 자체 CI가 저장소를 반복 클론할 수 있어 GitHub Traffic을 채택 증거에서 제외했습니다.</p>
 <div class="proof-grid">
   <div class="proof-card"><h3>측정은 됐지만 채택 근거로 쓰지 않음</h3><div class="proof-stat">4,969</div><p>pycubrid 14일 클론 수(2026-09-27 기록)</p><p class="proof-small" style="margin-top:8px">같은 시기 자체 워크플로 실행 약 700회 · 반복 자동화의 영향 가능</p></div>
-  <div class="proof-card"><h3>재현 가능한 커뮤니티 근거</h3><div class="proof-stat">62 / 137</div><p>외부 기여자 / 외부 머지 PR (2026-10-28)</p><p class="proof-small" style="margin-top:8px">계정·PR별 원본 링크와 봇 제외 기준 제공</p></div>
+  <div class="proof-card"><h3>재현 가능한 커뮤니티 근거</h3><div class="proof-stat">67 / 153</div><p>외부 기여자 / 외부 머지 PR (2026-11-01)</p><p class="proof-small" style="margin-top:8px">계정·PR별 원본 링크와 봇 제외 기준 제공</p></div>
 </div>
 <div class="proof-grid" style="margin-top:8px">
   <div class="proof-card"><h3>확인된 것</h3><p>오픈소스 기여·패키지 배포·테스트·릴리스 활동</p></div>
   <div class="proof-card"><h3>별도 증명이 필요한 것</h3><p>실제 운영 기관, 고유 사용자 수, 프로덕션 배포·업무 효과</p></div>
 </div>
 <div class="proof-line"><b>정직한 답변:</b> 개발 생태계가 활발해졌다는 증거는 제시할 수 있습니다. 검증되지 않은 고유 클로너 수나 실제 도입 기관 수는 주장하지 않습니다.</div>
-<div class="proof-source">근거 · <a href="https://github.com/cubrid-lab/showcase/blob/main/events/2026-ossdevcon/metrics/SNAPSHOT.md">Traffic 기록과 제외 이유</a> · <a href="https://github.com/cubrid-lab/showcase/blob/main/events/2026-ossdevcon/metrics/contributors-2026-10-28.json">기여자 원본</a></div>
+<div class="proof-source">근거 · <a href="https://github.com/cubrid-lab/showcase/blob/main/events/2026-ossdevcon/metrics/SNAPSHOT.md">Traffic 기록과 제외 이유</a> · <a href="https://github.com/cubrid-lab/showcase/blob/main/events/2026-ossdevcon/metrics/contributors-2026-11-01.json">기여자 원본</a></div>
 <div class="proof-footer"><Link to="27">← Q&amp;A로 돌아가기</Link></div>
 <style>
 .proof-lead { font-size: 1.12rem; line-height: 1.4; margin: 0 0 8px; color: var(--ink); }

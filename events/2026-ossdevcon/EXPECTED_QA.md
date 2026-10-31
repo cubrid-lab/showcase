@@ -14,7 +14,7 @@ Hackathon as mentor and mentee. We contributed to SQLAlchemy and sqlalchemy-hana
 Bayer via Gitter, and started the SQLAlchemy Korea community. Mike Bayer
 had built a CUBRID dialect in 2012 but abandoned it. We rebuilt from
 scratch for SQLAlchemy 2.0, then built the pure Python driver, then the
-full ecosystem, including a CUBRID MCP server for AI tools. As of 2026-10-28, 62 people outside the team have had 137 pull requests merged
+full ecosystem, including a CUBRID MCP server for AI tools. As of 2026-11-01, 67 people outside the team have had 153 pull requests merged
 (maintainers and bots excluded).
 
 ## Q1: Why not just use the official CUBRID Python driver?
@@ -39,7 +39,7 @@ that counts all authors and is repository activity, not people.
 We're early, and we don't inflate it. We deliberately don't quote clone
 counts: GitHub clone traffic is dominated by our own CI runners (pycubrid:
 ~700 workflow runs vs ~5,000 clones in the same 14 days). What we can show
-is 62 outside contributors with 137 merged PRs (2026-10-28), 61 published GitHub
+is 67 outside contributors with 153 merged PRs (2026-11-01), 61 published GitHub
 Releases across the three package repositories, and 129 stars across the four
 repositories (2026-10-25). The market is real: CUBRID
 ranks second among the top five Korean public-sector DBMS vendors
