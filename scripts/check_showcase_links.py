@@ -29,6 +29,8 @@ PUBLISHED_ROUTES = (
 )
 
 PRESENTATION = ROOT / "presentation"
+# Guides next to the deck entries; they are not decks.
+PRESENTATION_GUIDES = ("README.md", "PRESENTATION_STANDARD.md")
 # Rules from presentation/README.md ("Where deck sources live").
 ENTRY_NAME = re.compile(r"\d{4}-[a-z0-9-]+(?:\.[a-z]{2})?\.md")
 SOURCE_PATH = re.compile(r"decks/\d{4}-[a-z0-9-]+/(?:[a-z0-9-]+/)?slides(?:\.[a-z]{2})?\.md")
@@ -43,7 +45,7 @@ def check_deck_layout() -> list[str]:
     sources: dict[str, str] = {}
     entries = []
     for entry in sorted(PRESENTATION.glob("*.md")):
-        if entry.name == "README.md":
+        if entry.name in PRESENTATION_GUIDES:
             continue
         entries.append(entry.name)
         match = ENTRY.fullmatch(entry.read_text(encoding="utf-8"))
