@@ -43,10 +43,10 @@ title: "CUBRID, 이제 Python으로 — 파이큐브리드팀"
 <h2 class="one">오늘 말씀드릴 네 가지</h2>
 
 <div class="agenda">
-  <div><span>01</span><b>문제의 발견</b><p>왜 CUBRID Python 생태계를 만들기 시작했나</p></div>
-  <div><span>02</span><b>Python 생태계 구축</b><p>sqlalchemy-cubrid · pycubrid · cookbook · MCP 서버</p></div>
-  <div><span>03</span><b>개발 과정과 검증</b><p>에이전트와 사람의 역할 · CI · 호환성 · 성능</p></div>
-  <div><span>04</span><b>성과와 다음 단계</b><p>외부 기여 · 생태계 확장 계획</p></div>
+  <div><span>01</span><b>왜 시작했는가</b><p>오픈소스 기여 경험과 멈춰 있던 CUBRID dialect</p></div>
+  <div><span>02</span><b>무엇을 만들었는가</b><p>Python 드라이버부터 ORM · 예제 · AI 연결까지</p></div>
+  <div><span>03</span><b>어떻게 검증했는가</b><p>사람의 코드 리뷰 · CI · 실서버 테스트 · 성능 비교</p></div>
+  <div><span>04</span><b>어떻게 이어갈 것인가</b><p>외부 기여 성과와 오픈소스 생태계 확장</p></div>
 </div>
 
 <style>
@@ -60,7 +60,7 @@ title: "CUBRID, 이제 Python으로 — 파이큐브리드팀"
 
 <!--
 [15초 · PT]
-오늘은 네 가지 순서로 말씀드리겠습니다. 왜 시작했는지, 무엇을 만들었는지, 어떻게 만들고 검증했는지, 그리고 지금까지의 성과와 다음 계획입니다.
+오늘은 네 가지 질문에 답하겠습니다. 왜 시작했는지, 무엇을 만들었는지, 어떻게 검증했는지, 마지막으로 이 오픈소스 생태계를 어떻게 이어갈 것인지 말씀드리겠습니다.
 -->
 
 ---
