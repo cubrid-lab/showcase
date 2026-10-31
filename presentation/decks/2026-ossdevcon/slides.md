@@ -519,22 +519,18 @@ PR에서는 변경 위험에 맞는 검사만 선택하고, 릴리스와 수동 
 <p class="kicker">무엇을 쟀나 · 같은 서버에서 같은 작업에 걸린 시간</p>
 <h2 class="one">조금 느리지만, 설치와 비동기를 얻었습니다</h2>
 
-<div class="split perf">
-  <div class="stack">
-    <p class="chart-cap">C 드라이버 CUBRIDdb = 100 · 짧을수록 좋음</p>
-    <PairChart :width="420" :label-width="150" before-name="CUBRIDdb (C)" after-name="pycubrid" :rows="[
-      { label: 'PK 조회', before: 100, after: 104, beforeText: '100', afterText: '104' },
-      { label: '1만 행 fetchall', before: 100, after: 117, beforeText: '100', afterText: '117' },
-      { label: 'executemany 1만 행', before: 100, after: 104, beforeText: '100', afterText: '104' },
-    ]" />
-    <p class="small">2026-10-28 · CUBRID 11.4.6 · pycubrid 1.15.0 · Appendix B</p>
-  </div>
+<div class="stack perf">
+  <p class="chart-cap">C 드라이버 CUBRIDdb = 100 · 짧을수록 좋음</p>
+  <PairChart :width="690" :label-width="170" :bar="22" before-name="CUBRIDdb (C)" after-name="pycubrid" :rows="[
+    { label: 'PK 조회', before: 100, after: 104, beforeText: '100', afterText: '104' },
+    { label: '1만 행 fetchall', before: 100, after: 117, beforeText: '100', afterText: '117' },
+    { label: 'executemany 1만 행', before: 100, after: 104, beforeText: '100', afterText: '104' },
+  ]" />
+  <p class="small">2026-10-28 · CUBRID 11.4.6 · pycubrid 1.15.0 · Appendix B</p>
 </div>
 
 <style>
 .chart-cap { font-size: 0.85rem; font-weight: 700; color: var(--ink); }
-.perf { align-items: start; grid-template-columns: 1fr; }
-.perf .pairs { width: 760px; max-width: 100%; }
 </style>
 
 <!--
