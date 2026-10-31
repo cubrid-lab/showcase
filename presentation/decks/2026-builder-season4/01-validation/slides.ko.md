@@ -68,60 +68,57 @@ CUBRID Kubernetes Operator는 Kubernetes에서 CUBRID HA 클러스터를 안전�
 <div class="op-compare-layout">
   <section class="op-compare-side">
     <header class="op-compare-side-header"><b>공식 CUBRID Operator</b><span>DB Pod 안에서 관리·접속</span></header>
-    <svg class="op-compare-svg" viewBox="0 0 460 350" role="img" aria-label="공식 Operator: 애플리케이션 SQL은 Broker Service를 거쳐 데이터베이스 Pod 안의 Broker에 연결됩니다. Operator는 같은 Pod 안의 CMS와 pods/exec를 통해 관리합니다. DB, CMS, Broker는 같은 DB Pod의 CUBRID 컨테이너에 있습니다.">
+    <svg class="op-compare-svg" viewBox="0 0 460 265" role="img" aria-label="공식 Operator: Application에서 Broker Service로 연결하고 DB Pod 내부 Broker를 통해 CUBRID DB에 SQL을 보냅니다. Operator는 같은 DB Pod 안의 CMS API를 통해 관리합니다. DB, CMS, Broker는 같은 컨테이너 안에 있습니다.">
       <defs>
-        <marker id="op-cmp-off-sql" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#1f4e8c"/></marker>
-        <marker id="op-cmp-off-ctl" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#5b6b82"/></marker>
+        <marker id="op-cmp-off-sql" markerWidth="6" markerHeight="6" refX="5.6" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="#1f4e8c"/></marker>
+        <marker id="op-cmp-off-ctl" markerWidth="6" markerHeight="6" refX="5.6" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="#5b6b82"/></marker>
       </defs>
-      <rect class="op-compare-sqlbox" x="20" y="12" width="164" height="52" rx="9"/>
-      <text x="102" y="35" text-anchor="middle">Application</text><text class="op-compare-small" x="102" y="53" text-anchor="middle">SQL 요청</text>
-      <rect class="op-compare-ctlbox" x="276" y="12" width="164" height="52" rx="9"/>
-      <text x="358" y="35" text-anchor="middle">Operator</text><text class="op-compare-small" x="358" y="53" text-anchor="middle">CMS API · pods/exec</text>
-      <rect class="op-compare-sqlbox" x="20" y="96" width="164" height="53" rx="9"/>
-      <text x="102" y="118" text-anchor="middle">Broker Service</text><text class="op-compare-small" x="102" y="137" text-anchor="middle">애플리케이션 접속</text>
-      <path class="op-compare-sql-line" d="M102 64V94" marker-end="url(#op-cmp-off-sql)"/>
-      <rect class="op-compare-pod" x="18" y="186" width="424" height="151" rx="12"/>
-      <text class="op-compare-pod-title" x="38" y="210">DB Pod ×3 (각 Pod 동일 구성)</text>
-      <rect class="op-compare-sqlbox" x="36" y="236" width="116" height="48" rx="7"/><text x="94" y="266" text-anchor="middle">Broker</text>
-      <rect class="op-compare-ctlbox" x="172" y="236" width="116" height="48" rx="7"/><text x="230" y="266" text-anchor="middle">CMS</text>
-      <rect class="op-compare-dbbox" x="309" y="236" width="115" height="48" rx="7"/><text x="366" y="266" text-anchor="middle">CUBRID DB</text>
-      <path class="op-compare-sql-line" d="M102 149V233" marker-end="url(#op-cmp-off-sql)"/>
-      <path class="op-compare-control-line" d="M358 64V169H230V233" marker-end="url(#op-cmp-off-ctl)"/>
-      <path class="op-compare-sql-line" d="M94 284V302H366V287" marker-end="url(#op-cmp-off-sql)"/>
-      <text class="op-compare-small" x="230" y="326" text-anchor="middle">DB · CMS · Broker는 같은 컨테이너</text>
+      <rect class="op-compare-sqlbox" x="18" y="5" width="160" height="41" rx="8"/>
+      <text x="98" y="23" text-anchor="middle">Application</text><text class="op-compare-small" x="98" y="38" text-anchor="middle">SQL 요청</text>
+      <rect class="op-compare-ctlbox" x="283" y="5" width="160" height="41" rx="8"/>
+      <text x="363" y="23" text-anchor="middle">Operator</text><text class="op-compare-small" x="363" y="38" text-anchor="middle">CMS API · pods/exec</text>
+      <rect class="op-compare-sqlbox" x="18" y="74" width="160" height="40" rx="8"/>
+      <text x="98" y="92" text-anchor="middle">Broker Service</text><text class="op-compare-small" x="98" y="107" text-anchor="middle">애플리케이션 접속</text>
+      <rect class="op-compare-pod" x="18" y="154" width="425" height="104" rx="10"/>
+      <text class="op-compare-pod-title" x="184" y="179">DB Pod ×3 · 각 Pod 동일 구성</text>
+      <rect class="op-compare-sqlbox" x="36" y="197" width="118" height="42" rx="7"/><text x="95" y="223" text-anchor="middle">Broker</text>
+      <rect class="op-compare-dbbox" x="177" y="197" width="118" height="42" rx="7"/><text x="236" y="223" text-anchor="middle">CUBRID DB</text>
+      <rect class="op-compare-ctlbox" x="316" y="197" width="111" height="42" rx="7"/><text x="371" y="223" text-anchor="middle">CMS</text>
+      <path class="op-compare-sql-line" d="M98 46V71" marker-end="url(#op-cmp-off-sql)"/>
+      <path class="op-compare-sql-line" d="M98 114V193" marker-end="url(#op-cmp-off-sql)"/>
+      <path class="op-compare-sql-line" d="M154 218H173" marker-end="url(#op-cmp-off-sql)"/>
+      <path class="op-compare-control-line" d="M363 46V193" marker-end="url(#op-cmp-off-ctl)"/>
     </svg>
   </section>
   <section class="op-compare-side op-compare-side-lab">
     <header class="op-compare-side-header"><b>CUBRID Lab Operator</b><span>DB 관리와 SQL 접속 분리</span></header>
-    <svg class="op-compare-svg" viewBox="0 0 460 350" role="img" aria-label="CUBRID Lab Operator: 애플리케이션 SQL은 RW/RO Service와 별도 Broker Pod를 거쳐 CUBRID DB Pod에 연결됩니다. Operator는 DB Pod의 CUBRID와 동일 컨테이너에서 실행되는 Instance Manager에 API를 호출합니다.">
+    <svg class="op-compare-svg" viewBox="0 0 460 265" role="img" aria-label="CUBRID Lab Operator: Application에서 RW/RO Service를 거쳐 별도의 Broker Pod로 접속한 다음 DB Pod 안의 CUBRID DB에 SQL을 보냅니다. Operator는 DB와 같은 컨테이너의 Instance Manager API로 관리합니다.">
       <defs>
-        <marker id="op-cmp-lab-sql" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#1f4e8c"/></marker>
-        <marker id="op-cmp-lab-ctl" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#5b6b82"/></marker>
+        <marker id="op-cmp-lab-sql" markerWidth="6" markerHeight="6" refX="5.6" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="#1f4e8c"/></marker>
+        <marker id="op-cmp-lab-ctl" markerWidth="6" markerHeight="6" refX="5.6" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="#5b6b82"/></marker>
       </defs>
-      <rect class="op-compare-sqlbox" x="20" y="12" width="164" height="52" rx="9"/>
-      <text x="102" y="35" text-anchor="middle">Application</text><text class="op-compare-small" x="102" y="53" text-anchor="middle">SQL 요청</text>
-      <rect class="op-compare-ctlbox" x="276" y="12" width="164" height="52" rx="9"/>
-      <text x="358" y="35" text-anchor="middle">Operator</text><text class="op-compare-small" x="358" y="53" text-anchor="middle">IM API</text>
-      <rect class="op-compare-sqlbox" x="20" y="96" width="164" height="53" rx="9"/>
-      <text x="102" y="118" text-anchor="middle">RW/RO Service</text><text class="op-compare-small" x="102" y="137" text-anchor="middle">애플리케이션 접속</text>
-      <path class="op-compare-sql-line" d="M102 64V94" marker-end="url(#op-cmp-lab-sql)"/>
-      <rect class="op-compare-pod" x="18" y="186" width="192" height="151" rx="12"/>
-      <text class="op-compare-pod-title" x="32" y="208">별도 Broker Deployment</text>
-      <rect class="op-compare-sqlbox" x="35" y="227" width="157" height="38" rx="7"/><text x="113" y="251" text-anchor="middle">RW Broker</text>
-      <rect class="op-compare-sqlbox" x="35" y="277" width="157" height="38" rx="7"/><text x="113" y="301" text-anchor="middle">RO Broker</text>
-      <rect class="op-compare-pod" x="239" y="186" width="203" height="151" rx="12"/>
-      <text class="op-compare-pod-title" x="252" y="208">DB Pod ×3</text>
-      <rect class="op-compare-ctlbox" x="253" y="227" width="175" height="38" rx="7"/><text x="340" y="251" text-anchor="middle">Instance Manager</text>
-      <rect class="op-compare-dbbox" x="253" y="277" width="175" height="38" rx="7"/><text x="340" y="301" text-anchor="middle">CUBRID DB</text>
-      <path class="op-compare-sql-line" d="M102 149V224" marker-end="url(#op-cmp-lab-sql)"/>
-      <path class="op-compare-control-line" d="M358 64V168H340V224" marker-end="url(#op-cmp-lab-ctl)"/>
-      <path class="op-compare-sql-line" d="M192 295H250" marker-end="url(#op-cmp-lab-sql)"/>
-      <text class="op-compare-small" x="340" y="327" text-anchor="middle">IM · DB는 같은 컨테이너</text>
+      <rect class="op-compare-sqlbox" x="18" y="5" width="160" height="41" rx="8"/>
+      <text x="98" y="23" text-anchor="middle">Application</text><text class="op-compare-small" x="98" y="38" text-anchor="middle">SQL 요청</text>
+      <rect class="op-compare-ctlbox" x="283" y="5" width="160" height="41" rx="8"/>
+      <text x="363" y="23" text-anchor="middle">Operator</text><text class="op-compare-small" x="363" y="38" text-anchor="middle">IM API</text>
+      <rect class="op-compare-sqlbox" x="18" y="74" width="160" height="40" rx="8"/>
+      <text x="98" y="92" text-anchor="middle">RW/RO Service</text><text class="op-compare-small" x="98" y="107" text-anchor="middle">애플리케이션 접속</text>
+      <rect class="op-compare-pod" x="18" y="154" width="196" height="104" rx="10"/>
+      <text class="op-compare-pod-title" x="116" y="179">Broker Pods</text>
+      <rect class="op-compare-sqlbox" x="36" y="197" width="160" height="42" rx="7"/><text x="116" y="214" text-anchor="middle">RW Broker</text><text x="116" y="231" text-anchor="middle">RO Broker</text>
+      <rect class="op-compare-pod" x="238" y="154" width="205" height="104" rx="10"/>
+      <text class="op-compare-pod-title" x="252" y="179">DB Pod ×3</text>
+      <rect class="op-compare-ctlbox" x="256" y="195" width="172" height="25" rx="6"/><text class="op-compare-node-text" x="342" y="212" text-anchor="middle">Instance Manager</text>
+      <rect class="op-compare-dbbox" x="256" y="232" width="172" height="23" rx="6"/><text class="op-compare-node-text" x="342" y="248" text-anchor="middle">CUBRID DB</text>
+      <path class="op-compare-sql-line" d="M98 46V71" marker-end="url(#op-cmp-lab-sql)"/>
+      <path class="op-compare-sql-line" d="M98 114V193" marker-end="url(#op-cmp-lab-sql)"/>
+      <path class="op-compare-sql-line" d="M196 219H225V244H252" marker-end="url(#op-cmp-lab-sql)"/>
+      <path class="op-compare-control-line" d="M363 46V191" marker-end="url(#op-cmp-lab-ctl)"/>
     </svg>
   </section>
 </div>
 <div class="op-compare-takeaway"><b>차이점</b><span>공식: CMS + Broker가 DB Pod 내부</span><span>우리: IM은 DB Pod 내부, Broker는 별도 Pod</span></div>
-<p class="op-caption">실선은 SQL 경로, 점선은 관리 경로 · 아키텍처상 차이는 확인됐지만 실제 장애 안전성·성능의 우위는 아직 비교 검증하지 않았습니다.</p>
+<p class="op-caption">파란 실선은 SQL 경로, 회색 점선은 관리 경로입니다. 구성 차이는 확인됐지만 안전성·성능 우위는 아직 검증되지 않았습니다.</p>
 
 </OperatorSlide>
 
