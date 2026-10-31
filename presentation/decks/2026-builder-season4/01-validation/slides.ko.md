@@ -60,17 +60,80 @@ CUBRID Kubernetes Operator는 Kubernetes에서 CUBRID HA 클러스터를 안전�
 
 ---
 
-<OperatorSlide class="op-compact" section="03 · 기존 방식의 한계" index="05" total="17" source="공식 Operator·소스 비교" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/SOURCES.md#comparison-boundaries">
+<OperatorSlide class="op-compact" section="03 · 기존 방식의 한계" index="05" total="17" source="공식·CUBRID Lab 아키텍처 비교" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/SOURCES.md#comparison-boundaries">
 
-<h1 class="op-title">공식 Operator와 무엇이 다른가요?</h1><p class="op-kicker">비교 대상: <a href="https://github.com/CUBRID/cubrid-operator" target="_blank">github.com/CUBRID/cubrid-operator</a></p><table class="op-comparison"><thead><tr><th></th><th>공식 CUBRID Operator</th><th>CUBRID Kubernetes Operator (이 프로젝트)</th></tr></thead><tbody><tr><td><b>공통 기능</b></td><td>HA 상태 조회 · 스토리지 · 예약 백업</td><td>HA 상태 조회 · 스토리지 · 백업</td></tr><tr><td><b>master 판단</b></td><td>처음 성공한 응답 하나의 정보를 그대로 사용</td><td>모든 노드의 최신 응답 비교 · 엇갈리면 “미확정”</td></tr><tr><td><b>백업 실행</b></td><td>Pod 안에서 명령 실행 · 결과를 상태에 기록</td><td>Instance Manager에 요청 · 작업 ID를 볼륨에 기록</td></tr><tr><td><b>복원</b></td><td>소스에서 복원 기능이 확인되지 않음</td><td>파일 목록·체크섬 확인 후 새 클러스터로 복원</td></tr><tr><td><b>복구 확인</b></td><td>포트 검사</td><td>포트 검사 + 시험에서 SQL 쓰기·읽기·데이터 확인</td></tr></tbody></table><p class="op-caption">비교 기준: <a href="https://github.com/CUBRID/cubrid-operator/tree/fa7b6c2cf26096769c4404a2e2bb683f3872aa1e" target="_blank">공식 소스 fa7b6c2</a> · 실제 장애에서 어느 쪽이 더 안정적인지는 아직 비교하지 않았습니다.</p>
+<h1 class="op-title">같은 CUBRID HA, 다른 관리·접속 구조</h1>
+<p class="op-kicker">두 Operator 모두 master 선출과 복제는 CUBRID 자체 HA에 맡깁니다.</p>
+
+<div class="op-compare-layout">
+  <section class="op-compare-side">
+    <header class="op-compare-side-header"><b>공식 CUBRID Operator</b><span>DB Pod 안에서 관리·접속</span></header>
+    <svg class="op-compare-svg" viewBox="0 0 460 350" role="img" aria-label="공식 Operator: 애플리케이션 SQL은 Broker Service를 거쳐 데이터베이스 Pod 안의 Broker에 연결됩니다. Operator는 같은 Pod 안의 CMS와 pods/exec를 통해 관리합니다. DB, CMS, Broker는 같은 DB Pod의 CUBRID 컨테이너에 있습니다.">
+      <defs>
+        <marker id="op-cmp-off-sql" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#1f4e8c"/></marker>
+        <marker id="op-cmp-off-ctl" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#5b6b82"/></marker>
+      </defs>
+      <rect class="op-compare-sqlbox" x="20" y="12" width="164" height="52" rx="9"/>
+      <text x="102" y="35" text-anchor="middle">Application</text><text class="op-compare-small" x="102" y="53" text-anchor="middle">SQL 요청</text>
+      <rect class="op-compare-ctlbox" x="276" y="12" width="164" height="52" rx="9"/>
+      <text x="358" y="35" text-anchor="middle">Operator</text><text class="op-compare-small" x="358" y="53" text-anchor="middle">CMS API · pods/exec</text>
+      <rect class="op-compare-sqlbox" x="20" y="96" width="164" height="53" rx="9"/>
+      <text x="102" y="118" text-anchor="middle">Broker Service</text><text class="op-compare-small" x="102" y="137" text-anchor="middle">애플리케이션 접속</text>
+      <path class="op-compare-sql-line" d="M102 64V94" marker-end="url(#op-cmp-off-sql)"/>
+      <rect class="op-compare-pod" x="18" y="186" width="424" height="151" rx="12"/>
+      <text class="op-compare-pod-title" x="38" y="210">DB Pod ×3 (각 Pod 동일 구성)</text>
+      <rect class="op-compare-sqlbox" x="36" y="236" width="116" height="48" rx="7"/><text x="94" y="266" text-anchor="middle">Broker</text>
+      <rect class="op-compare-ctlbox" x="172" y="236" width="116" height="48" rx="7"/><text x="230" y="266" text-anchor="middle">CMS</text>
+      <rect class="op-compare-dbbox" x="309" y="236" width="115" height="48" rx="7"/><text x="366" y="266" text-anchor="middle">CUBRID DB</text>
+      <path class="op-compare-sql-line" d="M102 149V233" marker-end="url(#op-cmp-off-sql)"/>
+      <path class="op-compare-control-line" d="M358 64V169H230V233" marker-end="url(#op-cmp-off-ctl)"/>
+      <path class="op-compare-sql-line" d="M94 284V302H366V287" marker-end="url(#op-cmp-off-sql)"/>
+      <text class="op-compare-small" x="230" y="326" text-anchor="middle">DB · CMS · Broker는 같은 컨테이너</text>
+    </svg>
+  </section>
+  <section class="op-compare-side op-compare-side-lab">
+    <header class="op-compare-side-header"><b>CUBRID Lab Operator</b><span>DB 관리와 SQL 접속 분리</span></header>
+    <svg class="op-compare-svg" viewBox="0 0 460 350" role="img" aria-label="CUBRID Lab Operator: 애플리케이션 SQL은 RW/RO Service와 별도 Broker Pod를 거쳐 CUBRID DB Pod에 연결됩니다. Operator는 DB Pod의 CUBRID와 동일 컨테이너에서 실행되는 Instance Manager에 API를 호출합니다.">
+      <defs>
+        <marker id="op-cmp-lab-sql" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#1f4e8c"/></marker>
+        <marker id="op-cmp-lab-ctl" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#5b6b82"/></marker>
+      </defs>
+      <rect class="op-compare-sqlbox" x="20" y="12" width="164" height="52" rx="9"/>
+      <text x="102" y="35" text-anchor="middle">Application</text><text class="op-compare-small" x="102" y="53" text-anchor="middle">SQL 요청</text>
+      <rect class="op-compare-ctlbox" x="276" y="12" width="164" height="52" rx="9"/>
+      <text x="358" y="35" text-anchor="middle">Operator</text><text class="op-compare-small" x="358" y="53" text-anchor="middle">IM API</text>
+      <rect class="op-compare-sqlbox" x="20" y="96" width="164" height="53" rx="9"/>
+      <text x="102" y="118" text-anchor="middle">RW/RO Service</text><text class="op-compare-small" x="102" y="137" text-anchor="middle">애플리케이션 접속</text>
+      <path class="op-compare-sql-line" d="M102 64V94" marker-end="url(#op-cmp-lab-sql)"/>
+      <rect class="op-compare-pod" x="18" y="186" width="192" height="151" rx="12"/>
+      <text class="op-compare-pod-title" x="32" y="208">별도 Broker Deployment</text>
+      <rect class="op-compare-sqlbox" x="35" y="227" width="157" height="38" rx="7"/><text x="113" y="251" text-anchor="middle">RW Broker</text>
+      <rect class="op-compare-sqlbox" x="35" y="277" width="157" height="38" rx="7"/><text x="113" y="301" text-anchor="middle">RO Broker</text>
+      <rect class="op-compare-pod" x="239" y="186" width="203" height="151" rx="12"/>
+      <text class="op-compare-pod-title" x="252" y="208">DB Pod ×3</text>
+      <rect class="op-compare-ctlbox" x="253" y="227" width="175" height="38" rx="7"/><text x="340" y="251" text-anchor="middle">Instance Manager</text>
+      <rect class="op-compare-dbbox" x="253" y="277" width="175" height="38" rx="7"/><text x="340" y="301" text-anchor="middle">CUBRID DB</text>
+      <path class="op-compare-sql-line" d="M102 149V224" marker-end="url(#op-cmp-lab-sql)"/>
+      <path class="op-compare-control-line" d="M358 64V168H340V224" marker-end="url(#op-cmp-lab-ctl)"/>
+      <path class="op-compare-sql-line" d="M192 295H250" marker-end="url(#op-cmp-lab-sql)"/>
+      <text class="op-compare-small" x="340" y="327" text-anchor="middle">IM · DB는 같은 컨테이너</text>
+    </svg>
+  </section>
+</div>
+<div class="op-compare-takeaway"><b>차이점</b><span>공식: CMS + Broker가 DB Pod 내부</span><span>우리: IM은 DB Pod 내부, Broker는 별도 Pod</span></div>
+<p class="op-caption">실선은 SQL 경로, 점선은 관리 경로 · 아키텍처상 차이는 확인됐지만 실제 장애 안전성·성능의 우위는 아직 비교 검증하지 않았습니다.</p>
 
 </OperatorSlide>
 
 <!--
 [50초 · 03 · 기존 방식의 한계]
-CUBRID에는 이미 공식 Operator가 있고, HA 상태 조회와 스토리지, 예약 백업을 제공합니다. 그럼 무엇이 다를까요? 표는 두 프로젝트의 소스를 직접 읽고 정리한 것입니다.
+CUBRID에는 이미 공식 Operator가 있고, HA 상태 조회와 스토리지, 예약 백업을 제공합니다. 그래서 무엇을 다르게 설계했는지 구조로 비교하겠습니다.
 
-소스를 보면 공식 Operator는 처음 성공한 응답 하나에 담긴 노드 정보를 HA 상태에 그대로 씁니다. 저희는 모든 노드의 최신 응답을 비교하고, 빠지거나 엇갈리면 미확정으로 둡니다. 백업 같은 작업은 Instance Manager에 요청하고 작업 ID를 볼륨에 남겨서, 중간에 끊기면 실패로 기록합니다. 공식 Operator 소스에서는 복원 기능을 찾지 못했습니다. 저희는 복원 전에 파일 목록과 체크섬을 확인합니다. 소스상 두 프로젝트 모두 운영 중에는 포트 검사를 쓰므로, 저희는 시험에서 SQL 쓰기·읽기와 데이터를 따로 확인합니다. 실제 장애에서 어느 쪽이 더 안정적인지는 아직 비교하지 못했습니다.
+왼쪽 공식 Operator는 각 DB Pod 안에서 CUBRID DB와 CMS, Broker가 함께 실행됩니다. Operator는 CMS API와 Pod 내부 명령 실행으로 DB를 관리하고, 애플리케이션은 DB Pod 안의 Broker를 거쳐 접속합니다.
+
+오른쪽 저희 구조에서는 DB와 Instance Manager가 같은 컨테이너에 있지만, RW와 RO Broker는 별도의 Deployment에서 실행됩니다. Operator는 IM API로 각 DB의 상태를 조회하고 작업을 요청합니다. 각 멤버의 관측값을 비교하고, 관리 작업 ID도 볼륨에 기록합니다.
+
+두 방식 모두 master 선출과 복제는 CUBRID HA가 담당합니다. 별도 IM이나 Broker 구조가 실제로 더 안정적인지는 아직 비교 검증하지 않았습니다.
 -->
 
 ---
