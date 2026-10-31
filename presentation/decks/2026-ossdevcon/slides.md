@@ -715,7 +715,7 @@ PR에서는 변경 위험에 맞는 검사만 선택하고, 릴리스와 수동 
 
 <p class="kicker">CUBRID, 이제 Python으로</p>
 <h2 class="one">감사합니다</h2>
-<p class="sub" style="white-space: nowrap">멈춰 있던 dialect에서 시작해, 지금은 67명이 함께 고치는 생태계가 됐습니다.</p>
+<p class="sub" style="white-space: nowrap">멈춰 있던 dialect에서 시작해, 이제는 여러 사람이 함께 고치는 생태계가 됐습니다.</p>
 
 <div class="split even">
   <div class="stack">
@@ -726,21 +726,17 @@ PR에서는 변경 위험에 맞는 검사만 선택하고, 릴리스와 수동 
     </div>
     <p class="thanks">파이큐브리드팀 최영선 · 백경준</p>
   </div>
-  <div class="stack">
-    <div class="frame"><Photo src="/photos/team-now.jpg" label="지금의 두 사람 사진" /></div>
-    <p class="notice">파이큐브리드팀은 CUBRID Corporation 및 공식 CUBRID 프로젝트와 제휴·후원·보증 관계가 없는 독립 오픈소스 팀입니다. CUBRID는 해당 권리자의 상표입니다.</p>
-  </div>
+  <div class="frame"><Photo src="/photos/team-now.jpg" label="지금의 두 사람 사진" /></div>
 </div>
 
 <style>
 .frame { height: 200px; }
 .thanks { font-size: 1.15rem; font-weight: 700; margin-top: 8px; }
-.notice { max-width: 34em; margin: 0 0 18px; font-size: 0.62rem; line-height: 1.5; color: var(--muted); }
 </style>
 
 <!--
 [20초 · PT · 커뮤니티]
-처음에 보여드린 README의 한 줄, "관심 있는 사람이 있다면"에 저희가 답했습니다. 멈춰 있던 dialect에서 시작한 일이 이제 드라이버와 ORM, 예제, AI 도구까지 이어졌고, 67명이 함께 고치는 생태계가 됐습니다. 네 저장소 모두 열려 있습니다. 들어 주셔서 감사합니다.
+처음에 보여드린 README의 한 줄, "관심 있는 사람이 있다면"에 저희가 답했습니다. 멈춰 있던 dialect에서 시작한 일이 이제 드라이버와 ORM, 예제, AI 도구까지 이어졌고, 여러 사람이 함께 고치는 생태계가 됐습니다. 네 저장소 모두 열려 있습니다. 들어 주셔서 감사합니다.
 -->
 
 ---
