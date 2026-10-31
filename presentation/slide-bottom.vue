@@ -17,7 +17,7 @@ const shown = computed(() => $slidev.configs.pageNumbers === true && $page.value
 </template>
 
 <style scoped>
-.contest-deck-id { position: absolute; right: 56px; top: 22px; font-size: 0.70rem; font-weight: 650; color: var(--muted); letter-spacing: 0; }
-.contest-page-no { position: absolute; right: 56px; bottom: 22px; font-size: 0.72rem; font-weight: 700; color: var(--blue); font-variant-numeric: tabular-nums; letter-spacing: 0; }
-.contest-page-no span { font-weight: 400; color: var(--muted); }
+.contest-deck-id { position: absolute; right: 56px; top: 22px; font-size: 0.70rem; font-weight: 650; color: var(--muted, #5b6b82); letter-spacing: 0; }
+.contest-page-no { position: absolute; right: 56px; bottom: 22px; font-size: 0.72rem; font-weight: 700; color: var(--blue, #1f4e8c); font-variant-numeric: tabular-nums; letter-spacing: 0; }
+.contest-page-no span { font-weight: 400; color: var(--muted, #5b6b82); }
 </style>

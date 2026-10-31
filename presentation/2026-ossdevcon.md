@@ -12,6 +12,9 @@ fonts:
 favicon: /favicon.svg
 # Hash routes (/#/5) survive a refresh on any static server, no SPA fallback needed
 routerMode: hash
+# Always light: the page number and deck name are drawn outside the slide's
+# colour scope and turned white on a white slide in a dark-mode browser.
+colorSchema: light
 # 840 instead of 980: same 16:9 slide, everything ~17% larger on screen
 canvasWidth: 840
 layout: default
