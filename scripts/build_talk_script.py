@@ -11,21 +11,21 @@ OUT = ROOT / "events/2026-ossdevcon/SLIDES.md"
 
 # Titles the extractor can't read cleanly (charts, code, lists)
 TITLE_OVERRIDES = {
-    7: "sqlalchemy-cubrid — 이렇게 씁니다 (코드)",
-    15: "\"지워버리면요?\" 기본은 읽기 전용입니다",
-    17: "CI를 통과해야 머지됩니다",
-    20: "팀 밖의 62명이 보낸 PR 137개가 머지됐습니다",
-    23: "Q&A — 질문 받겠습니다",
+    9: "sqlalchemy-cubrid — 이렇게 씁니다 (코드)",
+    17: "\"지워버리면요?\" 기본은 읽기 전용입니다",
+    20: "CI를 통과해야 머지됩니다",
+    24: "팀 밖의 62명이 보낸 PR 137개가 머지됐습니다",
+    27: "Q&A — 질문에 맞는 근거로 이동합니다",
 }
 
 CRITERIA = [
-    "| 활용성 | 15 | 멈춰 있던 dialect 발견 (4) → 연결 구조 (5) → SQLAlchemy 코드 (7) → 기존 드라이버의 걸림돌 (8) → pip install (10) → cookbook (11) → AI 접근 (13–15) → 외부 기여자 (20) |",
-    "| OSS 적절성 | 15 | Mike Bayer의 README에 응답해 dialect 새 구현·호환성 테스트 (4, 6) → node-cubrid와 C 드라이버 소스 대조 (9) → 표준 (19) |",
-    "| PT | 10 | 표지 (1) · 목차 (2) · 제목 \"CUBRID, 이제 Python으로\" · README 인용 (4)이 마지막 장 (22)의 답으로 이어지는 구조 · 전환 문장 (7, 8, 17) |",
-    "| 데모 | 10 | 라이브 데모 없음 — 실행해 본 코드 (7), 실제 문서·저장소·PR 화면 (11, 13, 16)으로 대신 |",
-    "| 기능테스트 | 10 | 매일 실서버 예제 검증 (12) → 읽기 전용 설계 (15) → CI 게이트 (17) → 성능 비교 (18) |",
-    "| 커뮤니티 | 5 | 컨트리뷰톤·SQLAlchemy Korea (3) → 이어받음 (4) → 에이전트와 사람의 역할 (16) → 외부 기여자 62명 (20) → 다음 계획·good first issue (21) → 마무리 (22) |",
-    "| 라이선스 | 5 | 소스 참고 (9) → MIT × 4 · SBOM · 서드파티 라이선스 (19) |",
+    "| 활용성 | 15 | 멈춰 있던 dialect 발견 (5) → 연결 구조 (7) → SQLAlchemy 코드 (9) → 기존 드라이버의 걸림돌 (10) → pip install (12) → cookbook (13) → AI 접근 (15–17) → 외부 기여자 (24) |",
+    "| OSS 적절성 | 15 | Mike Bayer의 README에 응답해 dialect 새 구현·호환성 테스트 (5, 8) → node-cubrid와 C 드라이버 소스 대조 (11) → 표준 (22) |",
+    "| PT | 10 | 표지 (1) · 목차 (2) · 네 개 챕터 전환 (3, 6, 18, 23) · README 인용 (5)이 마지막 장 (26)의 답으로 이어지는 구조 |",
+    "| 데모 | 10 | 라이브 데모 없음 — 실행해 본 코드 (9), 실제 문서·저장소·PR 화면 (13, 15, 19)으로 대신 |",
+    "| 기능테스트 | 10 | 매일 실서버 예제 검증 (14) → 읽기 전용 설계 (17) → CI 게이트 (20) → 성능 비교 (21) |",
+    "| 커뮤니티 | 5 | 컨트리뷰톤·SQLAlchemy Korea (4) → 이어받음 (5) → 에이전트와 사람의 역할 (19) → 외부 기여자 62명 (24) → 다음 계획 (25) → 마무리 (26) |",
+    "| 라이선스 | 5 | 소스 참고 (11) → MIT × 4 · SBOM · 서드파티 라이선스 (22) |",
 ]
 
 
@@ -34,6 +34,9 @@ def clean(x):
 
 
 def title_of(part):
+    divider = re.search(r'<ChapterDivider\\b[^>]*number="(\\d+)"[^>]*title="([^"]+)"', part)
+    if divider:
+        return f"〔{divider.group(1)}〕 {divider.group(2)}", True
     m = re.search(r'<div class="chapter"><span class="no">(\d+)</span><h1>(.*?)</h1>', part)
     if m:
         return f"〔{m.group(1)}〕 {clean(m.group(2))}", True
