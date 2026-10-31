@@ -11,6 +11,12 @@ on:
       - 'scripts/**'
       - '.gitignore'
       - '**/.omc/**'
+      - '**/*.pdf'
+      - '**/*.pptx'
+      - '**/*.mp4'
+      - '**/*.mov'
+      - '**/*.webm'
+      - '**/*.wav'
       - '.github/workflows/layout-check.yml'
   push:
     branches: [main]
@@ -23,6 +29,12 @@ on:
       - 'scripts/**'
       - '.gitignore'
       - '**/.omc/**'
+      - '**/*.pdf'
+      - '**/*.pptx'
+      - '**/*.mp4'
+      - '**/*.mov'
+      - '**/*.webm'
+      - '**/*.wav'
       - '.github/workflows/layout-check.yml'
 
 permissions:

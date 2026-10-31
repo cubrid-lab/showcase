@@ -42,6 +42,23 @@ For upcoming rounds and program opportunities, see the [events index](events/).
 
 Each event brief links to its source deck and supporting evidence. Deck sources live in `presentation/decks/<event>/[<round>/]`, inside the shared Slidev project, because the build needs that project root. This is a tooling constraint, not a second copy of the event material.
 
+## Generated files
+
+Some generated files are kept in Git because they are evidence or approved
+review material. Everything else that a command can recreate stays out of Git.
+`scripts/check_showcase_links.py` (the layout check in CI) rejects the
+"never committed" groups below.
+
+| Kind | Rule | Where it is now |
+|---|---|---|
+| **Source** | Tracked. Edit it directly. | Deck Markdown in `presentation/decks/`, video source and timelines in `projects/cubrid-lab/intro-video/` (`src/`, `timelines/`, `scripts/`, `captions/`), style-frame inputs in `projects/cubrid-lab/intro-video/style-frames/src/`, scripts in `scripts/` |
+| **Evidence** | Tracked, never rewritten. A new measurement gets a new dated folder; earlier runs stay as they are. Each folder has a README with its provenance. | Benchmark runs in `events/2026-ossdevcon/metrics/benchmark-2026-10-25/` and `benchmark-2026-10-28/` (raw JSON, logs, environment, derived summary), metric snapshots in `presentation/snapshots/` and `events/2026-ossdevcon/metrics/contributors-2026-10-28.json` |
+| **Approved review and slide assets** | Tracked with a README that says what each file is, where it came from and how to replace it. | Video review stills ([README](projects/cubrid-lab/intro-video/stills/README.md)), style frames (`projects/cubrid-lab/intro-video/style-frames/png/`, rendered by `style-frames/src/render.mjs`; see [VIDEO_DESIGN.md](projects/cubrid-lab/intro-video/VIDEO_DESIGN.md)), deck screenshots ([README](presentation/public/shots/README.md)), contributor avatars ([README](presentation/public/contributors/README.md)), brand marks ([README](presentation/public/brand/README.md)) |
+| **Regenerable output** | Never committed. Ignored and written to `out/`, `exports/`, `dist/`, `site-dist/` or `.slidev/`. | Video renders, draft and placeholder stills, Slidev builds and exports |
+| **Published deliverables** | Never committed. PDF, PPTX, video and audio files are attached to a GitHub Release with the source commit; the HTML decks are built by CI for GitHub Pages. | The release links in the tables above |
+
+Local agent runtime state (`.omc/`) is also never committed.
+
 ## Add a presentation
 
 1. Create `events/<year>-<event>/README.md` for a new event, and an event milestone directory when there are multiple presentation rounds.
