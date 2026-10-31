@@ -3,15 +3,17 @@
 ## Source of truth
 
 - Status: Active
-- Last refreshed: 2026-10-21
+- Last refreshed: 2026-10-31
 - Primary product surfaces: HTML presentations, matching PDF/PPTX exports, presentation index.
 - Evidence reviewed: `presentation/decks/2026-ossdevcon/slides.md`, `presentation/style.css`, `presentation/components/`, the published contest deck, the Builder first-validation notice, and the Operator README/DESIGN/ROADMAP/ADRs pinned in the event's `SOURCES.md`.
 - Existing evidence: the contest uses white backgrounds, bundled Pretendard, blue emphasis, chapter transitions, diagrams, screenshots, and speaker notes. Design decision: extend that language to the Operator talk rather than shipping a bullet outline.
 
+Shared presentation layout and chapter rules: [presentation/PRESENTATION_STANDARD.md](presentation/PRESENTATION_STANDARD.md). The bottom-left corner is intentionally empty; sources belong near the claim or in notes.
+
 ## Brand
 
 - Personality: clear, technical, careful, human.
-- Trust signals: actual repository evidence, explicit safety boundaries, source footers, honest experimental status.
+- Trust signals: actual repository evidence, explicit safety boundaries, source references alongside evidence, honest experimental status.
 - Avoid: invented metrics, fake terminals, unsupported competitor claims, pending brand symbols, decorative dashboard cards, and empty writing prompts.
 
 ## Product goals
@@ -33,7 +35,7 @@
 
 - Presentation index → event/program → presentation round → language-specific HTML deck.
 - Source and evidence remain accessible from the event brief.
-- The supplied seven-item agenda is the presentation outline: project/team → problem/users → current approaches/limitations → solution → draft architecture/flow → twelve-week roadmap/roles/first release/post-v0.1 direction → discussion. Use eleven slides; no extra governance or closing section.
+- The supplied seven-item agenda is the presentation outline: project/team → problem/users → current approaches/limitations → solution → draft architecture/flow → twelve-week roadmap/roles/first release/post-v0.1 direction → discussion. Preserve the six announced substantive topics and Q&A; for the current source use 17 content pages plus three silent visual chapter dividers.
 
 ## Design principles
 
@@ -41,13 +43,13 @@
 - Show relationships with diagrams and timelines instead of dense bullet lists.
 - Separate intended design, pinned Kind/VM observations and unvalidated release gates. A normal VM SQL connection check is not VM-fault or CSI qualification.
 - Reuse the contest's typography/tokens/layout vocabulary with an explicit Operator class. Preserve the existing contest rendering.
-- Keep eleven slides within a 600-second speaker budget. Use the concrete recovery question to connect the problem, design and acceptance; remove empty transitions and marketing taglines. Explain team accountability through deliverables and review rather than internal tooling.
+- Budget 580 seconds for spoken content and keep up to 20 seconds for visual slide changes within the 600-second presentation slot; rehearse before claiming this is achievable. Use the concrete recovery question to connect the problem, design and acceptance; remove empty transitions and marketing taglines. Explain team accountability through deliverables and review rather than internal tooling.
 
 ## Visual language
 
 - Color: white `#ffffff`, ink `#0f1b2d`, CUBRID blue `#1f4e8c`, muted `#5b6b82`, line `#d8dee8`. Red only for an actual unresolved safety condition.
 - Typography: bundled Pretendard; large two-line headings; readable short supporting sentences; no remote font dependency.
-- Layout: 16:9 canvas, consistent small section/source/page chrome, ample whitespace, purposeful two-column compositions.
+- Layout: 16:9 canvas, consistent small section/project/page chrome (bottom-left left empty), ample whitespace, purposeful two-column compositions.
 - Shape: thin diagram borders; modest radii; no decorative shadows or card walls.
 - Motion: restrained transitions; all content must be understandable in static exports.
 - Imagery: code-native architecture/control/data diagrams; no invented team photos or synthetic evidence screenshots.
@@ -55,7 +57,7 @@
 ## Components
 
 - Reuse existing shared style tokens and utilities; retain the contest's class support.
-- `OperatorSlide.vue`: section label, content slot, source and page footer.
+- `OperatorSlide.vue`: section/project header, content slot and automatically numbered bottom-right page; retained source metadata is not shown in the bottom-left footer.
 - Operator-only layouts/diagrams live in `operator.css` under `.operator-deck`.
 - Deck sources own narrative and translated text. Components own reusable layout, not project claims.
 

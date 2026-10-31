@@ -12,6 +12,6 @@ This folder holds only the Markdown source of the web presentation. PDF and PPTX
 
 | File | Content |
 |---|---|
-| [slides.md](slides.md) | Slides and speaker notes (22-slide talk, Q&A page, nine evidence-oriented backup slides) |
+| [slides.md](slides.md) | Slides and speaker notes (26 presentation pages (22 content + four chapter dividers), Q&A page, nine evidence-oriented backup slides) |
 
 Deck settings are in the entry [`presentation/2026-ossdevcon.md`](../../2026-ossdevcon.md). The speaker script, Q&A, appendix and evidence are in [events/2026-ossdevcon](../../../events/2026-ossdevcon/).
