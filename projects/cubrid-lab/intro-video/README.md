@@ -188,12 +188,12 @@ Python 3.10+ with NumPy and Matplotlib for the audio scripts
 (`python3 -m pip install numpy matplotlib`).
 
 ```bash
-cd demo-videos/intro-2026
+cd projects/cubrid-lab/intro-video
 npm ci
 # 1. Assets in one directory (default /data/video-intro-assets, or $INTRO_ASSETS):
 #    footage/*.mp4 + provenance.json   vhs/Playwright takes (P2..K3, H3-*)
 #    mcp/*.mp4 + provenance.json       C2, C3, C4 (agent replay), C4_script (demo client)
-#    voice/<shot>.wav + manifest.json  MeloTTS lines, ko/en .srt/.vtt
+#    voice/<shot>.wav + manifest.json  Supertonic 3 lines (see PROVENANCE.md), ko/en .srt/.vtt
 #    music/bed.wav + stems/*.wav       generated score (music/src/generate.py, seed 51)
 # 2. Optional: regenerate the timeline after changing the shot list or the voice lines
 python3 scripts/build_main_timeline.py
@@ -253,8 +253,9 @@ voice lines (cue start = line start, 0.2 s after the shot). Korean: at most 2 li
 
 ### Licenses
 
-- Narration: MeloTTS (code MIT, `myshell-ai/MeloTTS-Korean` model MIT), run locally; disclosed
-  on the end card and to be disclosed in the YouTube description.
+- Narration: Supertonic 3 (Python package `supertonic` MIT, model weights OpenRAIL), run
+  locally; it replaced the MeloTTS take on 2026-10-28 ([PROVENANCE.md](PROVENANCE.md#narration)).
+  Disclosed on the end card and to be disclosed in the YouTube description.
 - Music: original procedural score generated for CUBRID Lab, no third-party material;
   intended CC0 1.0 dedication **pending maintainer confirmation**.
 - Fonts: Pretendard, Noto Sans KR, JetBrains Mono — SIL OFL 1.1.
