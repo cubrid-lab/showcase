@@ -64,6 +64,45 @@ v0.1 release** are targets consistent with the pinned ROADMAP stages. December
 is reserved for candidate/repeat/soak/regression and runbook checks; no mandatory
 safety gate is dropped to meet the dates.
 
+### The 27 Kind E2E specs (slide 10)
+
+Slide 10 lists every spec that passed in [Kind E2E run 39348551910](https://github.com/cubrid-lab/cubrid-kubernetes-operator/actions/runs/39348551910)
+("Ran 27 of 27 Specs", head `f126324`), grouped into ten areas. The test text below is
+from the run log, shortened where it repeats; the scenario column is the label in
+the test itself. A label means the spec checks part of that scenario in Kind. It
+does not mean the scenario is complete: S04, S07–S13 and S15 have no Kind spec here, and
+S00–S15 completion is still the November target.
+
+| # | Slide group | Spec (from the run log) | Test file at `f126324` | Scenario label |
+|---|---|---|---|---|
+| 1 | Operator basics | Manager should run successfully | [`e2e_test.go`](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/f12632473de9e91e6b65e44444b4cf622d0caf43/test/e2e/e2e_test.go#L130) | — |
+| 2 | Operator basics | Manager should ensure the metrics endpoint is serving metrics | [`e2e_test.go`](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/f12632473de9e91e6b65e44444b4cf622d0caf43/test/e2e/e2e_test.go#L162) | — |
+| 3 | Single database | S00 standalone cluster becomes Ready as a non-root Pod and answers SQL | [`s00_test.go`](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/f12632473de9e91e6b65e44444b4cf622d0caf43/test/e2e/s00_test.go#L220) | S00 |
+| 4 | Single database | S00 standalone cluster keeps the data when the Pod is deleted | [`s00_test.go`](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/f12632473de9e91e6b65e44444b4cf622d0caf43/test/e2e/s00_test.go#L263) | S00 |
+| 5 | Wiring, no database | Fake Instance Manager: reaches every member by its alias Service and resolves the primary | [`e2e_test.go`](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/f12632473de9e91e6b65e44444b4cf622d0caf43/test/e2e/e2e_test.go#L371) | — |
+| 6 | Wiring, no database | Fake Instance Manager: follows a role change that changes no Kubernetes object | [`e2e_test.go`](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/f12632473de9e91e6b65e44444b4cf622d0caf43/test/e2e/e2e_test.go#L402) | — |
+| 7 | HA setup | creates the database on one member only | [`ha_bootstrap_test.go`](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/f12632473de9e91e6b65e44444b4cf622d0caf43/test/e2e/ha_bootstrap_test.go#L356) | — |
+| 8 | HA setup | seeds the other members, which join as slaves | [`ha_bootstrap_test.go`](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/f12632473de9e91e6b65e44444b4cf622d0caf43/test/e2e/ha_bootstrap_test.go#L371) | — |
+| 9 | HA setup | replicates a row written on the master to both slaves | [`ha_bootstrap_test.go`](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/f12632473de9e91e6b65e44444b4cf622d0caf43/test/e2e/ha_bootstrap_test.go#L403) | — |
+| 10 | HA setup | serves SQL through the read-write and the read-only Service | [`ha_bootstrap_test.go`](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/f12632473de9e91e6b65e44444b4cf622d0caf43/test/e2e/ha_bootstrap_test.go#L422) | — |
+| 11 | HA setup | holds what a recorded workload was told, on both Services | [`ha_bootstrap_test.go`](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/f12632473de9e91e6b65e44444b4cf622d0caf43/test/e2e/ha_bootstrap_test.go#L459) | — |
+| 12 | HA setup | reports the cluster Ready with the master as primary | [`ha_bootstrap_test.go`](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/f12632473de9e91e6b65e44444b4cf622d0caf43/test/e2e/ha_bootstrap_test.go#L519) | — |
+| 13 | HA behavior | has one master and two slaves, and accepts writes only through the read-write Service | [`s01_s02_test.go`](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/f12632473de9e91e6b65e44444b4cf622d0caf43/test/e2e/s01_s02_test.go#L313) | S01 |
+| 14 | HA behavior | replicates rows, schema changes and rollbacks, also to a replaced slave | [`s01_s02_test.go`](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/f12632473de9e91e6b65e44444b4cf622d0caf43/test/e2e/s01_s02_test.go#L357) | S02 |
+| 15 | Master Pod deleted | graceful: one member is master again after the master Pod is deleted, and no acknowledged write is lost | [`s03_test.go`](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/f12632473de9e91e6b65e44444b4cf622d0caf43/test/e2e/s03_test.go#L378) | S03 |
+| 16 | Master Pod deleted | abrupt: same check after an abrupt delete | [`s03_test.go`](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/f12632473de9e91e6b65e44444b4cf622d0caf43/test/e2e/s03_test.go#L378) | S03 |
+| 17 | Master Pod deleted | abrupt-first-member: same check when the first member is the master | [`s03_test.go`](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/f12632473de9e91e6b65e44444b4cf622d0caf43/test/e2e/s03_test.go#L378) | S03 |
+| 18 | Broker failure | broker-process: clients recover from a Broker failure, and it causes no database failover | [`s05_test.go`](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/f12632473de9e91e6b65e44444b4cf622d0caf43/test/e2e/s05_test.go#L166) | S05 |
+| 19 | Broker failure | one-broker-pod: same check after one Broker Pod is deleted | [`s05_test.go`](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/f12632473de9e91e6b65e44444b4cf622d0caf43/test/e2e/s05_test.go#L166) | S05 |
+| 20 | Broker failure | all-rw-brokers: same check with every RW Broker down | [`s05_test.go`](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/f12632473de9e91e6b65e44444b4cf622d0caf43/test/e2e/s05_test.go#L166) | S05 |
+| 21 | Operator failure | restart: SQL is not interrupted and no member is restarted when the Operator Pod is killed | [`s06_test.go`](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/f12632473de9e91e6b65e44444b4cf622d0caf43/test/e2e/s06_test.go#L157) | S06 |
+| 22 | Operator failure | absent-during-failover: CUBRID fails over without the Operator, which reports the new master when it returns | [`s06_test.go`](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/f12632473de9e91e6b65e44444b4cf622d0caf43/test/e2e/s06_test.go#L163) | S06 |
+| 23 | Replication faults | reports a slave that looks healthy and applies nothing, and no longer after its Pod is replaced | [`replication_stall_test.go`](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/f12632473de9e91e6b65e44444b4cf622d0caf43/test/e2e/replication_stall_test.go#L50) | — |
+| 24 | Replication faults | restarts the container of a member whose CUBRID processes were stopped | [`replication_stall_test.go`](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/f12632473de9e91e6b65e44444b4cf622d0caf43/test/e2e/replication_stall_test.go#L291) | — |
+| 25 | Instance Manager auth | the Instance Manager refuses a caller without the token, and the token is not shown anywhere | [`s14_test.go`](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/f12632473de9e91e6b65e44444b4cf622d0caf43/test/e2e/s14_test.go#L114) | S14 |
+| 26 | Instance Manager auth | token-rotation: the operator reaches every member through a token rotation, and the old token is refused once every member was replaced | [`s14_token_test.go`](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/f12632473de9e91e6b65e44444b4cf622d0caf43/test/e2e/s14_token_test.go#L327) | S14 |
+| 27 | Instance Manager auth | token-migration: a token Secret without a rotation time is moved to a new token without a member refusing the operator | [`s14_token_test.go`](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/f12632473de9e91e6b65e44444b4cf622d0caf43/test/e2e/s14_token_test.go#L333) | S14 |
+
 ## Team and role record
 
 On 2026-10-15 the repository collaborator metadata identifies `yeongseon` and
@@ -215,3 +254,9 @@ Manager over HTTP with a bearer token (`roleprober.go`, `imclient.go`). The
 Instance Manager endpoints are listed from `internal/instancemanager/server.go`.
 Slides 9 and 10 now say "two controllers" instead of the design document's six
 named reconcilers. The plan is 595 seconds with a 5-second buffer.
+
+On 2026-10-31 the recorded-results slide (10) shows the 27 Kind E2E specs in ten groups (listed in
+[The 27 Kind E2E specs](#the-27-kind-e2e-specs-slide-10)), so the audience can see
+what "27 / 27" covers. The VM rollout and VM restore results move to one line each
+below the list. Numbers, run IDs and boundaries are unchanged; the slide count
+stays at 17 and its speaking time stays at 40 seconds.
