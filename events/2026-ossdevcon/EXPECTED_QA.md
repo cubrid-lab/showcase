@@ -77,14 +77,16 @@ you benchmark yourself.
 
 ## Q6: What about CUBRID 12 support?
 
-CUBRID 12 hasn't shipped yet. Our CI already tests 10.2, 11.0, 11.2,
-11.4 (20 combinations). When 12 releases, we add it to the matrix.
+No CUBRID 12 release or schedule has been announced; the latest releases
+are 11.4.6 (2026-09-10) and 11.3.6 (2026-10-20). Our CI already tests 10.2,
+11.0, 11.2 and 11.4 (20 combinations). Any new CUBRID version is added to the
+matrix when it ships.
 
 ## Q7: Vector types for AI workloads?
 
-CUBRID's cubvec branch is under development upstream. We've analyzed
-the wire format and HNSW index structure. Prototype planned once the
-server releases.
+Not yet. A native VECTOR type is still being developed in the CUBRID
+repository (the `cubvec` branches and PR CUBRID/cubrid#7076, not merged as of
+2026-11-01). We will look at driver support once it is in a CUBRID release.
 
 ## Q8: Is the MCP write mode dangerous?
 
