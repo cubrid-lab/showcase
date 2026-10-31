@@ -10,14 +10,14 @@
 | English | [operator-first-validation.en.pptx](https://github.com/cubrid-lab/showcase/releases/download/builder-season4-validation-2026-10-29-r7/operator-first-validation.en.pptx) | [operator-first-validation.en.pdf](https://github.com/cubrid-lab/showcase/releases/download/builder-season4-validation-2026-10-29-r7/operator-first-validation.en.pdf) | [English HTML](https://cubrid-lab.github.io/showcase/events/2026-builder-season4/01-validation/en/) |
 
 릴리스 전체(HTML ZIP, 파일 해시 포함): [builder-season4-validation-2026-10-29-r7](https://github.com/cubrid-lab/showcase/releases/tag/builder-season4-validation-2026-10-29-r7).
-웹 발표는 `main`이 바뀔 때마다 다시 만들어지므로 위 PPTX·PDF보다 새로울 수 있습니다.
+현재 편집 원본은 한영 각 20장(17장 본문 + 3장 챕터 전환)이며, 위 r7 PPTX·PDF는 17장으로 보존된 과거 제출본입니다. 웹 발표는 `main`이 바뀔 때마다 다시 만들어집니다.
 
 ## 파일
 
 | 파일 | 내용 |
 |---|---|
-| [slides.ko.md](slides.ko.md) | 한국어 슬라이드와 발표자 메모 (17장) |
-| [slides.en.md](slides.en.md) | 영어 슬라이드와 발표자 메모 (17장) |
+| [slides.ko.md](slides.ko.md) | 한국어 슬라이드와 발표자 메모 (현행 20장) |
+| [slides.en.md](slides.en.md) | 영어 슬라이드와 발표자 메모 (현행 20장) |
 
 발표 설정은 진입 파일 [`presentation/2026-builder-season4-01-validation.ko.md`](../../../2026-builder-season4-01-validation.ko.md)와 [`.en.md`](../../../2026-builder-season4-01-validation.en.md)에 있습니다.
 일정·제출 요건·대본·Q&A·근거는 [1차 검증 안내](../../../../events/2026-builder-season4/01-validation/)를 봅니다.
