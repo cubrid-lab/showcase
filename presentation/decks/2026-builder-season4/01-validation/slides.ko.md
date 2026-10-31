@@ -2,7 +2,7 @@
 title: "CUBRID Kubernetes Operator — 1차 검증"
 ---
 
-<OperatorSlide section="Opening · 프로젝트 소개" index="01" total="17" source="프로젝트·팀" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/SOURCES.md">
+<OperatorSlide section="Opening · 프로젝트 소개" index="01" total="18" source="프로젝트·팀" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/SOURCES.md">
 
 <div class="op-cover"><BrandMark name="cubrid-kubernetes-operator" alt="CUBRID Lab Operator icon" :height="84" /><p class="op-kicker">빌더 시즌4 · 1차 검증 · 2026.10.31</p><h1 class="op-title">CUBRID K8s Operator</h1><p class="op-lead">Kubernetes에서 CUBRID HA를 운영하고, 장애 뒤 복구까지 확인합니다</p><div class="op-meta"><b>CUBRID Lab</b><span>최영선 · 백경준 · 공동 메인테이너</span></div></div>
 
@@ -17,7 +17,7 @@ title: "CUBRID Kubernetes Operator — 1차 검증"
 
 ---
 
-<OperatorSlide class="op-compact" section="Agenda · 발표 순서" index="02" total="17" source="발표 구성" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/README.md">
+<OperatorSlide class="op-compact" section="Agenda · 발표 순서" index="02" total="18" source="발표 구성" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/README.md">
 
 <h1 class="op-title">발표 순서</h1><div class="op-agenda"><div><span>01</span><b>프로젝트·팀 소개</b><p>프로젝트 목표 · 공동 메인테이너</p></div><div><span>02</span><b>해결하려는 문제</b><p>Pod 복구와 DB 복구의 차이 · 대상 사용자</p></div><div><span>03</span><b>기존 방식의 한계</b><p>공식 CUBRID Operator와 차이</p></div><div><span>04</span><b>제안하는 해결 방법</b><p>네 가지 확인 · 안전 원칙 · 확인한 결과</p></div><div><span>05</span><b>아키텍처 초안</b><p>연동 플랫폼 · 구성 요소 · 데이터 처리 과정</p></div><div><span>06</span><b>로드맵과 첫 버전</b><p>12주 계획 · 팀 역할 · v0.1 범위 · 이후 방향</p></div></div>
 
@@ -30,14 +30,14 @@ title: "CUBRID Kubernetes Operator — 1차 검증"
 
 ---
 
-<OperatorSlide class="op-compact" section="01 · 프로젝트 소개" index="03" total="17" source="Operator README·검증 기록" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/README.md">
+<OperatorSlide class="op-compact" section="01 · 프로젝트 소개" index="03" total="18" source="Operator README·검증 기록" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/README.md">
 
 <h1 class="op-title">Kubernetes에서 CUBRID HA를 안전하게 운영하는 Operator</h1><p class="op-lead">설치 자동화에서 끝나지 않고, 장애 뒤 DB가 정말 복구됐는지까지 확인하는 것이 목표입니다.</p><div class="op-goals"><div><span>01</span><b>선언형 설치</b><p>YAML 하나로 3노드 CUBRID HA 클러스터와 RW/RO 접속을 구성</p></div><div><span>02</span><b>DB를 아는 상태 판단</b><p>노드마다 HA 역할을 확인하고, 확실하지 않으면 “미확정”으로 남김</p></div><div><span>03</span><b>추적되는 백업·복원</b><p>작업을 ID로 기록하고, 복원 전에 파일 목록과 체크섬을 확인</p></div><div><span>04</span><b>SQL로 확인하는 복구</b><p>Pod 상태가 아니라 실제 쓰기·읽기와 데이터로 복구를 판단</p></div></div><p class="op-caption">실험 단계 프로젝트로 운영 환경용이 아닙니다 · 공식 CUBRID Operator를 대체하지 않습니다 · 진행 상황은 8쪽</p>
 
 </OperatorSlide>
 
 <!--
-[45초 · 01 · 프로젝트 소개]
+[40초 · 01 · 프로젝트 소개]
 CUBRID Kubernetes Operator는 Kubernetes에서 CUBRID HA 클러스터를 안전하게 운영하는 것을 목표로 하는 실험 단계의 Operator입니다. 설치를 자동화하는 데서 끝나지 않고, 장애 뒤 DB가 정말 복구됐는지까지 확인하는 운영 흐름을 만들려고 합니다.
 
 목표는 네 가지입니다. 첫째, YAML 하나로 3노드 CUBRID HA 클러스터와 쓰기·읽기 접속을 구성합니다. 여기서 노드는 Kubernetes 워커 노드가 아니라 CUBRID HA를 이루는 DB 노드입니다. 둘째, 노드마다 HA 역할을 확인하고, 확실하지 않으면 추정하지 않고 미확정으로 남깁니다. 셋째, 백업과 복원을 작업 ID로 추적하고 복원 전에 파일과 체크섬을 확인합니다. 넷째, 복구는 Pod 상태가 아니라 실제 SQL과 데이터로 판단합니다. 지금 어디까지 확인했는지는 뒤에서 결과로 보여드리겠습니다.
@@ -45,7 +45,7 @@ CUBRID Kubernetes Operator는 Kubernetes에서 CUBRID HA 클러스터를 안전�
 
 ---
 
-<OperatorSlide section="02 · 문제와 대상" index="04" total="17" source="문제·사용자 가설" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/SOURCES.md#claim-map">
+<OperatorSlide section="02 · 문제와 대상" index="04" total="18" source="문제·사용자 가설" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/SOURCES.md#claim-map">
 
 <h1 class="op-title">Pod가 살아났다고 DB가 복구된 건 아닙니다</h1><p class="op-kicker">Pod 재시작과 볼륨 연결만으로 DB 복구를 확인할 수는 없습니다</p><div class="op-scene"><div class="op-actor"><div class="op-bubble">Pod는 다시 떴어요.<br>이제 된 거죠?</div><svg class="op-person" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="20" r="12"/><path d="M8 62c0-14 10.7-24 24-24s24 10 24 24z"/></svg><b>Kubernetes 플랫폼 담당자</b></div><div class="op-incident"><span>⚡</span><b>같은 장애</b></div><div class="op-actor op-actor-db"><div class="op-bubble">master는 누구죠?<br>데이터는 괜찮나요?</div><svg class="op-person" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="20" r="12"/><path d="M8 62c0-14 10.7-24 24-24s24 10 24 24z"/></svg><b>CUBRID DB 담당자</b></div></div><p class="op-boundary">두 담당자가 같은 기준으로 “복구됐다”고 판단할 수 있게 하는 것이 목표입니다.</p>
 
@@ -60,7 +60,7 @@ CUBRID Kubernetes Operator는 Kubernetes에서 CUBRID HA 클러스터를 안전�
 
 ---
 
-<OperatorSlide class="op-compact" section="03 · 기존 방식의 한계" index="05" total="17" source="공식·CUBRID Lab 아키텍처 비교" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/SOURCES.md#comparison-boundaries">
+<OperatorSlide class="op-compact" section="03 · 기존 방식의 한계" index="05" total="18" source="공식·CUBRID Lab 아키텍처 비교" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/SOURCES.md#comparison-boundaries">
 
 <h1 class="op-title">같은 CUBRID HA, 다른 관리·접속 구조</h1>
 <p class="op-kicker">두 Operator 모두 master 선출과 복제는 CUBRID 자체 HA에 맡깁니다.</p>
@@ -123,7 +123,7 @@ CUBRID Kubernetes Operator는 Kubernetes에서 CUBRID HA 클러스터를 안전�
 </OperatorSlide>
 
 <!--
-[50초 · 03 · 기존 방식의 한계]
+[45초 · 03 · 기존 방식의 한계]
 CUBRID에는 이미 공식 Operator가 있고, HA 상태 조회와 스토리지, 예약 백업을 제공합니다. 그래서 무엇을 다르게 설계했는지 구조로 비교하겠습니다.
 
 왼쪽 공식 Operator는 각 DB Pod 안에서 CUBRID DB와 CMS, Broker가 함께 실행됩니다. Operator는 CMS API와 Pod 내부 명령 실행으로 DB를 관리하고, 애플리케이션은 DB Pod 안의 Broker를 거쳐 접속합니다.
@@ -135,14 +135,14 @@ CUBRID에는 이미 공식 Operator가 있고, HA 상태 조회와 스토리지,
 
 ---
 
-<OperatorSlide class="op-compact" section="04 · 해결 방법" index="06" total="17" source="장애 시 확인 순서" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/DESIGN.md#12-failover-and-split-brain-model">
+<OperatorSlide class="op-compact" section="04 · 해결 방법" index="06" total="18" source="장애 시 확인 순서" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/DESIGN.md#12-failover-and-split-brain-model">
 
 <h1 class="op-title">master Pod가 사라지면 네 가지를 확인합니다</h1><p class="op-kicker">예시: 실행 중인 master Pod가 사라졌다가 다시 뜬 경우 · 설계 기준</p><table class="op-comparison op-checks"><thead><tr><th>확인할 것</th><th>누가 답하나</th><th>무엇을 보나</th></tr></thead><tbody><tr><td>① Pod 가용성</td><td>Kubernetes</td><td>Pod가 다시 Ready인가 · 볼륨이 붙었나</td></tr><tr><td>② DB HA 상태</td><td>CUBRID HA가 전환<br>Operator가 기록</td><td>노드마다 역할을 조회해 비교<br>빠지거나 엇갈리면 “미확정”</td></tr><tr><td>③ SQL 접속</td><td>Broker</td><td>RW Broker가 새 master로 연결되나<br>RW 쓰기 · RO 읽기가 되나</td></tr><tr><td>④ 데이터</td><td>E2E 시험</td><td>장애 전에 커밋한 행이 남았나<br>Operator가 자동으로 확인하지는 않음</td></tr></tbody></table><p class="op-boundary"><b>핵심</b>　Pod 상태(①)에서 멈추지 않고 HA 역할·SQL 접속·데이터(②–④)까지 한 흐름으로 확인합니다.</p>
 
 </OperatorSlide>
 
 <!--
-[45초 · 04 · 해결 방법]
+[40초 · 04 · 해결 방법]
 저희의 해결 방법은 장애 뒤 확인할 것을 네 가지로 나눠 한 흐름으로 보는 것입니다. 실행 중인 master Pod가 사라졌다가 다시 뜬다고 해 보겠습니다. 첫째, Pod가 다시 Ready이고 볼륨이 붙었는지는 Kubernetes가 알려 줍니다. 하지만 Pod 상태만으로는 HA 역할이나 SQL 접속, 데이터까지는 알 수 없습니다.
 
 둘째, master 전환은 CUBRID HA가 하고, Operator는 노드마다 역할을 조회해 비교합니다. 응답이 빠지거나 엇갈리면 master를 추정하지 않고 미확정으로 둡니다. 셋째, RW Broker가 새 master로 연결돼 쓰기와 읽기가 되는지 봅니다. 넷째, 장애 전에 커밋한 데이터가 남았는지는 지금은 E2E 시험에서 확인합니다. Operator가 데이터를 자동으로 검증한다는 뜻은 아닙니다.
@@ -150,7 +150,7 @@ CUBRID에는 이미 공식 Operator가 있고, HA 상태 조회와 스토리지,
 
 ---
 
-<OperatorSlide section="04 · 안전 원칙" index="07" total="17" source="쓰기 격리 이슈·ADR" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/SOURCES.md#recorded-execution-evidence">
+<OperatorSlide section="04 · 안전 원칙" index="07" total="18" source="쓰기 격리 이슈·ADR" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/SOURCES.md#recorded-execution-evidence">
 
 <h1 class="op-title">master를 확신할 수 없으면 추정하지 않습니다</h1>
 <div class="op-safety">
@@ -170,7 +170,44 @@ CUBRID에는 이미 공식 Operator가 있고, HA 상태 조회와 스토리지,
 
 ---
 
-<OperatorSlide section="04 · 확인한 결과" index="08" total="17" source="2026.10.20–25 실행 기록" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/SOURCES.md#recorded-execution-evidence">
+<OperatorSlide class="op-compact" section="04 · 장애 검증 범위" index="08" total="18" source="S00–S15 검증 계약·POC" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/testing/scenario-contract.md">
+
+<h1 class="op-title">16개 시나리오로 장애와 복구를 검증합니다</h1>
+<p class="op-kicker">CUBRID 공식 시험·외부 DB Operator의 장애 테스트를 참고해 CUBRID 특성에 맞게 정의</p>
+<div style="display:grid;grid-template-columns:1.08fr 0.92fr;gap:16px;align-items:start">
+  <div>
+    <p class="op-kicker"><b>검증 대상 · v0.1 필수</b></p>
+    <table class="op-comparison"><thead><tr><th>시나리오</th><th>주입 장애·확인 범위</th></tr></thead><tbody>
+      <tr><td><b>S00–S02</b></td><td>설치 · 3노드 HA · 복제</td></tr>
+      <tr><td><b>S03–S06</b></td><td>Master Pod/VM · Broker · Operator 중단</td></tr>
+      <tr><td><b>S07–S10</b></td><td>네트워크 분할 · 복제 지연 · 재합류 · PVC 손실</td></tr>
+      <tr><td><b>S11–S12</b></td><td>백업 중단 · 복원 · 무결성</td></tr>
+      <tr><td><b>S13–S15</b></td><td>삭제 시 데이터 보존 · 인증 · 노드 점검</td></tr>
+    </tbody></table>
+  </div>
+  <div>
+    <p class="op-kicker"><b>시험에서 드러난 위험 · 전부 해결된 것은 아님</b></p>
+    <ul class="op-list">
+      <li><b>Master 미확정 중에도 RW 쓰기 성공</b><small>Kind의 Master Pod 장애 시험</small></li>
+      <li><b>네트워크 분리 시 Master 2개·데이터 분기</b><small>CUBRID 엔진 수동 POC · Operator 통합 검증 전</small></li>
+      <li><b>Slave가 있어도 복제 적용이 멈출 수 있음</b><small>엔진 POC·일부 VM 복원 시험</small></li>
+    </ul>
+  </div>
+</div>
+<p class="op-boundary"><b>합격 기준</b>　장애 주입을 확인하고 SQL·커밋 기록·각 노드 데이터를 검사합니다. 16개 필수 시나리오 전체 통과는 아직 아닙니다.</p>
+
+</OperatorSlide>
+
+<!--
+[30초 · 04 · 장애 검증 범위]
+저희는 설치와 복제를 시작으로 Master Pod와 VM, Broker, Operator 장애, 네트워크 분할, 복제 지연, 재합류, 백업과 복원까지 필수 시나리오 16개를 정의했습니다. CUBRID 공식 시험과 다른 DB Operator의 장애 테스트를 참고하되 검증 기준은 CUBRID에 맞게 작성했습니다.
+
+실험 중에는 Master가 미확정인데도 쓰기가 성공하거나, 네트워크가 분리되면 두 Master의 데이터가 갈라지는 위험도 관찰했습니다. 이런 위험을 숨기지 않고, 장애가 실제로 발생했는지와 SQL·데이터 결과를 함께 확인합니다. 16개 전체 검증이 끝났다는 뜻은 아닙니다.
+-->
+
+---
+
+<OperatorSlide section="04 · 확인한 결과" index="09" total="18" source="2026.10.20–25 실행 기록" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/SOURCES.md#recorded-execution-evidence">
 
 <h1 class="op-title">지금까지 확인한 결과입니다</h1>
 <div class="op-evidence-list">
@@ -191,7 +228,7 @@ CUBRID에는 이미 공식 Operator가 있고, HA 상태 조회와 스토리지,
 
 ---
 
-<OperatorSlide class="op-compact" section="05 · 전체 아키텍처" index="09" total="17" source="전체 아키텍처·Broker 설계" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/DESIGN.md#7-high-level-architecture">
+<OperatorSlide class="op-compact" section="05 · 전체 아키텍처" index="10" total="18" source="전체 아키텍처·Broker 설계" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/DESIGN.md#7-high-level-architecture">
 
 <h1 class="op-title">HA는 CUBRID가, 상태 확인과 운영 작업은 Operator가 맡습니다</h1><svg class="op-arch" style="max-height:372px" viewBox="0 0 900 384" role="img" aria-label="전체 아키텍처: 사용자가 Kubernetes API에 YAML을 적용하면 Operator가 spec을 읽고 Kubernetes 리소스를 만들며, 각 노드의 Instance Manager에 역할을 조회하고 결과를 status에 기록합니다. 애플리케이션 SQL은 RW/RO Service와 Broker를 거쳐 CUBRID HA 3노드로 가고, 백업은 S3 호환 저장소에 저장됩니다.">
 <defs><marker id="op-arch-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0f1b2d"/></marker><marker id="op-arch-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1f4e8c"/></marker><marker id="op-arch-mute" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#5b6b82"/></marker></defs>
@@ -228,7 +265,7 @@ CUBRID에는 이미 공식 Operator가 있고, HA 상태 조회와 스토리지,
 </OperatorSlide>
 
 <!--
-[50초 · 05 · 전체 아키텍처]
+[45초 · 05 · 전체 아키텍처]
 이제 아키텍처 초안입니다. 한 장에 전체를 담았습니다. 사용자가 YAML을 Kubernetes API에 적용하면, Operator가 spec을 읽고 StatefulSet과 볼륨, Secret, Service, Broker, NetworkPolicy를 만듭니다. Operator 안의 두 컨트롤러가 HA, 서비스, 스토리지, 백업, 업데이트를 하나의 상태 머신으로 조정합니다. 내부는 다음 장에서 보여드리겠습니다. 각 노드의 Instance Manager에 토큰 인증으로 역할을 묻고 작업을 요청하며, 결과를 다시 CubridCluster status에 기록합니다. 메트릭과 Events, 로그도 여기서 나옵니다.
 
 아래쪽 실선은 애플리케이션의 SQL 경로입니다. RW나 RO Service에서 DB와 따로 떠 있는 Broker를 거쳐 CUBRID로 갑니다. Operator는 SQL을 중계하지 않고, master 선출과 복제는 CUBRID HA가 직접 합니다. 초기 데이터 복사와 백업 파일은 오른쪽 아래 S3 호환 저장소를 거칩니다.
@@ -236,7 +273,7 @@ CUBRID에는 이미 공식 Operator가 있고, HA 상태 조회와 스토리지,
 
 ---
 
-<OperatorSlide class="op-compact" section="05 · 제어·데이터 흐름" index="10" total="17" source="아키텍처·관측·보안 설계" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/DESIGN.md#7-high-level-architecture">
+<OperatorSlide class="op-compact" section="05 · 제어·데이터 흐름" index="11" total="18" source="아키텍처·관측·보안 설계" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/DESIGN.md#7-high-level-architecture">
 
 <h1 class="op-title">Operator는 관찰하고, 기록하고, 다시 조정합니다</h1><p class="op-kicker">9쪽 그림의 ①–④ 제어 루프와 데이터 처리 과정 · 설계 기준</p><div class="op-timeline"><div><small>① 원하는 상태</small><b>YAML로 선언</b><p>CubridCluster·CubridBackup<br>spec에 원하는 구성</p></div><div><small>② 조정</small><b>두 컨트롤러</b><p>CubridCluster · CubridBackup<br>HA·서비스·스토리지·백업·업데이트를<br>하나의 상태 머신으로</p></div><div><small>③ 관찰</small><b>Instance Manager</b><p>노드마다 HA 역할 조회<br>토큰 인증 · pods/exec 미사용</p></div><div><small>④ 기록</small><b>status·Conditions</b><p>currentPrimary · 엇갈리면 “미확정”<br>Events·메트릭·로그<br>→ ②로 돌아가 다시 조정</p></div></div><table class="op-comparison"><thead><tr><th>데이터</th><th>처리 과정</th></tr></thead><tbody><tr><td><b>SQL</b></td><td>앱 → RW/RO Service → Broker → CUBRID · 복제와 master 전환은 CUBRID HA</td></tr><tr><td><b>백업·복원</b></td><td>Instance Manager가 S3 호환 저장소에 업로드 → 파일 목록·체크섬 확인 → 새 CubridCluster로 복원</td></tr><tr><td><b>상태</b></td><td>Instance Manager 응답 → Operator → CubridCluster status · 메트릭(cubrid_cluster_*, cubrid_instance_*)</td></tr></tbody></table>
 
@@ -251,7 +288,7 @@ CUBRID에는 이미 공식 Operator가 있고, HA 상태 조회와 스토리지,
 
 ---
 
-<OperatorSlide class="op-compact" section="05 · Operator 내부" index="11" total="17" source="Operator 소스 986b775" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/tree/986b77521a1a2fa2a9da5a3ccce4e5a0c0b2fdd7/internal/controller">
+<OperatorSlide class="op-compact" section="05 · Operator 내부" index="12" total="18" source="Operator 소스 986b775" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/tree/986b77521a1a2fa2a9da5a3ccce4e5a0c0b2fdd7/internal/controller">
 
 <h1 class="op-title">Operator 내부: 두 컨트롤러와 Instance Manager</h1><svg class="op-arch" style="max-height:384px" viewBox="0 0 900 388" role="img" aria-label="Operator 내부 아키텍처: Operator Pod 안의 controller-runtime 매니저가 CubridCluster와 CubridBackup 컨트롤러를 실행합니다. 클러스터 컨트롤러는 Service, Secret, ConfigMap, NetworkPolicy, StatefulSet을 차례로 맞춘 뒤 HA 상태와 복원, 업데이트, Broker를 처리하고 status를 기록합니다. 두 컨트롤러는 HTTP와 Bearer 토큰으로 각 DB Pod의 Instance Manager를 호출하고, Instance Manager는 CUBRID와 S3 호환 저장소를 다룹니다.">
 <defs><marker id="op-in-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1f4e8c"/></marker><marker id="op-in-mute" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#5b6b82"/></marker></defs>
@@ -277,7 +314,7 @@ CUBRID에는 이미 공식 Operator가 있고, HA 상태 조회와 스토리지,
 </OperatorSlide>
 
 <!--
-[35초 · 05 · Operator 내부]
+[30초 · 05 · Operator 내부]
 Operator 안을 조금 더 들여다보겠습니다. 현재 코드 기준입니다. Operator Pod에서 controller-runtime 매니저가 두 컨트롤러를 실행합니다. CubridCluster 컨트롤러는 매번 같은 순서로 맞춥니다. Service와 Secret, HA 설정, NetworkPolicy, StatefulSet을 만든 뒤, HA 부트스트랩과 노드별 역할 조회로 master를 판단하고, 복원과 롤링 업데이트, Broker를 처리한 다음 status와 Conditions, Events, 메트릭을 남깁니다. CubridBackup 컨트롤러는 대상 노드를 고르고 백업을 요청한 뒤 작업 결과를 기록합니다.
 
 두 컨트롤러 모두 Secret에 있는 토큰으로 각 DB Pod의 Instance Manager를 HTTP로 호출합니다. Instance Manager는 역할 조회, HA 부트스트랩, 백업, 복원 준비, 종료를 맡고, 작업 기록을 볼륨에 남겨 중간에 끊겨도 같은 작업을 다시 찾을 수 있게 합니다.
@@ -285,7 +322,7 @@ Operator 안을 조금 더 들여다보겠습니다. 현재 코드 기준입니�
 
 ---
 
-<OperatorSlide section="06 · 12주 계획" index="12" total="17" source="개발 일정" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/ROADMAP.md#stp-iv-delivery-stages">
+<OperatorSlide section="06 · 12주 계획" index="13" total="18" source="개발 일정" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/ROADMAP.md#stp-iv-delivery-stages">
 
 <h1 class="op-title">11월에는 한 번 통과, 12월에는 반복 검증</h1><div class="op-timeline"><div><small>1주 · 10.05–10.11</small><b>기준 정하기</b><p>환경·시나리오 정리<br>단일 DB SQL 확인</p></div><div><small>2–4주 · 10.12–11.01</small><b>HA와 실행 환경</b><p>3노드 HA·RW/RO<br>VM에서 실행<br>백업·복구 초기 시험</p></div><div><small>5–8주 · 11.02–11.29</small><b>장애·복구 시험</b><p>쓰기 차단·재합류<br>재구축·백업 복원<br>필수 시나리오 첫 통과 목표</p></div><div><small>9–12주 · 11.30–12.27</small><b>같은 후보 버전으로 반복</b><p>장애 반복·24시간 부하 목표<br>다른 사람이 문서대로 재현<br>문제 수정·배포 파일 정리</p></div></div><p class="op-boundary"><b>11.29</b> 필수 시나리오 첫 전체 통과 목표　→　<b>12.27</b> v0.1 공개 목표</p>
 
@@ -300,7 +337,7 @@ Operator 안을 조금 더 들여다보겠습니다. 현재 코드 기준입니�
 
 ---
 
-<OperatorSlide section="06 · 팀 역할" index="13" total="17" source="팀 역할" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/CONTRIBUTING.md#development-workflow">
+<OperatorSlide section="06 · 팀 역할" index="14" total="18" source="팀 역할" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/CONTRIBUTING.md#development-workflow">
 
 <h1 class="op-title">두 명이 만들고, 서로 검증합니다</h1><div class="op-people"><div><p class="op-kicker">구현 · 이슈 담당자</p><b>재현부터 근거까지 책임</b><p>문제 재현 → 코드 → 테스트 → 문서 → 실험 기록을 한 작업으로 묶습니다.</p></div><div><p class="op-kicker">검증 · 다른 메인테이너</p><b>코드와 실행 결과를 교차 검증</b><p>변경과 증거를 확인하고, 공개 전에는 문서만 보고 설치·복구를 재현합니다.</p></div></div><p class="op-boundary"><b>원칙</b>　작성자와 최종 검증자는 다른 사람입니다 · 공유 VM 장애 시험은 한 번에 하나씩 · 공개 여부는 함께 결정</p>
 
@@ -315,7 +352,7 @@ HA와 백업·복구, 설치 문서도 같은 방식으로 진행합니다. VM �
 
 ---
 
-<OperatorSlide section="06 · v0.1 필수 시험" index="14" total="17" source="v0.1 필수 안전 검증" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/SOURCES.md#evidence-boundaries-retained-in-the-notes">
+<OperatorSlide section="06 · v0.1 필수 시험" index="15" total="18" source="v0.1 필수 안전 검증" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/SOURCES.md#evidence-boundaries-retained-in-the-notes">
 
 <h1 class="op-title">v0.1 전에 장애 상황에서도 안전한지 확인합니다</h1>
 <div class="op-gates">
@@ -329,7 +366,7 @@ HA와 백업·복구, 설치 문서도 같은 방식으로 진행합니다. VM �
 </OperatorSlide>
 
 <!--
-[40초 · 06 · v0.1 필수 시험]
+[35초 · 06 · v0.1 필수 시험]
 이제 어떤 시험이 남았는지 말씀드리겠습니다. 가장 먼저 master가 불명확하거나 네트워크가 분리된 상황에서 실제 쓰기를 막는지 검증해야 합니다. 그다음 장애가 난 노드가 다시 합류하거나 재구축할 때 기존 정상 데이터를 지키는지 확인합니다.
 
 앞서 말씀드린 대로 백업을 새 클러스터로 복원하는 초기 시험은 7번 중 5번 통과했습니다. 남은 일은 세션이 끊긴 원인을 찾고, 더 많은 조건에서 반복해 보는 것입니다. 마지막으로 Kubernetes와 CSI 구성을 고정하고 다른 메인테이너가 문서대로 같은 결과를 낼 수 있어야 합니다. 이 조건을 모두 채워야 v0.1을 공개할 수 있습니다.
@@ -337,7 +374,7 @@ HA와 백업·복구, 설치 문서도 같은 방식으로 진행합니다. VM �
 
 ---
 
-<OperatorSlide class="op-compact" section="06 · v0.1 범위" index="15" total="17" source="v0.1 범위" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/ROADMAP.md#v01-scope">
+<OperatorSlide class="op-compact" section="06 · v0.1 범위" index="16" total="18" source="v0.1 범위" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/ROADMAP.md#v01-scope">
 
 <h1 class="op-title">v0.1은 기능을 늘리기보다 검증에 집중합니다</h1><table class="op-comparison op-acceptance"><thead><tr><th>포함할 기능</th><th>어떻게 확인할지</th></tr></thead><tbody><tr><td>root 없이 실행·데이터 보존<br>3노드 HA·RW/RO</td><td>SQL을 실행하고 역할·커밋·데이터 확인</td></tr><tr><td>장애·쓰기 격리<br>재합류·재구축</td><td>Pod/VM/Broker/Operator 장애 뒤 상태와 데이터 확인</td></tr><tr><td>백업<br>새 클러스터 복원</td><td>백업으로 새 클러스터를 만들어 데이터 비교</td></tr><tr><td>볼륨 보존·Instance Manager 인증<br>Kubernetes 노드 점검 중 보호·상태 지표</td><td>필수 시나리오 시험과 설치·운영·복구 문서 재현</td></tr></tbody></table><p class="op-boundary"><b>함께 공개</b>　이미지·설치 매니페스트·지원 환경표·운영 문서·시험 결과</p><p class="op-caption">지원 범위: CUBRID 11.4.x · amd64 · Kubernetes·스토리지 한 구성 · 실험 버전 · DB 암호·TLS는 v0.1 이후</p>
 
@@ -352,7 +389,7 @@ v0.1에서는 환경 하나를 정해서 설치부터 복구까지 확인하는 
 
 ---
 
-<OperatorSlide section="06 · 이후 방향" index="16" total="17" source="v0.1 이후 계획" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/SOURCES.md#post-v01-direction">
+<OperatorSlide section="06 · 이후 방향" index="17" total="18" source="v0.1 이후 계획" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/SOURCES.md#post-v01-direction">
 
 <h1 class="op-title">v0.1 이후에는 사용자 피드백부터 반영합니다</h1><div class="op-release"><div><h3>먼저, 사용해 보며 불편한 점 고치기</h3><ul class="op-list"><li><b>로그와 진단부터 손보기</b><small>반복되는 문제와 복구 절차 정리</small></li><li><b>실사용에 필요한 기능</b><small>DB 인증·TLS·호환 업데이트</small></li></ul></div><div><h3>그다음, 지원 환경 늘리기</h3><ul class="op-list"><li><b>Kubernetes·CSI 조합 추가</b><small>조합마다 장애·복구 시험</small></li><li><b>arm64·여러 가용영역</b><small>지원 가능한지 별도로 확인</small></li></ul></div><div><h3>더 오래 걸리는 일 · 일정 미정</h3><ul class="op-list"><li><b>CUBRID 버전 변경</b><small>데이터 호환·중단·되돌리는 방법</small></li><li><b>복제 구성 추가</b><small>master로 승격되지 않는 replica 등</small></li></ul></div></div><p class="op-boundary">v0.1을 먼저 검증하고, 사용자들이 어디에서 불편한지 본 뒤 다음 우선순위를 정하려고 합니다.</p>
 
@@ -367,7 +404,7 @@ v0.1을 공개한 뒤에는 사용자 피드백을 받아 불편한 곳부터 �
 
 ---
 
-<OperatorSlide section="Q&amp;A · 질의응답" index="17" total="17" source="예상 질문" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/EXPECTED_QA.ko.md">
+<OperatorSlide section="Q&amp;A · 질의응답" index="18" total="18" source="예상 질문" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/EXPECTED_QA.ko.md">
 
 <div class="op-cover op-closing"><h1 class="op-title">Q&amp;A</h1><p class="op-lead">감사합니다</p><div class="op-meta"><b>CUBRID Lab</b><span>최영선 · 백경준</span></div><BrandMark name="lockup-horizontal" alt="CUBRID Lab" :height="40" /><p class="op-notice">CUBRID Lab은 CUBRID Corporation 및 공식 CUBRID 프로젝트와 제휴·후원·보증 관계가 없는 독립 프로젝트입니다. CUBRID는 해당 권리자의 상표입니다.</p></div>
 
