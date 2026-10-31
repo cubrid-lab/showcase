@@ -244,7 +244,7 @@ with engine.connect() as conn:
     print(conn.execute(stmt).all())   # [('서울', 2), ('세종', 10)]
 ```
 
-<p class="then">그런데 이 코드 아래에 둘 <span class="seal">드라이버</span>가 문제였습니다.</p>
+<p class="then">그런데 이 코드를 실행할 <span class="seal">드라이버</span>가 문제였습니다.</p>
 
 <style>
 .then { font-size: 1.3rem; font-weight: 700; line-height: 1.4; border-left: 4px solid var(--seal); padding-left: 16px; }
@@ -253,12 +253,12 @@ with engine.connect() as conn:
 
 <!--
 [15초 · 활용성]
-쓰는 법은 다른 데이터베이스와 같습니다. 연결 URL만 바꾸면 SQLAlchemy 코드가 그대로 CUBRID에서 돕니다. 그런데 이 코드 아래에 둘 드라이버가 문제였습니다.
+쓰는 법은 다른 데이터베이스와 같습니다. 연결 URL만 바꾸면 SQLAlchemy 코드가 그대로 CUBRID에서 돕니다. 그런데 이 코드를 실행할 드라이버가 문제였습니다.
 -->
 
 ---
 
-<p class="kicker">dialect 아래에 둘 드라이버를 찾아보니</p>
+<p class="kicker">dialect와 함께 쓸 드라이버를 찾아보니</p>
 <h2 class="one">공식 드라이버에 더하고 싶었던 것: 간편한 설치와 비동기</h2>
 
 <ul class="explain wide">
@@ -275,7 +275,7 @@ with engine.connect() as conn:
 
 <!--
 [25초 · 활용성]
-dialect 아래에 둘 드라이버를 찾아봤습니다. 공식 드라이버 CUBRIDdb는 C 확장입니다. 몇몇 Python 버전은 CUBRID 배포 서버에서 wheel로 받을 수 있지만, 나머지는 컴파일러로 직접 빌드해야 합니다. PyPI에는 2014년 버전만 있어서 pip install로 최신 드라이버를 받을 수 없고, asyncio도 지원하지 않습니다.
+dialect와 함께 쓸 드라이버를 찾아봤습니다. 공식 드라이버 CUBRIDdb는 C 확장입니다. 몇몇 Python 버전은 CUBRID 배포 서버에서 wheel로 받을 수 있지만, 나머지는 컴파일러로 직접 빌드해야 합니다. PyPI에는 2014년 버전만 있어서 pip install로 최신 드라이버를 받을 수 없고, asyncio도 지원하지 않습니다.
 드라이버 자체는 잘 동작합니다. 다만 pip install 한 줄로 설치하고 비동기 서버에서 바로 쓰려면, 순수 Python 드라이버가 필요했습니다.
 -->
 
@@ -678,7 +678,7 @@ PR에서는 변경 위험에 맞는 검사만 선택하고, 릴리스와 수동 
 
 ---
 
-<p class="kicker">드라이버 → ORM → 예제 → AI</p>
+<p class="kicker">이어서 할 일</p>
 <h2 class="one">다음 계획: Python에 집중합니다</h2>
 <p class="sub">이미 공개한 네 저장소를 더 단단하게 만듭니다.</p>
 
