@@ -65,6 +65,15 @@ title: "CUBRID, 이제 Python으로 — 파이큐브리드팀"
 
 ---
 
+<ChapterDivider number="01" title="왜 시작했는가" subtitle="오픈소스 기여 경험에서 출발한 CUBRID Python 문제" />
+
+<!--
+[0초 · 챕터 전환 · 문제의 발견]
+시각적 구분 페이지입니다. 별도 설명 없이 다음 장의 본문으로 진행합니다.
+-->
+
+---
+
 <p class="kicker">2020년 오픈소스 컨트리뷰톤</p>
 <h2 class="one">SQLAlchemy에서 멘토와 멘티로 만났습니다</h2>
 
@@ -119,6 +128,15 @@ title: "CUBRID, 이제 Python으로 — 파이큐브리드팀"
 [30초 · 활용성 · 커뮤니티]
 sqlalchemy-hana를 고치면서 다른 dialect를 찾아보다가, Mike Bayer의 저장소에서 CUBRID dialect를 발견했습니다. 2012년에 만들어진 뒤 멈춰 있었고, README에는 Mike가 이렇게 적어 두었습니다.
 "여기엔 실제로 동작하는 게 없다. 관심 있는 사람이 있다면 기꺼이 넘기겠다." 저희가 그 관심 있는 사람이 되기로 했습니다. 오늘 발표 제목도 이 문장에서 나왔습니다.
+-->
+
+---
+
+<ChapterDivider number="02" title="무엇을 만들었는가" subtitle="드라이버 · ORM · 예제 · MCP로 이어지는 연결 구조" />
+
+<!--
+[0초 · 챕터 전환 · Python 생태계 구축]
+시각적 구분 페이지입니다. 별도 설명 없이 다음 장의 본문으로 진행합니다.
 -->
 
 ---
@@ -440,6 +458,15 @@ AI에게 데이터베이스를 열어 주면 제일 먼저 나오는 질문이 "
 
 ---
 
+<ChapterDivider number="03" title="어떻게 검증했는가" subtitle="사람의 리뷰와 CI, 실서버 호환성·성능 측정" />
+
+<!--
+[0초 · 챕터 전환 · 검증과 품질]
+시각적 구분 페이지입니다. 별도 설명 없이 다음 장의 본문으로 진행합니다.
+-->
+
+---
+
 <p class="kicker">두 사람이 네 저장소를 어떻게 운영하나</p>
 <h2 class="one">에이전트와 개발하고, <span class="accent">책임은 사람이 집니다</span></h2>
 
@@ -563,6 +590,15 @@ PR에서는 변경 위험에 맞는 검사만 선택하고, 릴리스와 수동 
 [20초 · OSS 적절성 · 라이선스]
 저희끼리만 통하는 규칙이 아니라 표준을 따릅니다. 드라이버는 Python DB-API, dialect는 SQLAlchemy의 dialect API, AI 서버는 MCP 형식을 따릅니다.
 네 저장소 모두 MIT 라이선스이고, 의존성에 GPL은 없습니다. 서드파티 라이선스 목록을 저장소마다 두고, 패키지 릴리스마다 SBOM을 붙입니다.
+-->
+
+---
+
+<ChapterDivider number="04" title="어떻게 이어갈 것인가" subtitle="외부 기여자와 함께 확장하는 오픈소스 생태계" />
+
+<!--
+[0초 · 챕터 전환 · 성과와 다음 단계]
+시각적 구분 페이지입니다. 별도 설명 없이 다음 장의 본문으로 진행합니다.
 -->
 
 ---
@@ -707,15 +743,15 @@ PR에서는 변경 위험에 맞는 검사만 선택하고, 릴리스와 수동 
 <p class="kicker">질의응답</p>
 <h2 class="one">Q&amp;A — 질문에 맞는 근거로 이동합니다</h2>
 <div class="qa-index evidence-index">
-  <Link to="24"><span>A</span>공식 드라이버 비교<em>24</em></Link>
-  <Link to="25"><span>B</span>CAS 프로토콜 직접 구현<em>25</em></Link>
-  <Link to="26"><span>C</span>버전 호환성과 CI<em>26</em></Link>
-  <Link to="27"><span>D</span>실측 성능 결과<em>27</em></Link>
-  <Link to="28"><span>E</span>MCP 서버 보안<em>28</em></Link>
-  <Link to="29"><span>F</span>라이선스와 외부 기여<em>29</em></Link>
-  <Link to="30"><span>G</span>채택 지표의 해석<em>30</em></Link>
-  <Link to="31"><span>H</span>공공 업무 연계 시나리오<em>31</em></Link>
-  <Link to="32"><span>I</span>로드맵과 유지보수<em>32</em></Link>
+  <Link to="28"><span>A</span>공식 드라이버 비교<em>28</em></Link>
+  <Link to="29"><span>B</span>CAS 프로토콜 직접 구현<em>29</em></Link>
+  <Link to="30"><span>C</span>버전 호환성과 CI<em>30</em></Link>
+  <Link to="31"><span>D</span>실측 성능 결과<em>31</em></Link>
+  <Link to="32"><span>E</span>MCP 서버 보안<em>32</em></Link>
+  <Link to="33"><span>F</span>라이선스와 외부 기여<em>33</em></Link>
+  <Link to="34"><span>G</span>채택 지표의 해석<em>34</em></Link>
+  <Link to="35"><span>H</span>공공 업무 연계 시나리오<em>35</em></Link>
+  <Link to="36"><span>I</span>로드맵과 유지보수<em>36</em></Link>
 </div>
 <p class="note-line">발표 시간 외 백업 9장 · 각 슬라이드 아래에서 이 화면으로 복귀 가능</p>
 <style>
@@ -744,7 +780,8 @@ PR에서는 변경 위험에 맞는 검사만 선택하고, 릴리스와 수동 
 </tbody>
 </table>
 <div class="proof-line"><b>선택의 기준:</b> C 확장은 유지하고, 간편한 설치·비동기 워크로드에 순수 Python 선택지를 추가했습니다. SQLAlchemy asyncio의 <code>greenlet</code>은 별도 의존성입니다.</div>
-<div class="proof-footer"><div class="sources">근거 · <a href="https://pypi.org/project/CUBRID-Python/">공식 패키지 PyPI</a> · <a href="https://pypi.org/project/pycubrid/">pycubrid PyPI</a> · <a href="https://github.com/cubrid-lab/sqlalchemy-cubrid/blob/main/docs/DRIVER_COMPAT.md">드라이버 호환성</a></div><Link to="23">← Q&amp;A로 돌아가기</Link></div>
+<div class="proof-source">근거 · <a href="https://pypi.org/project/CUBRID-Python/">공식 패키지 PyPI</a> · <a href="https://pypi.org/project/pycubrid/">pycubrid PyPI</a> · <a href="https://github.com/cubrid-lab/sqlalchemy-cubrid/blob/main/docs/DRIVER_COMPAT.md">드라이버 호환성</a></div>
+<div class="proof-footer"><Link to="27">← Q&amp;A로 돌아가기</Link></div>
 <style>
 .proof-lead { font-size: 1.12rem; line-height: 1.4; margin: 0 0 8px; color: var(--ink); }
 .proof-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
@@ -760,8 +797,10 @@ PR에서는 변경 위험에 맞는 검사만 선택하고, 릴리스와 수동 
 .proof-table td { border-bottom: 1px solid var(--line); padding: 6px 8px; vertical-align: top; line-height: 1.35; overflow-wrap: break-word; }
 .proof-table td:first-child { font-weight: 750; }
 .proof-line { padding: 8px 12px; border-left: 4px solid var(--blue); background: rgba(27,98,203,0.065); border-radius: 4px; font-size: 0.96rem; line-height: 1.4; margin-top: 9px; }
-.proof-footer { margin-top: auto; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-top: 8px; font-size: 0.77rem; line-height: 1.4; }
-.proof-footer .sources { color: var(--muted); max-width: 78%; overflow-wrap: break-word; }
+.proof-source { margin-top: 7px; font-size: 0.75rem; color: var(--muted); line-height: 1.3; overflow-wrap: break-word; }
+.proof-source a { color: var(--blue); text-decoration: none; }
+.proof-footer { margin-top: auto; display: flex; align-items: baseline; justify-content: flex-end; gap: 12px; padding-top: 8px; font-size: 0.77rem; line-height: 1.4; }
+
 .proof-footer a { color: var(--blue); text-decoration: none; font-weight: 700; }
 .proof-flow { display: flex; align-items: stretch; gap: 8px; margin: 17px 0; }
 .proof-flow .step { flex: 1; min-width: 0; display: flex; justify-content: center; align-items: center; padding: 10px 8px; border: 1.5px solid var(--line); border-radius: 10px; text-align: center; font-size: 0.88rem; font-weight: 700; line-height: 1.35; }
@@ -792,7 +831,8 @@ PR에서는 변경 위험에 맞는 검사만 선택하고, 릴리스와 수동 
   <div class="proof-card"><div class="proof-stat">0</div><h3>런타임 의존성</h3><p>드라이버에 별도 CCI 링크 불필요</p></div>
 </div>
 <div class="proof-line"><b>소스 검증:</b> <code>node-cubrid</code>에서 패킷 흐름을 연구하고 공식 CCI 동작과 대조했지만, 두 구현을 런타임에 불러오지는 않습니다.</div>
-<div class="proof-footer"><div class="sources">근거 · <a href="https://github.com/cubrid-lab/pycubrid">pycubrid 소스</a> · <a href="https://github.com/CUBRID/node-cubrid">node-cubrid</a> · <a href="https://github.com/CUBRID/cubrid-python">공식 C 드라이버</a></div><Link to="23">← Q&amp;A로 돌아가기</Link></div>
+<div class="proof-source">근거 · <a href="https://github.com/cubrid-lab/pycubrid">pycubrid 소스</a> · <a href="https://github.com/CUBRID/node-cubrid">node-cubrid</a> · <a href="https://github.com/CUBRID/cubrid-python">공식 C 드라이버</a></div>
+<div class="proof-footer"><Link to="27">← Q&amp;A로 돌아가기</Link></div>
 <style>
 .proof-lead { font-size: 1.12rem; line-height: 1.4; margin: 0 0 8px; color: var(--ink); }
 .proof-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
@@ -808,8 +848,10 @@ PR에서는 변경 위험에 맞는 검사만 선택하고, 릴리스와 수동 
 .proof-table td { border-bottom: 1px solid var(--line); padding: 6px 8px; vertical-align: top; line-height: 1.35; overflow-wrap: break-word; }
 .proof-table td:first-child { font-weight: 750; }
 .proof-line { padding: 8px 12px; border-left: 4px solid var(--blue); background: rgba(27,98,203,0.065); border-radius: 4px; font-size: 0.96rem; line-height: 1.4; margin-top: 9px; }
-.proof-footer { margin-top: auto; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-top: 8px; font-size: 0.77rem; line-height: 1.4; }
-.proof-footer .sources { color: var(--muted); max-width: 78%; overflow-wrap: break-word; }
+.proof-source { margin-top: 7px; font-size: 0.75rem; color: var(--muted); line-height: 1.3; overflow-wrap: break-word; }
+.proof-source a { color: var(--blue); text-decoration: none; }
+.proof-footer { margin-top: auto; display: flex; align-items: baseline; justify-content: flex-end; gap: 12px; padding-top: 8px; font-size: 0.77rem; line-height: 1.4; }
+
 .proof-footer a { color: var(--blue); text-decoration: none; font-weight: 700; }
 .proof-flow { display: flex; align-items: stretch; gap: 8px; margin: 17px 0; }
 .proof-flow .step { flex: 1; min-width: 0; display: flex; justify-content: center; align-items: center; padding: 10px 8px; border: 1.5px solid var(--line); border-radius: 10px; text-align: center; font-size: 0.88rem; font-weight: 700; line-height: 1.35; }
@@ -844,7 +886,8 @@ PR에서는 변경 위험에 맞는 검사만 선택하고, 릴리스와 수동 
   <div class="proof-card"><h3>수동·릴리스</h3><p>전체 5 × 4 실서버 매트릭스와 릴리스 게이트</p></div>
 </div>
 <div class="proof-line"><b>검증의 한계:</b> PR이 통과했다고 20개 조합 전체를 그 PR에서 실행했다는 뜻은 아닙니다. pycubrid PR 일반 smoke와 dialect PR 95% 커버리지 정책도 다릅니다.</div>
-<div class="proof-footer"><div class="sources">근거 · <a href="https://github.com/cubrid-lab/pycubrid/blob/main/docs/CI_POLICY.md">pycubrid CI 정책</a> · <a href="https://github.com/cubrid-lab/sqlalchemy-cubrid/blob/main/docs/CI_POLICY.md">dialect CI 정책</a> · <a href="https://github.com/cubrid-lab/pycubrid/actions">Actions</a></div><Link to="23">← Q&amp;A로 돌아가기</Link></div>
+<div class="proof-source">근거 · <a href="https://github.com/cubrid-lab/pycubrid/blob/main/docs/CI_POLICY.md">pycubrid CI 정책</a> · <a href="https://github.com/cubrid-lab/sqlalchemy-cubrid/blob/main/docs/CI_POLICY.md">dialect CI 정책</a> · <a href="https://github.com/cubrid-lab/pycubrid/actions">Actions</a></div>
+<div class="proof-footer"><Link to="27">← Q&amp;A로 돌아가기</Link></div>
 <style>
 .proof-lead { font-size: 1.12rem; line-height: 1.4; margin: 0 0 8px; color: var(--ink); }
 .proof-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
@@ -860,8 +903,10 @@ PR에서는 변경 위험에 맞는 검사만 선택하고, 릴리스와 수동 
 .proof-table td { border-bottom: 1px solid var(--line); padding: 6px 8px; vertical-align: top; line-height: 1.35; overflow-wrap: break-word; }
 .proof-table td:first-child { font-weight: 750; }
 .proof-line { padding: 8px 12px; border-left: 4px solid var(--blue); background: rgba(27,98,203,0.065); border-radius: 4px; font-size: 0.96rem; line-height: 1.4; margin-top: 9px; }
-.proof-footer { margin-top: auto; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-top: 8px; font-size: 0.77rem; line-height: 1.4; }
-.proof-footer .sources { color: var(--muted); max-width: 78%; overflow-wrap: break-word; }
+.proof-source { margin-top: 7px; font-size: 0.75rem; color: var(--muted); line-height: 1.3; overflow-wrap: break-word; }
+.proof-source a { color: var(--blue); text-decoration: none; }
+.proof-footer { margin-top: auto; display: flex; align-items: baseline; justify-content: flex-end; gap: 12px; padding-top: 8px; font-size: 0.77rem; line-height: 1.4; }
+
 .proof-footer a { color: var(--blue); text-decoration: none; font-weight: 700; }
 .proof-flow { display: flex; align-items: stretch; gap: 8px; margin: 17px 0; }
 .proof-flow .step { flex: 1; min-width: 0; display: flex; justify-content: center; align-items: center; padding: 10px 8px; border: 1.5px solid var(--line); border-radius: 10px; text-align: center; font-size: 0.88rem; font-weight: 700; line-height: 1.35; }
@@ -894,7 +939,8 @@ PR에서는 변경 위험에 맞는 검사만 선택하고, 릴리스와 수동 
   <div class="proof-card"><h3>해석 한계</h3><p>공유 호스트·localhost 조건. 일괄 입력의 1.04× 차이는 불확실성 범위가 겹침</p></div>
 </div>
 <div class="proof-line"><b>정확한 결론:</b> 이 환경의 단건 조회와 배치 작업에서 pycubrid가 대체로 더 느렸습니다. 전체 운영 워크로드에서 차이가 없다는 뜻은 아닙니다.</div>
-<div class="proof-footer"><div class="sources">근거 · <a href="https://github.com/cubrid-lab/showcase/blob/main/events/2026-ossdevcon/metrics/benchmark-2026-10-28/README.md">측정 보고서·원본 데이터</a> · <a href="https://github.com/cubrid-lab/cubrid-benchmark">벤치마크 하네스</a></div><Link to="23">← Q&amp;A로 돌아가기</Link></div>
+<div class="proof-source">근거 · <a href="https://github.com/cubrid-lab/showcase/blob/main/events/2026-ossdevcon/metrics/benchmark-2026-10-28/README.md">측정 보고서·원본 데이터</a> · <a href="https://github.com/cubrid-lab/cubrid-benchmark">벤치마크 하네스</a></div>
+<div class="proof-footer"><Link to="27">← Q&amp;A로 돌아가기</Link></div>
 <style>
 .proof-lead { font-size: 1.12rem; line-height: 1.4; margin: 0 0 8px; color: var(--ink); }
 .proof-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
@@ -910,8 +956,10 @@ PR에서는 변경 위험에 맞는 검사만 선택하고, 릴리스와 수동 
 .proof-table td { border-bottom: 1px solid var(--line); padding: 6px 8px; vertical-align: top; line-height: 1.35; overflow-wrap: break-word; }
 .proof-table td:first-child { font-weight: 750; }
 .proof-line { padding: 8px 12px; border-left: 4px solid var(--blue); background: rgba(27,98,203,0.065); border-radius: 4px; font-size: 0.96rem; line-height: 1.4; margin-top: 9px; }
-.proof-footer { margin-top: auto; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-top: 8px; font-size: 0.77rem; line-height: 1.4; }
-.proof-footer .sources { color: var(--muted); max-width: 78%; overflow-wrap: break-word; }
+.proof-source { margin-top: 7px; font-size: 0.75rem; color: var(--muted); line-height: 1.3; overflow-wrap: break-word; }
+.proof-source a { color: var(--blue); text-decoration: none; }
+.proof-footer { margin-top: auto; display: flex; align-items: baseline; justify-content: flex-end; gap: 12px; padding-top: 8px; font-size: 0.77rem; line-height: 1.4; }
+
 .proof-footer a { color: var(--blue); text-decoration: none; font-weight: 700; }
 .proof-flow { display: flex; align-items: stretch; gap: 8px; margin: 17px 0; }
 .proof-flow .step { flex: 1; min-width: 0; display: flex; justify-content: center; align-items: center; padding: 10px 8px; border: 1.5px solid var(--line); border-radius: 10px; text-align: center; font-size: 0.88rem; font-weight: 700; line-height: 1.35; }
@@ -941,7 +989,8 @@ C 기반 드라이버를 기준으로 PK SELECT는 4%, 1만 행 조회는 17% �
   <div class="proof-card"><h3>운영에서 반드시 추가</h3><ul><li>최소 권한 CUBRID 계정 사용</li><li>민감 열·행은 접근 가능한 뷰로 제한</li><li>감사·쿼리 제한·운영 검증 필요</li></ul></div>
 </div>
 <div class="proof-line"><b>잔여 위험:</b> 쓰기 모드를 허용하면 한 개의 UPDATE로 다수 행을 변경할 수 있습니다. 읽기 전용도 기밀 데이터 노출 방지를 보장하지 않습니다.</div>
-<div class="proof-footer"><div class="sources">근거 · <a href="https://github.com/cubrid-lab/cubrid-mcp-server/blob/main/SECURITY.md">MCP 보안 문서</a> · <a href="https://github.com/cubrid-lab/showcase/blob/main/events/2026-ossdevcon/EXPECTED_QA.md">예상 질문 Q12·Q13</a></div><Link to="23">← Q&amp;A로 돌아가기</Link></div>
+<div class="proof-source">근거 · <a href="https://github.com/cubrid-lab/cubrid-mcp-server/blob/main/SECURITY.md">MCP 보안 문서</a> · <a href="https://github.com/cubrid-lab/showcase/blob/main/events/2026-ossdevcon/EXPECTED_QA.md">예상 질문 Q12·Q13</a></div>
+<div class="proof-footer"><Link to="27">← Q&amp;A로 돌아가기</Link></div>
 <style>
 .proof-lead { font-size: 1.12rem; line-height: 1.4; margin: 0 0 8px; color: var(--ink); }
 .proof-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
@@ -957,8 +1006,10 @@ C 기반 드라이버를 기준으로 PK SELECT는 4%, 1만 행 조회는 17% �
 .proof-table td { border-bottom: 1px solid var(--line); padding: 6px 8px; vertical-align: top; line-height: 1.35; overflow-wrap: break-word; }
 .proof-table td:first-child { font-weight: 750; }
 .proof-line { padding: 8px 12px; border-left: 4px solid var(--blue); background: rgba(27,98,203,0.065); border-radius: 4px; font-size: 0.96rem; line-height: 1.4; margin-top: 9px; }
-.proof-footer { margin-top: auto; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-top: 8px; font-size: 0.77rem; line-height: 1.4; }
-.proof-footer .sources { color: var(--muted); max-width: 78%; overflow-wrap: break-word; }
+.proof-source { margin-top: 7px; font-size: 0.75rem; color: var(--muted); line-height: 1.3; overflow-wrap: break-word; }
+.proof-source a { color: var(--blue); text-decoration: none; }
+.proof-footer { margin-top: auto; display: flex; align-items: baseline; justify-content: flex-end; gap: 12px; padding-top: 8px; font-size: 0.77rem; line-height: 1.4; }
+
 .proof-footer a { color: var(--blue); text-decoration: none; font-weight: 700; }
 .proof-flow { display: flex; align-items: stretch; gap: 8px; margin: 17px 0; }
 .proof-flow .step { flex: 1; min-width: 0; display: flex; justify-content: center; align-items: center; padding: 10px 8px; border: 1.5px solid var(--line); border-radius: 10px; text-align: center; font-size: 0.88rem; font-weight: 700; line-height: 1.35; }
@@ -987,7 +1038,8 @@ MCP의 SQL allowlist는 문장 종류를 통제하지, 업무 승인 규칙이�
   <div class="proof-card"><h3>통계의 범위</h3><p>62명은 저장소 간 중복을 제외한 외부 인간 기여자입니다. 137개는 그들이 병합한 PR 건수입니다.</p></div>
 </div>
 <div class="proof-line"><b>주장 범위:</b> 커뮤니티 참여가 확인된다는 뜻이지, 62개 조직이 서비스를 운영 중이라는 뜻은 아닙니다.</div>
-<div class="proof-footer"><div class="sources">근거 · <a href="https://github.com/cubrid-lab/showcase/blob/main/events/2026-ossdevcon/metrics/contributors-2026-10-28.json">기여자별 PR 원본</a> · <a href="https://github.com/cubrid-lab/showcase/blob/main/events/2026-ossdevcon/APPENDIX.md">라이선스·릴리스 근거</a></div><Link to="23">← Q&amp;A로 돌아가기</Link></div>
+<div class="proof-source">근거 · <a href="https://github.com/cubrid-lab/showcase/blob/main/events/2026-ossdevcon/metrics/contributors-2026-10-28.json">기여자별 PR 원본</a> · <a href="https://github.com/cubrid-lab/showcase/blob/main/events/2026-ossdevcon/APPENDIX.md">라이선스·릴리스 근거</a></div>
+<div class="proof-footer"><Link to="27">← Q&amp;A로 돌아가기</Link></div>
 <style>
 .proof-lead { font-size: 1.12rem; line-height: 1.4; margin: 0 0 8px; color: var(--ink); }
 .proof-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
@@ -1003,8 +1055,10 @@ MCP의 SQL allowlist는 문장 종류를 통제하지, 업무 승인 규칙이�
 .proof-table td { border-bottom: 1px solid var(--line); padding: 6px 8px; vertical-align: top; line-height: 1.35; overflow-wrap: break-word; }
 .proof-table td:first-child { font-weight: 750; }
 .proof-line { padding: 8px 12px; border-left: 4px solid var(--blue); background: rgba(27,98,203,0.065); border-radius: 4px; font-size: 0.96rem; line-height: 1.4; margin-top: 9px; }
-.proof-footer { margin-top: auto; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-top: 8px; font-size: 0.77rem; line-height: 1.4; }
-.proof-footer .sources { color: var(--muted); max-width: 78%; overflow-wrap: break-word; }
+.proof-source { margin-top: 7px; font-size: 0.75rem; color: var(--muted); line-height: 1.3; overflow-wrap: break-word; }
+.proof-source a { color: var(--blue); text-decoration: none; }
+.proof-footer { margin-top: auto; display: flex; align-items: baseline; justify-content: flex-end; gap: 12px; padding-top: 8px; font-size: 0.77rem; line-height: 1.4; }
+
 .proof-footer a { color: var(--blue); text-decoration: none; font-weight: 700; }
 .proof-flow { display: flex; align-items: stretch; gap: 8px; margin: 17px 0; }
 .proof-flow .step { flex: 1; min-width: 0; display: flex; justify-content: center; align-items: center; padding: 10px 8px; border: 1.5px solid var(--line); border-radius: 10px; text-align: center; font-size: 0.88rem; font-weight: 700; line-height: 1.35; }
@@ -1032,7 +1086,8 @@ MCP의 SQL allowlist는 문장 종류를 통제하지, 업무 승인 규칙이�
   <div class="proof-card"><h3>별도 증명이 필요한 것</h3><p>실제 운영 기관, 고유 사용자 수, 프로덕션 배포·업무 효과</p></div>
 </div>
 <div class="proof-line"><b>정직한 답변:</b> 개발 생태계가 활발해졌다는 증거는 제시할 수 있습니다. 검증되지 않은 고유 클로너 수나 실제 도입 기관 수는 주장하지 않습니다.</div>
-<div class="proof-footer"><div class="sources">근거 · <a href="https://github.com/cubrid-lab/showcase/blob/main/events/2026-ossdevcon/metrics/SNAPSHOT.md">Traffic 기록과 제외 이유</a> · <a href="https://github.com/cubrid-lab/showcase/blob/main/events/2026-ossdevcon/metrics/contributors-2026-10-28.json">기여자 원본</a></div><Link to="23">← Q&amp;A로 돌아가기</Link></div>
+<div class="proof-source">근거 · <a href="https://github.com/cubrid-lab/showcase/blob/main/events/2026-ossdevcon/metrics/SNAPSHOT.md">Traffic 기록과 제외 이유</a> · <a href="https://github.com/cubrid-lab/showcase/blob/main/events/2026-ossdevcon/metrics/contributors-2026-10-28.json">기여자 원본</a></div>
+<div class="proof-footer"><Link to="27">← Q&amp;A로 돌아가기</Link></div>
 <style>
 .proof-lead { font-size: 1.12rem; line-height: 1.4; margin: 0 0 8px; color: var(--ink); }
 .proof-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
@@ -1048,8 +1103,10 @@ MCP의 SQL allowlist는 문장 종류를 통제하지, 업무 승인 규칙이�
 .proof-table td { border-bottom: 1px solid var(--line); padding: 6px 8px; vertical-align: top; line-height: 1.35; overflow-wrap: break-word; }
 .proof-table td:first-child { font-weight: 750; }
 .proof-line { padding: 8px 12px; border-left: 4px solid var(--blue); background: rgba(27,98,203,0.065); border-radius: 4px; font-size: 0.96rem; line-height: 1.4; margin-top: 9px; }
-.proof-footer { margin-top: auto; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-top: 8px; font-size: 0.77rem; line-height: 1.4; }
-.proof-footer .sources { color: var(--muted); max-width: 78%; overflow-wrap: break-word; }
+.proof-source { margin-top: 7px; font-size: 0.75rem; color: var(--muted); line-height: 1.3; overflow-wrap: break-word; }
+.proof-source a { color: var(--blue); text-decoration: none; }
+.proof-footer { margin-top: auto; display: flex; align-items: baseline; justify-content: flex-end; gap: 12px; padding-top: 8px; font-size: 0.77rem; line-height: 1.4; }
+
 .proof-footer a { color: var(--blue); text-decoration: none; font-weight: 700; }
 .proof-flow { display: flex; align-items: stretch; gap: 8px; margin: 17px 0; }
 .proof-flow .step { flex: 1; min-width: 0; display: flex; justify-content: center; align-items: center; padding: 10px 8px; border: 1.5px solid var(--line); border-radius: 10px; text-align: center; font-size: 0.88rem; font-weight: 700; line-height: 1.35; }
@@ -1079,7 +1136,8 @@ MCP의 SQL allowlist는 문장 종류를 통제하지, 업무 승인 규칙이�
   <div class="proof-card"><h3>실무 적용 전 필요한 검증</h3><p>기관 보안 정책, DB 계정·뷰 설계, 기존 시스템 부하, 민감 정보 처리, 배포·운영 권한</p></div>
 </div>
 <div class="proof-line"><b>사실관계:</b> 온나라 <em>형태를 모사한 데모</em>를 준비한 것이며, 실제 온나라 운영 시스템에 이 코드를 도입했다는 주장이 아닙니다.</div>
-<div class="proof-footer"><div class="sources">근거 · <a href="https://github.com/cubrid-lab/showcase/blob/main/events/2026-ossdevcon/DEMO_RUNBOOK.md">과거 온나라 데모 런북</a> · <a href="https://github.com/cubrid-lab/cubrid-cookbook-python">cookbook 템플릿</a></div><Link to="23">← Q&amp;A로 돌아가기</Link></div>
+<div class="proof-source">근거 · <a href="https://github.com/cubrid-lab/showcase/blob/main/events/2026-ossdevcon/DEMO_RUNBOOK.md">과거 온나라 데모 런북</a> · <a href="https://github.com/cubrid-lab/cubrid-cookbook-python">cookbook 템플릿</a></div>
+<div class="proof-footer"><Link to="27">← Q&amp;A로 돌아가기</Link></div>
 <style>
 .proof-lead { font-size: 1.12rem; line-height: 1.4; margin: 0 0 8px; color: var(--ink); }
 .proof-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
@@ -1095,8 +1153,10 @@ MCP의 SQL allowlist는 문장 종류를 통제하지, 업무 승인 규칙이�
 .proof-table td { border-bottom: 1px solid var(--line); padding: 6px 8px; vertical-align: top; line-height: 1.35; overflow-wrap: break-word; }
 .proof-table td:first-child { font-weight: 750; }
 .proof-line { padding: 8px 12px; border-left: 4px solid var(--blue); background: rgba(27,98,203,0.065); border-radius: 4px; font-size: 0.96rem; line-height: 1.4; margin-top: 9px; }
-.proof-footer { margin-top: auto; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-top: 8px; font-size: 0.77rem; line-height: 1.4; }
-.proof-footer .sources { color: var(--muted); max-width: 78%; overflow-wrap: break-word; }
+.proof-source { margin-top: 7px; font-size: 0.75rem; color: var(--muted); line-height: 1.3; overflow-wrap: break-word; }
+.proof-source a { color: var(--blue); text-decoration: none; }
+.proof-footer { margin-top: auto; display: flex; align-items: baseline; justify-content: flex-end; gap: 12px; padding-top: 8px; font-size: 0.77rem; line-height: 1.4; }
+
 .proof-footer a { color: var(--blue); text-decoration: none; font-weight: 700; }
 .proof-flow { display: flex; align-items: stretch; gap: 8px; margin: 17px 0; }
 .proof-flow .step { flex: 1; min-width: 0; display: flex; justify-content: center; align-items: center; padding: 10px 8px; border: 1.5px solid var(--line); border-radius: 10px; text-align: center; font-size: 0.88rem; font-weight: 700; line-height: 1.35; }
@@ -1128,7 +1188,8 @@ MCP의 SQL allowlist는 문장 종류를 통제하지, 업무 승인 규칙이�
   <div class="proof-card"><h3>운영 장치</h3><p>main 검증 · 릴리스 전체 매트릭스 · cookbook 예제 주기 검증 · 공개 코드·MIT</p></div>
   <div class="proof-card"><h3>지켜야 할 표현</h3><p><b>예정은 예정입니다.</b> CUBRID 12와 Vector 지원 완료 또는 운영 환경 검증 완료로 표현하지 않습니다.</p></div>
 </div>
-<div class="proof-footer"><div class="sources">근거 · <a href="https://github.com/cubrid-lab/pycubrid/blob/main/docs/CI_POLICY.md">검증 운영 정책</a> · <a href="https://github.com/cubrid-lab/showcase/blob/main/events/2026-ossdevcon/EXPECTED_QA.md">로드맵 질의응답</a></div><Link to="23">← Q&amp;A로 돌아가기</Link></div>
+<div class="proof-source">근거 · <a href="https://github.com/cubrid-lab/pycubrid/blob/main/docs/CI_POLICY.md">검증 운영 정책</a> · <a href="https://github.com/cubrid-lab/showcase/blob/main/events/2026-ossdevcon/EXPECTED_QA.md">로드맵 질의응답</a></div>
+<div class="proof-footer"><Link to="27">← Q&amp;A로 돌아가기</Link></div>
 <style>
 .proof-lead { font-size: 1.12rem; line-height: 1.4; margin: 0 0 8px; color: var(--ink); }
 .proof-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
@@ -1144,8 +1205,10 @@ MCP의 SQL allowlist는 문장 종류를 통제하지, 업무 승인 규칙이�
 .proof-table td { border-bottom: 1px solid var(--line); padding: 6px 8px; vertical-align: top; line-height: 1.35; overflow-wrap: break-word; }
 .proof-table td:first-child { font-weight: 750; }
 .proof-line { padding: 8px 12px; border-left: 4px solid var(--blue); background: rgba(27,98,203,0.065); border-radius: 4px; font-size: 0.96rem; line-height: 1.4; margin-top: 9px; }
-.proof-footer { margin-top: auto; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-top: 8px; font-size: 0.77rem; line-height: 1.4; }
-.proof-footer .sources { color: var(--muted); max-width: 78%; overflow-wrap: break-word; }
+.proof-source { margin-top: 7px; font-size: 0.75rem; color: var(--muted); line-height: 1.3; overflow-wrap: break-word; }
+.proof-source a { color: var(--blue); text-decoration: none; }
+.proof-footer { margin-top: auto; display: flex; align-items: baseline; justify-content: flex-end; gap: 12px; padding-top: 8px; font-size: 0.77rem; line-height: 1.4; }
+
 .proof-footer a { color: var(--blue); text-decoration: none; font-weight: 700; }
 .proof-flow { display: flex; align-items: stretch; gap: 8px; margin: 17px 0; }
 .proof-flow .step { flex: 1; min-width: 0; display: flex; justify-content: center; align-items: center; padding: 10px 8px; border: 1.5px solid var(--line); border-radius: 10px; text-align: center; font-size: 0.88rem; font-weight: 700; line-height: 1.35; }
