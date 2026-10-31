@@ -84,12 +84,16 @@ title: "CUBRID, 이제 Python으로 — 파이큐브리드팀"
       <li><b>Mike Bayer</b>와 대화</li>
       <li><b>SQLAlchemy Korea</b> 개설</li>
     </ul>
+    <a class="group-card" href="https://www.facebook.com/groups/sqlalchemykorea/" target="_blank"><img src="/photos/sqlalchemy-korea.png" alt="SQLAlchemy Korea 페이스북 공개 그룹, 멤버 29명"><span>facebook.com/groups/sqlalchemykorea</span></a>
   </div>
   <div class="frame"><Photo src="/photos/team-2020.jpg" label="2020 컨트리뷰톤 사진" /></div>
 </div>
 
 <style>
 .meet { grid-template-columns: 1.5fr 1fr; }
+.group-card { display: inline-flex; flex-direction: column; gap: 4px; margin-top: 14px; padding: 8px 12px 8px; border: 1.5px solid var(--line); border-radius: 12px; border-bottom-width: 1.5px; width: fit-content; }
+.group-card img { width: 250px; display: block; }
+.group-card span { font-size: 0.7rem; color: var(--muted); }
 .frame { height: 270px; }
 </style>
 
