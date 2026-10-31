@@ -114,3 +114,21 @@ Kubernetes·CSI 조합을 늘리되 각 환경에서 장애와 복구를 다시 
 arm64와 여러 가용영역, CUBRID 버전 변경, master로 승격되지 않는 읽기 복제본도 길게 보고
 있습니다. 후속 버전과 일정은 아직 정하지 않았습니다. v0.1의 필수 작업을 끝내고 실제로
 써본 분들의 의견을 받아 다음 순서를 정하려고 합니다.
+
+## 12. 16개 장애·복구 시나리오는 무엇이고, 실제로 어떤 문제가 발견됐나요?
+
+v0.1 필수 검증 시나리오 S00–S15는 설치와 정상 복제, Master Pod 및 VM 장애,
+Broker/Operator 장애, 네트워크 분할·복제 지연, 재합류·PVC 재구축, 백업·복원,
+데이터 보존·인증·노드 점검을 포함합니다. CUBRID 공식 매뉴얼·CTP와
+CloudNativePG·Percona·Crunchy의 시험 구성을 검토하되, 장애 주입 성공 확인과
+실제 SQL·커밋 이력·각 멤버 데이터 비교를 우리 프로젝트의 검증 계약으로 정의했습니다.
+
+실제 Kind 시험에서는 Master 상태가 미확정인데 RW 쓰기 성공 응답이 나왔습니다.
+별도의 CUBRID 엔진 수동 POC에서는 네트워크 분할 중 두 Master가 서로 다른 데이터를
+가진 것을 관찰했습니다. 일부 실험에서는 Slave가 존재해도 복제 적용이 중단되는
+문제가 확인됐습니다. 이 근거의 시험 수준을 구분해야 하며, 전체 S00–S15를 통과한 것은 아닙니다.
+
+출처: [시나리오 계약](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/testing/scenario-contract.md),
+[외부 참고·출처 기록](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/testing/upstream-scenarios.md),
+[ROADMAP](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/ROADMAP.md),
+[엔진 POC](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/poc/RESULTS.md).
