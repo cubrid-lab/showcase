@@ -118,7 +118,7 @@ CUBRID Kubernetes Operator는 Kubernetes에서 CUBRID HA 클러스터를 안전�
   </section>
 </div>
 <div class="op-compare-takeaway"><b>차이점</b><span>공식: CMS + Broker가 DB Pod 내부</span><span>우리: IM은 DB Pod 내부, Broker는 별도 Pod</span></div>
-<p class="op-caption">파란 실선은 SQL 경로, 회색 점선은 관리 경로입니다. 구성 차이는 확인됐지만 안전성·성능 우위는 아직 검증되지 않았습니다.</p>
+
 
 </OperatorSlide>
 
