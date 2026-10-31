@@ -45,15 +45,15 @@ title: "CUBRID Kubernetes Operator — 1차 검증"
 
 <OperatorSlide class="op-compact" section="01 · 프로젝트 소개" source="Operator README·검증 기록" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/README.md">
 
-<h1 class="op-title">Kubernetes에서 CUBRID HA를 안전하게 운영하는 Operator</h1><p class="op-lead">설치 자동화에서 끝나지 않고, 장애 뒤 DB가 정말 복구됐는지까지 확인하는 것이 목표입니다.</p><div class="op-goals"><div><span>01</span><b>선언형 설치</b><p>YAML 하나로 3노드 CUBRID HA 클러스터와 RW/RO 접속을 구성</p></div><div><span>02</span><b>DB를 아는 상태 판단</b><p>노드마다 HA 역할을 확인하고, 확실하지 않으면 “미확정”으로 남김</p></div><div><span>03</span><b>추적되는 백업·복원</b><p>작업을 ID로 기록하고, 복원 전에 파일 목록과 체크섬을 확인</p></div><div><span>04</span><b>SQL로 확인하는 복구</b><p>Pod 상태가 아니라 실제 쓰기·읽기와 데이터로 복구를 판단</p></div></div><p class="op-caption">실험 단계 프로젝트로 운영 환경용이 아닙니다 · 공식 CUBRID Operator를 대체하지 않습니다 · 진행 상황은 10쪽</p>
+<h1 class="op-title">Kubernetes에서 CUBRID HA를 안전하게 운영하는 Operator</h1><p class="op-lead">설치 자동화에서 끝나지 않고, 장애 뒤 DB가 정말 복구됐는지까지 확인하는 것이 목표입니다.</p><div class="op-goals"><div><span>01</span><b>선언형 설치</b><p>YAML 하나로 3노드 CUBRID HA 클러스터와 RW/RO 접속을 구성</p></div><div><span>02</span><b>DB를 아는 상태 판단</b><p>노드마다 HA 역할을 확인하고, 확실하지 않으면 “미확정”으로 남김</p></div><div><span>03</span><b>추적되는 백업·복원</b><p>작업을 ID로 기록하고, 복원 전에 파일 목록과 체크섬을 확인</p></div><div><span>04</span><b>SQL로 확인하는 복구</b><p>Pod 상태가 아니라 실제 쓰기·읽기와 데이터로 복구를 판단</p></div></div><p class="op-caption">실험 단계 프로젝트로 운영 환경용이 아닙니다 · 공식 CUBRID Operator를 대체하지 않습니다 · 진행 상황은 11쪽</p>
 
 </OperatorSlide>
 
 <!--
-[40초 · 01 · 프로젝트 소개]
+[35초 · 01 · 프로젝트 소개]
 CUBRID Kubernetes Operator는 Kubernetes에서 CUBRID HA 클러스터를 안전하게 운영하는 것을 목표로 하는 실험 단계의 Operator입니다. 설치를 자동화하는 데서 끝나지 않고, 장애 뒤 DB가 정말 복구됐는지까지 확인하는 운영 흐름을 만들려고 합니다.
 
-목표는 네 가지입니다. 첫째, YAML 하나로 3노드 CUBRID HA 클러스터와 쓰기·읽기 접속을 구성합니다. 여기서 노드는 Kubernetes 워커 노드가 아니라 CUBRID HA를 이루는 DB 노드입니다. 둘째, 노드마다 HA 역할을 확인하고, 확실하지 않으면 추정하지 않고 미확정으로 남깁니다. 셋째, 백업과 복원을 작업 ID로 추적하고 복원 전에 파일과 체크섬을 확인합니다. 넷째, 복구는 Pod 상태가 아니라 실제 SQL과 데이터로 판단합니다. 지금 어디까지 확인했는지는 뒤에서 결과로 보여드리겠습니다.
+목표는 네 가지입니다. 첫째, YAML 하나로 3노드 CUBRID HA 클러스터와 쓰기·읽기 접속을 구성합니다. 여기서 노드는 Kubernetes 워커 노드가 아니라 CUBRID HA를 이루는 DB 노드입니다. 둘째, 노드마다 HA 역할을 확인하고, 확실하지 않으면 추정하지 않고 미확정으로 남깁니다. 셋째, 백업과 복원을 작업 ID로 추적하고 복원 전에 파일과 체크섬을 확인합니다. 넷째, 복구는 Pod 상태가 아니라 실제 SQL과 데이터로 판단합니다.
 -->
 
 ---
@@ -188,11 +188,46 @@ CUBRID에는 이미 공식 Operator가 있고, HA 상태 조회와 스토리지,
 </OperatorSlide>
 
 <!--
-[35초 · 04 · 안전 원칙]
-이 장은 아직 부족한 부분을 숨기지 않기 위해 넣었습니다. Operator는 각 노드의 관측값이 충분하지 않으면 master를 미확정으로 둡니다. 그러나 그것은 상태 표시일 뿐, 실제 서비스의 쓰기 경로가 자동으로 막혔다는 뜻은 아닙니다.
-
-10월에 기록한 Kind 시험에서도 master를 확정하지 못하는 동안 RW 쓰기 성공 응답이 나왔습니다. 그래서 쓰기 격리와 네트워크 분할 시험은 v0.1의 필수 조건입니다. 안전하다고 주장하기 전에 SQL로 확인해야 합니다.
+[25초 · 04 · 안전 원칙]
+이 장은 아직 부족한 부분을 숨기지 않기 위해 넣었습니다. Operator는 각 노드의 관측값이 충분하지 않으면 master를 미확정으로 둡니다. 그러나 그것은 상태 표시일 뿐, 실제 쓰기 경로가 막혔다는 뜻은 아닙니다. 그래서 쓰기 격리와 네트워크 분할 시험은 v0.1의 필수 조건입니다.
 -->
+
+---
+
+<OperatorSlide class="op-compact" section="04 · 장애 시나리오" source="시나리오 계약·POC 기록" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/SOURCES.md#fault-scenarios-and-observed-risks">
+
+<h1 class="op-title">어떤 장애를 시험하고, 무엇이 위험했나</h1>
+<div class="op-faults">
+  <div>
+    <p class="op-faults-label">v0.1 필수 장애·복구 시나리오 16개</p>
+    <table class="op-comparison op-fault-map"><tbody>
+      <tr><td>설치·HA 복제<small>S00–S02</small></td><td>단일 DB 설치 · 3노드 HA · 복제</td><td><em class="ok">Kind 통과</em></td></tr>
+      <tr><td>Pod·VM·Broker·Operator 장애<small>S03–S06</small></td><td>master Pod 삭제 · VM 장애 · Broker · Operator</td><td><em class="ok">Kind 통과</em><em>VM 장애는 아직</em></td></tr>
+      <tr><td>분할·지연·재합류·재구축<small>S07–S10</small></td><td>네트워크 분할 · 복제 지연 · 옛 master 재합류 · PVC 유실</td><td><em class="no">판정 없음</em></td></tr>
+      <tr><td>백업·복원<small>S11–S12</small></td><td>백업 · 새 클러스터로 복원</td><td><em class="part">VM 첫 통과</em></td></tr>
+      <tr><td>보존·인증·노드 드레인<small>S13–S15</small></td><td>삭제 후 보존 · 인증 · 노드 드레인</td><td><em class="part">인증만 Kind 통과</em></td></tr>
+    </tbody></table>
+  </div>
+  <div>
+    <p class="op-faults-label">시험 중 직접 본 위험</p>
+    <ol class="op-risks">
+      <li><b>master 미확정인데 RW 쓰기가 승인됨</b><span>Kind · Operator 포함 · master Pod 삭제 시험 중</span></li>
+      <li><b>네트워크 분할로 master 2개, 데이터가 갈라짐</b><span>Docker 수동 실험 · Operator 없음 · 복구 뒤에도 데이터는 맞춰지지 않음</span></li>
+      <li><b>복제가 멈춘 slave를 “정상”으로 보고</b><span>VM · 설치한 Operator · 복제 포트 차단 4회 모두</span></li>
+    </ol>
+  </div>
+</div>
+<p class="op-boundary"><b>통과 기준</b>　장애가 실제로 났는지 확인하고, 승인된 쓰기 기록을 SQL로 모든 멤버와 대조합니다. 16개 중 아직 다 끝나지 않았습니다.</p>
+
+</OperatorSlide>
+
+<!--
+[35초 · 04 · 장애 시나리오]
+v0.1 전에 통과해야 하는 장애·복구 시나리오는 16개이고, 다섯 묶음으로 나눴습니다. 설치와 복제, Pod·Broker·Operator 장애는 Kind에서 통과했고, 백업 복원은 VM에서 첫 통과를 했습니다. 네트워크 분할, 재합류, 재구축, 노드 드레인은 아직 판정이 없습니다.
+
+오른쪽은 시험하면서 직접 본 위험입니다. master가 미확정인데 쓰기가 승인됐고, 수동 실험에서는 분할 중 master가 둘이 되어 데이터가 갈라졌습니다. 복제가 멈춘 slave를 상태값이 정상으로 보고하기도 했습니다. 그래서 장애가 실제로 일어났는지, 승인된 쓰기가 모든 멤버에 남았는지까지 확인해야 통과로 칩니다.
+-->
+
 
 ---
 
@@ -221,10 +256,10 @@ CUBRID에는 이미 공식 Operator가 있고, HA 상태 조회와 스토리지,
 </OperatorSlide>
 
 <!--
-[40초 · 04 · 확인한 결과]
+[30초 · 04 · 확인한 결과]
 현재까지 직접 확인한 결과입니다. 첫째, 10월 20일 Kind에서 E2E 테스트 27개가 모두 통과했습니다. 화면에 열 묶음으로 나눠 두었습니다. 설치와 HA 구성부터 master Pod 삭제, Broker·Operator 장애, 복제 이상 감지, Instance Manager 인증까지입니다. 테스트 항목 수일 뿐, S00부터 S15까지 필수 시나리오 16개를 모두 통과했다는 뜻은 아닙니다.
 
-둘째, k3s VM에서 접속과 SQL, 롤아웃 전후 기존 데이터와 RW/RO 동작을 확인했습니다. 셋째, 10월 25일 VM에서 백업을 새 클러스터로 복원하는 시험을 일곱 번 했습니다. 다섯 번 통과했고, 두 번은 데이터 확인 뒤 DB 세션이 끊겨 판정을 보류했습니다. 원인은 아직 찾는 중입니다. 변조한 백업은 복원을 거부했습니다. 다만 어떤 장애에서도 복구된다는 증거로 보지는 않겠습니다.
+둘째, k3s VM에서 롤아웃 전후 기존 데이터와 RW/RO 동작을 확인했습니다. 셋째, 10월 25일 VM에서 백업을 새 클러스터로 일곱 번 복원해 다섯 번 통과했습니다. 두 번은 DB 세션이 끊겨 판정을 보류했고, 변조한 백업은 거부했습니다.
 -->
 
 ---
@@ -259,7 +294,7 @@ CUBRID에는 이미 공식 Operator가 있고, HA 상태 조회와 스토리지,
 <path class="mgmt" d="M670 304V340" marker-start="url(#op-arch-mute)" marker-end="url(#op-arch-mute)"/><text class="s" x="680" y="326">백업 업로드 · 복원</text>
 <rect class="box store" x="450" y="342" width="440" height="40" rx="8"/><text x="670" y="360" text-anchor="middle">S3 호환 오브젝트 저장소</text><text class="s" x="670" y="376" text-anchor="middle">초기 복사 · 백업 파일 · 파일 목록·체크섬</text>
 <path class="sql" d="M0 346H40"/><text class="s" x="48" y="350">SQL 경로 · 복제 (Operator는 SQL을 중계하지 않음)</text>
-<path class="ctl" d="M0 364H40"/><text class="s" x="48" y="368">운영 경로 ①–④ (12쪽의 제어 루프)</text>
+<path class="ctl" d="M0 364H40"/><text class="s" x="48" y="368">운영 경로 ①–④ (13쪽의 제어 루프)</text>
 <path class="mgmt" d="M0 382H40"/><text class="s" x="48" y="386">생성·관리 · 백업 데이터 · 관측</text>
 </svg>
 
@@ -276,7 +311,7 @@ CUBRID에는 이미 공식 Operator가 있고, HA 상태 조회와 스토리지,
 
 <OperatorSlide class="op-compact" section="05 · 제어·데이터 흐름" source="아키텍처·관측·보안 설계" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/DESIGN.md#7-high-level-architecture">
 
-<h1 class="op-title">Operator는 관찰하고, 기록하고, 다시 조정합니다</h1><p class="op-kicker">11쪽 그림의 ①–④ 제어 루프와 데이터 처리 과정 · 설계 기준</p><div class="op-timeline"><div><small>① 원하는 상태</small><b>YAML로 선언</b><p>CubridCluster·CubridBackup<br>spec에 원하는 구성</p></div><div><small>② 조정</small><b>두 컨트롤러</b><p>CubridCluster · CubridBackup<br>HA·서비스·스토리지·백업·업데이트를<br>하나의 상태 머신으로</p></div><div><small>③ 관찰</small><b>Instance Manager</b><p>노드마다 HA 역할 조회<br>토큰 인증 · pods/exec 미사용</p></div><div><small>④ 기록</small><b>status·Conditions</b><p>currentPrimary · 엇갈리면 “미확정”<br>Events·메트릭·로그<br>→ ②로 돌아가 다시 조정</p></div></div><table class="op-comparison"><thead><tr><th>데이터</th><th>처리 과정</th></tr></thead><tbody><tr><td><b>SQL</b></td><td>앱 → RW/RO Service → Broker → CUBRID · 복제와 master 전환은 CUBRID HA</td></tr><tr><td><b>백업·복원</b></td><td>Instance Manager가 S3 호환 저장소에 업로드 → 파일 목록·체크섬 확인 → 새 CubridCluster로 복원</td></tr><tr><td><b>상태</b></td><td>Instance Manager 응답 → Operator → CubridCluster status · 메트릭(cubrid_cluster_*, cubrid_instance_*)</td></tr></tbody></table>
+<h1 class="op-title">Operator는 관찰하고, 기록하고, 다시 조정합니다</h1><p class="op-kicker">12쪽 그림의 ①–④ 제어 루프와 데이터 처리 과정 · 설계 기준</p><div class="op-timeline"><div><small>① 원하는 상태</small><b>YAML로 선언</b><p>CubridCluster·CubridBackup<br>spec에 원하는 구성</p></div><div><small>② 조정</small><b>두 컨트롤러</b><p>CubridCluster · CubridBackup<br>HA·서비스·스토리지·백업·업데이트를<br>하나의 상태 머신으로</p></div><div><small>③ 관찰</small><b>Instance Manager</b><p>노드마다 HA 역할 조회<br>토큰 인증 · pods/exec 미사용</p></div><div><small>④ 기록</small><b>status·Conditions</b><p>currentPrimary · 엇갈리면 “미확정”<br>Events·메트릭·로그<br>→ ②로 돌아가 다시 조정</p></div></div><table class="op-comparison"><thead><tr><th>데이터</th><th>처리 과정</th></tr></thead><tbody><tr><td><b>SQL</b></td><td>앱 → RW/RO Service → Broker → CUBRID · 복제와 master 전환은 CUBRID HA</td></tr><tr><td><b>백업·복원</b></td><td>Instance Manager가 S3 호환 저장소에 업로드 → 파일 목록·체크섬 확인 → 새 CubridCluster로 복원</td></tr><tr><td><b>상태</b></td><td>Instance Manager 응답 → Operator → CubridCluster status · 메트릭(cubrid_cluster_*, cubrid_instance_*)</td></tr></tbody></table>
 
 </OperatorSlide>
 
@@ -380,10 +415,8 @@ HA와 백업·복구, 설치 문서도 같은 방식으로 진행합니다. VM �
 </OperatorSlide>
 
 <!--
-[40초 · 06 · v0.1 필수 시험]
-이제 어떤 시험이 남았는지 말씀드리겠습니다. 가장 먼저 master가 불명확하거나 네트워크가 분리된 상황에서 실제 쓰기를 막는지 검증해야 합니다. 그다음 장애가 난 노드가 다시 합류하거나 재구축할 때 기존 정상 데이터를 지키는지 확인합니다.
-
-앞서 말씀드린 대로 백업을 새 클러스터로 복원하는 초기 시험은 7번 중 5번 통과했습니다. 남은 일은 세션이 끊긴 원인을 찾고, 더 많은 조건에서 반복해 보는 것입니다. 마지막으로 Kubernetes와 CSI 구성을 고정하고 다른 메인테이너가 문서대로 같은 결과를 낼 수 있어야 합니다. 이 조건을 모두 채워야 v0.1을 공개할 수 있습니다.
+[30초 · 06 · v0.1 필수 시험]
+이제 어떤 시험이 남았는지 말씀드리겠습니다. 가장 먼저 master가 불명확하거나 네트워크가 분리된 상황에서 실제 쓰기를 막는지 검증해야 합니다. 그다음 장애가 난 노드가 다시 합류하거나 재구축할 때 기존 정상 데이터를 지키는지 확인합니다. 복원은 세션이 끊긴 원인을 찾고 더 많은 조건에서 반복해야 합니다. 마지막으로 Kubernetes와 CSI 구성을 고정하고 다른 메인테이너가 문서대로 같은 결과를 낼 수 있어야 합니다. 이 조건을 모두 채워야 v0.1을 공개할 수 있습니다.
 -->
 
 ---

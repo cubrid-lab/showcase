@@ -45,15 +45,15 @@ Visual transition only. Move on without additional narration.
 
 <OperatorSlide class="op-compact" section="01 · Project and team" source="Operator README · recorded runs" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/README.md">
 
-<h1 class="op-title">An Operator to run CUBRID HA safely on Kubernetes</h1><p class="op-lead">The goal goes beyond automated install: confirm that the database really recovered after a fault.</p><div class="op-goals"><div><span>01</span><b>Declarative setup</b><p>One YAML file sets up a 3-node CUBRID HA cluster with RW/RO access</p></div><div><span>02</span><b>Database-aware status</b><p>Checks each node's HA role and leaves the master “unresolved” when unsure</p></div><div><span>03</span><b>Tracked backup and restore</b><p>Records each job by ID and checks files and checksums before a restore</p></div><div><span>04</span><b>Recovery checked with SQL</b><p>Judges recovery by real writes, reads and data, not by Pod status</p></div></div><p class="op-caption">Experimental and not for production · Does not replace the official CUBRID Operator · Progress on slide 10</p>
+<h1 class="op-title">An Operator to run CUBRID HA safely on Kubernetes</h1><p class="op-lead">The goal goes beyond automated install: confirm that the database really recovered after a fault.</p><div class="op-goals"><div><span>01</span><b>Declarative setup</b><p>One YAML file sets up a 3-node CUBRID HA cluster with RW/RO access</p></div><div><span>02</span><b>Database-aware status</b><p>Checks each node's HA role and leaves the master “unresolved” when unsure</p></div><div><span>03</span><b>Tracked backup and restore</b><p>Records each job by ID and checks files and checksums before a restore</p></div><div><span>04</span><b>Recovery checked with SQL</b><p>Judges recovery by real writes, reads and data, not by Pod status</p></div></div><p class="op-caption">Experimental and not for production · Does not replace the official CUBRID Operator · Progress on slide 11</p>
 
 </OperatorSlide>
 
 <!--
-[40s · 01 · Project and team]
+[35s · 01 · Project and team]
 CUBRID Kubernetes Operator is an experimental Operator whose goal is to run CUBRID HA clusters safely on Kubernetes. It should not stop at automating the install: we want an operations flow that confirms the database really recovered after a fault.
 
-There are four goals. First, one YAML file sets up a 3-node CUBRID HA cluster with write and read endpoints; these nodes are CUBRID HA database nodes, not Kubernetes worker nodes. Second, it checks each node's HA role and, when it is not sure, leaves the master unresolved instead of guessing. Third, backups and restores are tracked by job ID, and files and checksums are checked before a restore. Fourth, recovery is judged by real SQL and data, not by Pod status. I will show how far we have verified this later, with results.
+There are four goals. First, one YAML file sets up a 3-node CUBRID HA cluster with write and read endpoints; these nodes are CUBRID HA database nodes, not Kubernetes worker nodes. Second, it checks each node's HA role and, when it is not sure, leaves the master unresolved instead of guessing. Third, backups and restores are tracked by job ID, and files and checksums are checked before a restore. Fourth, recovery is judged by real SQL and data, not by Pod status.
 -->
 
 ---
@@ -128,11 +128,46 @@ Second, CUBRID HA switches the master, and the Operator reads every node's role 
 </OperatorSlide>
 
 <!--
-[35s · 04 · Safety principle]
-This is a risk we want to state plainly. Our implementation can leave the master unresolved when node observations are missing or contradictory. But an unresolved Kubernetes condition is not an enforcement mechanism for SQL traffic.
-
-In an earlier Kind test, RW writes succeeded during an unresolved-master state. Therefore, write quarantine and partition tests are mandatory release gates, not optional improvements after v0.1.
+[25s · 04 · Safety principle]
+This is a risk we want to state plainly. Our implementation can leave the master unresolved when node observations are missing or contradictory. But an unresolved condition does not block SQL writes by itself. So write quarantine and partition tests are mandatory release gates for v0.1.
 -->
+
+---
+
+<OperatorSlide class="op-compact" section="04 · Fault scenarios" source="Scenario contract · POC records" source-url="https://github.com/cubrid-lab/showcase/blob/main/events/2026-builder-season4/01-validation/SOURCES.md#fault-scenarios-and-observed-risks">
+
+<h1 class="op-title">Which faults we test, and what went wrong</h1>
+<div class="op-faults">
+  <div>
+    <p class="op-faults-label">16 required fault and recovery scenarios for v0.1</p>
+    <table class="op-comparison op-fault-map"><tbody>
+      <tr><td>Install and HA replication<small>S00–S02</small></td><td>Single database · 3-node HA · replication</td><td><em class="ok">Passed on Kind</em></td></tr>
+      <tr><td>Pod, VM, Broker, Operator failure<small>S03–S06</small></td><td>Master Pod deleted · VM failure · Broker · Operator</td><td><em class="ok">Passed on Kind</em><em>VM failure not yet</em></td></tr>
+      <tr><td>Partition, lag, rejoin, rebuild<small>S07–S10</small></td><td>Network partition · replication lag · old master rejoins · PVC lost</td><td><em class="no">No verdict</em></td></tr>
+      <tr><td>Backup and restore<small>S11–S12</small></td><td>Backup · restore into a new cluster</td><td><em class="part">First VM passes</em></td></tr>
+      <tr><td>Retention, auth, node drain<small>S13–S15</small></td><td>Retention after delete · auth · node drain</td><td><em class="part">Auth only, on Kind</em></td></tr>
+    </tbody></table>
+  </div>
+  <div>
+    <p class="op-faults-label">Risks we observed while testing</p>
+    <ol class="op-risks">
+      <li><b>RW writes acknowledged while the master was unresolved</b><span>Kind · with the Operator · during master Pod deletion</span></li>
+      <li><b>A partition made two masters with diverging data</b><span>Manual Docker experiment · no Operator · not reconciled after healing</span></li>
+      <li><b>A slave that stopped replicating was reported healthy</b><span>VM · installed Operator · all 4 runs that cut the replication port</span></li>
+    </ol>
+  </div>
+</div>
+<p class="op-boundary"><b>PASS MEANS</b>　The fault is confirmed and every acknowledged write is checked with SQL on every member. Not all 16 are done yet.</p>
+
+</OperatorSlide>
+
+<!--
+[35s · 04 · Fault scenarios]
+v0.1 requires 16 fault and recovery scenarios, grouped into five areas. Install and replication, and Pod, Broker and Operator failures, have passed on Kind; backup restore has its first passes on VMs. Network partition, rejoin, rebuild and node drain have no verdict yet.
+
+On the right are risks we saw ourselves. Writes were acknowledged while the master was unresolved. In a manual experiment, a partition made two masters whose data diverged. And a slave that had stopped replicating was reported healthy. So a run passes only when the fault is confirmed and every acknowledged write is still on every member.
+-->
+
 
 ---
 
@@ -161,10 +196,10 @@ In an earlier Kind test, RW writes succeeded during an unresolved-master state. 
 </OperatorSlide>
 
 <!--
-[40s · 04 · Recorded results]
+[30s · 04 · Recorded results]
 We are separating actual observations from targets. First, all 27 Kind E2E tests in the cited run passed on October 20. The slide groups them into ten areas, from installation and HA setup to master Pod deletion, Broker and Operator failures, replication faults and Instance Manager authentication. That counts test items; it is not the same as passing all mandatory scenarios S00 through S15.
 
-Second, on k3s VMs we checked connectivity and SQL, and a controlled rollout kept known storage and rows, with RW and RO behavior checked. Third, on October 25 we restored a backup into a new cluster seven times on the VMs. Five runs passed. Two were blocked when a database session dropped after the data checks had passed; the cause is still open. A tampered backup was refused. None of this guarantees recovery after arbitrary faults.
+Second, on k3s VMs a rollout kept known rows, with RW and RO behavior checked. Third, on October 25 we restored a backup into a new cluster seven times on the VMs; five passed, two were blocked by a dropped session, and a tampered backup was refused.
 -->
 
 ---
@@ -199,7 +234,7 @@ Second, on k3s VMs we checked connectivity and SQL, and a controlled rollout kep
 <path class="mgmt" d="M670 304V340" marker-start="url(#op-arch-mute)" marker-end="url(#op-arch-mute)"/><text class="s" x="680" y="326">backup upload · restore</text>
 <rect class="box store" x="450" y="342" width="440" height="40" rx="8"/><text x="670" y="360" text-anchor="middle">S3-compatible object storage</text><text class="s" x="670" y="376" text-anchor="middle">initial copy · backup files · file list and checksums</text>
 <path class="sql" d="M0 346H40"/><text class="s" x="48" y="350">SQL path · replication (the Operator relays no SQL)</text>
-<path class="ctl" d="M0 364H40"/><text class="s" x="48" y="368">operations path ①–④ (control loop on slide 12)</text>
+<path class="ctl" d="M0 364H40"/><text class="s" x="48" y="368">operations path ①–④ (control loop on slide 13)</text>
 <path class="mgmt" d="M0 382H40"/><text class="s" x="48" y="386">creates · manages · backup data · observability</text>
 </svg>
 
@@ -216,7 +251,7 @@ The solid line at the bottom is the application's SQL path: from the RW or RO Se
 
 <OperatorSlide class="op-compact" section="05 · Control and data flow" source="Architecture · observability · security design" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/DESIGN.md#7-high-level-architecture">
 
-<h1 class="op-title">The Operator observes, records and reconciles again</h1><p class="op-kicker">THE ①–④ CONTROL LOOP FROM SLIDE 11 AND THE DATA FLOWS · DESIGNED FLOW</p><div class="op-timeline"><div><small>① Desired state</small><b>Declared in YAML</b><p>CubridCluster · CubridBackup<br>spec</p></div><div><small>② Reconcile</small><b>Two controllers</b><p>CubridCluster · CubridBackup<br>HA · Services · storage · backup · updates<br>in one state machine</p></div><div><small>③ Observe</small><b>Instance Manager</b><p>Reads each node's HA role<br>Token auth · no pods/exec</p></div><div><small>④ Record</small><b>status · Conditions</b><p>currentPrimary<br>“unresolved” on conflict<br>Events · metrics · logs<br>→ back to ②</p></div></div><table class="op-comparison"><thead><tr><th>Data</th><th>How it flows</th></tr></thead><tbody><tr><td><b>SQL</b></td><td>App → RW/RO Service → Broker → CUBRID · CUBRID HA replicates and switches</td></tr><tr><td><b>Backup · restore</b></td><td>Instance Manager → S3-compatible storage → checksums checked → new CubridCluster</td></tr><tr><td><b>Status</b></td><td>Instance Manager → Operator → CubridCluster status · cubrid_* metrics</td></tr></tbody></table>
+<h1 class="op-title">The Operator observes, records and reconciles again</h1><p class="op-kicker">THE ①–④ CONTROL LOOP FROM SLIDE 12 AND THE DATA FLOWS · DESIGNED FLOW</p><div class="op-timeline"><div><small>① Desired state</small><b>Declared in YAML</b><p>CubridCluster · CubridBackup<br>spec</p></div><div><small>② Reconcile</small><b>Two controllers</b><p>CubridCluster · CubridBackup<br>HA · Services · storage · backup · updates<br>in one state machine</p></div><div><small>③ Observe</small><b>Instance Manager</b><p>Reads each node's HA role<br>Token auth · no pods/exec</p></div><div><small>④ Record</small><b>status · Conditions</b><p>currentPrimary<br>“unresolved” on conflict<br>Events · metrics · logs<br>→ back to ②</p></div></div><table class="op-comparison"><thead><tr><th>Data</th><th>How it flows</th></tr></thead><tbody><tr><td><b>SQL</b></td><td>App → RW/RO Service → Broker → CUBRID · CUBRID HA replicates and switches</td></tr><tr><td><b>Backup · restore</b></td><td>Instance Manager → S3-compatible storage → checksums checked → new CubridCluster</td></tr><tr><td><b>Status</b></td><td>Instance Manager → Operator → CubridCluster status · cubrid_* metrics</td></tr></tbody></table>
 
 </OperatorSlide>
 
@@ -320,10 +355,8 @@ We use the same approach for HA, backup and recovery, and installation docs. VM 
 </OperatorSlide>
 
 <!--
-[40s · 06 · v0.1 required tests]
-The next work targets fault conditions. Write quarantine must be enforced during uncertain HA states. A failed node that rejoins or is rebuilt must not damage valid data. As I mentioned, restoring a backup into a new cluster passed in 5 of 7 early VM runs. Next we need to find why the sessions dropped and repeat it under more conditions.
-
-We also need an explicit Kubernetes and CSI environment and independent runbook reproduction. Those are acceptance gates for the initial release, not evidence we already have.
+[30s · 06 · v0.1 required tests]
+The next work targets fault conditions. Write quarantine must be enforced during uncertain HA states. A failed node that rejoins or is rebuilt must not damage valid data. Restore needs the dropped-session cause found and more repeats. We also need an explicit Kubernetes and CSI environment and independent runbook reproduction. Those are acceptance gates for the initial release, not evidence we already have.
 -->
 
 ---
