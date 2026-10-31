@@ -526,7 +526,7 @@ PR에서는 변경 위험에 맞는 검사만 선택하고, 릴리스와 수동 
     { label: '1만 행 fetchall', before: 100, after: 117, beforeText: '100', afterText: '117' },
     { label: 'executemany 1만 행', before: 100, after: 104, beforeText: '100', afterText: '104' },
   ]" />
-  <p class="small">2026-10-28 · CUBRID 11.4.6 · pycubrid 1.15.0 · Appendix B</p>
+  <p class="small">2026-10-28 · CUBRID 11.4.6 · pycubrid 1.15.0</p>
 </div>
 
 <style>
