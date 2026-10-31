@@ -259,7 +259,7 @@ with engine.connect() as conn:
   <li><b>PyPI에는 2014년 9.3.0만</b> — 최신 v11.3.0.51은 GitHub 릴리스</li>
   <li><b>asyncio 미지원</b> — 비동기 서버에서는 스레드로 감싸야 함</li>
 </ul>
-<p class="note-line">공식 드라이버는 잘 동작하고, 성능 비교도 이 드라이버와 했습니다 · 2026-10-28 확인</p>
+<p class="note-line">공식 드라이버는 잘 동작하고, 성능 비교도 이 드라이버와 했습니다</p>
 
 <style>
 .wide { max-width: 66ch; }
@@ -276,7 +276,8 @@ dialect 아래에 둘 드라이버를 찾아봤습니다. 공식 드라이버 CU
 
 
 <p class="kicker proj"><BrandMark name="pycubrid" alt="" :height="28" />pycubrid</p>
-<h2 class="one">CAS 통신 동작을 기존 드라이버 소스와 대조했습니다</h2>
+<h2 class="one">C 라이브러리 없이, 서버 통신을 직접 구현했습니다</h2>
+<p class="sub" style="max-width: none; font-size: 1rem;">그래서 브로커(CAS)와 주고받는 바이너리 메시지를 Python이 직접 만들고 읽습니다</p>
 
 <div class="packet">
   <div><b>4B</b><span>length<br>본문 길이</span></div>
@@ -297,8 +298,8 @@ dialect 아래에 둘 드라이버를 찾아봤습니다. 공식 드라이버 CU
 </style>
 
 <!--
-[25초 · OSS 적절성 · 라이선스]
-그래서 순수 Python 드라이버 pycubrid를 만들었습니다. 먼저 node-cubrid를 읽었습니다. 순수 JavaScript로 되어 있어서 서버에 어떤 순서로 무엇을 보내는지가 코드에 그대로 보였습니다. 그다음 같은 동작을 공식 C 드라이버 소스와 하나씩 맞춰 봤습니다.
+[30초 · OSS 적절성 · 라이선스]
+그래서 순수 Python 드라이버 pycubrid를 만들었습니다. C 라이브러리를 쓰지 않으니, 서버와 주고받는 통신을 Python으로 직접 구현해야 했습니다. CUBRID에서는 이 통신을 CAS 프로토콜이라고 부릅니다. 먼저 node-cubrid를 읽었습니다. 순수 JavaScript로 되어 있어서 서버에 어떤 순서로 무엇을 보내는지가 코드에 그대로 보였습니다. 그다음 같은 동작을 공식 C 드라이버 소스와 하나씩 맞춰 봤습니다.
 모든 요청과 응답은 길이, 서버 상태, 본문이라는 같은 틀을 따릅니다. 이렇게 20개 패킷 타입과 30개 데이터 타입을 구현했고, 런타임 의존성은 하나도 없습니다.
 -->
 
