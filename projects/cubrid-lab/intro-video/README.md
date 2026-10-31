@@ -29,7 +29,7 @@ npm run render:short      # Short composition -> out/short.mp4  (timelines/short
 npm run render:demo       # 20 s pipeline demo -> out/demo.mp4  (timelines/demo.json)
 npm run render:demo-cut   # demo-focused cut, full pipeline -> /data/video-intro-assets/out-demo-cut/ (DemoCut, timelines/demo-cut.json)
 npm run render:stills -- Main 120 900 2700   # single frames -> out/stills/main-<frame>.png
-npm run stills:demo       # 4 JPEG stills from out/demo.mp4 -> stills/
+npm run stills:demo       # 4 JPEG stills from out/demo.mp4 -> out/stills-demo/ (not committed)
 npm run placeholders      # (re)generate PLACEHOLDER media in public/placeholder/
 npm run typecheck
 scripts/render-final.sh [assetsDir] [outDir]   # main cut: render, mix, master, MP4 + WebM, captions, contact sheet
@@ -86,7 +86,7 @@ scripts/              make-placeholders.mjs, render-stills.mjs, extract-stills.m
                       build_main_timeline.py, build_demo_timeline.py, demo_cut_lines.json, synth_demo_voice.py, prepare-media.mjs, render-final.sh, mix_audio.py,
                       loudness_report.py, contact-sheet.mjs, review-stills.mjs
 captions/             ko/en .srt/.vtt of the main cut
-stills/               4 frames of the pipeline demo render
+stills/               approved review frames of the main cut (see stills/README.md)
 ```
 
 ## Timeline format

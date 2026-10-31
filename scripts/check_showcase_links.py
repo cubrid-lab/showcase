@@ -31,6 +31,10 @@ PUBLISHED_ROUTES = (
 
 # Local agent runtime state; ignored in .gitignore and never committed.
 RUNTIME_STATE_DIRS = (".omc",)
+# Regenerable build output and release media (README.md, "Generated files").
+# They go to CI artifacts or GitHub Releases, never into Git.
+BUILD_OUTPUT_DIRS = ("node_modules", "out", "exports", "dist", "site-dist", ".slidev")
+RELEASE_MEDIA = (".pdf", ".pptx", ".mp4", ".mov", ".webm", ".wav")
 
 PRESENTATION = ROOT / "presentation"
 # Guides next to the deck entries; they are not decks.
@@ -84,13 +88,23 @@ def check_deck_layout() -> list[str]:
 
 
 def check_tracked_runtime_state() -> list[str]:
-    """Reject agent runtime state in the Git index, staged files included."""
+    """Reject agent runtime state, build output and release media in the Git
+    index, staged files included."""
     tracked = subprocess.run(["git", "ls-files", "-z"], cwd=ROOT, check=True,
                              capture_output=True, text=True).stdout.split("\0")
-    return [f"{path}: agent runtime state must not be committed; "
-            "run git rm --cached on it (.gitignore already ignores it)"
-            for path in tracked
-            if any(part in RUNTIME_STATE_DIRS for part in Path(path).parts[:-1])]
+    failures = []
+    for path in filter(None, tracked):
+        dirs = Path(path).parts[:-1]
+        if any(part in RUNTIME_STATE_DIRS for part in dirs):
+            failures.append(f"{path}: agent runtime state must not be committed; "
+                            "run git rm --cached on it (.gitignore already ignores it)")
+        elif any(part in BUILD_OUTPUT_DIRS for part in dirs):
+            failures.append(f"{path}: build output must not be committed; "
+                            "regenerate it, or publish it as a CI artifact or release asset")
+        elif path.lower().endswith(RELEASE_MEDIA):
+            failures.append(f"{path}: PDF, PPTX, video and audio files belong in a "
+                            "GitHub Release, not in Git")
+    return failures
 
 
 def main() -> int:
