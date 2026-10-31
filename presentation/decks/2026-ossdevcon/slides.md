@@ -702,9 +702,8 @@ PR에서는 변경 위험에 맞는 검사만 선택하고, 릴리스와 수동 
 <p class="sub">이미 공개한 네 저장소를 더 단단하게 만듭니다.</p>
 
 <ul class="explain plans">
-  <li><b>pycubrid · sqlalchemy-cubrid</b> — CUBRID 12 정식 출시 후 호환성 테스트와 필요한 수정</li>
+  <li><b>pycubrid · sqlalchemy-cubrid</b> — 새 CUBRID 버전이 나오면 호환성 테스트와 필요한 수정</li>
   <li><b>cubrid-mcp-server</b> — 보안 검증 · 관찰성 · 실무 예제 보강</li>
-  <li><b>Vector · AI</b> — 서버 사양이 확정되면 파서·타입 매핑 시제품부터 검증</li>
   <li><b>CUBRID 공식 저장소</b> — 작업 중 찾은 문제를 cubrid · cubrid-python에 이슈와 PR로 전달</li>
   <li><b>국내 개발자 커뮤니티</b> — 파이콘 한국 등에서 발표하고 사용자 의견 모으기</li>
 </ul>
@@ -715,7 +714,7 @@ PR에서는 변경 위험에 맞는 검사만 선택하고, 릴리스와 수동 
 
 <!--
 [20초 · 커뮤니티 · 발전가능성]
-다음 계획입니다. Python에 집중해 이미 공개한 네 저장소를 더 단단하게 만들겠습니다. CUBRID 12가 정식 출시되면 드라이버와 dialect의 호환성을 바로 시험하고 고치겠습니다. MCP 서버는 보안 검증과 관찰성, 실무 예제를 보강하고, Vector는 서버 사양이 정해지면 시제품부터 검증하겠습니다. 드라이버와 dialect를 만들며 찾은 문제는 CUBRID 공식 저장소에도 이슈와 PR로 전달하겠습니다. 파이콘 한국 같은 국내 개발자 커뮤니티에서도 발표하며 실제 사용자의 의견을 모으려고 합니다.
+다음 계획입니다. Python에 집중해 이미 공개한 네 저장소를 더 단단하게 만들겠습니다. 새 CUBRID 버전이 나오면 드라이버와 dialect의 호환성을 바로 시험하고 고치겠습니다. MCP 서버는 보안 검증과 관찰성, 실무 예제를 보강하겠습니다. 드라이버와 dialect를 만들며 찾은 문제는 CUBRID 공식 저장소에도 이슈와 PR로 전달하겠습니다. 파이콘 한국 같은 국내 개발자 커뮤니티에서도 발표하며 실제 사용자의 의견을 모으려고 합니다.
 -->
 
 ---
@@ -1150,19 +1149,19 @@ MCP의 SQL allowlist는 문장 종류를 통제하지, 업무 승인 규칙이�
 ---
 
 <p class="kicker">보조 자료 · 로드맵과 운영</p>
-<h2 class="one">CUBRID 12·Vector와 장기 유지보수는?</h2>
+<h2 class="one">새 CUBRID 버전과 장기 유지보수는?</h2>
 <p class="proof-lead">이미 제공하는 기능, 선행 조사, 출시 뒤 검증할 항목을 <b>서로 다른 상태</b>로 표시합니다.</p>
 <table class="proof-table">
 <thead><tr><th style="width:25%">주제</th><th style="width:30%">현재 확인된 상태</th><th>다음 작업 및 조건</th></tr></thead>
 <tbody>
-<tr><td>Python 드라이버·dialect</td><td>Python 3.11–3.15 · CUBRID 10.2–11.4 지원</td><td>CUBRID 12 정식 출시 후 호환성 테스트·필요한 수정</td></tr>
-<tr><td>Vector / AI</td><td>upstream 개발 브랜치의 포맷·인덱스 구조 조사</td><td>서버 사양 확정 후 파서·타입 매핑 시제품 검증</td></tr>
+<tr><td>Python 드라이버·dialect</td><td>Python 3.11–3.15 · CUBRID 10.2–11.4 지원</td><td>새 CUBRID 버전이 나오면 매트릭스에 추가해 호환성 테스트·필요한 수정</td></tr>
+<tr><td>Vector 타입</td><td>CUBRID 저장소에서 개발 중 (VECTOR 타입 PR #7076, 아직 머지 전)</td><td>CUBRID 릴리스에 포함되면 드라이버 지원 검토</td></tr>
 <tr><td>MCP</td><td>스키마 탐색·읽기 쿼리·기본 차단 정책 구현</td><td>보안 검증·관찰성·실무 예제 지속 개선</td></tr>
 </tbody>
 </table>
 <div class="proof-grid" style="margin-top:10px">
   <div class="proof-card"><h3>운영 장치</h3><p>main 검증 · 릴리스 전체 매트릭스 · cookbook 예제 주기 검증 · 공개 코드·MIT</p></div>
-  <div class="proof-card"><h3>현재 상태</h3><p>CUBRID 12와 Vector 지원은 <b>아직 계획 단계</b>입니다. 정식 출시와 운영 환경 검증을 거친 뒤 지원한다고 말씀드리겠습니다.</p></div>
+  <div class="proof-card"><h3>현재 상태</h3><p>CUBRID 12 출시 일정은 공개된 것이 없고, Vector 타입은 <b>아직 CUBRID에 들어가지 않았습니다</b>. 출시된 뒤 검증하고 나서 지원한다고 말씀드리겠습니다.</p></div>
 </div>
 <div class="proof-source">근거 · <a href="https://github.com/cubrid-lab/pycubrid/blob/main/docs/CI_POLICY.md">검증 운영 정책</a> · <a href="https://github.com/cubrid-lab/showcase/blob/main/events/2026-ossdevcon/EXPECTED_QA.md">로드맵 질의응답</a></div>
 <div class="proof-footer"><Link to="27">← Q&amp;A로 돌아가기</Link></div>
@@ -1194,5 +1193,5 @@ MCP의 SQL allowlist는 문장 종류를 통제하지, 업무 승인 규칙이�
 </style>
 <!--
 [0초 · 보조 자료 · 발표 시간 외]
-지원이 완료된 버전은 Python 3.11부터 3.15, CUBRID 10.2부터 11.4까지입니다. CUBRID 12는 출시 후 매트릭스에 추가해 검증할 계획이며, Vector는 상위 프로젝트의 개발 내용에 대한 사전 조사 단계입니다. 유지보수는 PR 정책, 릴리스 호환성 매트릭스, 실서버 예제 검증에 기반합니다.
+지원이 완료된 버전은 Python 3.11부터 3.15, CUBRID 10.2부터 11.4까지입니다. 새 CUBRID 버전이 나오면 매트릭스에 추가해 검증합니다. CUBRID 12의 출시 일정은 공개된 것이 없고, Vector 타입은 CUBRID 저장소에서 아직 개발 중입니다. 유지보수는 PR 정책, 릴리스 호환성 매트릭스, 실서버 예제 검증에 기반합니다.
 -->
