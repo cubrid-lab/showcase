@@ -8,14 +8,15 @@ than becoming extra presentation sections.
 
 | Announced requirement | Slides | Planned seconds |
 |---|---|---|
-| 1. Project and team (cover), agenda and the four project goals | 1–3 | 80 |
-| 2. Problem and initial users | 4 | 40 |
-| 3. Existing approaches and open-source comparison | 5 | 50 |
-| 4. Proposed solution: four checks after a fault, unresolved-master rule, recorded evidence | 6–8 | 120 |
-| 5. Architecture draft: full architecture, control loop and data flows, inside the Operator | 9–11 | 125 |
-| 6. Roadmap, responsibilities, v0.1 gates and scope, later direction | 12–16 | 165 |
-| 7. Discussion topics and questions | 17 | 15 |
-| **Total** | **17 slides per language** | **595 + 5 seconds buffer** |
+| 1. Project and team (cover), agenda and the four project goals | 1–2, 4 | 70 |
+| 2. Problem and initial users | 5 | 40 |
+| 3. Existing approaches and open-source comparison | 6 | 45 |
+| 4. Proposed solution: four checks after a fault, unresolved-master rule, fault scenarios and observed risks, recorded evidence | 8–11 | 135 |
+| 5. Architecture draft: full architecture, control loop and data flows, inside the Operator | 12–14 | 120 |
+| 6. Roadmap, responsibilities, v0.1 gates and scope, later direction | 16–20 | 155 |
+| 7. Discussion topics and questions | 21 | 15 |
+| Chapter dividers (no speech) | 3, 7, 15 | 0 |
+| **Total** | **21 slides per language (18 content, 3 dividers)** | **580 + 20 seconds for transitions** |
 
 The announced presentation limit is ten minutes plus separate ten-minute Q&A. Times are planning targets, not a rehearsal measurement.
 The expanded material deliberately separates hypothetical incident stories, user hypotheses, source comparison, executed evidence and work not yet proven.
@@ -31,16 +32,17 @@ The expanded material deliberately separates hypothetical incident stories, user
 
 | Slides | Evidence basis | Claim boundary |
 |---|---|---|
-| 1, 3–4 | [Operator README](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/README.md), [DESIGN](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/DESIGN.md) | Recovery scenario is illustrative, not a customer incident. Initial target users are hypotheses, not proven adoption/interviews |
-| 6, 9–11 | [Architecture](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/DESIGN.md#7-high-level-architecture) and [Broker flows](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/DESIGN.md#10-broker-and-service-architecture) | CUBRID owns HA promotion. IM is integrated in DB container; Operator never proxies SQL |
-| 7 | [Fault-safety ADR](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/docs/adr/0005-failover-split-brain.md), [write-quarantine issue](https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/113) | Reported unknown master is not automatic RW write isolation; mandatory work remains |
-| 5 | [Official pod StatefulSet](https://github.com/CUBRID/cubrid-operator/blob/fa7b6c2cf26096769c4404a2e2bb683f3872aa1e/pkg/manager/statefulset_manager.go#L129-L140), [CMS access](https://github.com/CUBRID/cubrid-operator/blob/fa7b6c2cf26096769c4404a2e2bb683f3872aa1e/docs/cms-access.en.md), [Lab IM ADR](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/adr/0003-instance-manager.md), [Lab Broker ADR](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/adr/0002-broker-routing.md) | Official: CUBRID DB, CMS and Broker in the same DB Pod; Lab: IM integrated into the DB container and RW/RO Brokers in separate Deployments. Diagram simplifies one repeating DB Pod out of three. These are topology differences, not proven reliability gains. |
-| 5 | [Official README](https://github.com/CUBRID/cubrid-operator/blob/fa7b6c2cf26096769c4404a2e2bb683f3872aa1e/README.md), [status controller](https://github.com/CUBRID/cubrid-operator/blob/fa7b6c2cf26096769c4404a2e2bb683f3872aa1e/internal/controller/cubriddb_controller_status.go#L68), [backup controller](https://github.com/CUBRID/cubrid-operator/blob/fa7b6c2cf26096769c4404a2e2bb683f3872aa1e/internal/controller/backupdb_controller.go#L317) | Upstream already has HA observation, storage and scheduled backup. Comparison is source-level, not field reliability benchmarking |
-| 8, 14 | [Kind, VM and rollout records](#recorded-execution-evidence), [v0.1 gates](#evidence-boundaries-retained-in-the-notes) | Kind 27/27 specs, VM SQL and the first S12 restore passes are not completed S00–S15 fault/restore certification |
-| 12, 15 | [ROADMAP](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/ROADMAP.md); the 24-hour load target is from [final integration issue #95](https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/95) ("initial target of 24 hours") | Nov 29 full first pass, Dec 27 candidate release are goals, not passed or promised milestones |
-| 13 | [CONTRIBUTING](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/CONTRIBUTING.md) and team record below | Both are co-maintainers; per-issue owner and reviewer, no invented permanent feature assignment |
-| 16 | [Post-v0.1 direction](#post-v01-direction) | Unsheduled proposal, not support or release commitment |
-| 17 (speaker note) | Builder validation notice | Discussion: incident criteria, the first CSI driver to support, independent runbook review |
+| 1, 4–5 | [Operator README](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/README.md), [DESIGN](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/DESIGN.md) | Recovery scenario is illustrative, not a customer incident. Initial target users are hypotheses, not proven adoption/interviews |
+| 8, 12–14 | [Architecture](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/DESIGN.md#7-high-level-architecture) and [Broker flows](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/DESIGN.md#10-broker-and-service-architecture) | CUBRID owns HA promotion. IM is integrated in DB container; Operator never proxies SQL |
+| 9 | [Fault-safety ADR](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/docs/adr/0005-failover-split-brain.md), [write-quarantine issue](https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/113) | Reported unknown master is not automatic RW write isolation; mandatory work remains |
+| 10 | [Fault scenarios and observed risks](#fault-scenarios-and-observed-risks) | The five groups cover the 16 required scenarios S00–S15. Status per group is the best result recorded so far, not a completed scenario; the three risks come from three different evidence levels (Kind with the Operator, a manual Docker POC without it, the VM lab with the installed Operator) |
+| 6 | [Official pod StatefulSet](https://github.com/CUBRID/cubrid-operator/blob/fa7b6c2cf26096769c4404a2e2bb683f3872aa1e/pkg/manager/statefulset_manager.go#L129-L140), [CMS access](https://github.com/CUBRID/cubrid-operator/blob/fa7b6c2cf26096769c4404a2e2bb683f3872aa1e/docs/cms-access.en.md), [Lab IM ADR](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/adr/0003-instance-manager.md), [Lab Broker ADR](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/adr/0002-broker-routing.md) | Official: CUBRID DB, CMS and Broker in the same DB Pod; Lab: IM integrated into the DB container and RW/RO Brokers in separate Deployments. Diagram simplifies one repeating DB Pod out of three. These are topology differences, not proven reliability gains. |
+| 6 | [Official README](https://github.com/CUBRID/cubrid-operator/blob/fa7b6c2cf26096769c4404a2e2bb683f3872aa1e/README.md), [status controller](https://github.com/CUBRID/cubrid-operator/blob/fa7b6c2cf26096769c4404a2e2bb683f3872aa1e/internal/controller/cubriddb_controller_status.go#L68), [backup controller](https://github.com/CUBRID/cubrid-operator/blob/fa7b6c2cf26096769c4404a2e2bb683f3872aa1e/internal/controller/backupdb_controller.go#L317) | Upstream already has HA observation, storage and scheduled backup. Comparison is source-level, not field reliability benchmarking |
+| 11, 18 | [Kind, VM and rollout records](#recorded-execution-evidence), [v0.1 gates](#evidence-boundaries-retained-in-the-notes) | Kind 27/27 specs, VM SQL and the first S12 restore passes are not completed S00–S15 fault/restore certification |
+| 16, 19 | [ROADMAP](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/ROADMAP.md); the 24-hour load target is from [final integration issue #95](https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/95) ("initial target of 24 hours") | Nov 29 full first pass, Dec 27 candidate release are goals, not passed or promised milestones |
+| 17 | [CONTRIBUTING](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/CONTRIBUTING.md) and team record below | Both are co-maintainers; per-issue owner and reviewer, no invented permanent feature assignment |
+| 20 | [Post-v0.1 direction](#post-v01-direction) | Unsheduled proposal, not support or release commitment |
+| 21 (speaker note) | Builder validation notice | Discussion: incident criteria, the first CSI driver to support, independent runbook review |
 
 ## Recorded execution evidence
 
@@ -64,9 +66,9 @@ v0.1 release** are targets consistent with the pinned ROADMAP stages. December
 is reserved for candidate/repeat/soak/regression and runbook checks; no mandatory
 safety gate is dropped to meet the dates.
 
-### The 27 Kind E2E specs (slide 10)
+### The 27 Kind E2E specs (slide 11)
 
-Slide 10 lists every spec that passed in [Kind E2E run 39348551910](https://github.com/cubrid-lab/cubrid-kubernetes-operator/actions/runs/39348551910)
+Slide 11 lists every spec that passed in [Kind E2E run 39348551910](https://github.com/cubrid-lab/cubrid-kubernetes-operator/actions/runs/39348551910)
 ("Ran 27 of 27 Specs", head `f126324`), grouped into ten areas. The test text below is
 from the run log, shortened where it repeats; the scenario column is the label in
 the test itself. A label means the spec checks part of that scenario in Kind. It
@@ -102,6 +104,42 @@ S00–S15 completion is still the November target.
 | 25 | Instance Manager auth | the Instance Manager refuses a caller without the token, and the token is not shown anywhere | [`s14_test.go`](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/f12632473de9e91e6b65e44444b4cf622d0caf43/test/e2e/s14_test.go#L114) | S14 |
 | 26 | Instance Manager auth | token-rotation: the operator reaches every member through a token rotation, and the old token is refused once every member was replaced | [`s14_token_test.go`](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/f12632473de9e91e6b65e44444b4cf622d0caf43/test/e2e/s14_token_test.go#L327) | S14 |
 | 27 | Instance Manager auth | token-migration: a token Secret without a rotation time is moved to a new token without a member refusing the operator | [`s14_token_test.go`](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/f12632473de9e91e6b65e44444b4cf622d0caf43/test/e2e/s14_token_test.go#L333) | S14 |
+
+## Fault scenarios and observed risks
+
+Slide 10 groups the 16 required scenarios of the
+[scenario contract](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/9bfe1f6/docs/testing/scenario-contract.md) (S00–S15) into five
+groups and shows the best result recorded for each group so far. Operator
+revision for this section: `9bfe1f6` (main on 2026-10-31).
+
+| Group on the slide | Scenarios | Best recorded result | Source |
+|---|---|---|---|
+| Install and HA replication | S00 single database, S01 three-member HA with RW/RO, S02 replication | Pass on Kind (run 39348551910) | [The 27 Kind E2E specs](#the-27-kind-e2e-specs-slide-11) |
+| Pod, VM, Broker, Operator failure | S03 master Pod deleted, S04 master VM failure, S05 Broker failure, S06 Operator failure | S03, S05, S06 pass on Kind; S06 `restart` also once on the VM lab; S04 no verdict | [ROADMAP](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/9bfe1f6/ROADMAP.md) "HA and Broker" and "Hardening" rows |
+| Partition, lag, rejoin, rebuild | S07 network partition, S08 replication lag with repeated failures, S09 former master rejoins, S10 rebuild after PVC loss | No verdict; write quarantine (#113) and rejoin/rebuild (#116–#118) are not built | [ROADMAP](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/9bfe1f6/ROADMAP.md) scope table |
+| Backup and restore | S11 backup, S12 restore into a new cluster | First VM-lab passes: S11 variants, S12 `exact` 5 of 7 on 2026-10-25, `tampered` refused | [Recorded execution evidence](#recorded-execution-evidence) |
+| Retention, auth, node drain | S13 deletion and retention, S14 authentication and Secrets, S15 node drain and PodDisruptionBudget | S14 passes on Kind; S13 and S15 no verdict | [ROADMAP](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/9bfe1f6/ROADMAP.md) |
+
+**Pass rule shown on the slide.** A run passes only when the fault is confirmed,
+every expectation holds within its limit, the data check succeeds and the
+evidence exists; a skipped scenario, a failed fault injection, a timeout or a
+missing observation is never `pass`
+([Results and oracle correctness](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/9bfe1f6/docs/testing/scenario-contract.md?plain=1#L71-L105)).
+The data check compares the workload's acknowledged history with the rows on
+every member and both Services.
+
+**Observed risks.** Each comes from a different evidence level. None of them is
+a completed scenario result.
+
+| # | What was seen | Evidence level | Source |
+|---|---|---|---|
+| 1 | While the Operator reported `PrimaryResolved` and `RoutingReady` as not `True` after a master Pod deletion, writes through `-rw` went on being acknowledged | Kind E2E with the Operator, during S03 | [ROADMAP "Recovery and safety" row](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/9bfe1f6/ROADMAP.md?plain=1#L89), [#113](https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/113) |
+| 2 | A symmetric network partition made both members master; each accepted a different row. On healing, roles were resolved by priority but the extra row stayed on the demoted member | Manual CUBRID 11.4 POC in Docker, two members, no Operator (POC-6) | [POC-6](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/9bfe1f6/docs/poc/RESULTS.md?plain=1#L225-L283) |
+| 3 | After TCP 1523 between the master and the slaves was cut and healed, one slave copied and applied nothing while the status reported `HAReady` and `ReplicationHealthy` as `True` | VM lab with the installed Operator `d6df2ac`, all four runs that cut TCP 1523 (POC-41); also reproduced in Docker and Kind without a Pod restart (POC-17, POC-21) | [POC-41](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/9bfe1f6/docs/poc/RESULTS.md?plain=1#L4097-L4130), [POC-17](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/9bfe1f6/docs/poc/RESULTS.md?plain=1#L937-L960), [POC-21](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/9bfe1f6/docs/poc/RESULTS.md?plain=1#L1202-L1225) |
+
+Since POC-41, the Operator reports a slave whose copied log stops growing as
+`LogCopyStalled` (#623, one VM-lab run); nothing acts on it yet, and the slide
+does not count it as fixed.
 
 ## Team and role record
 
@@ -255,8 +293,18 @@ Instance Manager endpoints are listed from `internal/instancemanager/server.go`.
 Slides 9 and 10 now say "two controllers" instead of the design document's six
 named reconcilers. The plan is 595 seconds with a 5-second buffer.
 
-On 2026-10-31 the recorded-results slide (10) shows the 27 Kind E2E specs in ten groups (listed in
-[The 27 Kind E2E specs](#the-27-kind-e2e-specs-slide-10)), so the audience can see
+On 2026-10-31 the recorded-results slide (now 11) shows the 27 Kind E2E specs in ten groups (listed in
+[The 27 Kind E2E specs](#the-27-kind-e2e-specs-slide-11)), so the audience can see
 what "27 / 27" covers. The VM rollout and VM restore results move to one line each
 below the list. Numbers, run IDs and boundaries are unchanged; the slide count
-stays at 17 and its speaking time stays at 40 seconds.
+stayed the same in that change.
+
+Also on 2026-10-31 (#122), on top of the chapter dividers of #130, slide 10
+shows the 16 required fault and recovery scenarios in five groups with their
+best recorded result, three risks observed while testing with their evidence
+level, and the pass rule; see
+[Fault scenarios and observed risks](#fault-scenarios-and-observed-risks). The
+deck has 21 slides (18 content, 3 dividers). To keep 580 seconds, the notes of
+slides 4, 9, 11 and 18 were shortened by 5, 10, 10 and 10 seconds; slide 9's
+note no longer repeats the Kind write observation, which slide 10 now shows.
+The r7 submission release stays at 17 slides.
