@@ -402,7 +402,7 @@
   fill: var(--muted); font-size: 12.5px; font-weight: 500;
 }
 .slidev-layout.showcase-deck.operator-deck .op-compare-svg .op-compare-pod-title {
-  fill: var(--ink); font-size: 14px; font-weight: 800;
+  fill: var(--ink); font-size: 15px; font-weight: 800;
 }
 .slidev-layout.showcase-deck.operator-deck .op-compare-pod { fill: #f7f9fc; stroke: #a8b7ca; stroke-width: 1.7; }
 .slidev-layout.showcase-deck.operator-deck .op-compare-dbbox { fill: white; stroke: #a8b7ca; stroke-width: 1.6; }
@@ -417,3 +417,5 @@
 }
 .slidev-layout.showcase-deck.operator-deck .op-compare-takeaway b { color: var(--blue); }
 .slidev-layout.showcase-deck.operator-deck .op-compare-takeaway span { font-weight: 600; }
+
+.slidev-layout.showcase-deck.operator-deck .op-compare-svg .op-compare-node-text { fill: var(--ink); font-size: 14px; font-weight: 700; }
