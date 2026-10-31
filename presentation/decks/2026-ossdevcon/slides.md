@@ -723,11 +723,6 @@ PR에서는 변경 위험에 맞는 검사만 선택하고, 릴리스와 수동 
 
 <div class="split even">
   <div class="stack">
-    <div class="links">
-      <div><span>GitHub</span>github.com/cubrid-lab</div>
-      <div><span>설치</span>pip install pycubrid</div>
-      <div><span>AI</span>uvx cubrid-mcp-server</div>
-    </div>
     <p class="thanks">파이큐브리드팀 최영선 · 백경준</p>
   </div>
   <div class="frame"><Photo src="/photos/team-now.jpg" label="지금의 두 사람 사진" /></div>
@@ -735,7 +730,7 @@ PR에서는 변경 위험에 맞는 검사만 선택하고, 릴리스와 수동 
 
 <style>
 .frame { height: 200px; }
-.thanks { font-size: 1.15rem; font-weight: 700; margin-top: 8px; }
+.thanks { font-size: 1.15rem; font-weight: 700; }
 </style>
 
 <!--
