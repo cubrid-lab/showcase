@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import json
 import re
+import subprocess
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
@@ -27,6 +28,9 @@ PUBLISHED_ROUTES = (
     "events/2026-builder-season4/01-validation/ko",
     "events/2026-builder-season4/01-validation/en",
 )
+
+# Local agent runtime state; ignored in .gitignore and never committed.
+RUNTIME_STATE_DIRS = (".omc",)
 
 PRESENTATION = ROOT / "presentation"
 # Guides next to the deck entries; they are not decks.
@@ -79,6 +83,16 @@ def check_deck_layout() -> list[str]:
     return failures
 
 
+def check_tracked_runtime_state() -> list[str]:
+    """Reject agent runtime state in the Git index, staged files included."""
+    tracked = subprocess.run(["git", "ls-files", "-z"], cwd=ROOT, check=True,
+                             capture_output=True, text=True).stdout.split("\0")
+    return [f"{path}: agent runtime state must not be committed; "
+            "run git rm --cached on it (.gitignore already ignores it)"
+            for path in tracked
+            if any(part in RUNTIME_STATE_DIRS for part in Path(path).parts[:-1])]
+
+
 def main() -> int:
     failures: list[str] = []
 
@@ -90,6 +104,7 @@ def main() -> int:
             failures.append(f"Legacy top-level directory remains: {item}")
 
     failures += check_deck_layout()
+    failures += check_tracked_runtime_state()
 
     checks = 0
     for document in sorted(ROOT.rglob("*.md")):
