@@ -180,3 +180,8 @@
 /* Keep the return link clear of the page number at the bottom right. */
 .slidev-layout.contest-deck:has(.proof-footer) .proof-footer { padding-top: 2px; padding-right: 64px; }
 .slidev-layout.contest-deck:has(.proof-footer) .proof-source { margin-top: 2px; }
+
+/* ── Photo slots: a .frame whose photo file is missing renders empty (Photo.vue);
+   hide it, and let a two-column split give the text the full width. ── */
+.slidev-layout:is(.contest-deck, .showcase-deck) .frame:empty { display: none; }
+.slidev-layout:is(.contest-deck, .showcase-deck) .split:has(> .frame:empty) { grid-template-columns: 1fr; }
