@@ -475,18 +475,18 @@ AI에게 데이터베이스를 열어 주면 제일 먼저 나오는 질문이 "
   </div>
   <ul class="explain">
     <li><b>타입 오류 0</b> — mypy strict</li>
-    <li><b>커버리지 95% 이상</b></li>
+    <li><b>커버리지 95%</b> — 전체 오프라인 회귀 검사 기준</li>
     <li><b>property-based test</b></li>
     <li><b>공개 API 변경 감지</b> — 몰래 바뀌면 실패</li>
     <li><b>SQLAlchemy 호환성 테스트</b></li>
-    <li><b>20개 조합</b> — Python 5 × CUBRID 4</li>
+    <li><b>20개 조합</b> — 릴리스·수동 전체 검증</li>
   </ul>
 </div>
 
 <!--
 [25초 · 기능테스트]
 그러면 당연히 이런 질문이 나옵니다. AI와 함께 쓴 코드를 믿을 수 있냐. 저희 답은 검사를 통과하지 못하면 머지되지 않는다는 것입니다. 타입 오류 0, 커버리지 95%, property-based test, 공개 API 변경 감지, SQLAlchemy 호환성 테스트,
-그리고 Python 5개 버전과 CUBRID 4개 버전, 20개 조합의 실제 DB에서 검증합니다.
+PR에서는 변경 위험에 맞는 검사만 선택하고, 릴리스와 수동 전체 검증에서 Python 5개 버전과 CUBRID 4개 버전의 20개 실제 DB 조합을 확인합니다. 자세한 실행 범위는 보조 자료 C에 있습니다.
 -->
 
 ---
@@ -746,25 +746,25 @@ AI에게 데이터베이스를 열어 주면 제일 먼저 나오는 질문이 "
 <div class="proof-line"><b>선택의 기준:</b> C 확장은 유지하고, 간편한 설치·비동기 워크로드에 순수 Python 선택지를 추가했습니다. SQLAlchemy asyncio의 <code>greenlet</code>은 별도 의존성입니다.</div>
 <div class="proof-footer"><div class="sources">근거 · <a href="https://pypi.org/project/CUBRID-Python/">공식 패키지 PyPI</a> · <a href="https://pypi.org/project/pycubrid/">pycubrid PyPI</a> · <a href="https://github.com/cubrid-lab/sqlalchemy-cubrid/blob/main/docs/DRIVER_COMPAT.md">드라이버 호환성</a></div><Link to="23">← Q&amp;A로 돌아가기</Link></div>
 <style>
-.proof-lead { font-size: 1.12rem; line-height: 1.4; margin: 0 0 12px; color: var(--ink); }
+.proof-lead { font-size: 1.12rem; line-height: 1.4; margin: 0 0 8px; color: var(--ink); }
 .proof-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
 .proof-grid.three { grid-template-columns: repeat(3,minmax(0,1fr)); }
-.proof-card { border: 1.5px solid var(--line); border-radius: 12px; padding: 14px 16px; min-width: 0; }
+.proof-card { border: 1.5px solid var(--line); border-radius: 12px; padding: 10px 12px; min-width: 0; }
 .proof-card h3 { margin: 0 0 7px; font-size: 1.05rem; font-weight: 750; color: var(--ink); }
 .proof-card p, .proof-card li { margin: 0; font-size: 0.92rem; line-height: 1.38; overflow-wrap: break-word; }
 .proof-card ul { margin: 6px 0 0; padding-left: 19px; }
 .proof-stat { font-size: 2.05rem; color: var(--blue); font-weight: 800; line-height: 1.2; font-variant-numeric: tabular-nums; }
 .proof-small { font-size: 0.84rem; color: var(--muted); line-height: 1.35; }
 .proof-table { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 0.9rem; }
-.proof-table th { text-align: left; color: var(--blue); font-weight: 800; border-bottom: 2px solid var(--line); padding: 9px 8px; }
-.proof-table td { border-bottom: 1px solid var(--line); padding: 10px 8px; vertical-align: top; line-height: 1.35; overflow-wrap: break-word; }
+.proof-table th { text-align: left; color: var(--blue); font-weight: 800; border-bottom: 2px solid var(--line); padding: 7px 8px; }
+.proof-table td { border-bottom: 1px solid var(--line); padding: 6px 8px; vertical-align: top; line-height: 1.35; overflow-wrap: break-word; }
 .proof-table td:first-child { font-weight: 750; }
-.proof-line { padding: 10px 14px; border-left: 4px solid var(--blue); background: rgba(27,98,203,0.065); border-radius: 4px; font-size: 0.96rem; line-height: 1.4; margin-top: 13px; }
-.proof-footer { margin-top: auto; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-top: 12px; font-size: 0.79rem; line-height: 1.4; }
+.proof-line { padding: 8px 12px; border-left: 4px solid var(--blue); background: rgba(27,98,203,0.065); border-radius: 4px; font-size: 0.96rem; line-height: 1.4; margin-top: 9px; }
+.proof-footer { margin-top: auto; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-top: 8px; font-size: 0.77rem; line-height: 1.4; }
 .proof-footer .sources { color: var(--muted); max-width: 78%; overflow-wrap: break-word; }
 .proof-footer a { color: var(--blue); text-decoration: none; font-weight: 700; }
 .proof-flow { display: flex; align-items: stretch; gap: 8px; margin: 17px 0; }
-.proof-flow .step { flex: 1; min-width: 0; display: flex; justify-content: center; align-items: center; padding: 12px 8px; border: 1.5px solid var(--line); border-radius: 10px; text-align: center; font-size: 0.88rem; font-weight: 700; line-height: 1.35; }
+.proof-flow .step { flex: 1; min-width: 0; display: flex; justify-content: center; align-items: center; padding: 10px 8px; border: 1.5px solid var(--line); border-radius: 10px; text-align: center; font-size: 0.88rem; font-weight: 700; line-height: 1.35; }
 .proof-flow .step.accent { border-color: var(--blue); }
 .proof-flow .arrow { align-self: center; color: var(--blue); font-size: 1.35rem; flex: 0 0 auto; }
 .proof-band { display: grid; grid-template-columns: 110px 1fr; border-bottom: 1px solid var(--line); gap: 12px; padding: 10px 0; font-size: 0.94rem; line-height: 1.37; }
@@ -794,25 +794,25 @@ AI에게 데이터베이스를 열어 주면 제일 먼저 나오는 질문이 "
 <div class="proof-line"><b>소스 검증:</b> <code>node-cubrid</code>에서 패킷 흐름을 연구하고 공식 CCI 동작과 대조했지만, 두 구현을 런타임에 불러오지는 않습니다.</div>
 <div class="proof-footer"><div class="sources">근거 · <a href="https://github.com/cubrid-lab/pycubrid">pycubrid 소스</a> · <a href="https://github.com/CUBRID/node-cubrid">node-cubrid</a> · <a href="https://github.com/CUBRID/cubrid-python">공식 C 드라이버</a></div><Link to="23">← Q&amp;A로 돌아가기</Link></div>
 <style>
-.proof-lead { font-size: 1.12rem; line-height: 1.4; margin: 0 0 12px; color: var(--ink); }
+.proof-lead { font-size: 1.12rem; line-height: 1.4; margin: 0 0 8px; color: var(--ink); }
 .proof-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
 .proof-grid.three { grid-template-columns: repeat(3,minmax(0,1fr)); }
-.proof-card { border: 1.5px solid var(--line); border-radius: 12px; padding: 14px 16px; min-width: 0; }
+.proof-card { border: 1.5px solid var(--line); border-radius: 12px; padding: 10px 12px; min-width: 0; }
 .proof-card h3 { margin: 0 0 7px; font-size: 1.05rem; font-weight: 750; color: var(--ink); }
 .proof-card p, .proof-card li { margin: 0; font-size: 0.92rem; line-height: 1.38; overflow-wrap: break-word; }
 .proof-card ul { margin: 6px 0 0; padding-left: 19px; }
 .proof-stat { font-size: 2.05rem; color: var(--blue); font-weight: 800; line-height: 1.2; font-variant-numeric: tabular-nums; }
 .proof-small { font-size: 0.84rem; color: var(--muted); line-height: 1.35; }
 .proof-table { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 0.9rem; }
-.proof-table th { text-align: left; color: var(--blue); font-weight: 800; border-bottom: 2px solid var(--line); padding: 9px 8px; }
-.proof-table td { border-bottom: 1px solid var(--line); padding: 10px 8px; vertical-align: top; line-height: 1.35; overflow-wrap: break-word; }
+.proof-table th { text-align: left; color: var(--blue); font-weight: 800; border-bottom: 2px solid var(--line); padding: 7px 8px; }
+.proof-table td { border-bottom: 1px solid var(--line); padding: 6px 8px; vertical-align: top; line-height: 1.35; overflow-wrap: break-word; }
 .proof-table td:first-child { font-weight: 750; }
-.proof-line { padding: 10px 14px; border-left: 4px solid var(--blue); background: rgba(27,98,203,0.065); border-radius: 4px; font-size: 0.96rem; line-height: 1.4; margin-top: 13px; }
-.proof-footer { margin-top: auto; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-top: 12px; font-size: 0.79rem; line-height: 1.4; }
+.proof-line { padding: 8px 12px; border-left: 4px solid var(--blue); background: rgba(27,98,203,0.065); border-radius: 4px; font-size: 0.96rem; line-height: 1.4; margin-top: 9px; }
+.proof-footer { margin-top: auto; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-top: 8px; font-size: 0.77rem; line-height: 1.4; }
 .proof-footer .sources { color: var(--muted); max-width: 78%; overflow-wrap: break-word; }
 .proof-footer a { color: var(--blue); text-decoration: none; font-weight: 700; }
 .proof-flow { display: flex; align-items: stretch; gap: 8px; margin: 17px 0; }
-.proof-flow .step { flex: 1; min-width: 0; display: flex; justify-content: center; align-items: center; padding: 12px 8px; border: 1.5px solid var(--line); border-radius: 10px; text-align: center; font-size: 0.88rem; font-weight: 700; line-height: 1.35; }
+.proof-flow .step { flex: 1; min-width: 0; display: flex; justify-content: center; align-items: center; padding: 10px 8px; border: 1.5px solid var(--line); border-radius: 10px; text-align: center; font-size: 0.88rem; font-weight: 700; line-height: 1.35; }
 .proof-flow .step.accent { border-color: var(--blue); }
 .proof-flow .arrow { align-self: center; color: var(--blue); font-size: 1.35rem; flex: 0 0 auto; }
 .proof-band { display: grid; grid-template-columns: 110px 1fr; border-bottom: 1px solid var(--line); gap: 12px; padding: 10px 0; font-size: 0.94rem; line-height: 1.37; }
@@ -846,25 +846,25 @@ AI에게 데이터베이스를 열어 주면 제일 먼저 나오는 질문이 "
 <div class="proof-line"><b>검증의 한계:</b> PR이 통과했다고 20개 조합 전체를 그 PR에서 실행했다는 뜻은 아닙니다. pycubrid PR 일반 smoke와 dialect PR 95% 커버리지 정책도 다릅니다.</div>
 <div class="proof-footer"><div class="sources">근거 · <a href="https://github.com/cubrid-lab/pycubrid/blob/main/docs/CI_POLICY.md">pycubrid CI 정책</a> · <a href="https://github.com/cubrid-lab/sqlalchemy-cubrid/blob/main/docs/CI_POLICY.md">dialect CI 정책</a> · <a href="https://github.com/cubrid-lab/pycubrid/actions">Actions</a></div><Link to="23">← Q&amp;A로 돌아가기</Link></div>
 <style>
-.proof-lead { font-size: 1.12rem; line-height: 1.4; margin: 0 0 12px; color: var(--ink); }
+.proof-lead { font-size: 1.12rem; line-height: 1.4; margin: 0 0 8px; color: var(--ink); }
 .proof-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
 .proof-grid.three { grid-template-columns: repeat(3,minmax(0,1fr)); }
-.proof-card { border: 1.5px solid var(--line); border-radius: 12px; padding: 14px 16px; min-width: 0; }
+.proof-card { border: 1.5px solid var(--line); border-radius: 12px; padding: 10px 12px; min-width: 0; }
 .proof-card h3 { margin: 0 0 7px; font-size: 1.05rem; font-weight: 750; color: var(--ink); }
 .proof-card p, .proof-card li { margin: 0; font-size: 0.92rem; line-height: 1.38; overflow-wrap: break-word; }
 .proof-card ul { margin: 6px 0 0; padding-left: 19px; }
 .proof-stat { font-size: 2.05rem; color: var(--blue); font-weight: 800; line-height: 1.2; font-variant-numeric: tabular-nums; }
 .proof-small { font-size: 0.84rem; color: var(--muted); line-height: 1.35; }
 .proof-table { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 0.9rem; }
-.proof-table th { text-align: left; color: var(--blue); font-weight: 800; border-bottom: 2px solid var(--line); padding: 9px 8px; }
-.proof-table td { border-bottom: 1px solid var(--line); padding: 10px 8px; vertical-align: top; line-height: 1.35; overflow-wrap: break-word; }
+.proof-table th { text-align: left; color: var(--blue); font-weight: 800; border-bottom: 2px solid var(--line); padding: 7px 8px; }
+.proof-table td { border-bottom: 1px solid var(--line); padding: 6px 8px; vertical-align: top; line-height: 1.35; overflow-wrap: break-word; }
 .proof-table td:first-child { font-weight: 750; }
-.proof-line { padding: 10px 14px; border-left: 4px solid var(--blue); background: rgba(27,98,203,0.065); border-radius: 4px; font-size: 0.96rem; line-height: 1.4; margin-top: 13px; }
-.proof-footer { margin-top: auto; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-top: 12px; font-size: 0.79rem; line-height: 1.4; }
+.proof-line { padding: 8px 12px; border-left: 4px solid var(--blue); background: rgba(27,98,203,0.065); border-radius: 4px; font-size: 0.96rem; line-height: 1.4; margin-top: 9px; }
+.proof-footer { margin-top: auto; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-top: 8px; font-size: 0.77rem; line-height: 1.4; }
 .proof-footer .sources { color: var(--muted); max-width: 78%; overflow-wrap: break-word; }
 .proof-footer a { color: var(--blue); text-decoration: none; font-weight: 700; }
 .proof-flow { display: flex; align-items: stretch; gap: 8px; margin: 17px 0; }
-.proof-flow .step { flex: 1; min-width: 0; display: flex; justify-content: center; align-items: center; padding: 12px 8px; border: 1.5px solid var(--line); border-radius: 10px; text-align: center; font-size: 0.88rem; font-weight: 700; line-height: 1.35; }
+.proof-flow .step { flex: 1; min-width: 0; display: flex; justify-content: center; align-items: center; padding: 10px 8px; border: 1.5px solid var(--line); border-radius: 10px; text-align: center; font-size: 0.88rem; font-weight: 700; line-height: 1.35; }
 .proof-flow .step.accent { border-color: var(--blue); }
 .proof-flow .arrow { align-self: center; color: var(--blue); font-size: 1.35rem; flex: 0 0 auto; }
 .proof-band { display: grid; grid-template-columns: 110px 1fr; border-bottom: 1px solid var(--line); gap: 12px; padding: 10px 0; font-size: 0.94rem; line-height: 1.37; }
@@ -896,25 +896,25 @@ AI에게 데이터베이스를 열어 주면 제일 먼저 나오는 질문이 "
 <div class="proof-line"><b>정확한 결론:</b> 이 환경의 단건 조회와 배치 작업에서 pycubrid가 대체로 더 느렸습니다. 전체 운영 워크로드에서 차이가 없다는 뜻은 아닙니다.</div>
 <div class="proof-footer"><div class="sources">근거 · <a href="https://github.com/cubrid-lab/showcase/blob/main/events/2026-ossdevcon/metrics/benchmark-2026-10-28/README.md">측정 보고서·원본 데이터</a> · <a href="https://github.com/cubrid-lab/cubrid-benchmark">벤치마크 하네스</a></div><Link to="23">← Q&amp;A로 돌아가기</Link></div>
 <style>
-.proof-lead { font-size: 1.12rem; line-height: 1.4; margin: 0 0 12px; color: var(--ink); }
+.proof-lead { font-size: 1.12rem; line-height: 1.4; margin: 0 0 8px; color: var(--ink); }
 .proof-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
 .proof-grid.three { grid-template-columns: repeat(3,minmax(0,1fr)); }
-.proof-card { border: 1.5px solid var(--line); border-radius: 12px; padding: 14px 16px; min-width: 0; }
+.proof-card { border: 1.5px solid var(--line); border-radius: 12px; padding: 10px 12px; min-width: 0; }
 .proof-card h3 { margin: 0 0 7px; font-size: 1.05rem; font-weight: 750; color: var(--ink); }
 .proof-card p, .proof-card li { margin: 0; font-size: 0.92rem; line-height: 1.38; overflow-wrap: break-word; }
 .proof-card ul { margin: 6px 0 0; padding-left: 19px; }
 .proof-stat { font-size: 2.05rem; color: var(--blue); font-weight: 800; line-height: 1.2; font-variant-numeric: tabular-nums; }
 .proof-small { font-size: 0.84rem; color: var(--muted); line-height: 1.35; }
 .proof-table { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 0.9rem; }
-.proof-table th { text-align: left; color: var(--blue); font-weight: 800; border-bottom: 2px solid var(--line); padding: 9px 8px; }
-.proof-table td { border-bottom: 1px solid var(--line); padding: 10px 8px; vertical-align: top; line-height: 1.35; overflow-wrap: break-word; }
+.proof-table th { text-align: left; color: var(--blue); font-weight: 800; border-bottom: 2px solid var(--line); padding: 7px 8px; }
+.proof-table td { border-bottom: 1px solid var(--line); padding: 6px 8px; vertical-align: top; line-height: 1.35; overflow-wrap: break-word; }
 .proof-table td:first-child { font-weight: 750; }
-.proof-line { padding: 10px 14px; border-left: 4px solid var(--blue); background: rgba(27,98,203,0.065); border-radius: 4px; font-size: 0.96rem; line-height: 1.4; margin-top: 13px; }
-.proof-footer { margin-top: auto; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-top: 12px; font-size: 0.79rem; line-height: 1.4; }
+.proof-line { padding: 8px 12px; border-left: 4px solid var(--blue); background: rgba(27,98,203,0.065); border-radius: 4px; font-size: 0.96rem; line-height: 1.4; margin-top: 9px; }
+.proof-footer { margin-top: auto; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-top: 8px; font-size: 0.77rem; line-height: 1.4; }
 .proof-footer .sources { color: var(--muted); max-width: 78%; overflow-wrap: break-word; }
 .proof-footer a { color: var(--blue); text-decoration: none; font-weight: 700; }
 .proof-flow { display: flex; align-items: stretch; gap: 8px; margin: 17px 0; }
-.proof-flow .step { flex: 1; min-width: 0; display: flex; justify-content: center; align-items: center; padding: 12px 8px; border: 1.5px solid var(--line); border-radius: 10px; text-align: center; font-size: 0.88rem; font-weight: 700; line-height: 1.35; }
+.proof-flow .step { flex: 1; min-width: 0; display: flex; justify-content: center; align-items: center; padding: 10px 8px; border: 1.5px solid var(--line); border-radius: 10px; text-align: center; font-size: 0.88rem; font-weight: 700; line-height: 1.35; }
 .proof-flow .step.accent { border-color: var(--blue); }
 .proof-flow .arrow { align-self: center; color: var(--blue); font-size: 1.35rem; flex: 0 0 auto; }
 .proof-band { display: grid; grid-template-columns: 110px 1fr; border-bottom: 1px solid var(--line); gap: 12px; padding: 10px 0; font-size: 0.94rem; line-height: 1.37; }
@@ -943,25 +943,25 @@ C 기반 드라이버를 기준으로 PK SELECT는 4%, 1만 행 조회는 17% �
 <div class="proof-line"><b>잔여 위험:</b> 쓰기 모드를 허용하면 한 개의 UPDATE로 다수 행을 변경할 수 있습니다. 읽기 전용도 기밀 데이터 노출 방지를 보장하지 않습니다.</div>
 <div class="proof-footer"><div class="sources">근거 · <a href="https://github.com/cubrid-lab/cubrid-mcp-server/blob/main/SECURITY.md">MCP 보안 문서</a> · <a href="https://github.com/cubrid-lab/showcase/blob/main/events/2026-ossdevcon/EXPECTED_QA.md">예상 질문 Q12·Q13</a></div><Link to="23">← Q&amp;A로 돌아가기</Link></div>
 <style>
-.proof-lead { font-size: 1.12rem; line-height: 1.4; margin: 0 0 12px; color: var(--ink); }
+.proof-lead { font-size: 1.12rem; line-height: 1.4; margin: 0 0 8px; color: var(--ink); }
 .proof-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
 .proof-grid.three { grid-template-columns: repeat(3,minmax(0,1fr)); }
-.proof-card { border: 1.5px solid var(--line); border-radius: 12px; padding: 14px 16px; min-width: 0; }
+.proof-card { border: 1.5px solid var(--line); border-radius: 12px; padding: 10px 12px; min-width: 0; }
 .proof-card h3 { margin: 0 0 7px; font-size: 1.05rem; font-weight: 750; color: var(--ink); }
 .proof-card p, .proof-card li { margin: 0; font-size: 0.92rem; line-height: 1.38; overflow-wrap: break-word; }
 .proof-card ul { margin: 6px 0 0; padding-left: 19px; }
 .proof-stat { font-size: 2.05rem; color: var(--blue); font-weight: 800; line-height: 1.2; font-variant-numeric: tabular-nums; }
 .proof-small { font-size: 0.84rem; color: var(--muted); line-height: 1.35; }
 .proof-table { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 0.9rem; }
-.proof-table th { text-align: left; color: var(--blue); font-weight: 800; border-bottom: 2px solid var(--line); padding: 9px 8px; }
-.proof-table td { border-bottom: 1px solid var(--line); padding: 10px 8px; vertical-align: top; line-height: 1.35; overflow-wrap: break-word; }
+.proof-table th { text-align: left; color: var(--blue); font-weight: 800; border-bottom: 2px solid var(--line); padding: 7px 8px; }
+.proof-table td { border-bottom: 1px solid var(--line); padding: 6px 8px; vertical-align: top; line-height: 1.35; overflow-wrap: break-word; }
 .proof-table td:first-child { font-weight: 750; }
-.proof-line { padding: 10px 14px; border-left: 4px solid var(--blue); background: rgba(27,98,203,0.065); border-radius: 4px; font-size: 0.96rem; line-height: 1.4; margin-top: 13px; }
-.proof-footer { margin-top: auto; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-top: 12px; font-size: 0.79rem; line-height: 1.4; }
+.proof-line { padding: 8px 12px; border-left: 4px solid var(--blue); background: rgba(27,98,203,0.065); border-radius: 4px; font-size: 0.96rem; line-height: 1.4; margin-top: 9px; }
+.proof-footer { margin-top: auto; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-top: 8px; font-size: 0.77rem; line-height: 1.4; }
 .proof-footer .sources { color: var(--muted); max-width: 78%; overflow-wrap: break-word; }
 .proof-footer a { color: var(--blue); text-decoration: none; font-weight: 700; }
 .proof-flow { display: flex; align-items: stretch; gap: 8px; margin: 17px 0; }
-.proof-flow .step { flex: 1; min-width: 0; display: flex; justify-content: center; align-items: center; padding: 12px 8px; border: 1.5px solid var(--line); border-radius: 10px; text-align: center; font-size: 0.88rem; font-weight: 700; line-height: 1.35; }
+.proof-flow .step { flex: 1; min-width: 0; display: flex; justify-content: center; align-items: center; padding: 10px 8px; border: 1.5px solid var(--line); border-radius: 10px; text-align: center; font-size: 0.88rem; font-weight: 700; line-height: 1.35; }
 .proof-flow .step.accent { border-color: var(--blue); }
 .proof-flow .arrow { align-self: center; color: var(--blue); font-size: 1.35rem; flex: 0 0 auto; }
 .proof-band { display: grid; grid-template-columns: 110px 1fr; border-bottom: 1px solid var(--line); gap: 12px; padding: 10px 0; font-size: 0.94rem; line-height: 1.37; }
@@ -982,32 +982,32 @@ MCP의 SQL allowlist는 문장 종류를 통제하지, 업무 승인 규칙이�
   <div class="proof-card"><div class="proof-stat">137개</div><h3>외부 머지 PR</h3><p>4개 저장소에서 실제 병합된 PR</p></div>
   <div class="proof-card"><div class="proof-stat">MIT × 4</div><h3>독립 OSS 라이선스</h3><p>서드파티 고지 및 SBOM 운영</p></div>
 </div>
-<div class="proof-grid" style="margin-top:12px">
+<div class="proof-grid" style="margin-top:8px">
   <div class="proof-card"><h3>유지관리 체계</h3><p>필수 CI 게이트, 릴리스 검증, 공개 API 변경 감지, 문서·예제 실서버 검사</p></div>
   <div class="proof-card"><h3>통계의 범위</h3><p>62명은 저장소 간 중복을 제외한 외부 인간 기여자입니다. 137개는 그들이 병합한 PR 건수입니다.</p></div>
 </div>
 <div class="proof-line"><b>주장 범위:</b> 커뮤니티 참여가 확인된다는 뜻이지, 62개 조직이 서비스를 운영 중이라는 뜻은 아닙니다.</div>
 <div class="proof-footer"><div class="sources">근거 · <a href="https://github.com/cubrid-lab/showcase/blob/main/events/2026-ossdevcon/metrics/contributors-2026-10-28.json">기여자별 PR 원본</a> · <a href="https://github.com/cubrid-lab/showcase/blob/main/events/2026-ossdevcon/APPENDIX.md">라이선스·릴리스 근거</a></div><Link to="23">← Q&amp;A로 돌아가기</Link></div>
 <style>
-.proof-lead { font-size: 1.12rem; line-height: 1.4; margin: 0 0 12px; color: var(--ink); }
+.proof-lead { font-size: 1.12rem; line-height: 1.4; margin: 0 0 8px; color: var(--ink); }
 .proof-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
 .proof-grid.three { grid-template-columns: repeat(3,minmax(0,1fr)); }
-.proof-card { border: 1.5px solid var(--line); border-radius: 12px; padding: 14px 16px; min-width: 0; }
+.proof-card { border: 1.5px solid var(--line); border-radius: 12px; padding: 10px 12px; min-width: 0; }
 .proof-card h3 { margin: 0 0 7px; font-size: 1.05rem; font-weight: 750; color: var(--ink); }
 .proof-card p, .proof-card li { margin: 0; font-size: 0.92rem; line-height: 1.38; overflow-wrap: break-word; }
 .proof-card ul { margin: 6px 0 0; padding-left: 19px; }
 .proof-stat { font-size: 2.05rem; color: var(--blue); font-weight: 800; line-height: 1.2; font-variant-numeric: tabular-nums; }
 .proof-small { font-size: 0.84rem; color: var(--muted); line-height: 1.35; }
 .proof-table { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 0.9rem; }
-.proof-table th { text-align: left; color: var(--blue); font-weight: 800; border-bottom: 2px solid var(--line); padding: 9px 8px; }
-.proof-table td { border-bottom: 1px solid var(--line); padding: 10px 8px; vertical-align: top; line-height: 1.35; overflow-wrap: break-word; }
+.proof-table th { text-align: left; color: var(--blue); font-weight: 800; border-bottom: 2px solid var(--line); padding: 7px 8px; }
+.proof-table td { border-bottom: 1px solid var(--line); padding: 6px 8px; vertical-align: top; line-height: 1.35; overflow-wrap: break-word; }
 .proof-table td:first-child { font-weight: 750; }
-.proof-line { padding: 10px 14px; border-left: 4px solid var(--blue); background: rgba(27,98,203,0.065); border-radius: 4px; font-size: 0.96rem; line-height: 1.4; margin-top: 13px; }
-.proof-footer { margin-top: auto; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-top: 12px; font-size: 0.79rem; line-height: 1.4; }
+.proof-line { padding: 8px 12px; border-left: 4px solid var(--blue); background: rgba(27,98,203,0.065); border-radius: 4px; font-size: 0.96rem; line-height: 1.4; margin-top: 9px; }
+.proof-footer { margin-top: auto; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-top: 8px; font-size: 0.77rem; line-height: 1.4; }
 .proof-footer .sources { color: var(--muted); max-width: 78%; overflow-wrap: break-word; }
 .proof-footer a { color: var(--blue); text-decoration: none; font-weight: 700; }
 .proof-flow { display: flex; align-items: stretch; gap: 8px; margin: 17px 0; }
-.proof-flow .step { flex: 1; min-width: 0; display: flex; justify-content: center; align-items: center; padding: 12px 8px; border: 1.5px solid var(--line); border-radius: 10px; text-align: center; font-size: 0.88rem; font-weight: 700; line-height: 1.35; }
+.proof-flow .step { flex: 1; min-width: 0; display: flex; justify-content: center; align-items: center; padding: 10px 8px; border: 1.5px solid var(--line); border-radius: 10px; text-align: center; font-size: 0.88rem; font-weight: 700; line-height: 1.35; }
 .proof-flow .step.accent { border-color: var(--blue); }
 .proof-flow .arrow { align-self: center; color: var(--blue); font-size: 1.35rem; flex: 0 0 auto; }
 .proof-band { display: grid; grid-template-columns: 110px 1fr; border-bottom: 1px solid var(--line); gap: 12px; padding: 10px 0; font-size: 0.94rem; line-height: 1.37; }
@@ -1027,32 +1027,32 @@ MCP의 SQL allowlist는 문장 종류를 통제하지, 업무 승인 규칙이�
   <div class="proof-card"><h3>측정은 됐지만 채택 근거로 쓰지 않음</h3><div class="proof-stat">4,969</div><p>pycubrid 14일 클론 수(2026-09-27 기록)</p><p class="proof-small" style="margin-top:8px">같은 시기 자체 워크플로 실행 약 700회 · 반복 자동화의 영향 가능</p></div>
   <div class="proof-card"><h3>재현 가능한 커뮤니티 근거</h3><div class="proof-stat">62 / 137</div><p>외부 기여자 / 외부 머지 PR (2026-10-28)</p><p class="proof-small" style="margin-top:8px">계정·PR별 원본 링크와 봇 제외 기준 제공</p></div>
 </div>
-<div class="proof-grid" style="margin-top:12px">
+<div class="proof-grid" style="margin-top:8px">
   <div class="proof-card"><h3>확인된 것</h3><p>오픈소스 기여·패키지 배포·테스트·릴리스 활동</p></div>
   <div class="proof-card"><h3>별도 증명이 필요한 것</h3><p>실제 운영 기관, 고유 사용자 수, 프로덕션 배포·업무 효과</p></div>
 </div>
 <div class="proof-line"><b>정직한 답변:</b> 개발 생태계가 활발해졌다는 증거는 제시할 수 있습니다. 검증되지 않은 고유 클로너 수나 실제 도입 기관 수는 주장하지 않습니다.</div>
 <div class="proof-footer"><div class="sources">근거 · <a href="https://github.com/cubrid-lab/showcase/blob/main/events/2026-ossdevcon/metrics/SNAPSHOT.md">Traffic 기록과 제외 이유</a> · <a href="https://github.com/cubrid-lab/showcase/blob/main/events/2026-ossdevcon/metrics/contributors-2026-10-28.json">기여자 원본</a></div><Link to="23">← Q&amp;A로 돌아가기</Link></div>
 <style>
-.proof-lead { font-size: 1.12rem; line-height: 1.4; margin: 0 0 12px; color: var(--ink); }
+.proof-lead { font-size: 1.12rem; line-height: 1.4; margin: 0 0 8px; color: var(--ink); }
 .proof-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
 .proof-grid.three { grid-template-columns: repeat(3,minmax(0,1fr)); }
-.proof-card { border: 1.5px solid var(--line); border-radius: 12px; padding: 14px 16px; min-width: 0; }
+.proof-card { border: 1.5px solid var(--line); border-radius: 12px; padding: 10px 12px; min-width: 0; }
 .proof-card h3 { margin: 0 0 7px; font-size: 1.05rem; font-weight: 750; color: var(--ink); }
 .proof-card p, .proof-card li { margin: 0; font-size: 0.92rem; line-height: 1.38; overflow-wrap: break-word; }
 .proof-card ul { margin: 6px 0 0; padding-left: 19px; }
 .proof-stat { font-size: 2.05rem; color: var(--blue); font-weight: 800; line-height: 1.2; font-variant-numeric: tabular-nums; }
 .proof-small { font-size: 0.84rem; color: var(--muted); line-height: 1.35; }
 .proof-table { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 0.9rem; }
-.proof-table th { text-align: left; color: var(--blue); font-weight: 800; border-bottom: 2px solid var(--line); padding: 9px 8px; }
-.proof-table td { border-bottom: 1px solid var(--line); padding: 10px 8px; vertical-align: top; line-height: 1.35; overflow-wrap: break-word; }
+.proof-table th { text-align: left; color: var(--blue); font-weight: 800; border-bottom: 2px solid var(--line); padding: 7px 8px; }
+.proof-table td { border-bottom: 1px solid var(--line); padding: 6px 8px; vertical-align: top; line-height: 1.35; overflow-wrap: break-word; }
 .proof-table td:first-child { font-weight: 750; }
-.proof-line { padding: 10px 14px; border-left: 4px solid var(--blue); background: rgba(27,98,203,0.065); border-radius: 4px; font-size: 0.96rem; line-height: 1.4; margin-top: 13px; }
-.proof-footer { margin-top: auto; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-top: 12px; font-size: 0.79rem; line-height: 1.4; }
+.proof-line { padding: 8px 12px; border-left: 4px solid var(--blue); background: rgba(27,98,203,0.065); border-radius: 4px; font-size: 0.96rem; line-height: 1.4; margin-top: 9px; }
+.proof-footer { margin-top: auto; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-top: 8px; font-size: 0.77rem; line-height: 1.4; }
 .proof-footer .sources { color: var(--muted); max-width: 78%; overflow-wrap: break-word; }
 .proof-footer a { color: var(--blue); text-decoration: none; font-weight: 700; }
 .proof-flow { display: flex; align-items: stretch; gap: 8px; margin: 17px 0; }
-.proof-flow .step { flex: 1; min-width: 0; display: flex; justify-content: center; align-items: center; padding: 12px 8px; border: 1.5px solid var(--line); border-radius: 10px; text-align: center; font-size: 0.88rem; font-weight: 700; line-height: 1.35; }
+.proof-flow .step { flex: 1; min-width: 0; display: flex; justify-content: center; align-items: center; padding: 10px 8px; border: 1.5px solid var(--line); border-radius: 10px; text-align: center; font-size: 0.88rem; font-weight: 700; line-height: 1.35; }
 .proof-flow .step.accent { border-color: var(--blue); }
 .proof-flow .arrow { align-self: center; color: var(--blue); font-size: 1.35rem; flex: 0 0 auto; }
 .proof-band { display: grid; grid-template-columns: 110px 1fr; border-bottom: 1px solid var(--line); gap: 12px; padding: 10px 0; font-size: 0.94rem; line-height: 1.37; }
@@ -1081,25 +1081,25 @@ MCP의 SQL allowlist는 문장 종류를 통제하지, 업무 승인 규칙이�
 <div class="proof-line"><b>사실관계:</b> 온나라 <em>형태를 모사한 데모</em>를 준비한 것이며, 실제 온나라 운영 시스템에 이 코드를 도입했다는 주장이 아닙니다.</div>
 <div class="proof-footer"><div class="sources">근거 · <a href="https://github.com/cubrid-lab/showcase/blob/main/events/2026-ossdevcon/DEMO_RUNBOOK.md">과거 온나라 데모 런북</a> · <a href="https://github.com/cubrid-lab/cubrid-cookbook-python">cookbook 템플릿</a></div><Link to="23">← Q&amp;A로 돌아가기</Link></div>
 <style>
-.proof-lead { font-size: 1.12rem; line-height: 1.4; margin: 0 0 12px; color: var(--ink); }
+.proof-lead { font-size: 1.12rem; line-height: 1.4; margin: 0 0 8px; color: var(--ink); }
 .proof-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
 .proof-grid.three { grid-template-columns: repeat(3,minmax(0,1fr)); }
-.proof-card { border: 1.5px solid var(--line); border-radius: 12px; padding: 14px 16px; min-width: 0; }
+.proof-card { border: 1.5px solid var(--line); border-radius: 12px; padding: 10px 12px; min-width: 0; }
 .proof-card h3 { margin: 0 0 7px; font-size: 1.05rem; font-weight: 750; color: var(--ink); }
 .proof-card p, .proof-card li { margin: 0; font-size: 0.92rem; line-height: 1.38; overflow-wrap: break-word; }
 .proof-card ul { margin: 6px 0 0; padding-left: 19px; }
 .proof-stat { font-size: 2.05rem; color: var(--blue); font-weight: 800; line-height: 1.2; font-variant-numeric: tabular-nums; }
 .proof-small { font-size: 0.84rem; color: var(--muted); line-height: 1.35; }
 .proof-table { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 0.9rem; }
-.proof-table th { text-align: left; color: var(--blue); font-weight: 800; border-bottom: 2px solid var(--line); padding: 9px 8px; }
-.proof-table td { border-bottom: 1px solid var(--line); padding: 10px 8px; vertical-align: top; line-height: 1.35; overflow-wrap: break-word; }
+.proof-table th { text-align: left; color: var(--blue); font-weight: 800; border-bottom: 2px solid var(--line); padding: 7px 8px; }
+.proof-table td { border-bottom: 1px solid var(--line); padding: 6px 8px; vertical-align: top; line-height: 1.35; overflow-wrap: break-word; }
 .proof-table td:first-child { font-weight: 750; }
-.proof-line { padding: 10px 14px; border-left: 4px solid var(--blue); background: rgba(27,98,203,0.065); border-radius: 4px; font-size: 0.96rem; line-height: 1.4; margin-top: 13px; }
-.proof-footer { margin-top: auto; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-top: 12px; font-size: 0.79rem; line-height: 1.4; }
+.proof-line { padding: 8px 12px; border-left: 4px solid var(--blue); background: rgba(27,98,203,0.065); border-radius: 4px; font-size: 0.96rem; line-height: 1.4; margin-top: 9px; }
+.proof-footer { margin-top: auto; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-top: 8px; font-size: 0.77rem; line-height: 1.4; }
 .proof-footer .sources { color: var(--muted); max-width: 78%; overflow-wrap: break-word; }
 .proof-footer a { color: var(--blue); text-decoration: none; font-weight: 700; }
 .proof-flow { display: flex; align-items: stretch; gap: 8px; margin: 17px 0; }
-.proof-flow .step { flex: 1; min-width: 0; display: flex; justify-content: center; align-items: center; padding: 12px 8px; border: 1.5px solid var(--line); border-radius: 10px; text-align: center; font-size: 0.88rem; font-weight: 700; line-height: 1.35; }
+.proof-flow .step { flex: 1; min-width: 0; display: flex; justify-content: center; align-items: center; padding: 10px 8px; border: 1.5px solid var(--line); border-radius: 10px; text-align: center; font-size: 0.88rem; font-weight: 700; line-height: 1.35; }
 .proof-flow .step.accent { border-color: var(--blue); }
 .proof-flow .arrow { align-self: center; color: var(--blue); font-size: 1.35rem; flex: 0 0 auto; }
 .proof-band { display: grid; grid-template-columns: 110px 1fr; border-bottom: 1px solid var(--line); gap: 12px; padding: 10px 0; font-size: 0.94rem; line-height: 1.37; }
@@ -1130,25 +1130,25 @@ MCP의 SQL allowlist는 문장 종류를 통제하지, 업무 승인 규칙이�
 </div>
 <div class="proof-footer"><div class="sources">근거 · <a href="https://github.com/cubrid-lab/pycubrid/blob/main/docs/CI_POLICY.md">검증 운영 정책</a> · <a href="https://github.com/cubrid-lab/showcase/blob/main/events/2026-ossdevcon/EXPECTED_QA.md">로드맵 질의응답</a></div><Link to="23">← Q&amp;A로 돌아가기</Link></div>
 <style>
-.proof-lead { font-size: 1.12rem; line-height: 1.4; margin: 0 0 12px; color: var(--ink); }
+.proof-lead { font-size: 1.12rem; line-height: 1.4; margin: 0 0 8px; color: var(--ink); }
 .proof-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
 .proof-grid.three { grid-template-columns: repeat(3,minmax(0,1fr)); }
-.proof-card { border: 1.5px solid var(--line); border-radius: 12px; padding: 14px 16px; min-width: 0; }
+.proof-card { border: 1.5px solid var(--line); border-radius: 12px; padding: 10px 12px; min-width: 0; }
 .proof-card h3 { margin: 0 0 7px; font-size: 1.05rem; font-weight: 750; color: var(--ink); }
 .proof-card p, .proof-card li { margin: 0; font-size: 0.92rem; line-height: 1.38; overflow-wrap: break-word; }
 .proof-card ul { margin: 6px 0 0; padding-left: 19px; }
 .proof-stat { font-size: 2.05rem; color: var(--blue); font-weight: 800; line-height: 1.2; font-variant-numeric: tabular-nums; }
 .proof-small { font-size: 0.84rem; color: var(--muted); line-height: 1.35; }
 .proof-table { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 0.9rem; }
-.proof-table th { text-align: left; color: var(--blue); font-weight: 800; border-bottom: 2px solid var(--line); padding: 9px 8px; }
-.proof-table td { border-bottom: 1px solid var(--line); padding: 10px 8px; vertical-align: top; line-height: 1.35; overflow-wrap: break-word; }
+.proof-table th { text-align: left; color: var(--blue); font-weight: 800; border-bottom: 2px solid var(--line); padding: 7px 8px; }
+.proof-table td { border-bottom: 1px solid var(--line); padding: 6px 8px; vertical-align: top; line-height: 1.35; overflow-wrap: break-word; }
 .proof-table td:first-child { font-weight: 750; }
-.proof-line { padding: 10px 14px; border-left: 4px solid var(--blue); background: rgba(27,98,203,0.065); border-radius: 4px; font-size: 0.96rem; line-height: 1.4; margin-top: 13px; }
-.proof-footer { margin-top: auto; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-top: 12px; font-size: 0.79rem; line-height: 1.4; }
+.proof-line { padding: 8px 12px; border-left: 4px solid var(--blue); background: rgba(27,98,203,0.065); border-radius: 4px; font-size: 0.96rem; line-height: 1.4; margin-top: 9px; }
+.proof-footer { margin-top: auto; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-top: 8px; font-size: 0.77rem; line-height: 1.4; }
 .proof-footer .sources { color: var(--muted); max-width: 78%; overflow-wrap: break-word; }
 .proof-footer a { color: var(--blue); text-decoration: none; font-weight: 700; }
 .proof-flow { display: flex; align-items: stretch; gap: 8px; margin: 17px 0; }
-.proof-flow .step { flex: 1; min-width: 0; display: flex; justify-content: center; align-items: center; padding: 12px 8px; border: 1.5px solid var(--line); border-radius: 10px; text-align: center; font-size: 0.88rem; font-weight: 700; line-height: 1.35; }
+.proof-flow .step { flex: 1; min-width: 0; display: flex; justify-content: center; align-items: center; padding: 10px 8px; border: 1.5px solid var(--line); border-radius: 10px; text-align: center; font-size: 0.88rem; font-weight: 700; line-height: 1.35; }
 .proof-flow .step.accent { border-color: var(--blue); }
 .proof-flow .arrow { align-self: center; color: var(--blue); font-size: 1.35rem; flex: 0 0 auto; }
 .proof-band { display: grid; grid-template-columns: 110px 1fr; border-bottom: 1px solid var(--line); gap: 12px; padding: 10px 0; font-size: 0.94rem; line-height: 1.37; }
