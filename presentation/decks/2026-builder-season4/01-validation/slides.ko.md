@@ -80,7 +80,7 @@ CUBRID Kubernetes Operator는 Kubernetes에서 CUBRID HA 클러스터를 안전�
       <rect class="op-compare-sqlbox" x="18" y="74" width="160" height="40" rx="8"/>
       <text x="98" y="92" text-anchor="middle">Broker Service</text><text class="op-compare-small" x="98" y="107" text-anchor="middle">애플리케이션 접속</text>
       <rect class="op-compare-pod" x="18" y="154" width="425" height="104" rx="10"/>
-      <text class="op-compare-pod-title" x="184" y="179">DB Pod ×3 · 각 Pod 동일 구성</text>
+      <text class="op-compare-pod-title" x="184" y="179">DB Pod ×3</text>
       <rect class="op-compare-sqlbox" x="36" y="197" width="118" height="42" rx="7"/><text x="95" y="223" text-anchor="middle">Broker</text>
       <rect class="op-compare-dbbox" x="177" y="197" width="118" height="42" rx="7"/><text x="236" y="223" text-anchor="middle">CUBRID DB</text>
       <rect class="op-compare-ctlbox" x="316" y="197" width="111" height="42" rx="7"/><text x="371" y="223" text-anchor="middle">CMS</text>
