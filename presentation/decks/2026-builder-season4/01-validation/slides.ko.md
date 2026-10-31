@@ -50,7 +50,7 @@ title: "CUBRID Kubernetes Operator — 1차 검증"
 </OperatorSlide>
 
 <!--
-[45초 · 01 · 프로젝트 소개]
+[40초 · 01 · 프로젝트 소개]
 CUBRID Kubernetes Operator는 Kubernetes에서 CUBRID HA 클러스터를 안전하게 운영하는 것을 목표로 하는 실험 단계의 Operator입니다. 설치를 자동화하는 데서 끝나지 않고, 장애 뒤 DB가 정말 복구됐는지까지 확인하는 운영 흐름을 만들려고 합니다.
 
 목표는 네 가지입니다. 첫째, YAML 하나로 3노드 CUBRID HA 클러스터와 쓰기·읽기 접속을 구성합니다. 여기서 노드는 Kubernetes 워커 노드가 아니라 CUBRID HA를 이루는 DB 노드입니다. 둘째, 노드마다 HA 역할을 확인하고, 확실하지 않으면 추정하지 않고 미확정으로 남깁니다. 셋째, 백업과 복원을 작업 ID로 추적하고 복원 전에 파일과 체크섬을 확인합니다. 넷째, 복구는 Pod 상태가 아니라 실제 SQL과 데이터로 판단합니다. 지금 어디까지 확인했는지는 뒤에서 결과로 보여드리겠습니다.
@@ -136,7 +136,7 @@ CUBRID Kubernetes Operator는 Kubernetes에서 CUBRID HA 클러스터를 안전�
 </OperatorSlide>
 
 <!--
-[50초 · 03 · 기존 방식의 한계]
+[45초 · 03 · 기존 방식의 한계]
 CUBRID에는 이미 공식 Operator가 있고, HA 상태 조회와 스토리지, 예약 백업을 제공합니다. 그래서 무엇을 다르게 설계했는지 구조로 비교하겠습니다.
 
 왼쪽 공식 Operator는 각 DB Pod 안에서 CUBRID DB와 CMS, Broker가 함께 실행됩니다. Operator는 CMS API와 Pod 내부 명령 실행으로 DB를 관리하고, 애플리케이션은 DB Pod 안의 Broker를 거쳐 접속합니다.
@@ -254,7 +254,7 @@ CUBRID에는 이미 공식 Operator가 있고, HA 상태 조회와 스토리지,
 </OperatorSlide>
 
 <!--
-[50초 · 05 · 전체 아키텍처]
+[45초 · 05 · 전체 아키텍처]
 이제 아키텍처 초안입니다. 한 장에 전체를 담았습니다. 사용자가 YAML을 Kubernetes API에 적용하면, Operator가 spec을 읽고 StatefulSet과 볼륨, Secret, Service, Broker, NetworkPolicy를 만듭니다. Operator 안의 두 컨트롤러가 HA, 서비스, 스토리지, 백업, 업데이트를 하나의 상태 머신으로 조정합니다. 내부는 다음 장에서 보여드리겠습니다. 각 노드의 Instance Manager에 토큰 인증으로 역할을 묻고 작업을 요청하며, 결과를 다시 CubridCluster status에 기록합니다. 메트릭과 Events, 로그도 여기서 나옵니다.
 
 아래쪽 실선은 애플리케이션의 SQL 경로입니다. RW나 RO Service에서 DB와 따로 떠 있는 Broker를 거쳐 CUBRID로 갑니다. Operator는 SQL을 중계하지 않고, master 선출과 복제는 CUBRID HA가 직접 합니다. 초기 데이터 복사와 백업 파일은 오른쪽 아래 S3 호환 저장소를 거칩니다.
