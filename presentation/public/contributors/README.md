@@ -1,8 +1,8 @@
 # Contributor avatars used by the 2026 OSS Developer Contest deck
 
-GitHub profile pictures of every person shown on the contributor slide, downloaded from GitHub on 2026-10-28T12:20:10Z and resized to 96×96 JPEG. They are the contributors' own public GitHub avatars, used only to credit their merged pull requests; each links to the profile on the slide.
+GitHub profile pictures of every person shown on the contributor slide, downloaded from GitHub on 2026-10-28T12:20:10Z (the last five rows on 2026-11-01) and resized to 96×96 JPEG. They are the contributors' own public GitHub avatars, used only to credit their merged pull requests; each links to the profile on the slide.
 
-Selection: every person who is not a maintainer, bot or organization account and has at least one pull request merged into pycubrid, sqlalchemy-cubrid, cubrid-cookbook-python or cubrid-mcp-server. The full list and evidence: [`events/2026-ossdevcon/metrics/contributors-2026-10-28.json`](../../../events/2026-ossdevcon/metrics/contributors-2026-10-28.json).
+Selection: every person who is not a maintainer, bot or organization account and has at least one pull request merged into pycubrid, sqlalchemy-cubrid, cubrid-cookbook-python or cubrid-mcp-server. The full list and evidence: [`events/2026-ossdevcon/metrics/contributors-2026-11-01.json`](../../../events/2026-ossdevcon/metrics/contributors-2026-11-01.json).
 
 | File | Source | SHA-256 |
 |---|---|---|
@@ -68,5 +68,10 @@ Selection: every person who is not a maintainer, bot or organization account and
 | `varshith84.jpg` | https://avatars.githubusercontent.com/u/112600740?v=4 | `0d833daf1fa1bd2ba3ebba8e0dfba5b4d98018dca49fd26f1f4ec8afaaef9b34` |
 | `xuu33030.jpg` | https://avatars.githubusercontent.com/u/268775543?v=4 | `a70d1028b0169fab13e44969037a41f29dbea9e266de56158e494a28a4970d58` |
 | `yotam1001.jpg` | https://avatars.githubusercontent.com/u/104452400?v=4 | `d4d04d725dad30f6bc3395144f7222cb5283c1058d6581b205c93f5f167e9fe0` |
+| `sarankumar1325.jpg` | https://avatars.githubusercontent.com/u/120080287?v=4 | `5a9ba3a92832962aafe29f0f087c86e9b3b7a5681a57b7cec49e8b5a250d3164` |
+| `Vamsi-2581.jpg` | https://avatars.githubusercontent.com/u/245859299?v=4 | `82dac59433a20f1385222c45f582317cce98fe09f04d87036d87af13bcc974eb` |
+| `a3643605788.jpg` | https://avatars.githubusercontent.com/u/72342865?v=4 | `b0d8fced00b336a42dc36aa4e45fd6596e1aa657a1b5b80a70f48782aa24c2f9` |
+| `Chaitanya-code0.jpg` | https://avatars.githubusercontent.com/u/183199531?v=4 | `ed2bdaa9c76f1d58c3a387269d4d5918583c39aba34b7d357d737efa80302bb6` |
+| `inmassat.jpg` | https://avatars.githubusercontent.com/u/158745611?v=4 | `5097705ffcc425eda543f38b2471cf6920c8979df9b4bb8e269ecd241f2f61cf` |
 
 If a contributor asks to be removed, delete the file and its entry on the slide.
