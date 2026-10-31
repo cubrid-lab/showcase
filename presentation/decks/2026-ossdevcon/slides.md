@@ -740,34 +740,16 @@ PR에서는 변경 위험에 맞는 검사만 선택하고, 릴리스와 수동 
 
 ---
 
-<p class="kicker">질의응답</p>
-<h2 class="one">Q&amp;A — 질문에 맞는 근거로 이동합니다</h2>
-<div class="qa-index evidence-index">
-  <Link to="28"><span>A</span>공식 드라이버 비교<em>28</em></Link>
-  <Link to="29"><span>B</span>CAS 프로토콜 직접 구현<em>29</em></Link>
-  <Link to="30"><span>C</span>버전 호환성과 CI<em>30</em></Link>
-  <Link to="31"><span>D</span>실측 성능 결과<em>31</em></Link>
-  <Link to="32"><span>E</span>MCP 서버 보안<em>32</em></Link>
-  <Link to="33"><span>F</span>라이선스와 외부 기여<em>33</em></Link>
-  <Link to="34"><span>G</span>채택 지표의 해석<em>34</em></Link>
-  <Link to="35"><span>H</span>공공 업무 연계 시나리오<em>35</em></Link>
-  <Link to="36"><span>I</span>로드맵과 유지보수<em>36</em></Link>
-</div>
-<p class="note-line">발표 시간 외 백업 9장 · 각 슬라이드 아래에서 이 화면으로 복귀 가능</p>
-<style>
-.evidence-index { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 10px 12px; }
-.evidence-index a { display: flex; align-items: baseline; gap: 8px; border: 1.5px solid var(--line); border-radius: 10px; padding: 12px 10px; font-size: 0.88rem; line-height: 1.25; color: var(--ink); text-decoration: none; font-weight: 750; min-width: 0; }
-.evidence-index a span { color: var(--blue); }
-.evidence-index a em { margin-left: auto; font-size: 0.77rem; font-style: normal; color: var(--muted); }
-</style>
+<ChapterDivider number="Q&amp;A" title="질의응답" />
+
 <!--
 [0초 · Q&A · 발표 시간 외]
-질문을 받으면 A부터 I까지 해당 주제를 클릭합니다. 보조 자료는 의견을 되풀이하는 페이지가 아니라 비교표, 테스트 범위, 측정값, 검증 가능한 원본 링크를 보여주는 페이지입니다.
+질문을 받습니다. 질문에 맞는 보조 자료로 이동할 때는 g 키를 누르고 쪽 번호를 입력합니다. 28 공식 드라이버 비교 · 29 CAS 프로토콜 직접 구현 · 30 버전 호환성과 CI · 31 실측 성능 결과 · 32 MCP 서버 보안 · 33 라이선스와 외부 기여 · 34 채택 지표의 해석 · 35 공공 업무 연계 시나리오 · 36 로드맵과 유지보수. 각 보조 자료 아래의 "Q&A로 돌아가기"를 누르면 이 화면으로 돌아옵니다.
 -->
 
 ---
 
-<p class="kicker">보조 자료 A · 드라이버 비교</p>
+<p class="kicker">보조 자료 · 드라이버 비교</p>
 <h2 class="one">왜 공식 C 드라이버를 대체하지 않고 보완했나요?</h2>
 <p class="proof-lead">차이는 <b>설치 방식과 네이티브 비동기 지원</b>입니다. 공식 드라이버도 dialect에서 계속 선택할 수 있습니다.</p>
 <table class="proof-table">
@@ -809,13 +791,13 @@ PR에서는 변경 위험에 맞는 검사만 선택하고, 릴리스와 수동 
 .proof-band b { color: var(--blue); }
 </style>
 <!--
-[0초 · 보조 자료 A · 발표 시간 외]
+[0초 · 보조 자료 · 발표 시간 외]
 공식 C 드라이버 자체가 불량하다는 주장은 아닙니다. 최신 CUBRIDdb는 소스 빌드 경로로 사용 가능하고, sqlalchemy-cubrid에서도 선택할 수 있습니다. 순수 Python 드라이버는 설치 경험과 네이티브 비동기 API를 추가하는 역할입니다.
 -->
 
 ---
 
-<p class="kicker">보조 자료 B · 프로토콜 구현</p>
+<p class="kicker">보조 자료 · 프로토콜 구현</p>
 <h2 class="one">기존 C 드라이버를 감싼 것 아닌가요?</h2>
 <p class="proof-lead">아닙니다. Python에서 <b>CAS 바이너리 프로토콜을 직접 인코딩·디코딩</b>하며, CCI 런타임에 의존하지 않습니다.</p>
 <div class="proof-flow">
@@ -859,13 +841,13 @@ PR에서는 변경 위험에 맞는 검사만 선택하고, 릴리스와 수동 
 .proof-band b { color: var(--blue); }
 </style>
 <!--
-[0초 · 보조 자료 B · 발표 시간 외]
+[0초 · 보조 자료 · 발표 시간 외]
 순수 Python 구현이란 실제 데이터베이스 통신 패킷을 Python이 생성하고 파싱한다는 뜻입니다. CUBRID 서버와 Broker는 별도로 필요하지만, 클라이언트 측 CCI 라이브러리 종속성을 제거했습니다. TCP 33000은 예시 Broker 포트입니다.
 -->
 
 ---
 
-<p class="kicker">보조 자료 C · 테스트 범위</p>
+<p class="kicker">보조 자료 · 테스트 범위</p>
 <h2 class="one">20개 조합은 매 PR마다 실행하나요?</h2>
 <p class="proof-lead"><b>아닙니다.</b> 지원 매트릭스와 실행 빈도를 구분합니다. 전체 20개 실서버 조합은 수동 검증과 릴리스에서 실행합니다.</p>
 <table class="proof-table">
@@ -913,13 +895,13 @@ PR에서는 변경 위험에 맞는 검사만 선택하고, 릴리스와 수동 
 .proof-band b { color: var(--blue); }
 </style>
 <!--
-[0초 · 보조 자료 C · 발표 시간 외]
+[0초 · 보조 자료 · 발표 시간 외]
 2026년 10월 현재 지원 범위는 Python 3.11부터 3.15, CUBRID 10.2부터 11.4까지입니다. 일상 PR은 변경 유형에 맞게 검사를 선택하고, 모든 20개 실서버 조합은 명시적 전체 실행 또는 릴리스 게이트에 포함됩니다. pycubrid의 일상 PR smoke에 95% 전체 커버리지를 주장하지 않습니다.
 -->
 
 ---
 
-<p class="kicker">보조 자료 D · 성능 실측</p>
+<p class="kicker">보조 자료 · 성능 실측</p>
 <h2 class="one">같은 CUBRID에서 공식 C 드라이버와 비교했습니다</h2>
 <p class="proof-lead">2026-10-28 · CUBRID 11.4.6 · pycubrid 1.15.0 vs CUBRIDdb v11.3.0.51 · 낮을수록 빠름</p>
 <table class="proof-table">
@@ -965,13 +947,13 @@ PR에서는 변경 위험에 맞는 검사만 선택하고, 릴리스와 수동 
 .proof-band b { color: var(--blue); }
 </style>
 <!--
-[0초 · 보조 자료 D · 발표 시간 외]
+[0초 · 보조 자료 · 발표 시간 외]
 C 기반 드라이버를 기준으로 PK SELECT는 4%, 1만 행 조회는 17% 더 오래 걸렸습니다. 연결·종료는 43% 차이가 납니다. 1만 행 입력 차이는 신뢰구간이 1을 포함하므로 유의미한 차이라고 단정하지 않습니다. 측정은 공유 호스트 한 대에서 진행돼 절대 지연시간을 일반화하면 안 됩니다.
 -->
 
 ---
 
-<p class="kicker">보조 자료 E · MCP 보안</p>
+<p class="kicker">보조 자료 · MCP 보안</p>
 <h2 class="one">MCP 읽기 전용은 데이터 유출까지 막나요?</h2>
 <p class="proof-lead"><b>아닙니다.</b> 도구 차단과 데이터 접근 권한은 서로 다른 보안 계층입니다.</p>
 <div class="proof-flow">
@@ -1014,13 +996,13 @@ C 기반 드라이버를 기준으로 PK SELECT는 4%, 1만 행 조회는 17% �
 .proof-band b { color: var(--blue); }
 </style>
 <!--
-[0초 · 보조 자료 E · 발표 시간 외]
+[0초 · 보조 자료 · 발표 시간 외]
 MCP의 SQL allowlist는 문장 종류를 통제하지, 업무 승인 규칙이나 행 단위 권한을 구현하지 않습니다. 쓰기를 명시적으로 켜면 조건에 맞는 다수 행을 한 UPDATE로 갱신할 수도 있습니다. 운영에는 SELECT 전용 DB 계정 및 필요한 데이터만 노출하는 뷰가 필요합니다.
 -->
 
 ---
 
-<p class="kicker">보조 자료 F · 공개·기여 근거</p>
+<p class="kicker">보조 자료 · 공개·기여 근거</p>
 <h2 class="one">오픈소스로 계속 운영될 근거가 있나요?</h2>
 <p class="proof-lead">사람의 참여 실적과 운영 장치를 분리해서 보여드립니다. 숫자는 사용자 수가 아닌 <b>기여·유지관리 지표</b>입니다.</p>
 <div class="proof-grid three">
@@ -1062,13 +1044,13 @@ MCP의 SQL allowlist는 문장 종류를 통제하지, 업무 승인 규칙이�
 .proof-band b { color: var(--blue); }
 </style>
 <!--
-[0초 · 보조 자료 F · 발표 시간 외]
+[0초 · 보조 자료 · 발표 시간 외]
 실제 외부 기여자 67명과 이들이 보낸 머지 PR 153건은 2026년 11월 1일 기준 자료입니다. 네 저장소의 라이선스는 MIT이고, CI와 릴리스 게이트를 운영합니다. 개발 활동의 규모를 실제 사용자 수 또는 운영 기관 수로 바꾸어 말하지 않습니다.
 -->
 
 ---
 
-<p class="kicker">보조 자료 G · 지표 해석</p>
+<p class="kicker">보조 자료 · 지표 해석</p>
 <h2 class="one">클론·스타가 실제 사용자 수를 뜻하나요?</h2>
 <p class="proof-lead"><b>아닙니다.</b> 자체 CI가 저장소를 반복 클론할 수 있어 GitHub Traffic을 채택 증거에서 제외했습니다.</p>
 <div class="proof-grid">
@@ -1109,13 +1091,13 @@ MCP의 SQL allowlist는 문장 종류를 통제하지, 업무 승인 규칙이�
 .proof-band b { color: var(--blue); }
 </style>
 <!--
-[0초 · 보조 자료 G · 발표 시간 외]
+[0초 · 보조 자료 · 발표 시간 외]
 이전에 이야기했던 926 Unique Clones 같은 수치는 저장소별 중복과 자체 CI 클론 때문에 실제 사람 수나 사용 기관 수로 해석하면 안 됩니다. 현재 발표는 GitHub 클론 트래픽을 사용 지표에서 제외했습니다. 대신 인간 외부 기여자와 머지 PR을 근거 링크와 함께 제시합니다.
 -->
 
 ---
 
-<p class="kicker">보조 자료 H · 적용 시나리오</p>
+<p class="kicker">보조 자료 · 적용 시나리오</p>
 <h2 class="one">Java 중심의 공공 시스템에 Python이 왜 필요한가요?</h2>
 <p class="proof-lead">기존 Java 업무 시스템을 교체하는 제안이 아닙니다. <b>DB와 분리된 Python 분석·AI 서비스</b>를 추가하는 아키텍처 예시입니다.</p>
 <div class="proof-flow">
@@ -1158,13 +1140,13 @@ MCP의 SQL allowlist는 문장 종류를 통제하지, 업무 승인 규칙이�
 .proof-band b { color: var(--blue); }
 </style>
 <!--
-[0초 · 보조 자료 H · 발표 시간 외]
+[0초 · 보조 자료 · 발표 시간 외]
 이 장은 실제 운영기관 도입 사례가 아니라 구조의 실현 가능성을 설명하기 위한 예시입니다. 기존 Java 애플리케이션과 CUBRID는 유지하고 Python 분석 API 또는 MCP 기반 서비스를 별도로 배치할 수 있습니다. 실제 공공기관 연계는 네트워크·권한·보안·성능 검증이 필요합니다.
 -->
 
 ---
 
-<p class="kicker">보조 자료 I · 로드맵과 운영</p>
+<p class="kicker">보조 자료 · 로드맵과 운영</p>
 <h2 class="one">CUBRID 12·Vector와 장기 유지보수는?</h2>
 <p class="proof-lead">이미 제공하는 기능, 선행 조사, 출시 뒤 검증할 항목을 <b>서로 다른 상태</b>로 표시합니다.</p>
 <table class="proof-table">
@@ -1208,6 +1190,6 @@ MCP의 SQL allowlist는 문장 종류를 통제하지, 업무 승인 규칙이�
 .proof-band b { color: var(--blue); }
 </style>
 <!--
-[0초 · 보조 자료 I · 발표 시간 외]
+[0초 · 보조 자료 · 발표 시간 외]
 지원이 완료된 버전은 Python 3.11부터 3.15, CUBRID 10.2부터 11.4까지입니다. CUBRID 12는 출시 후 매트릭스에 추가해 검증할 계획이며, Vector는 상위 프로젝트의 개발 내용에 대한 사전 조사 단계입니다. 유지보수는 PR 정책, 릴리스 호환성 매트릭스, 실서버 예제 검증에 기반합니다.
 -->
