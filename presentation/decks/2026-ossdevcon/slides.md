@@ -345,7 +345,7 @@ TLS 암호화와 대용량 데이터도 지원하고, 테스트와 커버리지 
 <p class="kicker proj"><BrandMark name="cubrid-cookbook-python" alt="" :height="28" />cubrid-cookbook</p>
 <h2 class="one">만들고 나니, 쓰는 법이 필요했습니다</h2>
 
-<div class="split">
+<div class="split one-shot">
   <div class="stack">
     <ul class="explain">
       <li><b>예제 50여 개</b> — 연결부터 async · Alembic까지</li>
@@ -353,18 +353,8 @@ TLS 암호화와 대용량 데이터도 지원하고, 테스트와 커버리지 
       <li><b>문서 4개 사이트</b> · 한국어 포함</li>
     </ul>
   </div>
-  <div class="docs-grid">
-    <figure class="shot"><img src="/shots/docs-pycubrid.jpg" alt="pycubrid 문서 사이트"></figure>
-    <figure class="shot"><img src="/shots/docs-sqlalchemy-cubrid.jpg" alt="sqlalchemy-cubrid 문서 사이트"></figure>
-    <figure class="shot"><img src="/shots/docs-mcp.jpg" alt="cubrid-mcp-server 문서 사이트"></figure>
-    <figure class="shot"><img src="/shots/docs-cookbook.jpg" alt="cubrid-cookbook-python 문서 사이트"></figure>
-  </div>
+  <div class="stack"><figure class="shot clip"><img src="/shots/docs-cookbook.jpg" alt="cubrid-cookbook-python 문서 사이트 첫 화면"></figure><p class="small">cubrid-cookbook-python 문서 사이트</p></div>
 </div>
-
-<style>
-.docs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.docs-grid .shot { box-shadow: 0 8px 18px -10px rgba(15, 27, 45, 0.35); border-radius: 8px; }
-</style>
 
 <!--
 [20초 · 활용성]
@@ -404,16 +394,16 @@ TLS 암호화와 대용량 데이터도 지원하고, 테스트와 커버리지 
 <p class="kicker proj"><BrandMark name="cubrid-mcp-server" alt="" :height="28" />cubrid-mcp-server</p>
 <h2 class="one">AI가 CUBRID에 직접 물어볼 수 있게</h2>
 
-<div class="split">
+<div class="split one-shot">
   <div class="stack">
     <p class="sub" style="white-space: nowrap">MCP: AI 도구용 공개 프로토콜</p>
     <ul class="explain">
       <li><b>tool 11개</b> — 스키마 · 인덱스 · 쿼리 등</li>
       <li><b>기본 읽기 전용</b> — 쓰기는 켤 때만</li>
-      <li><b>감사 로그</b> — tool 사용 기록</li>
+      <li><b>감사 로그</b> — 켜면 실행한 SQL 기록</li>
     </ul>
   </div>
-  <figure class="shot clip"><img src="/shots/docs-mcp.jpg" alt="cubrid-mcp-server 문서 사이트"></figure>
+  <div class="stack"><figure class="shot"><img src="/shots/mcp-session.jpg" alt="Claude Code에서 카테고리별 상품 수와 평균 가격을 묻자 cubrid-mcp-server의 execute_query로 SQL을 실행하고 표로 답한 화면"></figure><p class="small">Claude Code 실제 세션 재생 · 질문 → execute_query → 답</p></div>
 </div>
 
 <!--
@@ -532,34 +522,25 @@ PR에서는 변경 위험에 맞는 검사만 선택하고, 릴리스와 수동 
 <div class="split perf">
   <div class="stack">
     <p class="chart-cap">C 드라이버 CUBRIDdb = 100 · 짧을수록 좋음</p>
-    <PairChart :width="400" :label-width="150" before-name="CUBRIDdb (C)" after-name="pycubrid" :rows="[
+    <PairChart :width="420" :label-width="150" before-name="CUBRIDdb (C)" after-name="pycubrid" :rows="[
       { label: 'PK 조회', before: 100, after: 104, beforeText: '100', afterText: '104' },
       { label: '1만 행 fetchall', before: 100, after: 117, beforeText: '100', afterText: '117' },
       { label: 'executemany 1만 행', before: 100, after: 104, beforeText: '100', afterText: '104' },
     ]" />
     <p class="small">2026-10-28 · CUBRID 11.4.6 · pycubrid 1.15.0 · Appendix B</p>
   </div>
-  <div class="stack past">
-    <p class="chart-cap">같은 측정 · 이전 릴리스 1.10.0 → 1.15.0</p>
-    <ul class="explain">
-      <li><b>19개 작업</b> — 성능 회귀 없음</li>
-      <li><b>동시 접속 1·8·32</b> — 처리량 회귀 없음</li>
-      <li><b>메모리</b> — 최대 40 MiB (C 37 MiB)</li>
-    </ul>
-    <p class="small">2026-10-28 · 같은 서버·하네스 · 드라이버당 5회 교대</p>
-  </div>
 </div>
 
 <style>
 .chart-cap { font-size: 0.85rem; font-weight: 700; color: var(--ink); }
-.perf { align-items: start; grid-template-columns: 1.2fr 1fr; }
-.past .explain li { font-size: 0.92rem; }
+.perf { align-items: start; grid-template-columns: 1fr; }
+.perf .pairs { width: 760px; max-width: 100%; }
 </style>
 
 <!--
 [30초 · 기능테스트]
 성능은 무엇과 비교했는지부터 말씀드리겠습니다. 2026년 10월 28일, 같은 CUBRID 11.4.6 서버에서 공식 C 드라이버와 최신 pycubrid 1.15.0이 같은 작업에 걸린 시간을 쟀습니다. C 드라이버를 100으로 놓으면 pycubrid는 PK 조회 104, 1만 행 조회 117, 1만 행 일괄 입력 104입니다. 순수 Python이라 조금 느리지만, 격차가 크지 않습니다.
-대신 설치와 비동기, 이식성을 얻었습니다. 오른쪽은 같은 날 같은 방법으로 이전 릴리스 1.10.0과 비교한 결과입니다. 연결, 조회, 쓰기 19개 작업과 동시 접속 1개, 8개, 32개에서 성능 회귀가 없었습니다. 기능을 늘리면서 느려지지 않았다는 뜻입니다.
+대신 설치와 비동기, 이식성을 얻었습니다.
 -->
 
 ---

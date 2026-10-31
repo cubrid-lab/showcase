@@ -185,3 +185,8 @@
    hide it, and let a two-column split give the text the full width. ── */
 .slidev-layout:is(.contest-deck, .showcase-deck) .frame:empty { display: none; }
 .slidev-layout:is(.contest-deck, .showcase-deck) .split:has(> .frame:empty) { grid-template-columns: 1fr; }
+
+/* A slide with one large screenshot: the bullets stay on one line, the image gets the wider column. */
+.slidev-layout.contest-deck .split.one-shot { grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); }
+.slidev-layout.contest-deck .split.one-shot .explain li { white-space: nowrap; font-size: 0.95em; }
+.slidev-layout.contest-deck .split.one-shot .shot.clip { max-height: 330px; }
