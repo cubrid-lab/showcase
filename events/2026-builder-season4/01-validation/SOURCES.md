@@ -8,17 +8,16 @@ than becoming extra presentation sections.
 
 | Announced requirement | Slides | Planned seconds |
 |---|---|---|
-| 1. Project and team (cover), agenda and the four project goals | 1–3 | 80 |
+| 1. Project and team | 1–3 | 75 |
 | 2. Problem and initial users | 4 | 40 |
-| 3. Existing approaches and open-source comparison | 5 | 50 |
-| 4. Proposed solution: four checks after a fault, unresolved-master rule, recorded evidence | 6–8 | 120 |
-| 5. Architecture draft: full architecture, control loop and data flows, inside the Operator | 9–11 | 125 |
-| 6. Roadmap, responsibilities, v0.1 gates and scope, later direction | 12–16 | 165 |
-| 7. Discussion topics and questions | 17 | 15 |
-| **Total** | **17 slides per language** | **595 + 5 seconds buffer** |
+| 3. Existing approaches and open-source comparison | 5 | 45 |
+| 4. Proposed solution: fault checks, write safety, **scenario coverage and observed failure modes**, evidence | 6–9 | 145 |
+| 5. Architecture draft | 10–12 | 115 |
+| 6. Roadmap, responsibilities, v0.1 scope and later direction | 13–17 | 160 |
+| 7. Discussion and questions | 18 | 15 |
+| **Total** | **18 slides per language in the current source** | **595 + 5 seconds buffer** |
 
-The announced presentation limit is ten minutes plus separate ten-minute Q&A. Times are planning targets, not a rehearsal measurement.
-The expanded material deliberately separates hypothetical incident stories, user hypotheses, source comparison, executed evidence and work not yet proven.
+The 2026-10-29 r7 submitted PDF/PPTX remain immutable 17-slide artifacts. The 18-slide draft requires fresh export and visual inspection before publication. Timings are targets, not rehearsal results.
 
 ## Inspected technical sources
 
@@ -31,16 +30,15 @@ The expanded material deliberately separates hypothetical incident stories, user
 
 | Slides | Evidence basis | Claim boundary |
 |---|---|---|
-| 1, 3–4 | [Operator README](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/README.md), [DESIGN](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/DESIGN.md) | Recovery scenario is illustrative, not a customer incident. Initial target users are hypotheses, not proven adoption/interviews |
-| 6, 9–11 | [Architecture](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/DESIGN.md#7-high-level-architecture) and [Broker flows](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/DESIGN.md#10-broker-and-service-architecture) | CUBRID owns HA promotion. IM is integrated in DB container; Operator never proxies SQL |
-| 7 | [Fault-safety ADR](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/docs/adr/0005-failover-split-brain.md), [write-quarantine issue](https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/113) | Reported unknown master is not automatic RW write isolation; mandatory work remains |
-| 5 | [Official pod StatefulSet](https://github.com/CUBRID/cubrid-operator/blob/fa7b6c2cf26096769c4404a2e2bb683f3872aa1e/pkg/manager/statefulset_manager.go#L129-L140), [CMS access](https://github.com/CUBRID/cubrid-operator/blob/fa7b6c2cf26096769c4404a2e2bb683f3872aa1e/docs/cms-access.en.md), [Lab IM ADR](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/adr/0003-instance-manager.md), [Lab Broker ADR](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/adr/0002-broker-routing.md) | Official: CUBRID DB, CMS and Broker in the same DB Pod; Lab: IM integrated into the DB container and RW/RO Brokers in separate Deployments. Diagram simplifies one repeating DB Pod out of three. These are topology differences, not proven reliability gains. |
-| 5 | [Official README](https://github.com/CUBRID/cubrid-operator/blob/fa7b6c2cf26096769c4404a2e2bb683f3872aa1e/README.md), [status controller](https://github.com/CUBRID/cubrid-operator/blob/fa7b6c2cf26096769c4404a2e2bb683f3872aa1e/internal/controller/cubriddb_controller_status.go#L68), [backup controller](https://github.com/CUBRID/cubrid-operator/blob/fa7b6c2cf26096769c4404a2e2bb683f3872aa1e/internal/controller/backupdb_controller.go#L317) | Upstream already has HA observation, storage and scheduled backup. Comparison is source-level, not field reliability benchmarking |
-| 8, 14 | [Kind, VM and rollout records](#recorded-execution-evidence), [v0.1 gates](#evidence-boundaries-retained-in-the-notes) | Kind 27/27 specs, VM SQL and the first S12 restore passes are not completed S00–S15 fault/restore certification |
-| 12, 15 | [ROADMAP](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/ROADMAP.md); the 24-hour load target is from [final integration issue #95](https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/95) ("initial target of 24 hours") | Nov 29 full first pass, Dec 27 candidate release are goals, not passed or promised milestones |
-| 13 | [CONTRIBUTING](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/39b1cb6ca7b6a52cf933b778c546cd9d6c6979bb/CONTRIBUTING.md) and team record below | Both are co-maintainers; per-issue owner and reviewer, no invented permanent feature assignment |
-| 16 | [Post-v0.1 direction](#post-v01-direction) | Unsheduled proposal, not support or release commitment |
-| 17 (speaker note) | Builder validation notice | Discussion: incident criteria, the first CSI driver to support, independent runbook review |
+| 1, 3–4 | [Operator README](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/README.md), [DESIGN](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/DESIGN.md) | Hypothetical incident and initial user groups are not customer case studies or validated demand |
+| 5 | [Official Operator source](https://github.com/CUBRID/cubrid-operator/tree/fa7b6c2cf26096769c4404a2e2bb683f3872aa1e) | Source-level implementation comparison, not proven reliability superiority |
+| 6–7, 10–12 | [Architecture and fault ADR](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/adr/0005-failover-split-brain.md) | CUBRID performs HA promotion; unresolved primary is not automatically enforced SQL quarantine |
+| **8** | [Scenario contract](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/testing/scenario-contract.md), [upstream scenario provenance](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/testing/upstream-scenarios.md), [manual POC](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/poc/RESULTS.md), [ROADMAP](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/ROADMAP.md) | S00–S15 are 16 mandatory contracts, **not 16 passed tests**. Unresolved RW writes are Kind evidence; diverged masters are a manual engine POC; stalled replication is POC/VM evidence, not necessarily a completed S07/S08 |
+| 9, 15 | [Kind/VM run evidence](#recorded-execution-evidence), [ROADMAP](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/ROADMAP.md) | 27/27 Kind specs and 2026-10-25 5/7 restoration runs do not certify all mandatory scenarios |
+| 13, 16 | [ROADMAP](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/ROADMAP.md) | Nov 29 first-pass and Dec 27 experimental release are targets |
+| 14 | [CONTRIBUTING](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/CONTRIBUTING.md) | Per-issue owner/reviewer; no invented permanent assignments |
+| 17 | [Post-v0.1 direction](#post-v01-direction) | No future support commitment |
+| 18 | Builder presentation notice | Audience discussion and Q&A |
 
 ## Recorded execution evidence
 
