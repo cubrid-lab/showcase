@@ -9,6 +9,8 @@ on:
       - 'templates/**'
       - 'presentation/**'
       - 'scripts/**'
+      - '.gitignore'
+      - '**/.omc/**'
       - '.github/workflows/layout-check.yml'
   push:
     branches: [main]
@@ -19,6 +21,8 @@ on:
       - 'templates/**'
       - 'presentation/**'
       - 'scripts/**'
+      - '.gitignore'
+      - '**/.omc/**'
       - '.github/workflows/layout-check.yml'
 
 permissions:

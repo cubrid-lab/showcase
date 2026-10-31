@@ -1,2 +1,5 @@
 /site-dist/
 __pycache__/
+
+# Local agent runtime state (oh-my-claudecode session files), any depth.
+.omc/

@@ -1,7 +1,0 @@
-{
-  "tool_name": "Read",
-  "tool_input_preview": "{\"file_path\":\"/tmp/claude-1000/-data-GitHub-showcase/a4f09362-9d66-451b-89e9-70feba9b8299/scratchpad/r75/ko-v1/07.png\"}",
-  "error": "File does not exist. Note: your current working directory is /data/GitHub/showcase/presentation.",
-  "timestamp": "2026-10-28T11:38:42.584Z",
-  "retry_count": 5
-}
