@@ -702,7 +702,7 @@ PR에서는 변경 위험에 맞는 검사만 선택하고, 릴리스와 수동 
 
 <div class="split even">
   <div class="stack">
-    <p class="thanks">파이큐브리드팀 최영선 · 백경준</p>
+    <p class="thanks">최영선 · 백경준</p>
   </div>
   <div class="frame"><Photo src="/photos/team-now.jpg" label="지금의 두 사람 사진" /></div>
 </div>
