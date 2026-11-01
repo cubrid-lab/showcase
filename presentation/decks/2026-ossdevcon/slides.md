@@ -696,16 +696,19 @@ PR에서는 변경 위험에 맞는 검사만 선택하고, 릴리스와 수동 
 
 ---
 
-<p class="kicker">CUBRID, 이제 Python으로</p>
-<h2 class="one">감사합니다</h2>
-<p class="sub" style="white-space: nowrap">멈춰 있던 dialect에서 시작해, 이제는 여러 사람이 함께 고치는 생태계가 됐습니다.</p>
-
-<div class="split even">
-  <div class="frame"><Photo src="/photos/team-now.jpg" label="지금의 두 사람 사진" /></div>
+<div class="closing">
+  <p class="closing-quote">"…if someone were to be interested in this,<br>i will gladly transfer this repo over to them."</p>
+  <p class="closing-src">— Mike Bayer, sqlalchemy_cubrid README (2019)</p>
+  <p class="closing-line">멈춰 있던 저장소에 저희가 답했고,<br>이제는 여러 사람이 함께 고치는 생태계가 됐습니다.</p>
+  <h1 class="closing-thanks">감사합니다</h1>
 </div>
 
 <style>
-.frame { height: 200px; }
+.closing { flex: 1; display: grid; align-content: center; justify-items: center; text-align: center; gap: 10px; }
+.closing-quote { font-size: 1.05rem; font-style: italic; color: var(--muted); line-height: 1.5; }
+.closing-src { font-size: 0.8rem; color: var(--muted); }
+.closing-line { margin-top: 26px; font-size: 1.35rem; font-weight: 700; line-height: 1.5; color: var(--ink); }
+.closing-thanks { margin-top: 30px; font-size: 3.2rem; }
 </style>
 
 <!--
