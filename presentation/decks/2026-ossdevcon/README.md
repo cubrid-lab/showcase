@@ -5,7 +5,7 @@ This folder holds only the Markdown source of the web presentation. PDF and PPTX
 ## View or download
 
 - **[Latest HTML slides](https://cubrid-lab.github.io/showcase/contests/2026-ossdevcon/)**, rebuilt from `main` on every change
-- Last release (2026-10-25, before the 2026-10-28 rewrite): [PDF](https://github.com/cubrid-lab/showcase/releases/download/ossdevcon-2026-presentation-2026-10-25/ossdevcon.pdf) · [PPTX](https://github.com/cubrid-lab/showcase/releases/download/ossdevcon-2026-presentation-2026-10-25/ossdevcon.pptx) · [all release files](https://github.com/cubrid-lab/showcase/releases/tag/ossdevcon-2026-presentation-2026-10-25)
+- Latest release (2026-11-01, 36 slides): [PDF](https://github.com/cubrid-lab/showcase/releases/download/ossdevcon-2026-presentation-2026-11-01/ossdevcon.pdf) · [PPTX](https://github.com/cubrid-lab/showcase/releases/download/ossdevcon-2026-presentation-2026-11-01/ossdevcon.pptx) · [all release files](https://github.com/cubrid-lab/showcase/releases/tag/ossdevcon-2026-presentation-2026-11-01). Earlier: [2026-10-25 release](https://github.com/cubrid-lab/showcase/releases/tag/ossdevcon-2026-presentation-2026-10-25) (32 slides, before the 2026-10-28 rewrite)
 - Every PR and `main` push also builds the current PDF and PPTX in the "Export presentation formats" workflow; download them from the run's artifacts.
 
 ## Files
