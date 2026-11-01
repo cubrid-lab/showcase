@@ -35,7 +35,10 @@ defineProps({
 }
 .chapter-divider-title {
   color: var(--ink, #0f1b2d);
-  font-size: clamp(2.8rem, 5vw, 4rem) !important;
+  /* Fixed size: a viewport-based size grew with the browser window and
+     wrapped the longest titles onto two lines. */
+  font-size: 2.9rem !important;
+  white-space: nowrap;
   font-weight: 780;
   letter-spacing: -.045em;
   line-height: 1.15;
