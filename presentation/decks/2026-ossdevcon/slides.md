@@ -701,15 +701,11 @@ PR에서는 변경 위험에 맞는 검사만 선택하고, 릴리스와 수동 
 <p class="sub" style="white-space: nowrap">멈춰 있던 dialect에서 시작해, 이제는 여러 사람이 함께 고치는 생태계가 됐습니다.</p>
 
 <div class="split even">
-  <div class="stack">
-    <p class="thanks">최영선 · 백경준</p>
-  </div>
   <div class="frame"><Photo src="/photos/team-now.jpg" label="지금의 두 사람 사진" /></div>
 </div>
 
 <style>
 .frame { height: 200px; }
-.thanks { font-size: 1.15rem; font-weight: 700; }
 </style>
 
 <!--
