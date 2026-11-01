@@ -5,8 +5,9 @@
 The deck has 36 slides: 22 original talk slides plus four brief chapter transitions (26 presentation pages), then a Q&A page (slide 27) and nine evidence-oriented backup slides (28–36) that are not part of the talk time. On the Q&A page, click a topic to jump to its backup slide; each backup slide links back to Q&A. In PDF/PPTX, go to the slide number shown on the Q&A page.
 
 - **[View slides (HTML)](https://cubrid-lab.github.io/showcase/contests/2026-ossdevcon/)** — latest version, rebuilt from `main`; opens in the browser
-- **[Download PDF, 2026-10-25 release](https://github.com/cubrid-lab/showcase/releases/download/ossdevcon-2026-presentation-2026-10-25/ossdevcon.pdf)** · **[Download PowerPoint (PPTX)](https://github.com/cubrid-lab/showcase/releases/download/ossdevcon-2026-presentation-2026-10-25/ossdevcon.pptx)** · [HTML ZIP of the same version](https://github.com/cubrid-lab/showcase/releases/download/ossdevcon-2026-presentation-2026-10-25/ossdevcon-html.zip) (unzip and serve with `python3 -m http.server`)
-- [Release `ossdevcon-2026-presentation-2026-10-25`](https://github.com/cubrid-lab/showcase/releases/tag/ossdevcon-2026-presentation-2026-10-25) — version record: source commit, export workflow run, metrics snapshot and SHA-256 checksums
+- **[Download PDF, 2026-11-01 release](https://github.com/cubrid-lab/showcase/releases/download/ossdevcon-2026-presentation-2026-11-01/ossdevcon.pdf)** · **[Download PowerPoint (PPTX)](https://github.com/cubrid-lab/showcase/releases/download/ossdevcon-2026-presentation-2026-11-01/ossdevcon.pptx)** · [HTML ZIP of the same version](https://github.com/cubrid-lab/showcase/releases/download/ossdevcon-2026-presentation-2026-11-01/ossdevcon-html.zip) (unzip and serve with `python3 -m http.server`)
+- [Release `ossdevcon-2026-presentation-2026-11-01`](https://github.com/cubrid-lab/showcase/releases/tag/ossdevcon-2026-presentation-2026-11-01) — version record: source commit `d77b04e`, export workflow run, SHA-256 checksums (36 slides)
+- Earlier record: [release `ossdevcon-2026-presentation-2026-10-25`](https://github.com/cubrid-lab/showcase/releases/tag/ossdevcon-2026-presentation-2026-10-25) (32 slides, before the 2026-10-28 rewrite)
 
 | Format | Role |
 |---|---|
