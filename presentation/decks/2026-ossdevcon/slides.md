@@ -697,7 +697,7 @@ PR에서는 변경 위험에 맞는 검사만 선택하고, 릴리스와 수동 
 ---
 
 <div class="closing">
-  <p class="closing-quote">"…if someone were to be interested in this,<br>i will gladly transfer this repo over to them."</p>
+  <p class="closing-quote">"…if someone were to be interested in this, i will gladly transfer this repo over to them."</p>
   <p class="closing-src">— Mike Bayer, sqlalchemy_cubrid README (2019)</p>
   <p class="closing-line">멈춰 있던 저장소에 저희가 답했고,<br>이제는 여러 사람이 함께 고치는 생태계가 됐습니다.</p>
   <h1 class="closing-thanks">감사합니다</h1>
@@ -705,7 +705,7 @@ PR에서는 변경 위험에 맞는 검사만 선택하고, 릴리스와 수동 
 
 <style>
 .closing { flex: 1; display: grid; align-content: center; justify-items: center; text-align: center; gap: 10px; }
-.closing-quote { font-size: 1.05rem; font-style: italic; color: var(--muted); line-height: 1.5; }
+.closing-quote { font-size: 0.86rem; font-style: italic; color: var(--muted); line-height: 1.5; white-space: nowrap; }
 .closing-src { font-size: 0.8rem; color: var(--muted); }
 .closing-line { margin-top: 26px; font-size: 1.35rem; font-weight: 700; line-height: 1.5; color: var(--ink); }
 .closing-thanks { margin-top: 30px; font-size: 3.2rem; }
