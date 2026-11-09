@@ -1,8 +1,8 @@
 # AGENTS.md
 
-## Organization-wide writing standard
+## Issue and pull request guidance (showcase)
 
-Follow [cubrid-lab's Issue, PR and commit policy](https://github.com/cubrid-lab/.github/blob/main/docs/ISSUE_PR_COMMIT_STANDARD.md). Issue titles use a type-only prefix such as `feat: ...`, `bug: ...`, or `docs: ...` without a required module scope. Describe a human-readable goal/problem and verifiable acceptance criteria. Triage handles validity, scope, duplicates, priority and size; PR and commit titles retain Conventional Commits/local CI requirements. Avoid internal review codes, personal comments and agent execution logs in issue prose.
+Follow [local contribution guidelines](CONTRIBUTING.md). Issue titles use a type-only prefix such as `feat: ...`, `bug: ...`, or `docs: ...` without a required module scope. Describe a human-readable goal/problem and verifiable acceptance criteria. Triage handles validity, scope, duplicates, priority and size; PR and commit titles retain Conventional Commits/local CI requirements. Avoid internal review codes, personal comments and agent execution logs in issue prose.
 
 
 ## Scope
@@ -57,8 +57,7 @@ no new PR merge gate and preserves existing design and release standards.
 
 ## Human-readable communication (all agents)
 
-The canonical rule is section 6 of the organization standard,
-[Explanations in code, tests, reviews and agent-written text](https://github.com/cubrid-lab/.github/blob/main/docs/ISSUE_PR_COMMIT_STANDARD.md#6-explanations-in-code-tests-reviews-and-agent-written-text).
+For this repository, use the human-readable communication rules below.
 The notes below apply it here, including to slide narrations and speaker
 notes, diagram captions and alt text, test descriptions and script comments.
 This repository's rules on published URLs, slide anchors, historical
@@ -93,7 +92,7 @@ documentation, presentations, and other maintainer-facing writing.
   separate lookup table. Edit an existing editable comment to correct unclear
   wording rather than adding redundant follow-up comments.
 
-This is a shared writing convention, not a new CI check, reviewer approval,
+This is a local writing convention, not a new CI check, reviewer approval,
 or merge gate. Keep existing repository-specific technical and safety rules.
 
 ## Repository-specific issue and PR evidence
