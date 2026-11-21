@@ -17,6 +17,32 @@ published outputs were actually checked.
 Do not weaken existing workflow, release, credential or publishing
 security requirements.
 
+
+## Suggest improvements and credit problem discovery
+
+You are welcome to report a confusing page, missing documentation,
+unexpected result, workflow friction or any other useful observation even
+if you do not have a fix. Open **Improvement Idea** through
+[New issue](https://github.com/cubrid-lab/showcase/issues/new/choose).
+One short description is sufficient to propose an issue; providing code,
+a complete reproduction, a design or acceptance criteria is **optional at
+intake**. The maintainers check duplicates, scope, evidence, priority,
+ownership and actionable acceptance criteria before scheduling work.
+
+Keep credentials, personal information, private infrastructure logs and
+security reports out of public issues. A new idea does not grant permission
+to change infrastructure, release controls, security configuration or
+architecture, or skip required review. Where existing repository rules
+permit direct small PRs, no preliminary issue is required solely for
+ceremony. Check overlapping work and coordinate before coding.
+
+When the work originates from an external report, link the issue in the PR
+and acknowledge the verified **reporter** as distinct from the
+implementation author. Follow this repository's existing verified
+contributor and release-note rules; a separately labeled
+`reported by @handle` credit may be appropriate, but attribution should
+never be fabricated or imposed as repetitive boilerplate.
+
 ## Showcase issue and agent handoff
 
 Work in one **showcase-specific** issue/PR with clear evidence of what content,
