@@ -467,3 +467,12 @@
 .slidev-layout.showcase-deck.operator-deck .op-risks li::before { content: counter(risk); position: absolute; left: 0; top: 8px; width: 20px; height: 20px; border-radius: 50%; background: #9a3412; color: #fff; font-size: .7rem; font-weight: 800; line-height: 20px; text-align: center; }
 .slidev-layout.showcase-deck.operator-deck .op-risks b { display: block; font-size: .84rem; line-height: 1.32; }
 .slidev-layout.showcase-deck.operator-deck .op-risks span { display: block; margin-top: 3px; color: var(--muted); font-size: .72rem; line-height: 1.35; }
+
+/* Second validation: keep the evidence table legible without changing older decks. */
+.slidev-layout.showcase-deck.operator-deck .op-comparison.op-results-v2 td,
+.slidev-layout.showcase-deck.operator-deck .op-comparison.op-results-v2 th {
+  font-size: .94rem; line-height: 1.4; padding: 9px 12px 9px 0;
+}
+.slidev-layout.showcase-deck.operator-deck .op-results-v2 td:first-child { width: 30%; }
+.slidev-layout.showcase-deck.operator-deck .op-results-v2 td:last-child { width: 20%; color: var(--blue); }
+.slidev-layout.showcase-deck.operator-deck .op-frame:has(.write-isolation-diagram) .op-body { gap: 15px; }
