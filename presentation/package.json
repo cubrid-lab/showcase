@@ -13,6 +13,10 @@
     "build:operator": "slidev build 2026-builder-season4-01-validation.ko.md 2026-builder-season4-01-validation.en.md --out dist/operator-first-validation",
     "export:operator:pdf": "node -e \"require('fs').mkdirSync('exports', {recursive:true})\" && slidev export 2026-builder-season4-01-validation.ko.md --format pdf --with-clicks false --timeout 60000 --wait-until networkidle --wait 5000 --output exports/operator-first-validation.ko.pdf && slidev export 2026-builder-season4-01-validation.en.md --format pdf --with-clicks false --timeout 60000 --wait-until networkidle --wait 5000 --output exports/operator-first-validation.en.pdf",
     "export:operator:pptx": "node -e \"require('fs').mkdirSync('exports', {recursive:true})\" && slidev export 2026-builder-season4-01-validation.ko.md --format pptx --with-clicks false --timeout 60000 --wait-until networkidle --wait 5000 --output exports/operator-first-validation.ko.pptx && slidev export 2026-builder-season4-01-validation.en.md --format pptx --with-clicks false --timeout 60000 --wait-until networkidle --wait 5000 --output exports/operator-first-validation.en.pptx",
+    "dev:operator2:ko": "slidev 2026-builder-season4-02-validation.ko.md --open",
+    "build:operator2": "slidev build 2026-builder-season4-02-validation.ko.md --out dist/operator-second-validation",
+    "export:operator2:pdf": "node -e \"require('fs').mkdirSync('exports', {recursive:true})\" && slidev export 2026-builder-season4-02-validation.ko.md --format pdf --with-clicks false --timeout 60000 --wait-until networkidle --wait 5000 --output exports/operator-second-validation.ko.pdf",
+    "export:operator2:pptx": "node -e \"require('fs').mkdirSync('exports', {recursive:true})\" && slidev export 2026-builder-season4-02-validation.ko.md --format pptx --with-clicks false --timeout 60000 --wait-until networkidle --wait 5000 --output exports/operator-second-validation.ko.pptx",
     "build:site": "node ../scripts/build_site.mjs"
   },
   "dependencies": {
