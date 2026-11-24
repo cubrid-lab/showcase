@@ -173,7 +173,7 @@ VM 전원 손실은 복구 시간 분포를 측정하는 중입니다. 첫 격�
 
 <OperatorSlide class="op-compact" section="03 · 증거 · 검증이 찾은 결함" source="#1158 · 수정 PR #1159" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/1158">
 
-<h1 class="op-title">검증이 참조 환경의 결함을 찾아냈습니다</h1><div class="op-timeline"><div><small>① 증상</small><b>잡아 둔 연결이 끊김</b><p>Broker 용량 측정 중<br>CAS가 남았는데도<br>-199 오류</p></div><div><small>② 좁히기</small><b>층별로 나눠 시험</b><p>같은 Pod 안: 정상<br>다른 노드: 끊김<br>정책을 끄면: 정상</p></div><div><small>③ 원인</small><b>생존 확인이 막힘</b><p>CUBRID가 30초쯤 조용한 상대를<br>TCP 7로 확인하는데<br>NetworkPolicy가 조용히 버림</p></div><div><small>④ 수정</small><b>정책에 7번 허용</b><p>멤버 → Broker TCP 7만<br>다른 Pod는 계속 차단<br>수정 PR 리뷰·랩 회귀 중</p></div></div><p class="op-boundary"><b>의미</b>　Kind는 정책을 적용하지 않아 놓친 문제를, 실제 참조 환경에서 반복 측정으로 찾았습니다</p>
+<h1 class="op-title">검증이 참조 환경의 결함을 찾아냈습니다</h1><div class="op-timeline"><div><small>① 증상</small><b>잡아 둔 연결이 끊김</b><p>Broker 용량 측정 중<br>CAS가 남았는데도<br>-199 오류</p></div><div><small>② 좁히기</small><b>층별로 나눠 시험</b><p>같은 Pod 안: 정상<br>다른 노드: 끊김<br>정책을 끄면: 정상</p></div><div><small>③ 원인</small><b>생존 확인이 막힘</b><p>CUBRID가 30초쯤 조용한 상대를<br>TCP 7로 확인하는데<br>NetworkPolicy가 조용히 버림</p></div><div><small>④ 수정</small><b>정책에 7번 허용</b><p>멤버 → Broker TCP 7만<br>다른 Pod는 계속 차단<br>랩 회귀 통과 · 리뷰 중</p></div></div><p class="op-boundary"><b>의미</b>　Kind는 정책을 적용하지 않아 놓친 문제를, 실제 참조 환경에서 반복 측정으로 찾았습니다</p>
 
 </OperatorSlide>
 
@@ -181,7 +181,7 @@ VM 전원 손실은 복구 시간 분포를 측정하는 중입니다. 첫 격�
 [40초 · 03 · 검증이 찾은 결함]
 VM 랩 검증이 실제로 결함을 찾아낸 사례도 하나 말씀드리겠습니다. Broker 용량을 재다가, CAS가 남아 있는데도 잡아 둔 연결이 -199 오류로 끊기는 걸 봤습니다. 층을 나눠 시험해 보니 같은 Pod 안에서는 멀쩡하고, 다른 노드에서 오면 끊기고, NetworkPolicy를 끄면 다시 멀쩡했습니다.
 
-원인은 CUBRID의 생존 확인이었습니다. 30초쯤 조용한 상대를 TCP 7번으로 확인하는데, Broker 정책이 이 포트를 열지 않아 패킷이 조용히 버려지고, 서버는 상대가 죽은 줄 알고 연결을 끊었습니다. 멤버에서 Broker로 가는 7번만 허용하는 수정을 올려 리뷰와 랩 회귀를 진행하고 있습니다. Kind는 정책을 적용하지 않아서 놓쳤던 문제를 실제 환경에서 찾은 것입니다.
+원인은 CUBRID의 생존 확인이었습니다. 30초쯤 조용한 상대를 TCP 7번으로 확인하는데, Broker 정책이 이 포트를 열지 않아 패킷이 조용히 버려지고, 서버는 상대가 죽은 줄 알고 연결을 끊었습니다. 멤버에서 Broker로 가는 7번만 허용하는 수정을 올렸고, 그 정책만으로 VM 랩에서 노드를 건넌 세션 40개와 Broker를 거친 연결 30개가 45초씩 세 번 쉬어도 모두 유지됐습니다. 지금은 리뷰 중입니다. Kind는 정책을 적용하지 않아서 놓쳤던 문제를 실제 환경에서 찾은 것입니다.
 -->
 
 ---
