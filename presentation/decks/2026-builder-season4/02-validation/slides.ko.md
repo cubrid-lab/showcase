@@ -4,13 +4,13 @@ title: "CUBRID Kubernetes Operator — 2차 검증"
 
 <OperatorSlide section="Opening · 프로젝트 소개" source="프로젝트·팀" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator">
 
-<div class="op-cover"><BrandMark name="cubrid-kubernetes-operator" alt="CUBRID Lab Operator icon" :height="84" /><p class="op-kicker">빌더 시즌4 · 2차 검증 · 아키텍처 중간 검증</p><h1 class="op-title">CUBRID K8s Operator</h1><p class="op-lead">장애 중에도 틀린 “쓰기 성공”을 내보내지 않는 Operator</p><div class="op-meta"><b>CUBRID Lab</b><span>최영선 · 백경준 · 공동 메인테이너</span></div></div>
+<div class="op-cover"><BrandMark name="cubrid-kubernetes-operator" alt="CUBRID Lab Operator icon" :height="84" /><p class="op-kicker">빌더 시즌4 · 2차 검증 · 아키텍처 중간 검증</p><h1 class="op-title">CUBRID K8s Operator</h1><p class="op-lead">master를 확신할 수 없으면 쓰기 경로를 닫는 Operator</p><div class="op-meta"><b>CUBRID Lab</b><span>최영선 · 백경준 · 공동 메인테이너</span></div></div>
 
 </OperatorSlide>
 
 <!--
 [20초 · Opening · 프로젝트 소개]
-안녕하세요. CUBRID Lab의 최영선, 백경준입니다. 1차 검증에서는 Kubernetes에서 CUBRID HA를 운영하고 장애 뒤 복구까지 확인하는 Operator의 목표와 계획을 말씀드렸습니다. 오늘 2차 검증에서 드릴 말씀은 한 문장입니다. 장애 중에도 틀린 쓰기 성공은 내보내지 않는다. 1차에서 직접 본 위험에서 출발해, 그것을 막는 설계와 VM 랩에서 확인한 증거, 막지 못한 한계, 그리고 그래서 v0.1에서 무엇을 약속하는지 순서대로 말씀드리겠습니다.
+안녕하세요. CUBRID Lab의 최영선, 백경준입니다. 1차 검증에서는 Kubernetes에서 CUBRID HA를 운영하고 장애 뒤 복구까지 확인하는 Operator의 목표와 계획을 말씀드렸습니다. 오늘 2차 검증에서 드릴 말씀은 한 문장입니다. master를 확신할 수 없으면 쓰기 경로를 닫고, 닫은 뒤에는 쓰기 성공을 내보내지 않는다. 닫기 전에 생긴 손실은 숨기지 않고 공개합니다. 1차에서 직접 본 위험에서 출발해, 그것을 막는 설계와 VM 랩에서 확인한 증거, 막지 못한 한계, 그리고 그래서 v0.1에서 무엇을 약속하는지 순서대로 말씀드리겠습니다.
 
 근거: https://github.com/cubrid-lab/cubrid-kubernetes-operator
 -->
@@ -45,7 +45,7 @@ title: "CUBRID Kubernetes Operator — 2차 검증"
 
 <OperatorSlide class="op-compact" section="01 · 문제" source="1차 검증 발표 · 시험 중 직접 본 위험" source-url="https://github.com/cubrid-lab/showcase/tree/main/events/2026-builder-season4/01-validation">
 
-<h1 class="op-title">1차에서 본 가장 큰 위험: master가 불확실한데 쓰기가 성공했습니다</h1><div class="op-safety"><div><span>1차 검증에서 직접 본 것</span><h3>master 미확정 상태에서 RW 쓰기 승인</h3><p>Kind에서 master Pod를 삭제하는 시험 중, Operator는 master를 “미확정”으로 표시했지만 읽기-쓰기 경로는 열려 있었고 쓰기가 승인됐습니다.</p><p class="op-mini">상태 표시만으로는 쓰기가 막히지 않음</p></div><div><span>그래서 이번 질문</span><h3>Operator는 어디까지 막을 수 있나</h3><p>장애 중에 애플리케이션이 받은 “쓰기 성공”이 나중에 사라지지 않게 하려면, 무엇을 닫고 무엇을 공개해야 하는지 확인했습니다.</p><p class="op-mini">설계 → VM 랩 증거 → 한계 → v0.1 범위</p></div></div><p class="op-boundary"><b>오늘의 한 문장</b>　장애 중에도 틀린 “쓰기 성공”은 내보내지 않습니다</p>
+<h1 class="op-title">1차에서 본 가장 큰 위험: master가 불확실한데 쓰기가 성공했습니다</h1><div class="op-safety"><div><span>1차 검증에서 직접 본 것</span><h3>master 미확정 상태에서 RW 쓰기 승인</h3><p>Kind에서 master Pod를 삭제하는 시험 중, Operator는 master를 “미확정”으로 표시했지만 읽기-쓰기 경로는 열려 있었고 쓰기가 승인됐습니다.</p><p class="op-mini">상태 표시만으로는 쓰기가 막히지 않음</p></div><div><span>그래서 이번 질문</span><h3>Operator는 어디까지 막을 수 있나</h3><p>장애 중에 애플리케이션이 받은 “쓰기 성공”이 나중에 사라지지 않게 하려면, 무엇을 닫고 무엇을 공개해야 하는지 확인했습니다.</p><p class="op-mini">설계 → VM 랩 증거 → 한계 → v0.1 범위</p></div></div><p class="op-boundary"><b>오늘의 한 문장</b>　확신할 수 없으면 쓰기 경로를 닫고, 닫은 뒤에는 “쓰기 성공”을 내보내지 않습니다</p>
 
 </OperatorSlide>
 
@@ -53,7 +53,7 @@ title: "CUBRID Kubernetes Operator — 2차 검증"
 [35초 · 01 · 문제]
 1차 검증에서 직접 본 가장 큰 위험부터 말씀드리겠습니다. Kind에서 master Pod를 삭제하는 시험 중에 Operator는 master를 미확정으로 표시했지만, 읽기-쓰기 경로는 열려 있었고 쓰기가 승인됐습니다. 상태 표시만으로는 쓰기가 막히지 않는다는 뜻입니다.
 
-그래서 이번 4주 동안의 질문은 하나였습니다. Operator는 어디까지 막을 수 있는가. 애플리케이션이 받은 쓰기 성공이 나중에 사라지지 않게 하려면 무엇을 닫고, 막지 못하는 것은 무엇이며, 그것을 어떻게 공개할지입니다. 오늘 드릴 말씀은 장애 중에도 틀린 쓰기 성공은 내보내지 않는다, 이 한 문장입니다.
+그래서 이번 4주 동안의 질문은 하나였습니다. Operator는 어디까지 막을 수 있는가. 애플리케이션이 받은 쓰기 성공이 나중에 사라지지 않게 하려면 무엇을 닫고, 막지 못하는 것은 무엇이며, 그것을 어떻게 공개할지입니다. 오늘 드릴 말씀은 이 한 문장입니다. 확신할 수 없으면 쓰기 경로를 닫고, 닫은 뒤에는 쓰기 성공을 내보내지 않는다. 그리고 닫기 전에 생긴 손실은 숨기지 않고 공개한다.
 -->
 
 ---
@@ -71,9 +71,58 @@ title: "CUBRID Kubernetes Operator — 2차 검증"
 
 ---
 
+<OperatorSlide class="op-compact" section="02 · 설계 · 전체 구조" source="전체 아키텍처 · 쓰기 격리 ADR-0005 · 재구축 ADR-0006" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/adr/0006-node-join-rebuild.md">
+
+<h1 class="op-title">1차 아키텍처 위에 쓰기 격리와 재구축을 더했습니다</h1><svg class="op-arch" style="max-height:372px" viewBox="0 0 900 384" role="img" aria-label="1차 전체 아키텍처 위에 이번에 더한 것: A 쓰기 격리 판단은 Operator가, B 격리 시 읽기-쓰기 Broker를 0개로 줄여 SQL 경로를 닫고, C 볼륨을 잃은 멤버는 요청에 따라 현재 master의 백업으로 다시 채웁니다.">
+<defs><marker id="op-arch-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0f1b2d"/></marker><marker id="op-arch-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1f4e8c"/></marker><marker id="op-arch-mute" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#5b6b82"/></marker></defs>
+<rect class="box" x="150" y="0" width="750" height="328" rx="10" style="fill:none;stroke-dasharray:3 4"/><text class="s" x="162" y="16">Kubernetes 클러스터</text>
+<rect class="box" x="0" y="14" width="130" height="50" rx="8"/><text x="65" y="35" text-anchor="middle">사용자</text><text class="s" x="65" y="53" text-anchor="middle">kubectl · YAML 적용</text>
+<path class="ctl" d="M130 39H166" marker-end="url(#op-arch-blue)"/><text class="s b" x="148" y="32" text-anchor="middle">①</text>
+<rect class="box" x="170" y="24" width="120" height="62" rx="8"/><text x="230" y="46" text-anchor="middle">Kubernetes API</text><text class="s" x="230" y="63" text-anchor="middle">CubridCluster</text><text class="s" x="230" y="78" text-anchor="middle">CubridBackup</text>
+<path class="ctl" d="M290 44H336" marker-end="url(#op-arch-blue)"/><text class="s b" x="313" y="37" text-anchor="middle">② spec</text>
+<path class="ctl" d="M338 70H292" marker-end="url(#op-arch-blue)"/><text class="s b" x="315" y="84" text-anchor="middle">④ status</text>
+<rect class="box op" x="340" y="20" width="290" height="96" rx="8"/><text class="b" x="485" y="43" text-anchor="middle">CUBRID Kubernetes Operator</text><text class="s" x="485" y="64" text-anchor="middle">CubridCluster · CubridBackup 컨트롤러</text><text class="s" x="485" y="81" text-anchor="middle">HA · 서비스 · 스토리지 · 백업 · 업데이트</text><text class="s" x="485" y="101" text-anchor="middle">→ 하나의 상태 머신으로 조정</text>
+<path class="mgmt" d="M630 50H656" marker-end="url(#op-arch-mute)"/>
+<rect class="box" x="660" y="24" width="228" height="62" rx="8"/><text x="774" y="46" text-anchor="middle">관측</text><text class="s" x="774" y="63" text-anchor="middle">cubrid_cluster_* · cubrid_instance_*</text><text class="s" x="774" y="78" text-anchor="middle">Events · JSON 로그</text>
+<path class="mgmt" d="M400 116V136" marker-end="url(#op-arch-mute)"/><text class="s" x="392" y="131" text-anchor="end">생성·관리</text>
+<path class="ctl" d="M600 116V150" marker-end="url(#op-arch-blue)"/><text class="s b" x="610" y="135">③ 역할 조회·작업 요청 (토큰 인증)</text>
+<rect class="box" x="170" y="138" width="262" height="84" rx="8"/><text x="301" y="159" text-anchor="middle">Kubernetes 리소스</text><text class="s" x="301" y="177" text-anchor="middle">StatefulSet · PVC · Secret</text><text class="s" x="301" y="194" text-anchor="middle">Service: headless · 노드별 alias</text><text class="s" x="301" y="211" text-anchor="middle">NetworkPolicy · Broker Deployment</text>
+<rect class="box ha" x="450" y="152" width="440" height="152" rx="10"/><text x="464" y="174">CUBRID HA 3노드 — master 선출과 복제는 CUBRID가 직접</text>
+<rect class="box ink" x="462" y="184" width="126" height="108" rx="7"/><text class="b" x="525" y="205" text-anchor="middle">노드 0 · master</text><rect class="box im" x="467" y="215" width="116" height="28" rx="5"/><text class="b" x="525" y="234" text-anchor="middle" style="font-size:11px">Instance Manager</text><text class="s" x="525" y="270" text-anchor="middle">CUBRID · PVC</text>
+<rect class="box ink" x="604" y="184" width="126" height="108" rx="7"/><text x="667" y="205" text-anchor="middle">노드 1 · slave</text><rect class="box im" x="609" y="215" width="116" height="28" rx="5"/><text class="b" x="667" y="234" text-anchor="middle" style="font-size:11px">Instance Manager</text><text class="s" x="667" y="270" text-anchor="middle">CUBRID · PVC</text>
+<rect class="box ink" x="746" y="184" width="126" height="108" rx="7"/><text x="809" y="205" text-anchor="middle">노드 2 · slave</text><rect class="box im" x="751" y="215" width="116" height="28" rx="5"/><text class="b" x="809" y="234" text-anchor="middle" style="font-size:11px">Instance Manager</text><text class="s" x="809" y="270" text-anchor="middle">CUBRID · PVC</text>
+<path class="sql" d="M588 262H602" marker-end="url(#op-arch-ink)"/><path class="sql" d="M730 262H744" marker-end="url(#op-arch-ink)"/>
+<rect class="box" x="0" y="240" width="130" height="46" rx="8"/><text x="65" y="268" text-anchor="middle">애플리케이션</text>
+<path class="sql" d="M130 263H166" marker-end="url(#op-arch-ink)"/>
+<rect class="box" x="170" y="243" width="128" height="40" rx="8"/><text x="234" y="268" text-anchor="middle">RW / RO Service</text>
+<path class="sql" d="M298 263H310" marker-end="url(#op-arch-ink)"/>
+<rect class="box ink" x="312" y="235" width="126" height="56" rx="8"/><text x="375" y="257" text-anchor="middle">Broker (RW · RO)</text><text class="s" x="375" y="277" text-anchor="middle">RW가 master를 찾음</text>
+<path class="sql" d="M438 263H458" marker-end="url(#op-arch-ink)"/>
+<path class="mgmt" d="M670 304V340" marker-start="url(#op-arch-mute)" marker-end="url(#op-arch-mute)"/><text class="s" x="680" y="326">백업 업로드 · 복원</text>
+<rect class="box store" x="450" y="342" width="440" height="40" rx="8"/><text x="670" y="360" text-anchor="middle">S3 호환 오브젝트 저장소</text><text class="s" x="670" y="376" text-anchor="middle">초기 복사 · 백업 파일 · 파일 목록·체크섬</text>
+<path class="sql" d="M0 346H40"/><text class="s" x="48" y="350">SQL 경로 · 복제 (Operator는 SQL을 중계하지 않음)</text>
+<path class="ctl" d="M0 364H40"/><text class="s" x="48" y="368">운영 경로 ①–④</text>
+<path class="mgmt" d="M0 382H40"/><text class="s" x="48" y="386">생성·관리 · 백업 데이터 · 관측</text>
+<rect x="0" y="92" width="140" height="132" rx="8" style="fill:#fff7ed;stroke:#c2410c;stroke-width:1.5"/><text x="10" y="112" style="fill:#c2410c;font-weight:700">이번에 더한 것</text><text class="s" x="10" y="136"><tspan style="fill:#c2410c;font-weight:700">A</tspan> 쓰기 격리 판단</text><text class="s" x="10" y="160"><tspan style="fill:#c2410c;font-weight:700">B</tspan> RW Broker 0개로</text><text class="s" x="22" y="176">SQL 경로 차단</text><text class="s" x="10" y="200"><tspan style="fill:#c2410c;font-weight:700">C</tspan> 명시적 재구축</text><text class="s" x="22" y="216">master 백업 → 복원</text>
+<circle cx="352" cy="32" r="9" style="fill:#fff7ed;stroke:#c2410c;stroke-width:1.5"/><text x="352" y="36" text-anchor="middle" style="fill:#c2410c;font-weight:700" font-size="11">A</text>
+<rect x="309" y="232" width="132" height="62" rx="9" style="fill:none;stroke:#c2410c;stroke-width:2.5"/><circle cx="440" cy="234" r="9" style="fill:#fff7ed;stroke:#c2410c;stroke-width:1.5"/><text x="440" y="238" text-anchor="middle" style="fill:#c2410c;font-weight:700" font-size="11">B</text>
+<circle cx="874" cy="186" r="9" style="fill:#fff7ed;stroke:#c2410c;stroke-width:1.5"/><text x="874" y="190" text-anchor="middle" style="fill:#c2410c;font-weight:700" font-size="11">C</text>
+</svg>
+
+</OperatorSlide>
+
+<!--
+[40초 · 02 · 설계 · 전체 구조]
+1차 때 보여 드린 전체 아키텍처입니다. 구조 자체는 그대로입니다. master 선출과 복제는 CUBRID HA가 하고, Operator는 각 멤버의 Instance Manager에 역할을 묻고 결과를 status에 기록합니다. Operator는 SQL을 중계하지 않습니다.
+
+이번에 더한 것은 주황색 세 가지입니다. A, Operator가 master를 확신할 수 없다고 판단하면 쓰기 격리를 기록합니다. B, 격리 중에는 읽기-쓰기 Broker를 0개로 줄여 애플리케이션의 쓰기 경로를 실제로 닫습니다. C, 볼륨을 잃은 멤버는 사람이 요청하면 현재 master의 백업으로 다시 채웁니다. 다음 장부터 하나씩 보겠습니다.
+-->
+
+---
+
 <OperatorSlide class="op-compact" section="02 · 설계 · 쓰기 격리" source="ADR-0005 쓰기 격리" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/adr/0005-failover-split-brain.md">
 
-<h1 class="op-title">불확실한 master로 향하는 쓰기 경로를 닫습니다</h1><WriteIsolationDiagram /><p class="op-caption">자동 해제: 멤버 미확인 격리에 한해, 같은 master와 다른 멤버의 안전 근거를 10초 이상 간격으로 두 번 확인<br>다중 master 등 수동 판단이 필요한 경우: 현재 격리에 연결된 일회용 토큰으로 승인</p><p class="op-boundary"><b>확인 기준</b>　Broker Pod 종료 + endpoint 비움 + 기존·새 세션의 쓰기 승인 0건</p>
+<h1 class="op-title">불확실한 master로 향하는 쓰기 경로를 닫습니다</h1><WriteIsolationDiagram /><p class="op-caption">자동 해제: 멤버를 확인하지 못해 걸린 격리는 master와 다른 멤버가 안전하다는 것을 10초 이상 간격으로 두 번 확인하면 풀림<br>master가 둘인 경우처럼 사람이 판단해야 하면: 이번 격리에만 쓸 수 있는 일회용 토큰으로 해제</p><p class="op-boundary"><b>확인 기준</b>　Broker Pod 종료 + endpoint 비움 + 기존·새 세션의 쓰기 승인 0건</p>
 
 </OperatorSlide>
 
@@ -109,7 +158,7 @@ title: "CUBRID Kubernetes Operator — 2차 검증"
 
 <OperatorSlide class="op-compact" section="02 · 설계 · 재구축" source="볼륨 교체 재구축 #118" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/118">
 
-<h1 class="op-title">볼륨을 잃은 멤버는 명시적인 요청으로 다시 채웁니다</h1><div class="op-timeline"><div><small>① 감지</small><b>빈 볼륨으로 다시 뜬 멤버</b><p>데이터가 없는 멤버는<br>쓰기 격리에 들어감</p></div><div><small>② 요청</small><b>사람이 재구축 요청</b><p>자동으로 덮어쓰지 않음<br>대상 멤버와 볼륨 확인</p></div><div><small>③ 재구축</small><b>살아 있는 멤버에서 복사</b><p>백업으로 채운 뒤<br>slave로 다시 합류</p></div><div><small>④ 확인</small><b>확인된 행 대조</b><p>장애 전 승인된 모든 행이<br>재구축한 멤버에 있는지</p></div></div><p class="op-boundary"><b>측정</b>　Kind에서 요청부터 완료까지 40.2초, 모든 행 확인까지 48.9초 · v0.1 제한은 5분</p>
+<h1 class="op-title">볼륨을 잃은 멤버는 명시적인 요청으로 다시 채웁니다</h1><div class="op-timeline"><div><small>① 감지</small><b>빈 볼륨으로 다시 뜬 멤버</b><p>데이터가 없는 멤버는<br>쓰기 격리에 들어감</p></div><div><small>② 요청</small><b>사람이 재구축 요청</b><p>자동으로 덮어쓰지 않음<br>대상 멤버와 볼륨 확인</p></div><div><small>③ 재구축</small><b>현재 master에서 다시 채움</b><p>master 백업을 옮겨 복원한 뒤<br>slave로 다시 합류</p></div><div><small>④ 확인</small><b>확인된 행 대조</b><p>장애 전 승인된 모든 행이<br>재구축한 멤버에 있는지</p></div></div><p class="op-boundary"><b>측정</b>　Kind에서 요청부터 완료까지 40.2초, 모든 행 확인까지 48.9초 · v0.1 제한은 5분</p>
 
 </OperatorSlide>
 
@@ -156,7 +205,7 @@ VM 전원 손실은 복구 시간 분포를 측정하는 중입니다. 첫 격�
 
 <OperatorSlide class="op-compact" section="03 · 증거 · Kind" source="Kind E2E 실행 기록" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/1109">
 
-<h1 class="op-title">Kind에서는 전체 테스트를 매번 돌립니다</h1><div class="op-specs-head"><span class="op-evidence-number">55 / 55</span><div><b>Kind E2E 테스트 55개 통과</b><p>1차의 27개에서 늘어났습니다 · 실제 CUBRID 이미지로 한 번 도는 데 약 64분</p></div></div><table class="op-comparison"><thead><tr><th>무엇을 고쳤나</th><th>결과</th></tr></thead><tbody><tr><td>테스트가 DB에 로컬 소켓으로 붙을 때 가끔 세션이 끊김</td><td>11.10–11.20 실패한 실행 58건 중 9건이 이 원인 → TCP 접속으로 바꾼 11.22 이후 같은 원인의 실패 없음</td></tr><tr><td>재구축 중 다른 멤버의 역할 확인이 한 번 늦음</td><td>원인을 바로 보여 주도록 테스트 개선 · 처리 방법은 메인테이너 결정</td></tr></tbody></table><p class="op-boundary"><b>한계</b>　Kind 통과는 VM 랩 검증을 대신하지 않습니다</p>
+<h1 class="op-title">Kind에서는 전체 테스트를 매번 돌립니다</h1><div class="op-specs-head"><span class="op-evidence-number">55 / 55</span><div><b>Kind E2E 테스트 55개 통과</b><p>1차의 27개에서 늘어났습니다 · 실제 CUBRID 이미지로 한 번 도는 데 약 64분</p></div></div><table class="op-comparison"><thead><tr><th>항목</th><th>결과</th></tr></thead><tbody><tr><td><b>1차의 위험을 다시 시험</b>: 쓰기 중에 master Pod 강제 삭제</td><td>쓰기 격리가 읽기-쓰기 경로를 닫고, 삭제된 멤버의 새 Pod가 확인될 때까지 열지 않음 · 승인된 쓰기가 사라지지 않았는지 대조</td></tr><tr><td>테스트가 DB에 로컬 소켓으로 붙을 때 가끔 세션이 끊김</td><td>11.10–11.20 실패한 실행 58건 중 9건이 이 원인 → TCP 접속으로 바꾼 11.22 이후 같은 원인의 실패 없음</td></tr><tr><td>재구축 중 다른 멤버의 역할 확인이 한 번 늦음</td><td>원인을 바로 보여 주도록 테스트 개선</td></tr></tbody></table><p class="op-boundary"><b>한계</b>　Kind 통과는 VM 랩 검증을 대신하지 않습니다</p>
 
 </OperatorSlide>
 
@@ -167,13 +216,15 @@ VM 전원 손실은 복구 시간 분포를 측정하는 중입니다. 첫 격�
 불안정했던 테스트도 원인을 찾아 고쳤습니다. 테스트가 DB에 로컬 소켓으로 붙을 때 세션이 가끔 끊겼는데, 11월 10일부터 20일까지 실패한 실행 58건 중 9건이 이 원인이었고, 11월 22일 TCP 접속으로 바꾼 뒤로는 아직 같은 원인의 실패가 없습니다. 관찰 기간이 짧아서 계속 지켜보고 있습니다. 다만 Kind 통과가 VM 랩 검증을 대신하지는 않습니다.
 
 근거: https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/1109
+
+1차에서 본 위험도 같은 시험으로 다시 확인합니다. 쓰기가 이어지는 중에 master Pod를 강제로 삭제하면, 이제는 쓰기 격리가 읽기-쓰기 경로를 닫고, 삭제된 멤버의 새 Pod가 확인될 때까지 열지 않습니다. 그 뒤 승인된 쓰기가 사라지지 않았는지 대조합니다.
 -->
 
 ---
 
 <OperatorSlide class="op-compact" section="03 · 증거 · 검증이 찾은 결함" source="#1158 · 수정 PR #1159" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/1158">
 
-<h1 class="op-title">검증이 참조 환경의 결함을 찾아냈습니다</h1><div class="op-timeline"><div><small>① 증상</small><b>잡아 둔 연결이 끊김</b><p>Broker 용량 측정 중<br>CAS가 남았는데도<br>-199 오류</p></div><div><small>② 좁히기</small><b>층별로 나눠 시험</b><p>같은 Pod 안: 정상<br>다른 노드: 끊김<br>정책을 끄면: 정상</p></div><div><small>③ 원인</small><b>생존 확인이 막힘</b><p>CUBRID가 30초쯤 조용한 상대를<br>TCP 7로 확인하는데<br>NetworkPolicy가 조용히 버림</p></div><div><small>④ 수정</small><b>정책에 7번 허용</b><p>멤버 → Broker TCP 7만<br>다른 Pod는 계속 차단<br>랩 회귀 통과 · 리뷰 중</p></div></div><p class="op-boundary"><b>의미</b>　Kind는 정책을 적용하지 않아 놓친 문제를, 실제 참조 환경에서 반복 측정으로 찾았습니다</p>
+<h1 class="op-title">검증이 참조 환경의 결함을 찾아냈습니다</h1><div class="op-timeline"><div><small>① 증상</small><b>잡아 둔 연결이 끊김</b><p>Broker 용량 측정 중<br>CAS가 남았는데도<br>-199 오류</p></div><div><small>② 좁히기</small><b>층별로 나눠 시험</b><p>같은 Pod 안: 정상<br>다른 노드: 끊김<br>정책을 끄면: 정상</p></div><div><small>③ 원인</small><b>생존 확인이 막힘</b><p>CUBRID가 30초쯤 조용한 상대를<br>TCP 7로 확인하는데<br>NetworkPolicy가 조용히 버림</p></div><div><small>④ 수정</small><b>정책에 7번 허용</b><p>멤버 → Broker TCP 7만<br>다른 Pod는 계속 차단<br>랩 회귀 통과 · 리뷰 중</p></div></div><p class="op-boundary"><b>의미</b>　검증 방식이 실제 결함을 잡습니다 · Kind는 정책을 적용하지 않아 놓친 문제를 VM 랩 반복 측정으로 찾았습니다</p>
 
 </OperatorSlide>
 
@@ -269,13 +320,13 @@ v0.1의 약속은 세 가지입니다. 설치·복제, 장애 대응, 재구축�
 
 <OperatorSlide section="마무리">
 
-<h1 class="op-title">상태 표시에서 실제 쓰기 차단과 재구축으로</h1><div class="op-release"><div><p class="op-kicker">구현·시험</p><h3>쓰기 격리</h3><p>master가 불확실할 때<br>관리하는 쓰기 경로 차단</p></div><div><p class="op-kicker">구현·시험</p><h3>명시적 재구축</h3><p>볼륨을 잃은 멤버를<br>요청에 따라 복구·대조</p></div><div><p class="op-kicker">남은 공개 조건</p><h3>안전성 검증·독립 재현</h3><p>고정한 후보의 필수 증거와<br>작성자 외 검증자의 재현</p></div></div><p class="op-boundary"><b>한 문장으로</b>　장애 중에도 틀린 “쓰기 성공”은 내보내지 않습니다.<br>막지 못한 시간과 손실은 조건과 함께 공개합니다.</p>
+<h1 class="op-title">상태 표시에서 실제 쓰기 차단과 재구축으로</h1><div class="op-release"><div><p class="op-kicker">구현·시험</p><h3>쓰기 격리</h3><p>master가 불확실할 때<br>관리하는 쓰기 경로 차단</p></div><div><p class="op-kicker">구현·시험</p><h3>명시적 재구축</h3><p>볼륨을 잃은 멤버를<br>요청에 따라 복구·대조</p></div><div><p class="op-kicker">남은 공개 조건</p><h3>안전성 검증·독립 재현</h3><p>고정한 후보의 필수 증거와<br>작성자 외 검증자의 재현</p></div></div><p class="op-boundary"><b>한 문장으로</b>　확신할 수 없으면 쓰기 경로를 닫고, 닫은 뒤에는 “쓰기 성공”을 내보내지 않습니다.<br>닫기 전의 손실과 닫혀 있던 시간은 조건과 함께 공개합니다.</p>
 
 </OperatorSlide>
 
 <!--
 [20초 · 마무리]
-이번 검증에서는 미확정 상태 표시에서 실제 쓰기 경로 차단으로 나아갔고, 볼륨을 잃은 멤버의 명시적 재구축을 구현하고 시험했습니다. 남은 안전성 검증과 독립 재현을 릴리스 조건으로 삼겠습니다. 안전 규칙은 통과하고, 복구 시간과 데이터 손실은 조건과 함께 공개하겠습니다.
+이번 검증에서는 미확정 상태 표시에서 실제 쓰기 경로 차단으로 나아갔고, 볼륨을 잃은 멤버의 명시적 재구축을 구현하고 시험했습니다. 남은 안전성 검증과 독립 재현을 릴리스 조건으로 삼겠습니다. 다시 한 문장으로 정리하면, 확신할 수 없으면 쓰기 경로를 닫고 닫은 뒤에는 쓰기 성공을 내보내지 않습니다. 닫기 전의 손실과 닫혀 있던 시간은 조건과 함께 공개하겠습니다.
 -->
 
 ---
@@ -316,7 +367,7 @@ v0.1의 약속은 세 가지입니다. 설치·복제, 장애 대응, 재구축�
 
 <h1 class="op-title">만든 사람과 검증하는 사람을 나눕니다</h1><div class="op-people"><div><p class="op-kicker">구현 · 시나리오 실행</p><b>만들고 기록합니다</b><p>Operator 구현, 장애 시나리오, 판정 도구, VM 랩 실행 기록을 맡습니다.</p></div><div><p class="op-kicker">리뷰 · 랩 · 독립 재현</p><b>교차 검증합니다</b><p>코드와 실행 결과를 교차 검증하고, VM 랩 인프라를 운영하며, 공개 전 문서만 보고 재현합니다.</p></div></div><p class="op-boundary"><b>원칙</b>　작성자와 최종 검증자는 다른 사람입니다 · 공유 랩 장애 시험은 한 번에 하나씩 · 공개 여부는 함께 결정</p>
 
-<p class="op-caption"><a href="#/19">← Q&amp;A로 돌아가기</a></p>
+<p class="op-caption"><a href="#/20">← Q&amp;A로 돌아가기</a></p>
 
 </OperatorSlide>
 
@@ -333,7 +384,7 @@ v0.1의 약속은 세 가지입니다. 설치·복제, 장애 대응, 재구축�
 
 <h1 class="op-title">v0.1 이후에는 미룬 것부터 다시 봅니다</h1><div class="op-goals"><div><span>01</span><b>자동 재합류</b><p>남아 있던 데이터로 멤버가 안전하게 다시 합류 (S09)</p></div><div><span>02</span><b>옛 볼륨 채택</b><p>클러스터를 다시 만들 때 기존 볼륨을 안전하게 이어받기</p></div><div><span>03</span><b>아카이브 로그 한도</b><p>멤버 볼륨 안에서 아카이브 로그가 차지할 공간 제한</p></div><div><span>04</span><b>관찰과 격리 정책 분리</b><p>HA 상태 수집과 쓰기 격리 판단을 나눠 다시 설계</p></div></div><p class="op-caption">로드맵에서 v0.1 이후로 미룬 항목입니다 · 우선순위는 v0.1 결과와 사용자 피드백을 보고 정합니다</p>
 
-<p class="op-caption"><a href="#/19">← Q&amp;A로 돌아가기</a></p>
+<p class="op-caption"><a href="#/20">← Q&amp;A로 돌아가기</a></p>
 
 </OperatorSlide>
 
