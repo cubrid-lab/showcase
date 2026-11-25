@@ -4,13 +4,13 @@ title: "CUBRID Kubernetes Operator — 2차 검증"
 
 <OperatorSlide section="Opening · 프로젝트 소개" source="프로젝트·팀" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator">
 
-<div class="op-cover"><BrandMark name="cubrid-kubernetes-operator" alt="CUBRID Lab Operator icon" :height="84" /><p class="op-kicker">빌더 시즌4 · 2차 검증 · 아키텍처 중간 검증</p><h1 class="op-title">CUBRID K8s Operator</h1><p class="op-lead">master를 확신할 수 없으면 쓰기 경로를 닫는 Operator</p><div class="op-meta"><b>CUBRID Lab</b><span>최영선 · 백경준 · 공동 메인테이너</span></div></div>
+<div class="op-cover"><BrandMark name="cubrid-kubernetes-operator" alt="CUBRID Lab Operator icon" :height="84" /><p class="op-kicker">빌더 시즌4 · 2차 검증 · 아키텍처 중간 검증</p><h1 class="op-title">CUBRID K8s Operator</h1><p class="op-lead">장애 뒤 사람 없이 다시 쓸 수 있는 상태로 돌아오는 CUBRID HA Operator</p><div class="op-meta"><b>CUBRID Lab</b><span>최영선 · 백경준 · 공동 메인테이너</span></div></div>
 
 </OperatorSlide>
 
 <!--
 [20초 · Opening · 프로젝트 소개]
-안녕하세요. CUBRID Lab의 최영선, 백경준입니다. 1차 검증에서는 Kubernetes에서 CUBRID HA를 운영하고 장애 뒤 복구까지 확인하는 Operator의 목표와 계획을 말씀드렸습니다. 오늘 2차 검증에서 드릴 말씀은 한 문장입니다. master를 확신할 수 없으면 쓰기 경로를 닫고, 닫은 뒤에는 쓰기 성공을 내보내지 않는다. 닫기 전에 생긴 손실은 숨기지 않고 공개합니다. 1차에서 직접 본 위험에서 출발해, 그것을 막는 설계와 VM 랩에서 확인한 증거, 막지 못한 한계, 그리고 그래서 v0.1에서 무엇을 약속하는지 순서대로 말씀드리겠습니다.
+안녕하세요. CUBRID Lab의 최영선, 백경준입니다. 1차 검증에서는 Kubernetes에서 CUBRID HA를 운영하고 장애 뒤 복구까지 확인하는 Operator의 목표와 계획을 말씀드렸습니다. 오늘 2차 검증의 결론부터 말씀드리면, 첫 장애를 넘기는 것은 CUBRID HA도 합니다. 저희 Operator는 그 뒤를 맡습니다. 사람 없이 클러스터를 다시 쓸 수 있고, 다음 장애도 견딜 수 있는 상태로 돌려놓습니다. 그 과정에서 지키는 원칙은 한 문장입니다. master를 확신할 수 없으면 쓰기 경로를 닫고, 닫은 뒤에는 쓰기 성공을 내보내지 않는다. 닫기 전에 생긴 손실은 숨기지 않고 공개합니다. 1차에서 직접 본 위험에서 출발해, 그것을 막는 설계와 VM 랩에서 확인한 증거, 막지 못한 한계, 그리고 그래서 v0.1에서 무엇을 약속하는지 순서대로 말씀드리겠습니다.
 
 근거: https://github.com/cubrid-lab/cubrid-kubernetes-operator
 -->
@@ -19,7 +19,7 @@ title: "CUBRID Kubernetes Operator — 2차 검증"
 
 <OperatorSlide class="op-compact" section="Agenda · 발표 순서" source="발표 구성" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/ROADMAP.md">
 
-<h1 class="op-title">발표 순서</h1><div class="op-agenda"><div><span>01</span><b>문제</b><p>1차에서 본 가장 큰 위험</p></div><div><span>02</span><b>설계</b><p>쓰기 격리 · 경계 · 명시적 재구축</p></div><div><span>03</span><b>증거와 한계</b><p>VM 랩 · Kind · 검증이 찾은 결함 · 막지 못한 손실</p></div><div><span>04</span><b>그래서 v0.1</b><p>약속하는 범위 · 판정 방식 · 일정</p></div></div>
+<h1 class="op-title">발표 순서</h1><div class="op-agenda"><div><span>01</span><b>문제</b><p>1차에서 본 가장 큰 위험</p></div><div><span>02</span><b>설계</b><p>쓰기 격리 · 경계 · 명시적 재구축</p></div><div><span>03</span><b>증거와 한계</b><p>공식 operator와 같은 장애 비교 · VM 랩 · Kind · 막지 못한 손실</p></div><div><span>04</span><b>그래서 v0.1</b><p>약속하는 범위 · 판정 방식 · 일정</p></div></div>
 
 </OperatorSlide>
 
@@ -186,6 +186,23 @@ title: "CUBRID Kubernetes Operator — 2차 검증"
 
 ---
 
+<OperatorSlide class="op-compact" section="03 · 증거 · 같은 장애 비교" source="VM 랩 비교 실행 2026-11-25 · #122" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/122">
+
+<h1 class="op-title">같은 장애를 두 번 연속 냈을 때, 사람 없이 돌아온 쪽</h1><table class="op-comparison"><thead><tr><th>VM 랩 · HA 3대 · 쓰기 중 master Pod 강제 삭제</th><th>CUBRID/cubrid-operator</th><th>이 Operator</th></tr></thead><tbody><tr><td>쓸 수 있는 상태까지</td><td>멤버마다 DB 생성·HA 시작·Broker 시작을 사람이 실행</td><td>수동 단계 없음 · 약 2분</td></tr><tr><td>1번째 삭제</td><td>승인된 쓰기 손실 0 · 끊김 12.4초 · <b>지운 멤버는 사람이 다시 붙임</b></td><td>손실 0 · 끊김 22.0초 · 지운 멤버 자동 복귀</td></tr><tr><td>2번째 삭제</td><td>손실 0 · <b>새 master 선출 안 됨 → 31분간 쓰기 불가</b>, Pod는 모두 Ready</td><td>손실 0 · 끊김 32.8초 · 세 멤버 모두 자동 복귀</td></tr><tr><td>장애 중 상태 표시</td><td>master “알 수 없음”에 머묾</td><td>현재 primary · 격리 여부 · Ready</td></tr></tbody></table><p class="op-boundary"><b>공개할 점</b>　쓰기 끊김은 저희가 더 깁니다(확인될 때까지 닫음) · operator별 2회 실행 · 네트워크 분할은 비교하지 않음</p>
+
+</OperatorSlide>
+
+<!--
+[45초 · 03 · 같은 장애 비교]
+CUBRID 공식 조직에도 Kubernetes operator가 있습니다. 같은 VM 랩에서 두 operator로 HA 3대를 띄우고, 같은 클라이언트가 쓰는 중에 master Pod를 두 번 연속 강제로 지웠습니다.
+
+첫 번째 장애는 둘 다 넘겼습니다. 승인된 쓰기 손실은 둘 다 0건이었습니다. 첫 장애를 넘기는 것은 CUBRID HA 자체가 하기 때문입니다. 차이는 그다음입니다. 공식 operator에서는 지운 멤버가 저절로 돌아오지 않아 사람이 다시 붙였고, 두 번째 장애에서는 새 master가 뽑히지 않아 31분 동안 쓰기를 못 했습니다. 그동안 Pod는 모두 Ready로 보였습니다. 원인은 멤버마다 노드 목록 순서가 달라진 것이었습니다. 저희 Operator는 두 번 모두 사람 없이 세 멤버로 돌아왔습니다.
+
+대신 쓰기가 끊긴 시간은 저희가 22초와 33초로 더 깁니다. 새 Pod가 확인될 때까지 쓰기를 닫기 때문이고, 그중 절반 정도는 Broker를 다시 띄우는 시간이라 줄일 수 있는 부분으로 보고 있습니다.
+-->
+
+---
+
 <OperatorSlide class="op-compact" section="03 · 증거 · VM 랩" source="VM 랩 실행 기록 #122" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/122">
 
 <h1 class="op-title">VM 랩에서 격리 유지와 복구 동작을 확인했습니다</h1><table class="op-comparison op-results-v2"><thead><tr><th>시험</th><th>관찰 결과</th><th>현재 판정</th></tr></thead><tbody><tr><td><b>분할 중 Operator 재시작</b></td><td>같은 격리 유지 · Broker 0개<br>쓰기 승인 없음 · 확인된 행 보존</td><td><b>안전 규칙 통과</b></td></tr><tr><td><b>볼륨 교체 재구축</b></td><td>재구축 후 행 대조</td><td><b>통과</b></td></tr><tr><td><b>새 클러스터 복원</b></td><td>3회 복원 · 세션 끊김 없음</td><td><b>통과</b></td></tr><tr><td><b>VM 전원 손실</b></td><td>역할·접속 복구 시간 분포</td><td>측정 중</td></tr><tr><td><b>해제 후 재분할</b></td><td>옛 토큰이 새 격리를 풀지 못하는지</td><td>실행 전</td></tr></tbody></table><p class="op-boundary"><b>결과의 범위</b>　위 분할 시험의 행 보존은 해당 실행 결과입니다.<br>다른 조건에서 관찰한 데이터 손실은 다음 장에 별도로 공개합니다.</p>
@@ -320,7 +337,7 @@ v0.1의 약속은 세 가지입니다. 설치·복제, 장애 대응, 재구축�
 
 <OperatorSlide section="마무리">
 
-<h1 class="op-title">상태 표시에서 실제 쓰기 차단과 재구축으로</h1><div class="op-release"><div><p class="op-kicker">구현·시험</p><h3>쓰기 격리</h3><p>master가 불확실할 때<br>관리하는 쓰기 경로 차단</p></div><div><p class="op-kicker">구현·시험</p><h3>명시적 재구축</h3><p>볼륨을 잃은 멤버를<br>요청에 따라 복구·대조</p></div><div><p class="op-kicker">남은 공개 조건</p><h3>안전성 검증·독립 재현</h3><p>고정한 후보의 필수 증거와<br>작성자 외 검증자의 재현</p></div></div><p class="op-boundary"><b>한 문장으로</b>　확신할 수 없으면 쓰기 경로를 닫고, 닫은 뒤에는 “쓰기 성공”을 내보내지 않습니다.<br>닫기 전의 손실과 닫혀 있던 시간은 조건과 함께 공개합니다.</p>
+<h1 class="op-title">상태 표시에서 실제 쓰기 차단과 재구축으로</h1><div class="op-release"><div><p class="op-kicker">구현·시험</p><h3>쓰기 격리</h3><p>master가 불확실할 때<br>관리하는 쓰기 경로 차단</p></div><div><p class="op-kicker">구현·시험</p><h3>명시적 재구축</h3><p>볼륨을 잃은 멤버를<br>요청에 따라 복구·대조</p></div><div><p class="op-kicker">남은 공개 조건</p><h3>안전성 검증·독립 재현</h3><p>고정한 후보의 필수 증거와<br>작성자 외 검증자의 재현</p></div></div><p class="op-boundary"><b>한 문장으로</b>　장애 뒤 사람 없이 다시 쓸 수 있는 상태로 돌아옵니다.<br>확신할 수 없는 동안은 쓰기를 닫고, 닫혀 있던 시간과 손실은 공개합니다.</p>
 
 </OperatorSlide>
 
@@ -367,7 +384,7 @@ v0.1의 약속은 세 가지입니다. 설치·복제, 장애 대응, 재구축�
 
 <h1 class="op-title">만든 사람과 검증하는 사람을 나눕니다</h1><div class="op-people"><div><p class="op-kicker">구현 · 시나리오 실행</p><b>만들고 기록합니다</b><p>Operator 구현, 장애 시나리오, 판정 도구, VM 랩 실행 기록을 맡습니다.</p></div><div><p class="op-kicker">리뷰 · 랩 · 독립 재현</p><b>교차 검증합니다</b><p>코드와 실행 결과를 교차 검증하고, VM 랩 인프라를 운영하며, 공개 전 문서만 보고 재현합니다.</p></div></div><p class="op-boundary"><b>원칙</b>　작성자와 최종 검증자는 다른 사람입니다 · 공유 랩 장애 시험은 한 번에 하나씩 · 공개 여부는 함께 결정</p>
 
-<p class="op-caption"><a href="#/20">← Q&amp;A로 돌아가기</a></p>
+<p class="op-caption"><a href="#/21">← Q&amp;A로 돌아가기</a></p>
 
 </OperatorSlide>
 
@@ -384,7 +401,7 @@ v0.1의 약속은 세 가지입니다. 설치·복제, 장애 대응, 재구축�
 
 <h1 class="op-title">v0.1 이후에는 미룬 것부터 다시 봅니다</h1><div class="op-goals"><div><span>01</span><b>자동 재합류</b><p>남아 있던 데이터로 멤버가 안전하게 다시 합류 (S09)</p></div><div><span>02</span><b>옛 볼륨 채택</b><p>클러스터를 다시 만들 때 기존 볼륨을 안전하게 이어받기</p></div><div><span>03</span><b>아카이브 로그 한도</b><p>멤버 볼륨 안에서 아카이브 로그가 차지할 공간 제한</p></div><div><span>04</span><b>관찰과 격리 정책 분리</b><p>HA 상태 수집과 쓰기 격리 판단을 나눠 다시 설계</p></div></div><p class="op-caption">로드맵에서 v0.1 이후로 미룬 항목입니다 · 우선순위는 v0.1 결과와 사용자 피드백을 보고 정합니다</p>
 
-<p class="op-caption"><a href="#/20">← Q&amp;A로 돌아가기</a></p>
+<p class="op-caption"><a href="#/21">← Q&amp;A로 돌아가기</a></p>
 
 </OperatorSlide>
 
