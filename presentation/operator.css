@@ -561,3 +561,13 @@
 .slidev-layout.showcase-deck.operator-deck .session-next > div { border-left:2px solid var(--blue); padding-left:18px; display:grid; gap:10px; }
 .slidev-layout.showcase-deck.operator-deck .session-next h3 { font-size:1.35rem; }
 .slidev-layout.showcase-deck.operator-deck .session-next p { color:var(--muted); font-size:.9rem; }
+
+/* The appendix keeps the first round's architecture SVG; give its plain boxes
+   and arrowheads the dark session colors so white labels stay readable. */
+.slidev-layout.showcase-deck.operator-deck .op-session .op-arch .box { fill: #17283c; }
+.slidev-layout.showcase-deck.operator-deck .op-session .op-arch .box.op,
+.slidev-layout.showcase-deck.operator-deck .op-session .op-arch .box.im { fill: var(--blue-soft); }
+.slidev-layout.showcase-deck.operator-deck .op-session .op-arch .box.ha { fill: none; }
+.slidev-layout.showcase-deck.operator-deck .op-session .op-arch #op-arch-ink path { fill: var(--ink); }
+.slidev-layout.showcase-deck.operator-deck .op-session .op-arch #op-arch-blue path { fill: var(--blue); }
+.slidev-layout.showcase-deck.operator-deck .op-session .op-arch #op-arch-mute path { fill: var(--muted); }

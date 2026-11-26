@@ -134,7 +134,7 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/122
 
 <OperatorSlide class="op-session" section="03 · 증거 · VM 시험 현황" source="VM 랩 실행 기록 #122" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/122">
 
-<h1 class="op-title">검증된 동작과 남은 시험을 구분합니다</h1><table class="session-table session-status"><thead><tr><th>VM 랩 시험</th><th>확인한 동작</th><th>상태</th></tr></thead><tbody><tr><td>분할 중 Operator 재시작</td><td>격리 유지 · 쓰기 승인 없음</td><td><b>안전 규칙 통과</b></td></tr><tr><td>볼륨 교체 재구축</td><td>재구축 뒤 행 대조</td><td><b>통과</b></td></tr><tr><td>새 클러스터 복원</td><td>3회 복원 · 세션 끊김 없음</td><td><b>통과</b></td></tr><tr><td>VM 전원 손실</td><td>복구 시간 분포</td><td>측정 중</td></tr><tr><td>해제 후 재분할</td><td>옛 토큰으로 새 격리 해제 불가</td><td>실행 전</td></tr></tbody></table><p class="session-takeaway">각 행은 해당 실행의 결과 · 다른 조건에서 관찰한 손실은 별도 공개</p>
+<h1 class="op-title">VM 랩에서 확인한 동작과 측정값입니다</h1><table class="session-table session-status"><thead><tr><th>VM 랩 시험</th><th>확인한 동작</th><th>상태</th></tr></thead><tbody><tr><td>분할 중 Operator 재시작</td><td>격리 유지 · 쓰기 승인 없음</td><td><b>안전 규칙 통과</b></td></tr><tr><td>볼륨 교체 재구축</td><td>재구축 뒤 행 대조</td><td><b>통과</b></td></tr><tr><td>새 클러스터 복원</td><td>3회 복원 · 세션 끊김 없음</td><td><b>통과</b></td></tr><tr><td>VM 전원 손실</td><td>전원 차단 표시 뒤 첫 쓰기까지 26–38초 (3회)</td><td><b>측정 공개</b></td></tr><tr><td>해제 후 재분할</td><td>옛 토큰 2개 모두 거부 · 닫힌 뒤 쓰기 승인 없음</td><td><b>안전 규칙 통과</b></td></tr></tbody></table><p class="session-takeaway">각 행은 해당 실행의 결과 · 다른 조건에서 관찰한 손실은 별도 공개</p>
 
 </OperatorSlide>
 
@@ -142,7 +142,7 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/122
 [30초 · 본문 설명]
 VM 랩에서는 실제로 장애를 냈습니다. 네트워크 분할 중에 Operator를 재시작해도 같은 격리가 유지됐고, Broker는 0개, 분할 동안 쓰기 승인은 없었으며, 끝난 뒤 모든 멤버에 확인된 행이 남아 있었습니다. 볼륨 교체 재구축과 새 클러스터 복원도 VM 랩에서 통과했습니다.
 
-VM 전원 손실은 복구 시간 분포를 측정하는 중입니다. 첫 격리를 해제한 뒤 다시 분할했을 때 옛 토큰으로 새 격리를 풀 수 없는지 보는 시험은 코드 리뷰를 마쳤고, VM 랩 실행은 아직입니다. 랩은 공유 자원이라 한 번에 하나만, 공지하고, 점유 Lease를 잡은 상태에서만 실행합니다.
+VM 전원 손실은 세 번 측정했고, 전원 차단이 표시된 뒤 첫 쓰기가 승인되기까지 26초에서 38초가 걸렸습니다. 이 시간은 기준 통과가 아니라 측정값으로 공개합니다. 첫 격리를 해제한 뒤 다시 분할한 시험에서는, 새 격리가 걸린 상태에서 이미 쓴 토큰과 쓰지 않은 옛 토큰을 모두 넣어 봤고, Operator가 둘 다 거부해 격리가 유지됐습니다. 경로가 닫힌 뒤 승인된 쓰기는 없었습니다. 랩은 공유 자원이라 한 번에 하나만, 공지하고, 점유 Lease를 잡은 상태에서만 실행합니다.
 
 근거: https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/122
 -->
@@ -151,15 +151,15 @@ VM 전원 손실은 복구 시간 분포를 측정하는 중입니다. 첫 격�
 
 <OperatorSlide class="op-session" section="03 · 증거 · Kind" source="Kind E2E 실행 기록" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/1109">
 
-<h1 class="op-title">같은 위험을 반복해서 확인합니다</h1><div class="op-clean-hero"><strong>55 / 55</strong><p>Kind E2E 통과</p></div><p class="op-clean-caption">master 삭제 → 쓰기 차단 → 복귀 확인 → 데이터 대조<br>실제 노드·네트워크 정책은 VM 랩에서 별도 검증</p>
+<h1 class="op-title">같은 위험을 반복해서 확인합니다</h1><div class="op-clean-hero"><strong>61 / 61</strong><p>Kind E2E 통과</p></div><p class="op-clean-caption">master 삭제 → 쓰기 차단 → 복귀 확인 → 데이터 대조<br>실제 노드·네트워크 정책은 VM 랩에서 별도 검증</p>
 
 </OperatorSlide>
 
 <!--
 [35초 · 03 · 증거 · Kind]
-이 동작이 계속 유지되는지는 Kind 회귀 테스트로 확인합니다. 테스트는 1차의 27개에서 55개로 늘었고, 기록된 전체 실행이 통과했습니다. 첫 장에서 본 위험도 다시 시험합니다. 쓰기 중 master를 삭제하고, 경로가 닫히는지, 새 Pod가 확인될 때까지 기다리는지, 복구 뒤 승인된 데이터가 남아 있는지를 대조합니다. 다만 실제 노드와 네트워크 정책의 동작은 VM 랩에서 따로 확인해야 합니다.
+이 동작이 계속 유지되는지는 Kind 회귀 테스트로 확인합니다. 테스트는 1차의 27개에서 61개로 늘었고, 최신 main의 전체 실행이 통과했습니다. 첫 장에서 본 위험도 다시 시험합니다. 쓰기 중 master를 삭제하고, 경로가 닫히는지, 새 Pod가 확인될 때까지 기다리는지, 복구 뒤 승인된 데이터가 남아 있는지를 대조합니다. 다만 실제 노드와 네트워크 정책의 동작은 VM 랩에서 따로 확인해야 합니다.
 
-질문 시 참고: 전체 실행 약 64분. 11월 10–20일 실패 실행 58건 중 9건이 로컬 소켓 세션 끊김이었으며, 11월 22일 TCP 전환 후 기존 기록상 같은 원인 재발은 없었습니다. 짧은 관찰 기간의 결과입니다. 재구축 중 역할 확인 지연은 원인을 드러내도록 테스트를 개선했습니다.
+질문 시 참고: 전체 실행 약 63분 (main 3806d1db, 11월 25일). 11월 10–20일 실패 실행 58건 중 9건이 로컬 소켓 세션 끊김이었으며, 11월 22일 TCP 전환 후 기존 기록상 같은 원인 재발은 없었습니다. 짧은 관찰 기간의 결과입니다. 재구축 중 역할 확인 지연은 원인을 드러내도록 테스트를 개선했습니다.
 
 근거:
 https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/1109
@@ -169,7 +169,7 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/1109
 
 <OperatorSlide class="op-session" section="03 · 증거 · 검증이 찾은 결함" source="#1158 · 수정 PR #1159" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/1158">
 
-<h1 class="op-title">VM 랩이 찾아낸 결함: 생존 확인 패킷 차단</h1><div class="session-debug"><div><span>관찰</span><h3>같은 Pod 정상<br>다른 노드 끊김</h3></div><div class="focus"><span>원인</span><h3>멤버 → Broker</h3><p>TCP 7 생존 확인을<br>NetworkPolicy가 차단</p></div><div><span>수정·회귀</span><h3>필요한 경로만 허용</h3><p>랩에서 연결 유지 확인<br>기존 기록상 수정안 리뷰 중</p></div></div><p class="session-takeaway">Kind 회귀 시험과 실제 네트워크 정책을 적용한 VM 시험을 함께 운영</p>
+<h1 class="op-title">VM 랩이 찾아낸 결함: 생존 확인 패킷 차단</h1><div class="session-debug"><div><span>관찰</span><h3>같은 Pod 정상<br>다른 노드 끊김</h3></div><div class="focus"><span>원인</span><h3>멤버 → Broker</h3><p>TCP 7 생존 확인을<br>NetworkPolicy가 차단</p></div><div><span>수정·회귀</span><h3>필요한 경로만 허용</h3><p>머지한 빌드로 랩 회귀 통과<br>멤버끼리는 불필요 확인 · 종료</p></div></div><p class="session-takeaway">Kind 회귀 시험과 실제 네트워크 정책을 적용한 VM 시험을 함께 운영</p>
 
 </OperatorSlide>
 
@@ -177,7 +177,7 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/1109
 [40초 · 03 · 증거 · 검증이 찾은 결함]
 VM 랩 검증이 실제로 결함을 찾아낸 사례도 하나 말씀드리겠습니다. Broker 용량을 재다가, CAS가 남아 있는데도 잡아 둔 연결이 -199 오류로 끊기는 걸 봤습니다. 층을 나눠 시험해 보니 같은 Pod 안에서는 멀쩡하고, 다른 노드에서 오면 끊기고, NetworkPolicy를 끄면 다시 멀쩡했습니다.
 
-원인은 CUBRID의 생존 확인이었습니다. 30초쯤 조용한 상대를 TCP 7번으로 확인하는데, Broker 정책이 이 포트를 열지 않아 패킷이 조용히 버려지고, 서버는 상대가 죽은 줄 알고 연결을 끊었습니다. 멤버에서 Broker로 가는 7번만 허용하는 수정을 올렸고, 그 정책만으로 VM 랩에서 노드를 건넌 세션 40개와 Broker를 거친 연결 30개가 45초씩 세 번 쉬어도 모두 유지됐습니다. 지금은 리뷰 중입니다. 이번 Kind 환경에서는 정책을 적용하지 않아 놓쳤던 문제를 실제 환경에서 찾은 것입니다.
+원인은 CUBRID의 생존 확인이었습니다. 30초쯤 조용한 상대를 TCP 7번으로 확인하는데, Broker 정책이 이 포트를 열지 않아 패킷이 조용히 버려지고, 서버는 상대가 죽은 줄 알고 연결을 끊었습니다. 멤버에서 Broker로 가는 7번만 허용하는 수정을 머지했고, 그 빌드를 랩에 올려 Operator가 만든 정책만으로 노드를 건넌 세션 40개와 Broker를 거친 연결 30개가 45초씩 세 번 쉬어도 모두 유지되는 것을 확인했습니다. 멤버끼리는 이 확인이 오가지 않는다는 것도 캡처로 확인하고 이슈를 닫았습니다. 이번 Kind 환경에서는 정책을 적용하지 않아 놓쳤던 문제를 실제 환경에서 찾은 것입니다.
 
 근거: https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/1158
 -->
@@ -323,7 +323,7 @@ v0.1 이후에는 로드맵에서 미뤄 둔 것부터 다시 봅니다. 남아 
 
 ---
 
-<OperatorSlide class="op-compact" section="부록 · 전체 아키텍처" source="전체 아키텍처 · 쓰기 격리 ADR-0005 · 재구축 ADR-0006" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/adr/0006-node-join-rebuild.md">
+<OperatorSlide class="op-compact op-session" section="부록 · 전체 아키텍처" source="전체 아키텍처 · 쓰기 격리 ADR-0005 · 재구축 ADR-0006" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/adr/0006-node-join-rebuild.md">
 
 <h1 class="op-title">1차 아키텍처 위에 쓰기 격리와 재구축을 더했습니다</h1><svg class="op-arch" style="max-height:325px" viewBox="0 0 900 384" role="img" aria-label="1차 전체 아키텍처 위에 이번에 더한 것: A 쓰기 격리 판단은 Operator가, B 격리 시 읽기-쓰기 Broker를 0개로 줄여 SQL 경로를 닫고, C 볼륨을 잃은 멤버는 요청에 따라 현재 master의 백업으로 다시 채웁니다.">
 <defs><marker id="op-arch-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0f1b2d"/></marker><marker id="op-arch-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1f4e8c"/></marker><marker id="op-arch-mute" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#5b6b82"/></marker></defs>
@@ -355,10 +355,10 @@ v0.1 이후에는 로드맵에서 미뤄 둔 것부터 다시 봅니다. 남아 
 <path class="sql" d="M0 346H40"/><text class="s" x="48" y="350">SQL 경로 · 복제 (Operator는 SQL을 중계하지 않음)</text>
 <path class="ctl" d="M0 364H40"/><text class="s" x="48" y="368">운영 경로 ①–④</text>
 <path class="mgmt" d="M0 382H40"/><text class="s" x="48" y="386">생성·관리 · 백업 데이터 · 관측</text>
-<rect x="0" y="92" width="140" height="132" rx="8" style="fill:#fff7ed;stroke:#c2410c;stroke-width:1.5"/><text x="10" y="112" style="fill:#c2410c;font-weight:700">이번에 더한 것</text><text class="s" x="10" y="136"><tspan style="fill:#c2410c;font-weight:700">A</tspan> 쓰기 격리 판단</text><text class="s" x="10" y="160"><tspan style="fill:#c2410c;font-weight:700">B</tspan> RW Broker 0개로</text><text class="s" x="22" y="176">SQL 경로 차단</text><text class="s" x="10" y="200"><tspan style="fill:#c2410c;font-weight:700">C</tspan> 명시적 재구축</text><text class="s" x="22" y="216">master 백업 → 복원</text>
-<circle cx="352" cy="32" r="9" style="fill:#fff7ed;stroke:#c2410c;stroke-width:1.5"/><text x="352" y="36" text-anchor="middle" style="fill:#c2410c;font-weight:700" font-size="11">A</text>
-<rect x="309" y="232" width="132" height="62" rx="9" style="fill:none;stroke:#c2410c;stroke-width:2.5"/><circle cx="440" cy="234" r="9" style="fill:#fff7ed;stroke:#c2410c;stroke-width:1.5"/><text x="440" y="238" text-anchor="middle" style="fill:#c2410c;font-weight:700" font-size="11">B</text>
-<circle cx="874" cy="186" r="9" style="fill:#fff7ed;stroke:#c2410c;stroke-width:1.5"/><text x="874" y="190" text-anchor="middle" style="fill:#c2410c;font-weight:700" font-size="11">C</text>
+<rect x="0" y="92" width="140" height="132" rx="8" style="fill:#2d2217;stroke:#ffad5c;stroke-width:1.5"/><text x="10" y="112" style="fill:#ffad5c;font-weight:700">이번에 더한 것</text><text class="s" x="10" y="136"><tspan style="fill:#ffad5c;font-weight:700">A</tspan> 쓰기 격리 판단</text><text class="s" x="10" y="160"><tspan style="fill:#ffad5c;font-weight:700">B</tspan> RW Broker 0개로</text><text class="s" x="22" y="176">SQL 경로 차단</text><text class="s" x="10" y="200"><tspan style="fill:#ffad5c;font-weight:700">C</tspan> 명시적 재구축</text><text class="s" x="22" y="216">master 백업 → 복원</text>
+<circle cx="352" cy="32" r="9" style="fill:#2d2217;stroke:#ffad5c;stroke-width:1.5"/><text x="352" y="36" text-anchor="middle" style="fill:#ffad5c;font-weight:700" font-size="11">A</text>
+<rect x="309" y="232" width="132" height="62" rx="9" style="fill:none;stroke:#ffad5c;stroke-width:2.5"/><circle cx="440" cy="234" r="9" style="fill:#2d2217;stroke:#ffad5c;stroke-width:1.5"/><text x="440" y="238" text-anchor="middle" style="fill:#ffad5c;font-weight:700" font-size="11">B</text>
+<circle cx="874" cy="186" r="9" style="fill:#2d2217;stroke:#ffad5c;stroke-width:1.5"/><text x="874" y="190" text-anchor="middle" style="fill:#ffad5c;font-weight:700" font-size="11">C</text>
 </svg>
 
 <p class="op-caption"><a href="#/20">← Q&amp;A로 돌아가기</a></p>
@@ -376,7 +376,7 @@ v0.1 이후에는 로드맵에서 미뤄 둔 것부터 다시 봅니다. 남아 
 
 ---
 
-<OperatorSlide class="op-compact" section="부록 · 비교 시험 상세" source="VM 랩 비교 실행 2026-11-25 · #122" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/122">
+<OperatorSlide class="op-compact op-session" section="부록 · 비교 시험 상세" source="VM 랩 비교 실행 2026-11-25 · #122" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/122">
 
 <h1 class="op-title">두 번의 master 삭제 뒤, 세 멤버가 자동 복귀했습니다</h1><p class="op-caption">2026-11-25 VM 랩 · HA 3멤버 · 쓰기 중 master Pod 강제 삭제를 operator별 2회</p><table class="op-comparison op-repeat-comparison"><thead><tr><th>관찰 항목</th><th>CUBRID/cubrid-operator</th><th>CUBRID Lab Operator</th></tr></thead><tbody><tr><td><b>첫 삭제 뒤</b></td><td>쓰기 중단 12.4초<br>삭제한 멤버는 수동 재합류</td><td>쓰기 중단 22.0초<br>삭제한 멤버 자동 복귀</td></tr><tr><td><b>두 번째 삭제 뒤</b></td><td>31분간 쓰기 불가<br>새 master 미선출 · Pod는 Ready</td><td>쓰기 중단 32.8초<br>세 멤버 모두 자동 복귀</td></tr><tr><td><b>승인된 쓰기 손실</b></td><td>두 시험 모두 0건</td><td>두 시험 모두 0건</td></tr></tbody></table><p class="op-boundary"><b>이번에 확인한 차이</b>　장애 뒤 멤버 복귀까지 자동으로 이어짐<br>첫 장애의 쓰기 중단은 더 길었음 · 이 결과를 다른 장애 조건으로 일반화하지 않음</p>
 
@@ -397,7 +397,7 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/122
 
 ---
 
-<OperatorSlide class="op-compact" section="부록 · 한계와 시험 조건" source="#1035 · #702 · #938" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/ROADMAP.md">
+<OperatorSlide class="op-compact op-session" section="부록 · 한계와 시험 조건" source="#1035 · #702 · #938" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/ROADMAP.md">
 
 <h1 class="op-title">숨기지 않고 공개할 한계</h1><ol class="op-risks"><li><b>복제 지연 후 VM 전원 차단: 승인된 쓰기 13건이 새 master에 없음</b><span>2026-11-19 VM 시험 · 복제 프로세스를 정지한 조건 · 해당 행은 옛 master 디스크에만 남음</span></li><li><b>네트워크 분할에서 승격된 멤버에 승인된 쓰기 최대 73건 없음</b><span>11월 17–18일 VM 분할 5회에서 13–73건 미반영 · 1회는 73건이 없는 멤버가 active master로 전환</span></li><li><b>master Pod 정상 종료 때 쓰기 경로가 28초 닫힘</b><span>불필요한 격리 · 시간과 원인을 공개</span></li><li><b>스토리지는 node-local, CSI 아님</b><span>볼륨이 다른 노드로 따라가는 동작·스냅샷·크기 변경은 검증하지 않음</span></li></ol><p class="op-boundary"><b>원칙</b>　Operator의 제어 범위와 엔진 동작의 한계를 구분하고, 재현 조건과 영향을 공개합니다</p>
 
