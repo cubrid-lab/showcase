@@ -144,21 +144,24 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/126
 
 <OperatorSlide class="op-compact op-session" section="03 · 개발 현황과 아키텍처">
 
-<h1 class="op-title">상태 표시에서 쓰기 차단으로 바뀐 설계</h1>
+<h1 class="op-title">v0.1 구현 범위: 쓰기 차단, 서버 재구축, 백업 복원</h1>
+
 <div class="session-debug">
-  <div><span>처음 설계</span><h3>상태만 알렸습니다</h3><p>어느 서버가 쓰기를 받는지<br>확인할 수 없다고 표시</p></div>
-  <div><span>현재 구현</span><h3>쓰기 연결을 차단합니다</h3><p>쓰기를 받을 서버가 불확실하면<br>쓰기용 Broker를 중지</p></div>
-  <div><span>v0.1 공개 전</span><h3>같은 버전으로 다시 시험합니다</h3><p>차단 뒤 쓰기 성공이 없는지,<br>어떤 근거로 다시 여는지 확인</p></div>
+  <div><span>쓰기 차단과 재개</span><h3>불확실하면 쓰기를 막습니다</h3><p>Operator가 서버 상태를 확인하고<br>쓰기용 Broker를 멈춥니다.</p></div>
+  <div><span>볼륨 재구축</span><h3>디스크를 잃은 서버를 복구합니다</h3><p>운영자 승인 후 백업으로 재구축하고<br>복제에 합류시킵니다.</p></div>
+  <div><span>백업과 복원</span><h3>새 클러스터에 데이터를 복원합니다</h3><p>Instance Manager가 백업을 실행하고,<br>복원 전에 백업 파일을 검증합니다.</p></div>
 </div>
-<p class="session-takeaway">재구축은 운영자 승인과 복구 데이터 대조를 확인합니다. 백업 복원은 다른 운영자도 문서만 보고 재현해야 합니다.</p>
+<p class="session-takeaway">1차에서는 상태를 알렸습니다. v0.1에서는 쓰기 연결을 실제로 제어하고, 데이터 복구까지 연결합니다.</p>
 
 </OperatorSlide>
 
 <!--
-[40초 · 설계 변화]
-앱이 저장 성공 응답을 받았어도, 데이터가 복제되기 전에 서버가 멈추면 새 서버에 그 데이터가 없을 수 있습니다. 처음엔 어느 서버가 쓰기를 받을지 불확실하다는 상태만 표시했습니다. 지금은 쓰기 연결도 끊습니다. 공개 전에는 같은 후보 버전으로 차단과 재개를 반복 시험합니다. 볼륨 재구축은 운영자가 승인하도록 했고, 백업 복원은 다른 운영자가 문서만 보고 성공을 확인할 수 있어야 합니다.
+[40초 · v0.1 구현 범위]
+저희가 v0.1에서 끝내려는 일은 세 가지입니다. 첫째, 어느 서버가 쓰기를 받을지 불확실하면 실제로 쓰기 연결을 끊습니다. 둘째, 디스크를 잃은 서버는 운영자가 대상을 승인한 뒤 백업으로 다시 구성합니다. 셋째, 백업을 다른 클러스터에 복원할 수 있게 합니다. 1차 때는 주로 상태를 확인하고 알리는 데 집중했습니다. 지금은 Operator가 연결과 복구를 조정하고 Instance Manager가 각 서버에서 작업을 실행합니다. 다음 그림에서 그 역할을 보여드리겠습니다.
 
-근거: https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/126
+근거:
+https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/ROADMAP.md
+https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/126
 -->
 
 ---
@@ -340,7 +343,7 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/122
   <div><span>백업 복원</span><h3>3회 통과</h3><p>새 클러스터에 백업을 복원한 시험에서<br>성공을 확인했습니다.</p></div>
   <div><span>전원 차단</span><h3>26~38초</h3><p>전원 차단 표시부터 첫 쓰기 성공 응답까지<br>걸린 시간입니다. 세 차례 측정했습니다.</p></div>
 </div>
-<p class="op-caption">데이터가 일부 남지 않은 사례는 14쪽에서 설명합니다.</p>
+<p class="op-caption">이 수치는 개별 시험 결과입니다. 공개할 버전으로 같은 조건에서 다시 확인해야 합니다.</p>
 
 </OperatorSlide>
 
@@ -355,48 +358,62 @@ VM 랩에서는 네트워크가 끊긴 동안 Operator를 재시작해도 쓰기
 
 ---
 
-<OperatorSlide class="op-session" section="04 · 검증 결과와 시행착오 · 연결 끊김" source="#1158 · 수정 PR #1159" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/1158">
+<OperatorSlide class="op-session" section="04 · 검증 결과와 시행착오 · 현재 문제" source="#1158 · 수정 PR #1159" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/1158">
 
-<h1 class="op-title">사용하지 않던 DB 연결이 끊기는 문제를 고쳤습니다</h1>
-<div class="session-debug">
-  <div><span>관찰</span><h3>연결을 쓰지 않으면 끊겼습니다</h3><p>다른 서버에서 접속한 뒤 잠시 사용하지 않으면 기존 연결이 끊겼습니다.</p></div>
-  <div class="focus"><span>원인</span><h3>연결 확인 신호가 막혔습니다</h3><p>실제 환경의 네트워크 규칙이 서버의 확인 신호를 차단했습니다.</p></div>
-  <div><span>수정·확인</span><h3>수정 뒤 연결이 유지됐습니다</h3><p>필요한 신호를 허용하고, 같은 조건에서 연결이 유지되는지 확인했습니다.</p></div>
-</div>
+<h1 class="op-title">지금 겪는 문제: 데이터 누락, 긴 중단, 복원 판정</h1>
+
+<table class="op-comparison">
+<thead><tr><th scope="col">시험에서 겪은 일</th><th scope="col">v0.1에서 확인할 것</th></tr></thead>
+<tbody>
+<tr><td><b>차단 전 데이터 누락</b><br>복제를 멈춘 전원 차단 시험에서 13건, 네트워크 장애 시험에서 최대 73건이 새 서버에 없었음</td><td>차단 전 데이터 누락을 조건과 함께 기록합니다. 차단이 확인된 뒤에는 성공한 쓰기가 없어야 합니다.</td></tr>
+<tr><td><b>쓰기 재개 지연</b><br>강제 삭제 시험 두 차례에서 중지한 Broker를 다시 띄우는 데 약 12~17초</td><td>최종 후보에서 쓰기를 다시 받을 때까지 걸린 시간을 측정하고, 연결을 다시 여는 조건도 확인합니다.</td></tr>
+<tr><td><b>복원 판정 보류</b><br>1차에는 세션이 끊겨 복원 2건을 판정하지 못함</td><td>복원 뒤 SQL 조회로 데이터를 대조합니다. 다른 운영자도 문서만 보고 같은 결과를 확인해야 합니다.</td></tr>
+</tbody>
+</table>
+<p class="op-caption">데이터 누락과 중단 수치는 각 시험 조건에서 관찰한 결과입니다. 상세 조건은 22쪽에 있습니다.</p>
 
 </OperatorSlide>
 
 <!--
-[25초 · 03 · 증거 · 검증이 찾은 결함]
-VM 랩에서는 연결을 유지하지 못하는 결함도 찾았습니다. 같은 Pod 안에서는 괜찮았지만 다른 노드에서 연결하면 끊겼고, 네트워크 정책을 끄면 문제가 사라졌습니다.
+[45초 · 현재 시행착오]
+시험에서 세 가지가 남았습니다. 먼저 이미 성공했다고 응답한 데이터가 새 서버에 없던 경우가 있었습니다. 복제를 일부러 멈춘 전원 차단 시험에서는 13건이 이전 서버에만 남았고, 네트워크 장애 시험에서는 새 서버에 최대 73건이 없었습니다. 이런 차단 전 누락은 조건과 함께 공개합니다. 두 번째로, 쓰기를 다시 열기로 한 뒤에도 Broker가 뜨는 데 12초에서 17초가 걸렸습니다. 마지막으로, 복원은 작업 완료 표시만으로 판단하기 어려웠습니다. 공개 후보에서는 실제 데이터를 대조하고 다른 운영자가 복원에 성공하는지 확인합니다.
 
-원인은 서버가 상대의 생존을 확인하는 TCP 7번 패킷을 정책이 막는 것이었습니다. 필요한 경로만 허용한 뒤, 노드를 건넌 세션 40개와 Broker를 거친 연결 30개가 세 차례 대기 후에도 유지됐습니다. Kind에는 이 정책이 없어 놓쳤습니다. 실제 환경 시험을 함께 하는 이유입니다.
-
-근거: https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/1158
+근거:
+https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/1035
+https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/702
+https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/1161
+https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/238
+https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/126
+https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/127
 -->
 
 ---
 
-<OperatorSlide class="op-session" section="04 · 검증 결과와 시행착오 · 한계" source="#1035 · #702 · #938" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/ROADMAP.md">
+<OperatorSlide class="op-session" section="04 · 검증 결과와 시행착오 · 이후로 미룬 기능" source="#1035 · #702 · #938" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/ROADMAP.md">
 
-<h1 class="op-title">새 서버의 데이터 누락과 불필요한 쓰기 중단</h1>
-<div class="session-debug session-two">
-  <div><span>새 서버에서 확인되지 않은 데이터</span><h3>13건 / 최대 73건</h3><p>복제를 멈추고 전원을 끈 시험에서 13건은 이전 서버 디스크에만 남았습니다.<br>네트워크 장애 시험에서는 최대 73건이 새 서버에 없었습니다.</p></div>
-  <div><span>불필요하게 쓰기를 막은 시간</span><h3>28초</h3><p>쓰기를 받던 서버를 정상 종료한 자동 시험에서<br>쓰기 연결을 불필요하게 막았습니다.</p></div>
-</div>
-<p class="op-caption">외부 스토리지(CSI)는 이번 시험에서 검증하지 않았습니다.</p>
+<h1 class="op-title">v0.1 이후로 미룬 기능과 이유</h1>
+
+<table class="op-comparison">
+<thead><tr><th scope="col">미룬 기능</th><th scope="col">v0.1에서 하는 일</th><th scope="col">미룬 이유</th></tr></thead>
+<tbody>
+<tr><td><b>기존 데이터로 자동 재합류</b><br>v0.2</td><td>운영자가 승인하면 백업으로 재구축</td><td>장애 서버에 남은 데이터가 최신 데이터를 덮어쓰지 않는지 더 검증해야 합니다.</td></tr>
+<tr><td><b>기존 디스크 자동 연결</b><br>v0.2</td><td>자동으로 기존 디스크를 가져오지 않음</td><td>새 클러스터가 재사용해도 되는 디스크인지 안전하게 판별해야 합니다.</td></tr>
+<tr><td><b>쓰기 연결을 더 빨리 재개</b><br>후속 검토 · 일정 미정</td><td>Broker를 중지하고, 재개까지 걸린 시간을 측정·공개</td><td>더 빠르게 열더라도 기존 연결까지 확실히 끊겼는지 먼저 입증해야 합니다.</td></tr>
+</tbody>
+</table>
+<p class="op-caption">외부 스토리지(CSI)는 이번 검증 환경에 포함하지 않았습니다.</p>
 
 </OperatorSlide>
 
 <!--
-[30초 · 본문 설명]
-막지 못한 사례도 있습니다. 복제를 멈춘 뒤 VM 전원을 차단하자, 성공 응답을 받은 데이터 13건이 새 master에 없었습니다. 옛 master 디스크에는 남아 있었습니다. 네트워크 분할 시험에서는 새 master에 최대 73건이 없었습니다. 모두 쓰기 경로를 닫기 전에 승인된 데이터입니다.
+[30초 · v0.1 이후로 미룬 기능]
+기존 데이터를 그대로 써서 자동으로 재합류시키는 기능과, 새 클러스터에 기존 디스크를 자동으로 연결하는 기능은 v0.2로 미뤘습니다. 기존 데이터의 상태와 소유권을 안전하게 판별해야 하기 때문입니다. 쓰기 연결을 더 빨리 여는 개선은 아직 일정을 정하지 않았습니다. 기존 연결까지 끊는 안전 조건을 유지할 수 있다는 증거가 먼저 필요합니다. v0.1에서는 현재 방식의 중단 시간을 측정해 공개합니다.
 
-반대로 정상 종료 때 불필요하게 쓰기가 28초 막힌 Kind 기록도 있습니다. 두 문제 모두 시험 조건과 함께 공개합니다.
-
-관측 근거: https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/1035 및 https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/adr/0005-failover-split-brain.md (section 8의 2026-11-17–18 VM 기록).
-
-근거: https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/ROADMAP.md
+근거:
+https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/ROADMAP.md
+https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/116
+https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/798
+https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/1161
 -->
 
 ---
@@ -567,6 +584,7 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/122
 <tbody>
 <tr><td>데이터 디스크를 교체한 서버 재구축</td><td>복구 뒤 저장 성공으로 응답했던 데이터가 남았는지 대조했습니다.</td></tr>
 <tr><td>격리를 해제한 뒤 다시 네트워크를 분할</td><td>이전 해제 토큰 두 개를 모두 거부했습니다. 쓰기 연결을 닫은 뒤 성공 응답이 없었습니다.</td></tr>
+<tr><td>한동안 쓰지 않은 DB 연결이 끊김</td><td>네트워크 규칙에서 연결 확인 신호를 허용한 뒤 같은 조건에서 연결이 유지됐습니다.</td></tr>
 </tbody>
 </table>
 
@@ -577,6 +595,13 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/122
 <!--
 [부록 · 추가 시험 결과]
 재구축 후 데이터 대조와 반복 장애에서 과거 해제 토큰 재사용 거부를 관찰했습니다. 자세한 조건은 VM 랩 실행 기록에 있습니다.
+
+연결 끊김을 해결한 사례:
+VM 랩에서는 연결을 유지하지 못하는 결함도 찾았습니다. 같은 Pod 안에서는 괜찮았지만 다른 노드에서 연결하면 끊겼고, 네트워크 정책을 끄면 문제가 사라졌습니다.
+
+원인은 서버가 상대의 생존을 확인하는 TCP 7번 패킷을 정책이 막는 것이었습니다. 필요한 경로만 허용한 뒤, 노드를 건넌 세션 40개와 Broker를 거친 연결 30개가 세 차례 대기 후에도 유지됐습니다. Kind에는 이 정책이 없어 놓쳤습니다. 실제 환경 시험을 함께 하는 이유입니다.
+
+근거: https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/1158
 
 근거: https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/122
 -->
