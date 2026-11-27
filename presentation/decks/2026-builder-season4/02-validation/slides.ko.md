@@ -39,7 +39,7 @@ title: "CUBRID Kubernetes Operator — 2차 검증"
 
 <OperatorSlide class="op-compact op-session" section="01 · 프로젝트 소개">
 
-<h1 class="op-title">CUBRID 운영을 위해 만드는 두 구성 요소</h1>
+<h1 class="op-title">Operator와 Instance Manager가 포함된 전체 구조</h1>
 
 <svg class="op-arch" style="max-height:340px" viewBox="0 0 900 392" role="img" aria-label="CUBRID Kubernetes Operator 전체 구조. 개발하는 구성 요소는 클러스터를 관리하는 Operator와 각 DB 서버에서 상태 조회 및 작업을 수행하는 Instance Manager입니다. 앱은 Service와 Broker를 거쳐 CUBRID에 접속합니다. CUBRID가 master 선출과 데이터 복제를 맡으며, 백업과 복원에는 S3 호환 저장소를 사용합니다.">
 <defs><marker id="op-arch-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0f1b2d"/></marker><marker id="op-arch-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1f4e8c"/></marker><marker id="op-arch-mute" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#5b6b82"/></marker></defs>
@@ -89,17 +89,17 @@ title: "CUBRID Kubernetes Operator — 2차 검증"
 
 <OperatorSlide class="op-compact op-session" section="02 · 1차 피드백 반영">
 
-<h1 class="op-title">쓰기 차단과 복원 성공 여부부터 확인했습니다</h1>
+<h1 class="op-title">1차 피드백 반영</h1>
 
 <table class="op-comparison">
-<thead><tr><th scope="col">1차 검토 의견</th><th scope="col">2차 반영</th><th scope="col">공개 전 확인</th></tr></thead>
+<thead><tr><th scope="col">1차 의견</th><th scope="col">바꾼 점</th><th scope="col">공개 전 할 일</th></tr></thead>
 <tbody>
-<tr><td>상태만 표시하면 실제 쓰기는 계속될 수 있음</td><td>쓰기 연결을 끊고, 차단 뒤 성공 응답이 없는지 확인</td><td>공개 후보에서 기존 연결과 새 연결 모두 재검증</td></tr>
-<tr><td>쓰기를 막으면 서비스가 얼마나 멈추는지 공개</td><td>공식 Operator와 같은 강제 삭제 시험. 쓰기 중단 시간 공개</td><td>분할과 전원 차단에서도 시간과 데이터 손실 범위를 따로 기록</td></tr>
-<tr><td>복원 성공을 확인할 수 없으면 통과에서 제외</td><td>1차 복원 2회는 판정 보류. 이후 새 클러스터 복원 3회 통과</td><td>공개 후보로 반복 시험. 실패 조건과 데이터까지 확인</td></tr>
+<tr><td>상태 표시만으로는 쓰기를 막을 수 없음</td><td>쓰기 연결을 끊고, 차단 뒤 성공 응답이 없는지 확인</td><td>새 연결과 기존 연결을 모두 막는지 재시험</td></tr>
+<tr><td>쓰기가 얼마나 오래 막히는지 공개</td><td>같은 장애를 내고 공식 Operator와 쓰기 중단 시간 비교</td><td>분할과 전원 차단에서도 시간과 데이터 손실 범위를 따로 기록</td></tr>
+<tr><td>복원 성공을 확인할 수 없으면 통과에서 제외</td><td>1차 2건은 보류. 이후 새 클러스터 복원 3건 통과</td><td>공개 후보에서 다시 복원하고 데이터 대조</td></tr>
 </tbody>
 </table>
-<p class="op-caption">출처: 2026년 10월 31일 1차 검증 의견 취합본. 개별 의견을 주제별로 요약했습니다.</p>
+<p class="op-caption">2026년 10월 31일 1차 검증 의견 요약</p>
 
 </OperatorSlide>
 
@@ -115,25 +115,25 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/126
 
 ---
 
-<OperatorSlide class="op-compact op-session" section="02 · 1차 피드백 반영">
+<OperatorSlide class="op-compact op-session" section="02 · 1차 피드백 비반영">
 
-<h1 class="op-title">기존 데이터로 자동 합류시키는 기능은 왜 미뤘을까요?</h1>
+<h1 class="op-title">1차 피드백 비반영</h1>
 
 <table class="op-comparison">
-<thead><tr><th scope="col">1차 검토 의견</th><th scope="col">처리</th><th scope="col">이유</th></tr></thead>
+<thead><tr><th scope="col">1차 의견</th><th scope="col">v0.1 처리</th><th scope="col">미룬 이유</th></tr></thead>
 <tbody>
-<tr><td>재합류 시 최신 데이터 보호</td><td>v0.1은 승인 후 백업으로 재구축.<br>기존 데이터 자동 재사용은 v0.2로 이월</td><td>오래된 데이터가 최신 데이터를 덮어쓰지 않는지 더 검증해야 함</td></tr>
-<tr><td>공식 Operator와의 관계·도입 비용</td><td>같은 장애 조건에서 복구 방식과 수동 개입을 비교</td><td>전환 비용과 공식 프로젝트와의 협력 방식은 추가 검토</td></tr>
-<tr><td>CSI·무중단 확장·복제 지연 기반 읽기</td><td>이번 발표의 검증 범위 밖</td><td>지금까지는 로컬 디스크를 쓰는 가상 서버 3대에서 확인</td></tr>
+<tr><td>기존 데이터를 보존하며 서버를 다시 합류시킬 것</td><td>기존 디스크로 자동 합류는 v0.2로 미룸.<br>v0.1은 운영자 승인 후 백업으로 재구축</td><td>이전 데이터가 최신 데이터를 덮어쓰지 않는지 검증 필요</td></tr>
+<tr><td>공식 Operator에서 전환할 때의 비용과 협력 방식</td><td>전환 비용과 협력 방식은 추가 검토</td><td>이번 비교에서는 강제 삭제 뒤 복구만 확인</td></tr>
+<tr><td>외부 스토리지(CSI), 무중단 확장, 복제 지연에 따른 읽기 전환</td><td>이번 검증에 포함하지 않음</td><td>로컬 디스크를 쓰는 가상 서버 3대에서 장애 복구부터 확인</td></tr>
 </tbody>
 </table>
-<p class="op-caption">출처: 2026년 10월 31일 1차 검증 의견 취합본. 개별 의견을 주제별로 요약했습니다.</p>
+<p class="op-caption">2026년 10월 31일 1차 검증 의견 요약</p>
 
 </OperatorSlide>
 
 <!--
-[30초 · 02 · 1차 피드백 반영]
-재합류 과정에서 최신 데이터를 덮어쓰지 않도록, v0.1에서는 운영자가 대상을 확인하고 현재 master의 백업으로 재구축합니다. 기존 데이터를 자동으로 가져오는 방식은 판별 기준과 검증 증거가 더 필요해 미뤘습니다. 공식 Operator와는 동일 장애에서 수동 개입과 복구를 비교했습니다. CSI, 무중단 확장과 복제 지연에 따른 읽기 전환은 이번 검증 밖입니다.
+[30초 · 02 · 1차 피드백 비반영]
+재합류 과정에서 최신 데이터를 덮어쓰지 않도록, v0.1에서는 운영자가 대상을 확인하고 현재 master의 백업으로 재구축합니다. 기존 데이터를 자동으로 가져오는 방식은 판별 기준과 검증 증거가 더 필요해 미뤘습니다. 공식 Operator에서 바꿔 쓰는 데 드는 비용과 협력 방식은 추가로 검토합니다. 외부 스토리지, 무중단 확장, 복제 지연에 따른 읽기 전환도 이번 시험에 포함하지 않았습니다.
 
 근거:
 https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/ROADMAP.md
@@ -144,7 +144,7 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/126
 
 <OperatorSlide class="op-compact op-session" section="03 · 개발 현황과 아키텍처">
 
-<h1 class="op-title">상태만 알리던 Operator가 이제 쓰기 연결도 차단합니다</h1>
+<h1 class="op-title">상태 표시에서 쓰기 차단으로 바뀐 설계</h1>
 <div class="session-debug">
   <div><span>처음 설계</span><h3>상태만 알렸습니다</h3><p>어느 서버가 쓰기를 받는지<br>확인할 수 없다고 표시</p></div>
   <div><span>현재 구현</span><h3>쓰기 연결을 차단합니다</h3><p>쓰기를 받을 서버가 불확실하면<br>쓰기용 Broker를 중지</p></div>
@@ -165,29 +165,80 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/126
 
 <OperatorSlide class="op-session" section="03 · 개발 현황과 아키텍처 · 현재 구조" source="전체 아키텍처 · 쓰기 격리 ADR-0005 · 재구축 ADR-0006" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/adr/0006-node-join-rebuild.md">
 
-<h1 class="op-title">쓰기를 끊을 때 두 구성 요소가 어떻게 함께 일하나요?</h1>
-<p class="op-lead">앞에서 본 전체 구조에서 쓰기 연결을 끊는 부분입니다.</p>
-<div class="session-debug">
-  <div><span>① 상태 확인</span><h3>Instance Manager</h3><p>각 CUBRID 서버가 맡은 역할을<br>Operator에 알려줍니다.</p></div>
-  <div><span>② 판단</span><h3>Operator</h3><p>서버들의 응답을 비교합니다.<br>어느 서버가 쓰기를 받아야 할지 판단합니다.</p></div>
-  <div><span>③ 연결 차단</span><h3>쓰기용 Broker</h3><p>판단할 수 없으면 Operator가 Broker를 멈춰<br>쓰기 연결을 끊습니다.</p></div>
-</div>
-<p class="op-caption">데이터 복제와 쓰기를 담당할 서버 선출은 CUBRID가 맡습니다.</p>
+<h1 class="op-title">v0.1 세부 아키텍처: Operator와 Instance Manager</h1>
+
+<svg class="op-arch" viewBox="0 0 900 359" role="img" aria-label="v0.1 제어 구조. Kubernetes API의 클러스터와 백업 요청을 Operator의 두 컨트롤러가 처리합니다. Operator는 쓰기용 Broker의 Deployment를 조정하고 각 DB Pod의 Instance Manager를 인증된 HTTP로 호출합니다. Instance Manager는 CUBRID 상태를 조회하고 백업·복원 준비를 실행하며 볼륨에 작업 기록을 남깁니다. 백업 파일과 검증 정보는 S3 호환 저장소에 보관합니다.">
+  <defs>
+    <marker id="v01-detail-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--blue)"/></marker>
+  </defs>
+  <rect class="box" x="0" y="41" width="161" height="102" rx="8"/>
+  <text x="80" y="64" text-anchor="middle">Kubernetes API</text>
+  <text class="s" x="80" y="89" text-anchor="middle">CubridCluster 설정</text>
+  <text class="s" x="80" y="109" text-anchor="middle">CubridBackup 요청</text>
+  <text class="s" x="80" y="129" text-anchor="middle">승인된 재구축 요청</text>
+  <path class="ctl" d="M162 80H205" marker-end="url(#v01-detail-arrow)"/>
+  <path class="ctl" d="M207 106H164" marker-end="url(#v01-detail-arrow)"/>
+  <text class="s" x="183" y="122" text-anchor="middle">상태</text>
+
+  <rect class="box op" x="210" y="0" width="323" height="239" rx="9" style="fill:none"/>
+  <text class="b" x="224" y="23">Operator</text>
+  <rect class="box op" x="225" y="36" width="293" height="82" rx="7"/>
+  <text x="237" y="58">CubridCluster 컨트롤러</text>
+  <text class="s" x="237" y="79">DB·서비스 리소스와 각 서버의 상태 관리</text>
+  <text class="s" x="237" y="101">쓰기 차단·재개와 승인된 재구축 조정</text>
+  <rect class="box op" x="225" y="128" width="293" height="60" rx="7"/>
+  <text x="237" y="149">CubridBackup 컨트롤러</text>
+  <text class="s" x="237" y="173">백업 대상 선택·요청·결과 기록</text>
+  <rect class="box im" x="225" y="199" width="293" height="26" rx="6"/>
+  <text class="s b" x="237" y="217">Instance Manager 호출 · 토큰 인증 HTTP</text>
+
+  <rect class="box" x="0" y="195" width="180" height="78" rx="8"/>
+  <text x="90" y="218" text-anchor="middle">쓰기용 Broker Deployment</text>
+  <text class="s" x="90" y="241" text-anchor="middle">차단할 때 0개로 줄임</text>
+  <text class="s" x="90" y="259" text-anchor="middle">기존 연결 종료 · 새 연결 차단</text>
+  <path class="ctl" d="M210 166H189V227H182" marker-end="url(#v01-detail-arrow)"/>
+
+  <rect class="box ha" x="615" y="0" width="284" height="251" rx="9"/>
+  <text class="b" x="631" y="23">각 CUBRID DB Pod</text>
+  <rect class="box im" x="631" y="36" width="252" height="128" rx="8"/>
+  <text class="b" x="643" y="59">Instance Manager</text>
+  <text class="s" x="643" y="81">역할·HA 상태 조회</text>
+  <text class="s" x="643" y="104">백업 실행·복원 준비</text>
+  <text class="s" x="643" y="127">작업 결과 조회</text>
+  <text class="s" x="643" y="150">볼륨에 작업 기록 저장</text>
+  <path class="ctl" d="M518 211H575V103H629" marker-end="url(#v01-detail-arrow)"/>
+  <rect class="box ink" x="631" y="183" width="252" height="51" rx="7"/>
+  <text x="757" y="203" text-anchor="middle">CUBRID와 데이터 볼륨</text>
+  <text class="s" x="757" y="222" text-anchor="middle">master 선출·복제는 CUBRID가 수행</text>
+  <path class="ctl" d="M757 164V180" marker-end="url(#v01-detail-arrow)"/>
+
+  <rect class="box store" x="615" y="284" width="284" height="58" rx="8"/>
+  <text x="757" y="307" text-anchor="middle">S3 호환 백업 저장소</text>
+  <text class="s" x="757" y="329" text-anchor="middle">백업 파일·체크섬 저장 및 조회</text>
+  <path class="ctl" d="M883 111H896V270H863V282" marker-end="url(#v01-detail-arrow)"/>
+
+  <text class="s b" x="0" y="304">v0.1에서 다시 확인할 작업</text>
+  <text x="0" y="331">쓰기 차단·재개, 운영자 승인 후 볼륨 재구축, 새 클러스터 복원</text>
+</svg>
 
 </OperatorSlide>
 
 <!--
-[25초 · 장애 시 구성 요소의 역할]
-Instance Manager가 각 서버의 역할을 알려주면 Operator가 응답을 비교합니다. 어느 서버가 쓰기를 받아야 할지 확신할 수 없다면, Operator가 쓰기용 Broker를 멈춥니다. Broker가 DB와 별도로 실행되기 때문에 데이터베이스의 선출이나 복제를 제어하지 않고도 앱의 쓰기 연결을 끊을 수 있습니다.
+[35초 · v0.1 세부 아키텍처]
+v0.1에서 검증할 관리 경로입니다. 왼쪽 Kubernetes API에서 클러스터 설정과 백업 요청을 받습니다. 가운데 Operator의 클러스터 컨트롤러는 서버 상태를 모아 판단하고, 쓰기를 막아야 하면 쓰기용 Broker를 0개로 줄입니다. 백업 컨트롤러는 대상 서버를 정하고 결과를 기록합니다. 오른쪽 각 DB Pod의 Instance Manager는 인증된 요청을 받아 CUBRID 상태를 읽거나 백업과 복원 준비를 실행합니다. 공개 전에는 이 구조로 쓰기 차단과 재개, 승인 후 디스크 재구축, 새 클러스터 복원을 확인합니다.
 
-근거: https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/adr/0005-failover-split-brain.md
+근거:
+https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/DESIGN.md
+https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/adr/0005-failover-split-brain.md
+https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/adr/0006-node-join-rebuild.md
+https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/126
 -->
 
 ---
 
 <OperatorSlide class="op-session" section="03 · 개발 현황과 아키텍처 · 쓰기 격리" source="ADR-0005 쓰기 격리" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/adr/0005-failover-split-brain.md">
 
-<h1 class="op-title">안전을 확인한 뒤에만 쓰기 연결을 다시 엽니다</h1>
+<h1 class="op-title">안전을 확인한 뒤 쓰기 연결을 다시 엽니다</h1>
 <div class="session-debug">
   <div><span>01 · 확인</span><h3>서버 상태를 봅니다</h3><p>응답을 받지 못하거나 역할 정보가 서로 다르면 쓰기 연결을 닫습니다.</p></div>
   <div><span>02 · 차단</span><h3>기존 연결도 끊습니다</h3><p>쓰기용 Broker를 멈춰 새 연결과 기존 연결을 함께 막습니다.</p></div>
@@ -215,7 +266,7 @@ Instance Manager가 각 서버의 역할을 알려주면 Operator가 응답을 �
 
 <OperatorSlide class="op-session" section="03 · 개발 현황과 아키텍처 · 재구축" source="볼륨 교체 재구축 #118" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/118">
 
-<h1 class="op-title">디스크까지 잃으면 운영자 승인 후 백업으로 복구합니다</h1>
+<h1 class="op-title">디스크를 잃은 서버는 백업으로 복구합니다</h1>
 <div class="session-debug session-two">
   <div><span>서버만 중단</span><h3>서버를 다시 띄웁니다</h3><p>디스크가 남은 서버의 자동 복귀를<br>강제 삭제 시험에서 확인했습니다.</p></div>
   <div><span>데이터 디스크도 손실</span><h3>백업으로 데이터를 복구합니다</h3><p>운영자가 대상을 확인하고 요청하면<br>현재 쓰기를 받는 서버의 백업을 복원합니다.</p></div>
@@ -237,7 +288,7 @@ Instance Manager가 각 서버의 역할을 알려주면 Operator가 응답을 �
 
 <OperatorSlide class="op-session" section="04 · 검증 결과와 시행착오 · 시험 방법" source="시나리오 계약 · VM 랩 실행 기록 #122" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/testing/scenario-contract.md">
 
-<h1 class="op-title">저장 성공 응답을 받은 데이터가 남았는지 확인합니다</h1>
+<h1 class="op-title">장애 전 저장 기록과 복구 후 데이터를 대조했습니다</h1>
 <div class="session-debug">
   <div><span>장애 전</span><h3>성공 응답을 기록합니다</h3><p>앱이 쓰기를 요청할 때마다<br>어떤 데이터가 저장됐다고 응답했는지 기록합니다.</p></div>
   <div><span>장애 발생</span><h3>실제로 서버를 멈춥니다</h3><p>전원을 끄거나, 네트워크를 끊거나,<br>쓰기를 받는 서버를 강제로 내립니다.</p></div>
@@ -262,7 +313,7 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/122
 
 <OperatorSlide class="op-session" section="04 · 검증 결과와 시행착오 · 장애 비교" source="VM 랩 비교 실행 2026-11-25 · #122" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/122">
 
-<h1 class="op-title">두 번째 장애 뒤 Lab Operator는 쓰기를 다시 열었습니다</h1>
+<h1 class="op-title">두 번째 장애 뒤 Lab Operator만 쓰기를 재개했습니다</h1>
 <p class="op-caption">같은 환경에서 두 Operator가 각각 쓰기를 받는 서버를 두 번 강제로 내렸습니다.</p>
 <div class="session-debug session-two">
   <div><span>CUBRID Lab Operator</span><h3>쓰기가 다시 됐습니다</h3><p>CUBRID가 새로 쓰기를 받을 서버를 선정했고,<br>DB 서버 3대가 자동으로 복귀했습니다.</p></div>
@@ -283,7 +334,7 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/122
 
 <OperatorSlide class="op-session" section="04 · 검증 결과와 시행착오 · VM 시험 결과" source="VM 랩 실행 기록 #122" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/122">
 
-<h1 class="op-title">장애 시험에서 확인한 결과 세 가지</h1>
+<h1 class="op-title">차단 뒤 쓰기 성공 0건, 새 클러스터 복원 3회 통과</h1>
 <div class="session-debug">
   <div><span>쓰기 차단</span><h3>성공 응답 0건</h3><p>네트워크 장애 중 Operator를 다시 시작해도<br>차단 뒤 성공한 쓰기는 없었습니다.</p></div>
   <div><span>백업 복원</span><h3>3회 통과</h3><p>새 클러스터에 백업을 복원한 시험에서<br>성공을 확인했습니다.</p></div>
@@ -306,7 +357,7 @@ VM 랩에서는 네트워크가 끊긴 동안 Operator를 재시작해도 쓰기
 
 <OperatorSlide class="op-session" section="04 · 검증 결과와 시행착오 · 연결 끊김" source="#1158 · 수정 PR #1159" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/1158">
 
-<h1 class="op-title">한동안 쓰지 않은 DB 연결이 끊기는 문제를 고쳤습니다</h1>
+<h1 class="op-title">사용하지 않던 DB 연결이 끊기는 문제를 고쳤습니다</h1>
 <div class="session-debug">
   <div><span>관찰</span><h3>연결을 쓰지 않으면 끊겼습니다</h3><p>다른 서버에서 접속한 뒤 잠시 사용하지 않으면 기존 연결이 끊겼습니다.</p></div>
   <div class="focus"><span>원인</span><h3>연결 확인 신호가 막혔습니다</h3><p>실제 환경의 네트워크 규칙이 서버의 확인 신호를 차단했습니다.</p></div>
@@ -328,7 +379,7 @@ VM 랩에서는 연결을 유지하지 못하는 결함도 찾았습니다. 같�
 
 <OperatorSlide class="op-session" section="04 · 검증 결과와 시행착오 · 한계" source="#1035 · #702 · #938" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/ROADMAP.md">
 
-<h1 class="op-title">쓰기 차단 전의 데이터와 불필요한 중단은 남은 과제입니다</h1>
+<h1 class="op-title">새 서버의 데이터 누락과 불필요한 쓰기 중단</h1>
 <div class="session-debug session-two">
   <div><span>새 서버에서 확인되지 않은 데이터</span><h3>13건 / 최대 73건</h3><p>복제를 멈추고 전원을 끈 시험에서 13건은 이전 서버 디스크에만 남았습니다.<br>네트워크 장애 시험에서는 최대 73건이 새 서버에 없었습니다.</p></div>
   <div><span>불필요하게 쓰기를 막은 시간</span><h3>28초</h3><p>쓰기를 받던 서버를 정상 종료한 자동 시험에서<br>쓰기 연결을 불필요하게 막았습니다.</p></div>
@@ -352,7 +403,7 @@ VM 랩에서는 연결을 유지하지 못하는 결함도 찾았습니다. 같�
 
 <OperatorSlide class="op-compact op-session" section="05 · 함께 논의할 질문">
 
-<h1 class="op-title">어떤 증거가 있어야 다시 쓰기를 열 수 있을까요?</h1>
+<h1 class="op-title">쓰기 재개와 복원 완료 기준에 대한 질문</h1>
 
 <ol class="op-questions"><li>복제는 정상처럼 보이는데 서버 한 대에만 연락이 안 된다면, 무엇을 확인한 뒤 쓰기를 다시 열겠습니까?</li><li>백업을 복원한 뒤, 운영자가 성공을 판단하려면 어떤 결과를 최소한 확인할 수 있어야 할까요?</li></ol>
 
@@ -367,7 +418,7 @@ VM 랩에서는 연결을 유지하지 못하는 결함도 찾았습니다. 같�
 
 <OperatorSlide class="op-session" section="06 · 최종 발표까지의 계획 · 공개 범위" source="ROADMAP · 시나리오 계약" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/testing/scenario-contract.md">
 
-<h1 class="op-title">필수 안전 조건을 통과한 뒤에만 v0.1을 공개합니다</h1>
+<h1 class="op-title">필수 안전 시험을 모두 통과해야 v0.1을 공개합니다</h1>
 <div class="session-debug session-two">
   <div><span>반드시 통과</span><h3>차단 뒤 쓰기 성공이 없어야 합니다</h3><p>설치·복제, 장애 대응, 재구축, 백업·복원을 시험합니다. 안전 조건을 위반하거나 근거가 빠지면 공개를 보류합니다.</p></div>
   <div><span>측정해 공개</span><h3>복구 시간과 차단 전 누락을 공개합니다</h3><p>전원 차단·네트워크 장애에서 재개 시간과 차단 전 승인된 쓰기 중 새 서버에 없는 범위를 기록합니다.</p></div>
@@ -387,7 +438,7 @@ v0.1 공개 전에 설치와 복제, 장애 대응, 재구축과 백업 복원�
 
 <OperatorSlide class="op-session" section="06 · 최종 발표까지의 계획 · 일정" source="ROADMAP v0.1 일정" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/ROADMAP.md">
 
-<h1 class="op-title">최종 발표 전까지 끝낼 세 가지</h1>
+<h1 class="op-title">12월에 공개 후보를 확정하고 장애 시험을 반복합니다</h1>
 <div class="session-debug">
   <div><span>12월 7일</span><h3>공개 후보 확정</h3><p>소스, 이미지, DB 버전과 시험 환경을 고정</p></div>
   <div><span>12월 8~14일</span><h3>실제 장애 반복 시험</h3><p>필수 장애를 다시 내고 24시간 부하 시험</p></div>
@@ -410,7 +461,7 @@ v0.1 공개 전에 설치와 복제, 장애 대응, 재구축과 백업 복원�
 
 <OperatorSlide class="op-session" section="06 · 최종 발표까지의 계획 · 마무리">
 
-<div class="op-clean-statement"><h1>시험에서 쓰기를 차단했고,<br>차단 전 데이터의 한계도 확인했습니다</h1></div>
+<div class="op-clean-statement"><h1>쓰기 차단은 확인했고,<br>차단 전 데이터 누락도 발견했습니다</h1></div>
 <p class="op-lead">공개 후보에서 같은 결과를 다시 검증하겠습니다.</p>
 
 </OperatorSlide>
@@ -439,7 +490,7 @@ v0.1 공개 전에 설치와 복제, 장애 대응, 재구축과 백업 복원�
 
 <OperatorSlide class="op-compact op-session" section="부록 · 장애 시 구성 요소의 역할" source="전체 아키텍처 · 쓰기 격리 ADR-0005 · 재구축 ADR-0006" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/adr/0006-node-join-rebuild.md">
 
-<h1 class="op-title">장애가 나면 누가 무엇을 하나요?</h1>
+<h1 class="op-title">장애 시 Operator·Instance Manager·CUBRID의 역할</h1>
 <table class="op-comparison">
 <thead><tr><th scope="col">구성 요소</th><th scope="col">장애 때 맡는 일</th></tr></thead>
 <tbody>
@@ -466,7 +517,7 @@ v0.1 공개 전에 설치와 복제, 장애 대응, 재구축과 백업 복원�
 
 <OperatorSlide class="op-compact op-session" section="부록 · 비교 시험 상세" source="VM 랩 비교 실행 2026-11-25 · #122" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/122">
 
-<h1 class="op-title">같은 장애 시험에서 쓰기가 멈춘 시간</h1>
+<h1 class="op-title">두 Operator의 쓰기 중단 시간 비교</h1>
 <svg class="session-chart" style="max-height:240px" viewBox="0 0 860 300" role="img" aria-label="두 번째 master Pod 삭제 뒤 초당 승인된 쓰기 수. 공식 operator는 삭제 직후 0으로 떨어져 측정 끝까지 회복하지 않았고, 이 Operator는 삭제 후 약 43초에 다시 올라왔습니다."><line x1="56" x2="670" y1="260.0" y2="260.0" stroke="var(--line)" stroke-width="1"/><text x="48" y="264.0" text-anchor="end" fill="var(--muted)" style="font-size:12px;font-weight:400">0</text><line x1="56" x2="670" y1="178.7" y2="178.7" stroke="var(--line)" stroke-width="1"/><text x="48" y="182.7" text-anchor="end" fill="var(--muted)" style="font-size:12px;font-weight:400">5</text><line x1="56" x2="670" y1="97.3" y2="97.3" stroke="var(--line)" stroke-width="1"/><text x="48" y="101.3" text-anchor="end" fill="var(--muted)" style="font-size:12px;font-weight:400">10</text><line x1="56" x2="670" y1="16.0" y2="16.0" stroke="var(--line)" stroke-width="1"/><text x="48" y="20.0" text-anchor="end" fill="var(--muted)" style="font-size:12px;font-weight:400">15</text><text x="56.0" y="280" text-anchor="middle" fill="var(--muted)" style="font-size:12px;font-weight:400">-30초</text><text x="117.4" y="280" text-anchor="middle" fill="var(--ink)" style="font-size:12px;font-weight:400">0</text><text x="240.2" y="280" text-anchor="middle" fill="var(--muted)" style="font-size:12px;font-weight:400">+60초</text><text x="363.0" y="280" text-anchor="middle" fill="var(--muted)" style="font-size:12px;font-weight:400">+120초</text><text x="485.8" y="280" text-anchor="middle" fill="var(--muted)" style="font-size:12px;font-weight:400">+180초</text><text x="608.6" y="280" text-anchor="middle" fill="var(--muted)" style="font-size:12px;font-weight:400">+240초</text><line x1="117.4" x2="117.4" y1="16" y2="260" stroke="var(--ink)" stroke-width="1.5" stroke-dasharray="4 4"/><text x="123.4" y="28" fill="var(--ink)" style="font-size:12px;font-weight:400">master Pod 강제 삭제</text><polyline points="58.0,162.4 62.1,146.1 66.2,178.7 70.3,162.4 74.4,162.4 78.5,154.3 82.6,186.8 86.7,243.7 90.8,235.6 94.9,154.3 99.0,146.1 103.1,146.1 107.2,194.9 111.3,219.3 115.4,219.3 119.4,178.7 123.5,260.0 127.6,260.0 131.7,260.0 135.8,260.0 139.9,260.0 144.0,260.0 148.1,260.0 152.2,260.0 156.3,260.0 160.4,260.0 164.5,260.0 168.6,260.0 172.7,260.0 176.8,260.0 180.8,260.0 184.9,260.0 189.0,260.0 193.1,260.0 197.2,260.0 201.3,260.0 205.4,260.0 209.5,260.0 213.6,260.0 217.7,260.0 221.8,260.0 225.9,260.0 230.0,260.0 234.1,260.0 238.2,260.0 242.2,260.0 246.3,260.0 250.4,260.0 254.5,260.0 258.6,260.0 262.7,260.0 266.8,260.0 270.9,260.0 275.0,260.0 279.1,260.0 283.2,260.0 287.3,260.0 291.4,260.0 295.5,260.0 299.6,260.0 303.6,260.0 307.7,260.0 311.8,260.0 315.9,260.0 320.0,260.0 324.1,260.0 328.2,260.0 332.3,260.0 336.4,260.0 340.5,260.0 344.6,260.0 348.7,260.0 352.8,260.0 356.9,260.0 361.0,260.0 365.0,260.0 369.1,260.0 373.2,260.0 377.3,260.0 381.4,260.0 385.5,260.0 389.6,260.0 393.7,260.0 397.8,260.0 401.9,260.0 406.0,260.0 410.1,260.0 414.2,260.0 418.3,260.0 422.4,260.0 426.4,260.0 430.5,260.0 434.6,260.0 438.7,260.0 442.8,260.0 446.9,260.0 451.0,260.0 455.1,260.0 459.2,260.0 463.3,260.0 467.4,260.0 471.5,260.0 475.6,260.0 479.7,260.0 483.8,260.0 487.8,260.0 491.9,260.0 496.0,260.0 500.1,260.0 504.2,260.0 508.3,260.0 512.4,260.0 516.5,260.0 520.6,260.0 524.7,260.0 528.8,260.0 532.9,260.0 537.0,260.0 541.1,260.0 545.2,260.0 549.2,260.0 553.3,260.0 557.4,260.0 561.5,260.0 565.6,260.0 569.7,260.0 573.8,260.0 577.9,260.0 582.0,260.0 586.1,260.0 590.2,260.0 594.3,260.0 598.4,260.0 602.5,260.0 606.6,260.0 610.6,260.0 614.7,260.0 618.8,260.0 622.9,260.0 627.0,260.0 631.1,260.0 635.2,260.0 639.3,260.0 643.4,260.0 647.5,260.0 651.6,260.0 655.7,260.0 659.8,260.0 663.9,260.0 668.0,260.0" fill="none" stroke="var(--blue)" stroke-width="2" stroke-linejoin="round"/><polyline points="58.0,154.3 62.1,162.4 66.2,146.1 70.3,129.9 74.4,162.4 78.5,154.3 82.6,154.3 86.7,154.3 90.8,154.3 94.9,146.1 99.0,162.4 103.1,138.0 107.2,146.1 111.3,138.0 115.4,154.3 119.4,235.6 123.5,138.0 127.6,97.3 131.7,113.6 135.8,138.0 139.9,260.0 144.0,260.0 148.1,260.0 152.2,260.0 156.3,260.0 160.4,260.0 164.5,260.0 168.6,260.0 172.7,260.0 176.8,260.0 180.8,260.0 184.9,260.0 189.0,260.0 193.1,260.0 197.2,260.0 201.3,260.0 205.4,154.3 209.5,129.9 213.6,146.1 217.7,154.3 221.8,138.0 225.9,146.1 230.0,162.4 234.1,146.1 238.2,138.0 242.2,146.1 246.3,138.0 250.4,146.1 254.5,154.3 258.6,138.0 262.7,154.3 266.8,154.3 270.9,154.3 275.0,154.3 279.1,146.1 283.2,154.3 287.3,162.4 291.4,146.1 295.5,146.1 299.6,154.3 303.6,146.1 307.7,154.3 311.8,146.1 315.9,154.3 320.0,154.3 324.1,146.1 328.2,154.3 332.3,154.3 336.4,146.1 340.5,162.4 344.6,146.1 348.7,162.4 352.8,154.3 356.9,154.3 361.0,146.1 365.0,170.5 369.1,154.3 373.2,154.3 377.3,162.4 381.4,154.3 385.5,154.3 389.6,146.1 393.7,154.3 397.8,162.4 401.9,154.3 406.0,162.4 410.1,170.5 414.2,146.1 418.3,154.3 422.4,154.3 426.4,154.3 430.5,146.1 434.6,154.3 438.7,162.4 442.8,162.4 446.9,138.0 451.0,170.5 455.1,170.5 459.2,154.3 463.3,162.4 467.4,146.1 471.5,138.0 475.6,154.3 479.7,146.1 483.8,146.1 487.8,162.4 491.9,138.0 496.0,170.5 500.1,162.4 504.2,170.5 508.3,162.4 512.4,146.1 516.5,162.4 520.6,162.4 524.7,146.1 528.8,154.3 532.9,154.3 537.0,162.4 541.1,170.5 545.2,138.0 549.2,154.3 553.3,154.3 557.4,162.4 561.5,170.5 565.6,170.5 569.7,146.1 573.8,154.3 577.9,162.4 582.0,154.3 586.1,162.4 590.2,138.0 594.3,154.3 598.4,170.5 602.5,162.4 606.6,170.5 610.6,154.3 614.7,154.3 618.8,162.4 622.9,146.1 627.0,162.4 631.1,162.4 635.2,138.0 639.3,146.1 643.4,162.4 647.5,154.3 651.6,146.1 655.7,146.1 659.8,146.1 663.9,154.3 668.0,154.3" fill="none" stroke="#9a3412" stroke-width="2" stroke-linejoin="round"/><circle cx="668.0" cy="154.3" r="4" fill="#9a3412" stroke="var(--paper)" stroke-width="2"/><text x="680" y="150.3" fill="var(--ink)" style="font-size:13px;font-weight:700">이 Operator</text><text x="680" y="167.3" fill="var(--muted)" style="font-size:12px;font-weight:400">최장 승인 공백 32.8초</text><text x="680" y="184.3" fill="var(--muted)" style="font-size:12px;font-weight:400">삭제 후 +42.5초 재개</text><circle cx="668.0" cy="260.0" r="4" fill="var(--blue)" stroke="var(--paper)" stroke-width="2"/><text x="680" y="242.0" fill="var(--ink)" style="font-size:13px;font-weight:700">cubrid-operator</text><text x="680" y="258.0" fill="var(--muted)" style="font-size:12px;font-weight:400">새 master 없음</text><text x="680" y="274.0" fill="var(--muted)" style="font-size:12px;font-weight:400">31분 뒤 정리까지 미복구</text><text x="56" y="296" fill="var(--muted)" style="font-size:11px;font-weight:400">초당 승인된 쓰기 (2초 평균) · 같은 클라이언트, 트랜잭션당 1행 · 측정 창은 삭제 뒤 약 282초</text><line x1="137.3" x2="137.3" y1="34" y2="260" stroke="var(--muted)" stroke-width="1" stroke-dasharray="2 3"/><text x="143.3" y="48" fill="var(--ink)" style="font-size:12px;font-weight:700">+9.7초 Operator 격리</text><text x="143.3" y="64" fill="var(--muted)" style="font-size:12px;font-weight:400">그 전 +2.5–9.6초: CUBRID가 올린 ha-0가 승인 (손실 0)</text></svg>
 <p class="op-caption"><b>32.8초</b>는 쓰기 성공 응답 사이의 최장 공백입니다. <b>42.5초</b>는 Pod 삭제부터 격리 뒤 첫 성공 응답까지의 시간입니다.</p>
 <p class="op-caption text-right"><a href="#/19">← Q&amp;A로 돌아가기</a></p>
@@ -489,7 +540,7 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/122
 
 <OperatorSlide class="op-compact op-session" section="부록 · 한계와 시험 조건" source="#1035 · #702 · #938" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/ROADMAP.md">
 
-<h1 class="op-title">시험에서 확인한 한계와 미검증 범위</h1><ol class="op-risks"><li><b>복제 지연 후 VM 전원 차단: 승인된 쓰기 13건이 새 master에 없음</b><span>2026-11-19 VM 시험 · 복제 프로세스를 정지한 조건 · 해당 행은 옛 master 디스크에만 남음</span></li><li><b>네트워크 분할에서 승격된 멤버에 승인된 쓰기 최대 73건 없음</b><span>11월 17–18일 VM 분할 5회에서 13–73건 미반영 · 1회는 73건이 없는 멤버가 active master로 전환</span></li><li><b>master Pod 정상 종료 때 쓰기 경로가 28초 닫힘 (Kind)</b><span>불필요한 격리 · 시간과 원인을 공개</span></li><li><b>스토리지는 node-local, CSI 아님</b><span>볼륨이 다른 노드로 따라가는 동작·스냅샷·크기 변경은 검증하지 않음</span></li></ol><p class="op-boundary"><b>원칙</b>　Operator의 제어 범위와 엔진 동작의 한계를 구분하고, 재현 조건과 영향을 공개합니다</p>
+<h1 class="op-title">데이터 누락·쓰기 중단 사례와 미검증 스토리지</h1><ol class="op-risks"><li><b>복제 지연 후 VM 전원 차단: 승인된 쓰기 13건이 새 master에 없음</b><span>2026-11-19 VM 시험 · 복제 프로세스를 정지한 조건 · 해당 행은 옛 master 디스크에만 남음</span></li><li><b>네트워크 분할에서 승격된 멤버에 승인된 쓰기 최대 73건 없음</b><span>11월 17–18일 VM 분할 5회에서 13–73건 미반영 · 1회는 73건이 없는 멤버가 active master로 전환</span></li><li><b>master Pod 정상 종료 때 쓰기 경로가 28초 닫힘 (Kind)</b><span>불필요한 격리 · 시간과 원인을 공개</span></li><li><b>스토리지는 node-local, CSI 아님</b><span>볼륨이 다른 노드로 따라가는 동작·스냅샷·크기 변경은 검증하지 않음</span></li></ol><p class="op-boundary"><b>원칙</b>　Operator의 제어 범위와 엔진 동작의 한계를 구분하고, 재현 조건과 영향을 공개합니다</p>
 
 <p class="op-caption text-right"><a href="#/19">← Q&amp;A로 돌아가기</a></p>
 
@@ -510,7 +561,7 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/122
 
 <OperatorSlide class="op-compact op-session" section="부록 · 추가 시험 결과">
 
-<h1 class="op-title">가상 서버에서 확인한 추가 시험 결과</h1>
+<h1 class="op-title">디스크 교체 복구와 이전 해제 토큰 거부 시험</h1>
 <table class="op-comparison">
 <thead><tr><th scope="col">시험</th><th scope="col">확인한 결과</th></tr></thead>
 <tbody>
