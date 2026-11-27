@@ -28,7 +28,7 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator
 [35초 · 01 · 1차 이후 바뀐 것]
 1차와 2차의 차이부터 정리하겠습니다. 1차 때는 설계 계획을 말씀드렸고, 이번에는 직접 구현하고 실제 장애를 내 본 결과를 말씀드립니다.
 
-쓰기 안전은 미확정을 표시만 하던 것에서, 미확정이면 쓰기 경로를 실제로 닫는 쓰기 격리로 바뀌었습니다. 멤버 복구는 계획이던 것을 명시적 재구축으로 구현했고, Pod가 지워진 멤버가 사람 없이 다시 붙는 것도 확인했습니다. 남아 있던 데이터로 자동 재합류하는 기능은 v0.2로 미뤘습니다. 시험은 Kind 27개에서 61개로 늘었고, VM 랩에서 전원 차단, 네트워크 분할, Operator 재시작까지 실제 장애를 냈습니다. 판정도 바뀌었습니다. 안전 규칙은 통과와 실패로 판정하고, 시간과 손실은 측정해서 공개합니다. 그리고 공식 operator와 같은 장애로 비교했습니다. 다음 장에서 그중 가장 큰 변화인 쓰기 격리를 같은 순간으로 비교해 보겠습니다.
+쓰기 안전은 미확정을 표시만 하던 것에서, 미확정이면 쓰기 경로를 실제로 닫는 쓰기 격리로 바뀌었습니다. 멤버 복구는 계획이던 것을 명시적 재구축으로 구현했고, Pod가 지워진 멤버가 사람 없이 다시 붙는 것도 확인했습니다. 남아 있던 데이터로 자동 재합류하는 기능은 v0.2로 미뤘습니다. 시험은 Kind, 즉 컨테이너로 띄우는 테스트용 Kubernetes에서 1차의 27개가 61개로 늘었고, VM 랩에서 전원 차단, 네트워크 분할, Operator 재시작까지 실제 장애를 냈습니다. 판정도 바뀌었습니다. 안전 규칙은 통과와 실패로 판정하고, 시간과 손실은 측정해서 공개합니다. 그리고 공식 operator와 같은 장애로 비교했습니다. 다음 장에서 그중 가장 큰 변화인 쓰기 격리를 같은 순간으로 비교해 보겠습니다.
 
 근거:
 https://github.com/cubrid-lab/showcase/tree/main/events/2026-builder-season4/01-validation
@@ -128,14 +128,14 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/adr/0005
 
 <OperatorSlide class="op-session" section="03 · 증거 · 시험 방법" source="시나리오 계약 · VM 랩 실행 기록 #122" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/testing/scenario-contract.md">
 
-<h1 class="op-title">장애를 직접 내고, 승인된 쓰기를 끝까지 대조합니다</h1><div class="op-clean-three"><div><span>왜</span><h3>응답이 맞았는지</h3><p>상태 표시가 아니라<br>애플리케이션이 받은 “성공”이<br>장애 뒤에도 남는지가 기준</p></div><div><span>어떻게</span><h3>Kind + VM 랩</h3><p>Kind: main마다 실제 CUBRID 이미지<br>VM 3대: 전원 차단 · 네트워크 분할<br>Pod 삭제 · Operator 재시작</p></div><div><span>무엇을 확인</span><h3>행 단위 대조</h3><p>클라이언트가 승인된 쓰기를 기록<br>장애 뒤 멤버마다 남았는지 대조<br>닫힌 뒤 승인 0건 · 시간 측정</p></div></div><p class="session-takeaway">Kind는 전원 차단과 네트워크 정책을 재현하지 못해 VM 랩에서 따로 시험 · 공유 랩은 점유 Lease로 한 번에 하나</p>
+<h1 class="op-title">장애를 직접 내고, 승인된 쓰기를 끝까지 대조합니다</h1><div class="op-clean-three"><div><span>왜</span><h3>응답이 맞았는지</h3><p>상태 표시가 아니라<br>애플리케이션이 받은 “성공”이<br>장애 뒤에도 남는지가 기준</p></div><div><span>어떻게</span><h3>Kind + VM 랩</h3><p>Kind(컨테이너로 띄운 테스트용 K8s)<br>main마다 실제 CUBRID 이미지<br>VM 3대: 전원 차단 · 네트워크 분할<br>Pod 삭제 · Operator 재시작</p></div><div><span>무엇을 확인</span><h3>행 단위 대조</h3><p>클라이언트가 승인된 쓰기를 기록<br>장애 뒤 멤버마다 남았는지 대조<br>닫힌 뒤 승인 0건 · 시간 측정</p></div></div><p class="session-takeaway">Kind는 전원 차단과 네트워크 정책을 재현하지 못해 VM 랩에서 따로 시험 · 공유 랩은 점유 Lease로 한 번에 하나</p>
 
 </OperatorSlide>
 
 <!--
 [30초 · 03 · 증거 · 시험 방법]
 결과를 보여 드리기 전에 어떻게, 왜 시험했는지 말씀드리겠습니다. 기준은 Operator의 상태 표시가 아니라, 애플리케이션이 받은 쓰기 성공이 장애 뒤에도 실제로 남아 있는지입니다. 그래서 클라이언트가 승인받은 쓰기를 하나하나 기록하고, 장애가 끝난 뒤 멤버마다 그 행이 남았는지 대조합니다. 경로가 닫힌 뒤에는 승인이 0건이어야 하고, 시간은 측정합니다.
-Kind 테스트는 main에 들어갈 때마다 실제 CUBRID 이미지로 돌립니다. 다만 Kind로는 전원 차단이나 네트워크 정책을 재현할 수 없어서, VM 세 대의 랩에서 전원 차단, 네트워크 분할, Pod 삭제, Operator 재시작을 직접 냅니다. 랩은 공유 자원이라 점유 Lease를 잡고 한 번에 하나씩만 실행합니다.
+Kind는 Docker 컨테이너로 띄우는 테스트용 Kubernetes입니다. main에 들어갈 때마다 여기서 실제 CUBRID 이미지로 시험을 돌립니다. 다만 Kind로는 전원 차단이나 네트워크 정책을 재현할 수 없어서, VM 세 대의 랩에서 전원 차단, 네트워크 분할, Pod 삭제, Operator 재시작을 직접 냅니다. 랩은 공유 자원이라 점유 Lease를 잡고 한 번에 하나씩만 실행합니다.
 
 근거:
 https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/testing/scenario-contract.md
