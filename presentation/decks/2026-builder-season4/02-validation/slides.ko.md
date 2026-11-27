@@ -18,18 +18,44 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator
 
 ---
 
-<OperatorSlide class="op-session" section="01 · 문제" source="1차 검증 발표 · 시험 중 직접 본 위험" source-url="https://github.com/cubrid-lab/showcase/tree/main/events/2026-builder-season4/01-validation">
+<OperatorSlide class="op-session" section="01 · 1차 이후 바뀐 것" source="1차 검증 발표 · 로드맵" source-url="https://github.com/cubrid-lab/showcase/tree/main/events/2026-builder-season4/01-validation">
 
-<h1 class="op-title">상태 표시만으로는 쓰기를 막지 못했습니다</h1><div class="op-clean-pair"><div><span>Operator 상태</span><strong>master 미확정</strong></div><div><span>애플리케이션 응답</span><strong class="op-clean-accent">쓰기 성공</strong></div></div><p class="op-clean-caption">1차 Kind 시험 · master Pod 삭제 중 관찰</p>
+<h1 class="op-title">1차는 계획이었고, 2차는 만들고 부숴 본 결과입니다</h1><table class="session-table"><thead><tr><th></th><th>1차 (10월 말)</th><th>2차 (지금)</th></tr></thead><tbody><tr><td>쓰기 안전</td><td>master 미확정을 표시만</td><td><b>쓰기 격리</b> 구현 · 미확정이면 쓰기 길을 닫음</td></tr><tr><td>멤버 복구</td><td>계획</td><td><b>명시적 재구축</b> 구현 · 지운 Pod의 멤버 자동 복귀 확인</td></tr><tr><td>시험 환경</td><td>Kind 중심 · 27개</td><td>Kind <b>61개</b> + <b>VM 랩</b> 전원 차단·네트워크 분할·Operator 재시작</td></tr><tr><td>판정</td><td>“30초 안에 복구” 같은 숫자</td><td>안전 규칙은 통과/실패 · 시간과 손실은 <b>측정해 공개</b></td></tr><tr><td>비교</td><td>–</td><td>공식 operator와 <b>같은 장애</b>로 비교</td></tr></tbody></table>
 
 </OperatorSlide>
 
 <!--
-[30초 · 01 · 문제]
-1차 검증에서는 master Pod를 지웠을 때 상태가 미확정인데도 쓰기가 성공했습니다. 미확정이라고 표시하는 것만으로는 실제 쓰기를 막을 수 없었던 겁니다. 그래서 이번에는 관리하는 쓰기 경로를 닫고, 기존 연결과 새 연결 모두 쓰기 승인이 멈추는지 확인했습니다. 다만 차단 전에 승인된 쓰기의 손실까지 막았다는 뜻은 아닙니다. 그 경계도 함께 보여 드리겠습니다.
+[35초 · 01 · 1차 이후 바뀐 것]
+1차와 2차의 차이부터 정리하겠습니다. 1차 때는 계획을 말씀드렸고, 이번에는 만들고 직접 부숴 본 결과를 말씀드립니다.
+
+쓰기 안전은 미확정을 표시만 하던 것에서, 미확정이면 쓰기 길을 실제로 닫는 쓰기 격리로 바뀌었습니다. 멤버 복구는 계획이던 것을 명시적 재구축으로 구현했고, Pod가 지워진 멤버가 사람 없이 다시 붙는 것도 확인했습니다. 남아 있던 데이터로 자동 재합류하는 기능은 v0.2로 미뤘습니다. 시험은 Kind 27개에서 61개로 늘었고, VM 랩에서 전원 차단, 네트워크 분할, Operator 재시작까지 실제 장애를 냈습니다. 판정도 바뀌었습니다. 안전 규칙은 통과와 실패로 판정하고, 시간과 손실은 측정해서 공개합니다. 그리고 공식 operator와 같은 장애로 비교했습니다. 다음 장에서 그중 가장 큰 변화인 쓰기 격리를 같은 순간으로 비교해 보겠습니다.
 
 근거:
 https://github.com/cubrid-lab/showcase/tree/main/events/2026-builder-season4/01-validation
+https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/ROADMAP.md
+-->
+
+---
+
+<OperatorSlide class="op-session" section="01 · 1차와 2차" source="1차 검증 발표 · ADR-0005 쓰기 격리" source-url="https://github.com/cubrid-lab/showcase/tree/main/events/2026-builder-season4/01-validation">
+
+<h1 class="op-title">1차는 표시만 했고, 2차는 쓰기 길을 닫습니다</h1><p class="session-sub">같은 순간: master Pod가 사라져 어느 멤버가 master인지 확신할 수 없는 몇 초</p><table class="session-table"><thead><tr><th></th><th>1차 (10월)</th><th>2차 (지금)</th></tr></thead><tbody><tr><td>Operator가 하는 일</td><td>상태에 “master 미확정” 표시</td><td><b>쓰기 격리</b> · 읽기-쓰기 Broker를 0개로</td></tr><tr><td>애플리케이션이 받는 응답</td><td><b>쓰기 성공</b> · 어느 서버가 받았는지 모름</td><td><b>연결 실패</b> · 확인되면 다시 열림</td></tr><tr><td>남는 위험</td><td>나중에 사라질 수 있는 “성공”</td><td>잠깐의 쓰기 중단 · 시간은 측정해 공개</td></tr></tbody></table><p class="session-takeaway"><b>왜 막나</b>　틀린 “성공”은 앱이 믿고 지나가 손실을 아무도 모릅니다. 잠깐의 “실패”는 앱이 알고 재시도합니다</p>
+
+</OperatorSlide>
+
+<!--
+[45초 · 01 · 1차와 2차]
+1차와 2차의 차이를 같은 순간으로 비교하겠습니다. master Pod가 사라져서, 어느 멤버가 진짜 master인지 확신할 수 없는 몇 초입니다.
+
+1차 때 Operator는 그 순간 상태에 master 미확정이라고 표시만 했습니다. 쓰기 길은 그대로 열려 있었고, 애플리케이션은 쓰기 성공을 받았습니다. 그런데 그 쓰기가 나중에 master가 될 멤버에 들어갔는지는 아무도 모릅니다. 다른 멤버가 master가 되면 사라질 수 있는 성공입니다.
+
+2차에서는 같은 순간에 Operator가 쓰기 격리를 겁니다. 읽기-쓰기 Broker를 0개로 줄여서 쓰기 길 자체를 닫습니다. 애플리케이션은 연결 실패를 받고, master가 확인되면 길이 다시 열립니다.
+
+왜 막느냐면, 틀린 성공은 애플리케이션이 믿고 지나가기 때문에 데이터가 사라져도 아무도 모릅니다. 잠깐의 실패는 애플리케이션이 알고 재시도할 수 있습니다. 그래서 틀린 성공보다 잠깐의 실패를 택했습니다. 대신 막혀 있던 시간은 측정해서 공개합니다. 그리고 닫기 전에 이미 승인된 쓰기까지 지키는 것은 아니라는 경계도 뒤에서 보여 드리겠습니다.
+
+근거:
+https://github.com/cubrid-lab/showcase/tree/main/events/2026-builder-season4/01-validation
+https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/adr/0005-failover-split-brain.md
 -->
 
 ---
@@ -72,7 +98,7 @@ https://github.com/cubrid-lab/showcase/tree/main/events/2026-builder-season4/01-
 
 <!--
 [55초 · 02 · 설계 · 쓰기 격리]
-실선은 클라이언트의 쓰기 경로이고, 파란 점선은 Operator의 관찰과 제어입니다. Operator는 Instance Manager를 통해 멤버 역할을 확인합니다. master를 확신할 수 없으면 격리를 기록하고 읽기-쓰기 Broker Deployment를 0개로 줄입니다. 실제 차단은 Pod 종료와 endpoint 비움, 기존 세션과 새 세션 모두의 쓰기 거절까지 확인합니다.
+격리는 네 단계로 이어집니다. Operator는 Instance Manager를 통해 멤버 역할을 확인합니다. master를 확신할 수 없으면 격리를 기록하고 읽기-쓰기 Broker Deployment를 0개로 줄입니다. 실제 차단은 Pod 종료와 endpoint 비움, 기존 세션과 새 세션 모두의 쓰기 거절까지 확인합니다.
 
 자동 해제는 아무 격리에나 적용되지 않습니다. 멤버 미확인 격리에 한해 같은 단일 master와 다른 멤버의 안전 근거를 10초 이상 간격으로 두 번 확인해야 합니다. 다중 master 등은 수동 판단이 필요하며, 현재 격리의 멤버 집합에 연결된 일회용 토큰으로 승인합니다.
 
@@ -310,7 +336,7 @@ v0.1 이후에는 로드맵에서 미뤄 둔 것부터 다시 봅니다. 남아 
 
 <OperatorSlide class="op-session" section="Q&A" source="Operator 저장소" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator">
 
-<div class="op-cover op-closing"><h1 class="op-title">Q&amp;A</h1><p class="op-lead">감사합니다</p><p class="op-caption"><a href="#/21">상세 구조</a> · <a href="#/22">시험 비교</a> · <a href="#/23">관측 조건</a></p><div class="op-meta"><b>github.com/cubrid-lab/cubrid-kubernetes-operator</b></div></div>
+<div class="op-cover op-closing"><h1 class="op-title">Q&amp;A</h1><p class="op-lead">감사합니다</p><p class="op-caption"><a href="#/21">상세 구조</a> · <a href="#/21">시험 비교</a> · <a href="#/21">관측 조건</a></p><div class="op-meta"><b>github.com/cubrid-lab/cubrid-kubernetes-operator</b></div></div>
 
 </OperatorSlide>
 
@@ -361,7 +387,7 @@ v0.1 이후에는 로드맵에서 미뤄 둔 것부터 다시 봅니다. 남아 
 <circle cx="874" cy="186" r="9" style="fill:#2d2217;stroke:#ffad5c;stroke-width:1.5"/><text x="874" y="190" text-anchor="middle" style="fill:#ffad5c;font-weight:700" font-size="11">C</text>
 </svg>
 
-<p class="op-caption"><a href="#/20">← Q&amp;A로 돌아가기</a></p>
+<p class="op-caption"><a href="#/21">← Q&amp;A로 돌아가기</a></p>
 
 </OperatorSlide>
 
@@ -380,7 +406,7 @@ v0.1 이후에는 로드맵에서 미뤄 둔 것부터 다시 봅니다. 남아 
 
 <h1 class="op-title">두 번의 master 삭제 뒤, 세 멤버가 자동 복귀했습니다</h1><p class="op-caption">2026-11-25 VM 랩 · HA 3멤버 · 쓰기 중 master Pod 강제 삭제를 operator별 2회</p><table class="op-comparison op-repeat-comparison"><thead><tr><th>관찰 항목</th><th>CUBRID/cubrid-operator</th><th>CUBRID Lab Operator</th></tr></thead><tbody><tr><td><b>첫 삭제 뒤</b></td><td>쓰기 중단 12.4초<br>삭제한 멤버는 수동 재합류</td><td>쓰기 중단 22.0초<br>삭제한 멤버 자동 복귀</td></tr><tr><td><b>두 번째 삭제 뒤</b></td><td>31분간 쓰기 불가<br>새 master 미선출 · Pod는 Ready</td><td>쓰기 중단 32.8초<br>세 멤버 모두 자동 복귀</td></tr><tr><td><b>승인된 쓰기 손실</b></td><td>두 시험 모두 0건</td><td>두 시험 모두 0건</td></tr></tbody></table><p class="op-boundary"><b>이번에 확인한 차이</b>　장애 뒤 멤버 복귀까지 자동으로 이어짐<br>첫 장애의 쓰기 중단은 더 길었음 · 이 결과를 다른 장애 조건으로 일반화하지 않음</p>
 
-<p class="op-caption"><a href="#/20">← Q&amp;A로 돌아가기</a></p>
+<p class="op-caption"><a href="#/21">← Q&amp;A로 돌아가기</a></p>
 
 </OperatorSlide>
 
@@ -401,7 +427,7 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/122
 
 <h1 class="op-title">숨기지 않고 공개할 한계</h1><ol class="op-risks"><li><b>복제 지연 후 VM 전원 차단: 승인된 쓰기 13건이 새 master에 없음</b><span>2026-11-19 VM 시험 · 복제 프로세스를 정지한 조건 · 해당 행은 옛 master 디스크에만 남음</span></li><li><b>네트워크 분할에서 승격된 멤버에 승인된 쓰기 최대 73건 없음</b><span>11월 17–18일 VM 분할 5회에서 13–73건 미반영 · 1회는 73건이 없는 멤버가 active master로 전환</span></li><li><b>master Pod 정상 종료 때 쓰기 경로가 28초 닫힘</b><span>불필요한 격리 · 시간과 원인을 공개</span></li><li><b>스토리지는 node-local, CSI 아님</b><span>볼륨이 다른 노드로 따라가는 동작·스냅샷·크기 변경은 검증하지 않음</span></li></ol><p class="op-boundary"><b>원칙</b>　Operator의 제어 범위와 엔진 동작의 한계를 구분하고, 재현 조건과 영향을 공개합니다</p>
 
-<p class="op-caption"><a href="#/20">← Q&amp;A로 돌아가기</a></p>
+<p class="op-caption"><a href="#/21">← Q&amp;A로 돌아가기</a></p>
 
 </OperatorSlide>
 
