@@ -175,7 +175,7 @@ CUBRID를 Kubernetes에서 운영하려는 DB 운영자와 플랫폼 팀을 생�
 [ADR-0012](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/adr/0012-voluntary-disruption.md),
 [#938](https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/938)
 
-## 14. 9장 그래프에서 삭제 직후 주황 선이 튀는 구간의 쓰기는 누가 승인했나요?
+## 14. 10장 그래프에서 삭제 직후 주황 선이 튀는 구간의 쓰기는 누가 승인했나요?
 
 CUBRID가 새로 올린 master(`ha-0`)가 승인했고, 그 쓰기는 하나도 사라지지 않았습니다.
 11월 25일 두 번째 삭제(지운 Pod는 그 전 master `ha-1`) 기록입니다. 시각은 삭제 시점 기준입니다.
