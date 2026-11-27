@@ -36,6 +36,15 @@
       "language": "ko",
       "route": "events/2026-builder-season4/02-validation/ko",
       "exportName": "operator-second-validation.ko"
+    },
+    {
+      "entry": "2026-builder-season4-02-validation.en.md",
+      "release": "builder-season4-second-validation",
+      "event": "2026 Builder Season 4",
+      "round": "02-validation",
+      "language": "en",
+      "route": "events/2026-builder-season4/02-validation/en",
+      "exportName": "operator-second-validation.en"
     }
   ]
 }

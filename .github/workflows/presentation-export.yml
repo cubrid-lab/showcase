@@ -54,6 +54,8 @@ jobs:
           npm run export:operator:pptx
           npm run export:operator2:pdf
           npm run export:operator2:pptx
+          npm run export:operator2:en:pdf
+          npm run export:operator2:en:pptx
       - name: Verify outputs
         run: |
           test -s site-dist/index.html
@@ -61,6 +63,7 @@ jobs:
           test -s site-dist/events/2026-builder-season4/01-validation/ko/index.html
           test -s site-dist/events/2026-builder-season4/01-validation/en/index.html
           test -s site-dist/events/2026-builder-season4/02-validation/ko/index.html
+          test -s site-dist/events/2026-builder-season4/02-validation/en/index.html
           # Checks every deck: page/slide/notes counts, blank pages, missing files.
           python3 -m pip install --no-cache-dir --target "$RUNNER_TEMP/verify-pydeps" pypdf==6.20.0
           (cd presentation && PYTHONPATH="$RUNNER_TEMP/verify-pydeps" python3 scripts/verify_exports.py)

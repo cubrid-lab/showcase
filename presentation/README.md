@@ -14,7 +14,8 @@ this directory:
 | 2026 OSS Developer Contest | [`decks/2026-ossdevcon/slides.md`](decks/2026-ossdevcon/slides.md) | [`2026-ossdevcon.md`](2026-ossdevcon.md) |
 | Builder Season 4, first validation (Korean) | [`decks/2026-builder-season4/01-validation/slides.ko.md`](decks/2026-builder-season4/01-validation/slides.ko.md) | [`2026-builder-season4-01-validation.ko.md`](2026-builder-season4-01-validation.ko.md) |
 | Builder Season 4, first validation (English) | [`decks/2026-builder-season4/01-validation/slides.en.md`](decks/2026-builder-season4/01-validation/slides.en.md) | [`2026-builder-season4-01-validation.en.md`](2026-builder-season4-01-validation.en.md) |
-| Builder Season 4, second validation (Korean draft) | [`decks/2026-builder-season4/02-validation/slides.ko.md`](decks/2026-builder-season4/02-validation/slides.ko.md) | [`2026-builder-season4-02-validation.ko.md`](2026-builder-season4-02-validation.ko.md) |
+| Builder Season 4, second validation (Korean) | [`decks/2026-builder-season4/02-validation/slides.ko.md`](decks/2026-builder-season4/02-validation/slides.ko.md) | [`2026-builder-season4-02-validation.ko.md`](2026-builder-season4-02-validation.ko.md) |
+| Builder Season 4, second validation (English) | [`decks/2026-builder-season4/02-validation/slides.en.md`](decks/2026-builder-season4/02-validation/slides.en.md) | [`2026-builder-season4-02-validation.en.md`](2026-builder-season4-02-validation.en.md) |
 
 Naming rules for a new deck, round or language:
 
@@ -78,6 +79,8 @@ verification, the packaging script and the layout check all read it.
 | 2026 OSS Developer Contest | `/contests/2026-ossdevcon/` | `ossdevcon.{pdf,pptx}`, `ossdevcon-html.zip` |
 | Builder Season 4, first validation (Korean) | `/events/2026-builder-season4/01-validation/ko/` | `operator-first-validation.ko.{pdf,pptx}`, `operator-first-validation.ko-html.zip` |
 | Builder Season 4, first validation (English) | `/events/2026-builder-season4/01-validation/en/` | `operator-first-validation.en.{pdf,pptx}`, `operator-first-validation.en-html.zip` |
+| Builder Season 4, second validation (Korean) | `/events/2026-builder-season4/02-validation/ko/` | `operator-second-validation.ko.{pdf,pptx}`, `operator-second-validation.ko-html.zip` |
+| Builder Season 4, second validation (English) | `/events/2026-builder-season4/02-validation/en/` | `operator-second-validation.en.{pdf,pptx}`, `operator-second-validation.en-html.zip` |
 
 These are the same commands the CI export workflow runs, from `presentation/`:
 
