@@ -75,7 +75,7 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/adr/0005
 
 <OperatorSlide class="op-session" section="02 · 설계 · 전체 구조" source="전체 아키텍처 · 쓰기 격리 ADR-0005 · 재구축 ADR-0006" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/adr/0006-node-join-rebuild.md">
 
-<h1 class="op-title">Operator는 제어하고, SQL은 Broker를 통과합니다</h1><OperatorSessionArchitecture /><p class="session-takeaway">이번에 더한 것 <b>쓰기 격리</b> <b>명시적 재구축</b></p>
+<h1 class="op-title">Operator는 제어하고, SQL은 Broker를 통과합니다</h1><OperatorSessionArchitecture /><p class="session-takeaway">이번에 더한 것 <b>쓰기 격리</b>(RW Broker를 0개로 줄여 쓰기 차단) · <b>명시적 재구축</b>(빈 볼륨 멤버를 master 백업으로 다시 채움)</p>
 
 </OperatorSlide>
 
@@ -165,7 +165,7 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/122
 
 <OperatorSlide class="op-session" section="03 · 증거 · VM 시험 현황" source="VM 랩 실행 기록 #122" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/122">
 
-<h1 class="op-title">VM 랩에서 확인한 동작과 측정값입니다</h1><table class="session-table session-status"><thead><tr><th>VM 랩 시험</th><th>확인한 동작</th><th>상태</th></tr></thead><tbody><tr><td>분할 중 Operator 재시작</td><td>격리 유지 · 쓰기 승인 없음</td><td><b>안전 규칙 통과</b></td></tr><tr><td>볼륨 교체 재구축</td><td>재구축 뒤 행 대조</td><td><b>통과</b></td></tr><tr><td>새 클러스터 복원</td><td>3회 복원 · 세션 끊김 없음</td><td><b>통과</b></td></tr><tr><td>VM 전원 손실</td><td>전원 차단 표시 뒤 첫 쓰기까지 26–38초 (3회)</td><td><b>측정 공개</b></td></tr><tr><td>해제 후 재분할</td><td>옛 토큰 2개 모두 거부 · 닫힌 뒤 쓰기 승인 없음</td><td><b>안전 규칙 통과</b></td></tr></tbody></table><p class="session-takeaway">각 행은 해당 실행의 결과 · 다른 조건에서 관찰한 손실은 별도 공개</p>
+<h1 class="op-title">VM 랩에서 확인한 동작과 측정값입니다</h1><table class="session-table session-status"><thead><tr><th>VM 랩 시험</th><th>확인한 동작</th><th>상태</th></tr></thead><tbody><tr><td>분할 중 Operator 재시작</td><td>격리 유지 · 쓰기 승인 없음</td><td><b>안전 규칙 통과</b></td></tr><tr><td>볼륨 교체 재구축</td><td>재구축 뒤 행 대조</td><td><b>통과</b></td></tr><tr><td>새 클러스터 복원</td><td>3회 복원 · 세션 끊김 없음</td><td><b>통과</b></td></tr><tr><td>VM 전원 손실</td><td>전원 차단 표시 뒤 첫 쓰기까지 26–38초 (3회) · 복제 정지 조건에서는 13건 유실 (13장)</td><td><b>측정 공개</b></td></tr><tr><td>해제 후 재분할</td><td>옛 토큰 2개 모두 거부 · 닫힌 뒤 쓰기 승인 없음</td><td><b>안전 규칙 통과</b></td></tr></tbody></table><p class="session-takeaway">각 행은 해당 실행의 결과 · 승인했지만 사라진 쓰기는 13장에 모음</p>
 
 </OperatorSlide>
 

@@ -14,7 +14,7 @@
     <text class="lane" x="0" y="155">데이터 경로</text>
     <rect class="arch-node" x="0" y="179" width="200" height="65" rx="7"/><text x="100" y="218">애플리케이션</text>
     <path class="link" d="M200 211H320"/><text class="label muted" x="260" y="197">SQL</text>
-    <rect class="arch-node accent" x="325" y="179" width="210" height="65" rx="7"/><text x="430" y="207">읽기-쓰기 Broker</text><text class="arch-note" x="430" y="229">쓰기 경로의 차단 지점</text>
+    <rect class="arch-node accent" x="325" y="179" width="210" height="65" rx="7"/><text x="430" y="207">읽기-쓰기 Broker</text><text class="arch-note" x="430" y="229">앱 SQL을 master로 중계 · 쓰기 차단 지점</text>
     <path class="link" d="M535 211H650"/>
     <rect class="arch-node" x="655" y="179" width="215" height="65" rx="7"/><text x="762" y="207">CUBRID HA · 3멤버</text><text class="arch-note" x="762" y="229">master 선출 · 복제</text>
     <path class="control" d="M762 244V278H585"/>
