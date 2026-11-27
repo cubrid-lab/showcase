@@ -571,3 +571,4 @@
 .slidev-layout.showcase-deck.operator-deck .op-session .op-arch #op-arch-ink path { fill: var(--ink); }
 .slidev-layout.showcase-deck.operator-deck .op-session .op-arch #op-arch-blue path { fill: var(--blue); }
 .slidev-layout.showcase-deck.operator-deck .op-session .op-arch #op-arch-mute path { fill: var(--muted); }
+.slidev-layout.showcase-deck.operator-deck .session-chart { width: 100%; height: auto; max-height: 300px; margin-top: 4px; }
