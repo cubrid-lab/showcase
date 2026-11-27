@@ -358,19 +358,19 @@ VM 랩에서는 네트워크가 끊긴 동안 Operator를 재시작해도 쓰기
 
 ---
 
-<OperatorSlide class="op-session" section="04 · 검증 결과와 시행착오 · 현재 문제" source="#1158 · 수정 PR #1159" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/1158">
+<OperatorSlide class="op-compact op-session" section="04 · 검증 결과와 시행착오 · 현재 문제" source="#1158 · 수정 PR #1159" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/1158">
 
 <h1 class="op-title">지금 겪는 문제: 데이터 누락, 긴 중단, 복원 판정</h1>
 
 <table class="op-comparison">
 <thead><tr><th scope="col">시험에서 겪은 일</th><th scope="col">v0.1에서 확인할 것</th></tr></thead>
 <tbody>
-<tr><td><b>차단 전 데이터 누락</b><br>복제를 멈춘 전원 차단 시험에서 13건, 네트워크 장애 시험에서 최대 73건이 새 서버에 없었음</td><td>차단 전 데이터 누락을 조건과 함께 기록합니다. 차단이 확인된 뒤에는 성공한 쓰기가 없어야 합니다.</td></tr>
-<tr><td><b>쓰기 재개 지연</b><br>강제 삭제 시험 두 차례에서 중지한 Broker를 다시 띄우는 데 약 12~17초</td><td>최종 후보에서 쓰기를 다시 받을 때까지 걸린 시간을 측정하고, 연결을 다시 여는 조건도 확인합니다.</td></tr>
+<tr><td><b>차단 전 데이터 누락</b><br>새 서버에 전원 차단 13건,<br>네트워크 분할 최대 73건 없음</td><td>차단 전 데이터 누락을 조건과 함께 기록합니다. 차단이 확인된 뒤에는 성공한 쓰기가 없어야 합니다.</td></tr>
+<tr><td><b>쓰기 재개 지연</b><br>Broker가 다시 뜨기까지 약 12~17초</td><td>최종 후보에서 쓰기를 다시 받을 때까지 걸린 시간을 측정하고, 연결을 다시 여는 조건도 확인합니다.</td></tr>
 <tr><td><b>복원 판정 보류</b><br>1차에는 세션이 끊겨 복원 2건을 판정하지 못함</td><td>복원 뒤 SQL 조회로 데이터를 대조합니다. 다른 운영자도 문서만 보고 같은 결과를 확인해야 합니다.</td></tr>
 </tbody>
 </table>
-<p class="op-caption">데이터 누락과 중단 수치는 각 시험 조건에서 관찰한 결과입니다. 상세 조건은 22쪽에 있습니다.</p>
+<p class="op-caption">수치는 개별 시험 결과입니다. 자세한 조건은 22쪽에 있습니다.</p>
 
 </OperatorSlide>
 
