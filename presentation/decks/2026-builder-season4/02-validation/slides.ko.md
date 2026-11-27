@@ -123,15 +123,15 @@ master 선출과 복제는 CUBRID가 맡고, Operator는 연결 관리와 복구
 
 <OperatorSlide class="op-session" section="03 · 증거 · 시험 방법" source="시나리오 계약 · VM 랩 실행 기록 #122" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/testing/scenario-contract.md">
 
-<h1 class="op-title">성공 응답을 받은 데이터가 남았는지 확인합니다</h1><div class="op-clean-three"><div><span>왜</span><h3>응답이 맞았는지</h3><p>상태 표시가 아니라<br>애플리케이션이 받은 “성공”이<br>장애 뒤에도 남는지가 기준</p></div><div><span>어떻게</span><h3>Kind + VM 랩</h3><p>Kind(컨테이너로 띄운 테스트용 K8s)<br>main마다 실제 CUBRID 이미지<br>VM 3대: 전원 차단 · 네트워크 분할<br>Pod 삭제 · Operator 재시작</p></div><div><span>무엇을 확인</span><h3>행 단위 대조</h3><p>클라이언트가 승인된 쓰기를 기록<br>장애 뒤 멤버마다 남았는지 대조<br>닫힌 뒤 승인 0건 · 시간 측정</p></div></div><p class="session-takeaway">실제 전원 차단과 네트워크 정책 적용은 VM 랩에서 별도 시험 · 공유 랩은 점유 Lease로 한 번에 하나</p>
+<h1 class="op-title">성공 응답을 받은 데이터가 남았는지 확인합니다</h1><div class="op-clean-three"><div><span>왜</span><h3>응답이 맞았는지</h3><p>상태 표시가 아니라<br>애플리케이션이 받은 “성공”이<br>장애 뒤에도 남는지가 기준</p></div><div><span>어떻게</span><h3>Kind + VM 랩</h3><p>Kind(컨테이너로 띄운 테스트용 K8s)<br>main마다 실제 CUBRID 이미지<br>VM 랩(VM 3대로 만든 실제 K8s 클러스터)<br>전원 차단 · 네트워크 분할 · Pod 삭제 · Operator 재시작</p></div><div><span>무엇을 확인</span><h3>행 단위 대조</h3><p>클라이언트가 승인된 쓰기를 기록<br>장애 뒤 멤버마다 남았는지 대조<br>닫힌 뒤 승인 0건 · 시간 측정</p></div></div><p class="session-takeaway">실제 전원 차단과 네트워크 정책 적용은 VM 랩에서 별도 시험 · 공유 랩이라 한 번에 한 시험씩</p>
 
 </OperatorSlide>
 
 <!--
-[30초 · 03 · 증거 · 시험 방법]
+[25초 · 03 · 증거 · 시험 방법]
 시험에서는 성공 응답을 받은 쓰기를 기록하고, 장애 뒤 각 서버에 그 데이터가 남아 있는지 대조합니다. 연결을 닫은 뒤에는 성공 응답이 없어야 합니다.
 
-Kind에서는 코드 변경마다 자동 시험을 돌립니다. 실제 전원 차단과 네트워크 정책은 VM 세 대의 랩에서 따로 확인합니다. 랩은 공유 자원이라 사용 권한인 Lease를 확보하고 한 번에 하나씩 시험합니다.
+Kind에서는 코드 변경마다 자동 시험을 돌립니다. 실제 전원 차단과 네트워크 정책은 VM 세 대로 만든 실제 Kubernetes, VM 랩에서 따로 확인합니다.
 
 근거:
 https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/testing/scenario-contract.md
@@ -179,13 +179,13 @@ VM 랩에서는 네트워크가 끊긴 동안 Operator를 재시작해도 쓰기
 
 <OperatorSlide class="op-session" section="03 · 증거 · Kind" source="Kind E2E 실행 기록" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/1109">
 
-<h1 class="op-title">자동 시험 61개로 같은 위험을 반복 확인합니다</h1><div class="op-clean-hero"><strong>61 / 61</strong><p>자동 시험 통과 (Kind E2E)</p></div><p class="op-clean-caption">master 삭제 → 쓰기 차단 → 복귀 확인 → 데이터 대조<br>실제 노드·네트워크 정책은 VM 랩에서 별도 검증</p>
+<h1 class="op-title">자동 시험이 27개에서 61개로 늘었습니다</h1><p class="session-sub">Kind E2E · 61/61 통과 (11월 25일 main) · 1차의 27개(설치·HA·master 삭제·Broker·Operator 장애)는 그대로 유지</p><table class="session-table session-kind"><thead><tr><th>새로 자동화한 것</th><th>확인하는 내용</th><th>개수</th></tr></thead><tbody><tr class="highlight"><td><b>데이터 잃은 멤버 재구축</b></td><td>쓰는 중에 재구축 → 쓰기 격리 해제 → 성공 응답 받은 행 전부 대조</td><td>+1</td></tr><tr class="highlight"><td><b>복제 이상 감지</b></td><td>열린 트랜잭션을 고장으로 오판하지 않음 · 복제가 멈춘 slave에서 백업 거부</td><td>+2</td></tr><tr><td><b>클러스터 삭제</b></td><td>보존 설정대로 데이터를 남기거나 지움</td><td>+2</td></tr><tr><td><b>DB 비밀번호</b></td><td>Secret 비밀번호로 생성·백업·복원·변경 · 로그와 상태에 노출 없음</td><td>+27</td></tr><tr><td><b>배치·접속</b></td><td>노드 부족 시 Pending 보고 · 다른 네임스페이스에서 접속</td><td>+2</td></tr></tbody></table><p class="session-takeaway">실제 노드·네트워크 정책은 VM 랩에서 별도 검증 · 통과가 모든 장애의 무손실을 뜻하지는 않음</p>
 
 </OperatorSlide>
 
 <!--
 [20초 · 03 · 증거 · Kind]
-자동 시험은 1차의 27개에서 61개로 늘었고, 확인한 빌드에서는 모두 통과했습니다. 하지만 시험 통과가 모든 장애에서 데이터 손실이 없다는 뜻은 아닙니다. 실제 환경에서 찾은 결함과 남은 한계를 이어서 보여 드리겠습니다.
+자동 시험은 27개에서 61개로 늘었고 모두 통과했습니다. 재구축과 복제 이상 감지를 새로 자동화했고, 늘어난 34개 중 27개는 비밀번호 시험입니다. 통과가 모든 장애의 무손실을 뜻하지는 않습니다.
 
 질문 시 참고: 전체 실행 약 63분 (main 3806d1db, 11월 25일). 11월 10–20일 실패 실행 58건 중 9건이 로컬 소켓 세션 끊김이었으며, 11월 22일 TCP 전환 후 기존 기록상 같은 원인 재발은 없었습니다. 짧은 관찰 기간의 결과입니다. 재구축 중 역할 확인 지연은 원인을 드러내도록 테스트를 개선했습니다.
 

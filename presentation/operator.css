@@ -536,6 +536,9 @@
 .slidev-layout.showcase-deck.operator-deck .session-table b { color:var(--blue); }
 .slidev-layout.showcase-deck.operator-deck .session-table small { color:var(--muted); font-size:.84rem; }
 .slidev-layout.showcase-deck.operator-deck .session-table .highlight { background:var(--blue-soft); }
+.slidev-layout.showcase-deck.operator-deck .session-kind td { padding:9px 12px; font-size:.88rem; }
+.slidev-layout.showcase-deck.operator-deck .session-kind th:first-child { width:26%; }
+.slidev-layout.showcase-deck.operator-deck .session-kind th:last-child, .slidev-layout.showcase-deck.operator-deck .session-kind td:last-child { width:9%; text-align:right; }
 .slidev-layout.showcase-deck.operator-deck .session-status td { padding:12px; font-size:.88rem; }
 .slidev-layout.showcase-deck.operator-deck .session-status th:first-child { width:32%; }
 .slidev-layout.showcase-deck.operator-deck .session-debug { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:35px; }
