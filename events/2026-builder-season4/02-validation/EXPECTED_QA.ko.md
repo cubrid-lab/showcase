@@ -175,7 +175,7 @@ CUBRID를 Kubernetes에서 운영하려는 DB 운영자와 플랫폼 팀을 생�
 [ADR-0012](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/adr/0012-voluntary-disruption.md),
 [#938](https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/938)
 
-## 14. 12장 그래프에서 삭제 직후 주황 선이 튀는 구간의 쓰기는 누가 승인했나요?
+## 14. 부록 21쪽 그래프에서 삭제 직후 주황 선이 튀는 구간의 쓰기는 누가 승인했나요?
 
 CUBRID가 새로 올린 master(`ha-0`)가 승인했고, 그 쓰기는 하나도 사라지지 않았습니다.
 11월 25일 두 번째 삭제(지운 Pod는 그 전 master `ha-1`) 기록입니다. 시각은 삭제 시점 기준입니다.
@@ -204,3 +204,9 @@ CUBRID가 새로 올린 master(`ha-0`)가 승인했고, 그 쓰기는 하나도 
 - **복원 증거.** 1차의 판정 보류 건은 성공 수에 넣지 않습니다. 공개 후보에서는 새 클러스터 복원과 데이터 대조, 변조·누락된 백업 거부를 함께 확인합니다. 규제 충족 여부는 이번 발표의 검증 범위 밖입니다.
 
 근거: [공개 후보 검증](https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/126), [로드맵](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/ROADMAP.md)
+
+## 17. 첫 버전 이후 어떤 기능을 검토하나요?
+
+기존 데이터로 자동 재합류하는 기능, 기존 볼륨을 새 클러스터에서 이어받는 기능, 아카이브 로그 공간 관리, DB 상태 관측과 쓰기 차단 판단을 분리하는 설계를 검토합니다. 시험 결과와 도입 피드백을 보고 우선순위를 정합니다.
+
+근거: [Operator 로드맵](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/ROADMAP.md)
