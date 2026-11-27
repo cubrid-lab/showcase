@@ -2,7 +2,7 @@
 
 슬라이드 원본: [slides.ko.md](../../../presentation/decks/2026-builder-season4/02-validation/slides.ko.md) · 예상 질문: [EXPECTED_QA.ko.md](EXPECTED_QA.ko.md)
 
-본편 18장, Q&A 1장, 부록 4장입니다. 본편 설명 배정은 8분 30초입니다. 실제 시간은 리허설에서 확인합니다.
+본편 18장, Q&A 1장, 부록 4장입니다. 본편 설명 배정은 8분 50초입니다. 실제 시간은 리허설에서 확인합니다.
 
 ## 장별 스크립트
 
@@ -35,11 +35,13 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/126
 https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/ROADMAP.md
 https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/126
 
-### 6. 상태 표시에서 쓰기 차단으로 바뀐 설계 (40초)
+### 6. v0.1 구현 범위: 쓰기 차단, 서버 재구축, 백업 복원 (40초)
 
-> 앱이 저장 성공 응답을 받았어도, 데이터가 복제되기 전에 서버가 멈추면 새 서버에 그 데이터가 없을 수 있습니다. 처음엔 어느 서버가 쓰기를 받을지 불확실하다는 상태만 표시했습니다. 지금은 쓰기 연결도 끊습니다. 공개 전에는 같은 후보 버전으로 차단과 재개를 반복 시험합니다. 볼륨 재구축은 운영자가 승인하도록 했고, 백업 복원은 다른 운영자가 문서만 보고 성공을 확인할 수 있어야 합니다.
+> 저희가 v0.1에서 끝내려는 일은 세 가지입니다. 첫째, 어느 서버가 쓰기를 받을지 불확실하면 실제로 쓰기 연결을 끊습니다. 둘째, 디스크를 잃은 서버는 운영자가 대상을 승인한 뒤 백업으로 다시 구성합니다. 셋째, 백업을 다른 클러스터에 복원할 수 있게 합니다. 1차 때는 주로 상태를 확인하고 알리는 데 집중했습니다. 지금은 Operator가 연결과 복구를 조정하고 Instance Manager가 각 서버에서 작업을 실행합니다. 다음 그림에서 그 역할을 보여드리겠습니다.
 
-근거: https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/126
+근거:
+https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/ROADMAP.md
+https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/126
 
 ### 7. v0.1 세부 아키텍처: Operator와 Instance Manager (35초)
 
@@ -96,23 +98,27 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/122
 
 근거: https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/122
 
-### 13. 사용하지 않던 DB 연결이 끊기는 문제를 고쳤습니다 (25초)
+### 13. 지금 겪는 문제: 데이터 누락, 긴 중단, 복원 판정 (45초)
 
-> VM 랩에서는 연결을 유지하지 못하는 결함도 찾았습니다. 같은 Pod 안에서는 괜찮았지만 다른 노드에서 연결하면 끊겼고, 네트워크 정책을 끄면 문제가 사라졌습니다.
+> 시험에서 세 가지가 남았습니다. 먼저 이미 성공했다고 응답한 데이터가 새 서버에 없던 경우가 있었습니다. 복제를 일부러 멈춘 전원 차단 시험에서는 13건이 이전 서버에만 남았고, 네트워크 장애 시험에서는 새 서버에 최대 73건이 없었습니다. 이런 차단 전 누락은 조건과 함께 공개합니다. 두 번째로, 쓰기를 다시 열기로 한 뒤에도 Broker가 뜨는 데 12초에서 17초가 걸렸습니다. 마지막으로, 복원은 작업 완료 표시만으로 판단하기 어려웠습니다. 공개 후보에서는 실제 데이터를 대조하고 다른 운영자가 복원에 성공하는지 확인합니다.
 
-> 원인은 서버가 상대의 생존을 확인하는 TCP 7번 패킷을 정책이 막는 것이었습니다. 필요한 경로만 허용한 뒤, 노드를 건넌 세션 40개와 Broker를 거친 연결 30개가 세 차례 대기 후에도 유지됐습니다. Kind에는 이 정책이 없어 놓쳤습니다. 실제 환경 시험을 함께 하는 이유입니다.
+근거:
+https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/1035
+https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/702
+https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/1161
+https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/238
+https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/126
+https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/127
 
-근거: https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/1158
+### 14. v0.1 이후로 미룬 기능과 이유 (30초)
 
-### 14. 새 서버의 데이터 누락과 불필요한 쓰기 중단 (30초)
+> 기존 데이터를 그대로 써서 자동으로 재합류시키는 기능과, 새 클러스터에 기존 디스크를 자동으로 연결하는 기능은 v0.2로 미뤘습니다. 기존 데이터의 상태와 소유권을 안전하게 판별해야 하기 때문입니다. 쓰기 연결을 더 빨리 여는 개선은 아직 일정을 정하지 않았습니다. 기존 연결까지 끊는 안전 조건을 유지할 수 있다는 증거가 먼저 필요합니다. v0.1에서는 현재 방식의 중단 시간을 측정해 공개합니다.
 
-> 막지 못한 사례도 있습니다. 복제를 멈춘 뒤 VM 전원을 차단하자, 성공 응답을 받은 데이터 13건이 새 master에 없었습니다. 옛 master 디스크에는 남아 있었습니다. 네트워크 분할 시험에서는 새 master에 최대 73건이 없었습니다. 모두 쓰기 경로를 닫기 전에 승인된 데이터입니다.
-
-> 반대로 정상 종료 때 불필요하게 쓰기가 28초 막힌 Kind 기록도 있습니다. 두 문제 모두 시험 조건과 함께 공개합니다.
-
-관측 근거: https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/1035 및 https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/adr/0005-failover-split-brain.md (section 8의 2026-11-17–18 VM 기록).
-
-근거: https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/ROADMAP.md
+근거:
+https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/ROADMAP.md
+https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/116
+https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/798
+https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/1161
 
 ### 15. 쓰기 재개와 복원 완료 기준에 대한 질문 (25초)
 
@@ -152,7 +158,7 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/122
 | 12.4초 · 31분 | 공식 operator 쓰기 중단 (첫 삭제 · 두 번째 삭제 뒤 master 미선출, 31분 뒤 시험 정리까지 미복구) | 21 |
 | 26–38초 | VM 전원 차단 표시 뒤 첫 쓰기 (3회) | 12 |
 | 40.2초 · 48.9초 | Kind 재구축 완료 · 행 확인 (기준 5분) | 9 |
-| 13건 | 복제 정지 후 전원 차단에서 새 master에 없는 승인된 쓰기 | 14 |
-| 최대 73건 | 분할에서 승격 멤버에 없는 승인된 쓰기 (5회 중 13–73) | 14 |
-| 28초 | master Pod 정상 종료 때 불필요한 격리 (Kind) | 14 |
+| 13건 | 복제 정지 후 전원 차단에서 새 master에 없는 승인된 쓰기 | 22 |
+| 최대 73건 | 분할에서 승격 멤버에 없는 승인된 쓰기 (5회 중 13–73) | 22 |
+| 28초 | master Pod 정상 종료 때 불필요한 격리 (Kind) | 22 |
 | 12/7 · 12/27 | 후보 동결 · 공개 판단 마감 | 17 |
