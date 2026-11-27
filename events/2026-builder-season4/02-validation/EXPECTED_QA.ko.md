@@ -175,7 +175,7 @@ CUBRID를 Kubernetes에서 운영하려는 DB 운영자와 플랫폼 팀을 생�
 [ADR-0012](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/adr/0012-voluntary-disruption.md),
 [#938](https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/938)
 
-## 14. 9장 그래프에서 삭제 직후 주황 선이 튀는 구간의 쓰기는 누가 승인했나요?
+## 14. 12장 그래프에서 삭제 직후 주황 선이 튀는 구간의 쓰기는 누가 승인했나요?
 
 CUBRID가 새로 올린 master(`ha-0`)가 승인했고, 그 쓰기는 하나도 사라지지 않았습니다.
 11월 25일 두 번째 삭제(지운 Pod는 그 전 master `ha-1`) 기록입니다. 시각은 삭제 시점 기준입니다.
@@ -195,3 +195,12 @@ CUBRID가 새로 올린 master(`ha-0`)가 승인했고, 그 쓰기는 하나도 
 
 근거: [비교 실행](https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/122),
 [#1161](https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/1161)
+
+## 16. 표에 요약한 것 외에 1차에서 어떤 의견이 있었나요?
+
+- **자동 재조정과 운영자 개입.** v0.1에서 보여줄 대표 사례는 쓰기 격리, 근거 확인 후 해제, 운영자 승인 후 볼륨 재구축입니다. 반복 실패 알림과 재시도 기준은 이 발표에서 운영 검증을 완료했다고 설명하지 않습니다.
+- **인증과 운영 범위.** Instance Manager 토큰 교체는 공개 후보의 인증 검증 항목입니다. DB 인증, TLS와 버전 업그레이드를 동일한 검증으로 간주하지 않습니다. 공개 시 지원 범위와 미검증 조건을 문서에 명시합니다.
+- **다른 Operator와의 비교.** 이번 비교는 공식 CUBRID Operator와 같은 강제 삭제를 실행한 관측입니다. PostgreSQL 계열의 격리 방식은 후속 비교 후보이며, 제안에 나온 차단 시간과 저장소 동작은 이번 시험에서 확인하지 않았습니다.
+- **복원 증거.** 1차의 판정 보류 건은 성공 수에 넣지 않습니다. 공개 후보에서는 새 클러스터 복원과 데이터 대조, 변조·누락된 백업 거부를 함께 확인합니다. 규제 충족 여부는 이번 발표의 검증 범위 밖입니다.
+
+근거: [공개 후보 검증](https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/126), [로드맵](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/ROADMAP.md)
