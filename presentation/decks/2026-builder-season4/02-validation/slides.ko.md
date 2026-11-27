@@ -45,7 +45,7 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/ROADMAP.md
 
 <!--
 [45초 · 01 · 1차와 2차]
-1차와 2차의 차이를 같은 순간으로 비교하겠습니다. master Pod가 사라져서, 어느 멤버가 진짜 master인지 확신할 수 없는 몇 초입니다.
+1차와 2차의 차이를 같은 순간으로 비교하겠습니다. master Pod가 사라진 뒤, master가 누구인지나 지워진 멤버가 돌아왔는지를 아직 확인하지 못한 몇 초입니다.
 
 1차 때 Operator는 그 순간 상태에 master 미확정이라고 표시만 했습니다. 쓰기 경로는 그대로 열려 있었고, 애플리케이션은 쓰기 성공을 받았습니다. 그런데 그 쓰기가 나중에 master가 될 멤버에 들어갔는지는 아무도 모릅니다. 다른 멤버가 master가 되면 사라질 수 있는 성공입니다.
 
@@ -98,7 +98,7 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/adr/0005
 
 <!--
 [55초 · 02 · 설계 · 쓰기 격리]
-격리는 네 단계로 이어집니다. Operator는 Instance Manager를 통해 멤버 역할을 확인합니다. master를 확신할 수 없으면 격리를 기록하고 읽기-쓰기 Broker Deployment를 0개로 줄입니다. 실제 차단은 Pod 종료와 endpoint 비움, 기존 세션과 새 세션 모두의 쓰기 거절까지 확인합니다.
+격리는 네 단계로 이어집니다. Operator는 Instance Manager를 통해 멤버 역할을 확인합니다. master를 확신할 수 없거나, 지워진 멤버를 아직 확인하지 못했으면 격리를 기록하고 읽기-쓰기 Broker Deployment를 0개로 줄입니다. 실제 차단은 Pod 종료와 endpoint 비움, 기존 세션과 새 세션 모두의 쓰기 거절까지 확인합니다.
 
 자동 해제는 아무 격리에나 적용되지 않습니다. 멤버 미확인 격리에 한해 같은 단일 master와 다른 멤버의 안전 근거를 10초 이상 간격으로 두 번 확인해야 합니다. 다중 master 등은 수동 판단이 필요하며, 현재 격리의 멤버 집합에 연결된 일회용 토큰으로 승인합니다.
 
@@ -430,7 +430,7 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/122
 
 <OperatorSlide class="op-compact op-session" section="부록 · 한계와 시험 조건" source="#1035 · #702 · #938" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/ROADMAP.md">
 
-<h1 class="op-title">숨기지 않고 공개할 한계</h1><ol class="op-risks"><li><b>복제 지연 후 VM 전원 차단: 승인된 쓰기 13건이 새 master에 없음</b><span>2026-11-19 VM 시험 · 복제 프로세스를 정지한 조건 · 해당 행은 옛 master 디스크에만 남음</span></li><li><b>네트워크 분할에서 승격된 멤버에 승인된 쓰기 최대 73건 없음</b><span>11월 17–18일 VM 분할 5회에서 13–73건 미반영 · 1회는 73건이 없는 멤버가 active master로 전환</span></li><li><b>master Pod 정상 종료 때 쓰기 경로가 28초 닫힘</b><span>불필요한 격리 · 시간과 원인을 공개</span></li><li><b>스토리지는 node-local, CSI 아님</b><span>볼륨이 다른 노드로 따라가는 동작·스냅샷·크기 변경은 검증하지 않음</span></li></ol><p class="op-boundary"><b>원칙</b>　Operator의 제어 범위와 엔진 동작의 한계를 구분하고, 재현 조건과 영향을 공개합니다</p>
+<h1 class="op-title">숨기지 않고 공개할 한계</h1><ol class="op-risks"><li><b>복제 지연 후 VM 전원 차단: 승인된 쓰기 13건이 새 master에 없음</b><span>2026-11-19 VM 시험 · 복제 프로세스를 정지한 조건 · 해당 행은 옛 master 디스크에만 남음</span></li><li><b>네트워크 분할에서 승격된 멤버에 승인된 쓰기 최대 73건 없음</b><span>11월 17–18일 VM 분할 5회에서 13–73건 미반영 · 1회는 73건이 없는 멤버가 active master로 전환</span></li><li><b>master Pod 정상 종료 때 쓰기 경로가 28초 닫힘 (Kind)</b><span>불필요한 격리 · 시간과 원인을 공개</span></li><li><b>스토리지는 node-local, CSI 아님</b><span>볼륨이 다른 노드로 따라가는 동작·스냅샷·크기 변경은 검증하지 않음</span></li></ol><p class="op-boundary"><b>원칙</b>　Operator의 제어 범위와 엔진 동작의 한계를 구분하고, 재현 조건과 영향을 공개합니다</p>
 
 <p class="op-caption"><a href="#/21">← Q&amp;A로 돌아가기</a></p>
 
