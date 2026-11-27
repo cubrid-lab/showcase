@@ -126,15 +126,20 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/adr/0005
 
 ---
 
-<OperatorSlide class="op-session" section="03 · 증거">
+<OperatorSlide class="op-session" section="03 · 증거 · 시험 방법" source="시나리오 계약 · VM 랩 실행 기록 #122" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/testing/scenario-contract.md">
 
-<ChapterDivider number="03" title="증거와 한계" subtitle="막은 것과 막지 못한 것을 모두 보여 드립니다" />
+<h1 class="op-title">장애를 직접 내고, 승인된 쓰기를 끝까지 대조합니다</h1><div class="op-clean-three"><div><span>왜</span><h3>응답이 맞았는지</h3><p>상태 표시가 아니라<br>애플리케이션이 받은 “성공”이<br>장애 뒤에도 남는지가 기준</p></div><div><span>어떻게</span><h3>Kind + VM 랩</h3><p>Kind: main마다 실제 CUBRID 이미지<br>VM 3대: 전원 차단 · 네트워크 분할<br>Pod 삭제 · Operator 재시작</p></div><div><span>무엇을 확인</span><h3>행 단위 대조</h3><p>클라이언트가 승인된 쓰기를 기록<br>장애 뒤 멤버마다 남았는지 대조<br>닫힌 뒤 승인 0건 · 시간 측정</p></div></div><p class="session-takeaway">Kind는 전원 차단과 네트워크 정책을 재현하지 못해 VM 랩에서 따로 시험 · 공유 랩은 점유 Lease로 한 번에 하나</p>
 
 </OperatorSlide>
 
 <!--
-[0초 · 03 · 증거]
-다음 주제를 알리는 전환 페이지입니다. 별도 설명 없이 다음 장으로 진행합니다.
+[30초 · 03 · 증거 · 시험 방법]
+결과를 보여 드리기 전에 어떻게, 왜 시험했는지 말씀드리겠습니다. 기준은 Operator의 상태 표시가 아니라, 애플리케이션이 받은 쓰기 성공이 장애 뒤에도 실제로 남아 있는지입니다. 그래서 클라이언트가 승인받은 쓰기를 하나하나 기록하고, 장애가 끝난 뒤 멤버마다 그 행이 남았는지 대조합니다. 경로가 닫힌 뒤에는 승인이 0건이어야 하고, 시간은 측정합니다.
+Kind 테스트는 main에 들어갈 때마다 실제 CUBRID 이미지로 돌립니다. 다만 Kind로는 전원 차단이나 네트워크 정책을 재현할 수 없어서, VM 세 대의 랩에서 전원 차단, 네트워크 분할, Pod 삭제, Operator 재시작을 직접 냅니다. 랩은 공유 자원이라 점유 Lease를 잡고 한 번에 하나씩만 실행합니다.
+
+근거:
+https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/testing/scenario-contract.md
+https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/122
 -->
 
 ---
@@ -182,8 +187,8 @@ VM 전원 손실은 세 번 측정했고, 전원 차단이 표시된 뒤 첫 쓰
 </OperatorSlide>
 
 <!--
-[35초 · 03 · 증거 · Kind]
-이 동작이 계속 유지되는지는 Kind 회귀 테스트로 확인합니다. 테스트는 1차의 27개에서 61개로 늘었고, 최신 main의 전체 실행이 통과했습니다. 첫 장에서 본 위험도 다시 시험합니다. 쓰기 중 master를 삭제하고, 경로가 닫히는지, 새 Pod가 확인될 때까지 기다리는지, 복구 뒤 승인된 데이터가 남아 있는지를 대조합니다. 다만 실제 노드와 네트워크 정책의 동작은 VM 랩에서 따로 확인해야 합니다.
+[30초 · 03 · 증거 · Kind]
+이 동작이 계속 유지되는지는 Kind 회귀 테스트로 확인합니다. 테스트는 1차의 27개에서 61개로 늘었고, 최신 main의 전체 실행이 통과했습니다. 첫 장에서 본 위험도 다시 시험합니다. 쓰기 중 master를 삭제하고, 경로가 닫히는지, 새 Pod가 확인될 때까지 기다리는지, 복구 뒤 승인된 데이터가 남아 있는지를 대조합니다.
 
 질문 시 참고: 전체 실행 약 63분 (main 3806d1db, 11월 25일). 11월 10–20일 실패 실행 58건 중 9건이 로컬 소켓 세션 끊김이었으며, 11월 22일 TCP 전환 후 기존 기록상 같은 원인 재발은 없었습니다. 짧은 관찰 기간의 결과입니다. 재구축 중 역할 확인 지연은 원인을 드러내도록 테스트를 개선했습니다.
 
@@ -195,7 +200,7 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/1109
 
 <OperatorSlide class="op-session" section="03 · 증거 · 검증이 찾은 결함" source="#1158 · 수정 PR #1159" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/1158">
 
-<h1 class="op-title">VM 랩이 찾아낸 결함: 생존 확인 패킷 차단</h1><div class="session-debug"><div><span>관찰</span><h3>같은 Pod 정상<br>다른 노드 끊김</h3></div><div class="focus"><span>원인</span><h3>멤버 → Broker</h3><p>TCP 7 생존 확인을<br>NetworkPolicy가 차단</p></div><div><span>수정·회귀</span><h3>필요한 경로만 허용</h3><p>머지한 빌드로 랩 회귀 통과<br>멤버끼리는 불필요 확인 · 종료</p></div></div><p class="session-takeaway">Kind 회귀 시험과 실제 네트워크 정책을 적용한 VM 시험을 함께 운영</p>
+<h1 class="op-title">VM 랩이 찾아낸 결함: 생존 확인 패킷 차단</h1><div class="session-debug"><div><span>관찰</span><h3>같은 Pod 정상<br>다른 노드 끊김</h3><p>Broker 용량을 재다가<br>잡아 둔 연결이 끊김</p></div><div class="focus"><span>원인</span><h3>멤버 → Broker</h3><p>TCP 7 생존 확인을<br>NetworkPolicy가 차단</p></div><div><span>수정·회귀</span><h3>필요한 경로만 허용</h3><p>머지한 빌드로 랩 회귀 통과<br>멤버끼리는 불필요 확인 · 종료</p></div></div><p class="session-takeaway">Kind 회귀 시험과 실제 네트워크 정책을 적용한 VM 시험을 함께 운영</p>
 
 </OperatorSlide>
 
@@ -281,10 +286,10 @@ v0.1의 약속은 세 가지입니다. 설치·복제, 장애 대응, 재구축�
 </OperatorSlide>
 
 <!--
-[40초 · 04 · v0.1 · 일정]
+[35초 · 04 · v0.1 · 일정]
 남은 일정입니다. 11월 말부터 판정 도구와 이미지 식별, 랩 통제를 정리하고, 12월 7일에 소스와 이미지, 엔진 버전, 랩을 하나로 고정합니다. 그 후보로 필수 시나리오를 반복하고 24시간 부하 시험을 합니다.
 
-12월 15일부터는 코드를 쓰지 않은 사람이 문서만 보고 설치, 장애 복구, 복원을 재현합니다. 마지막 주에 증거를 보고 공개 여부를 정합니다. 작성자와 최종 검증자는 다른 사람입니다. 날짜에 맞추려고 억지로 공개하지 않고, 필수 증거가 빠지면 공개하지 않습니다.
+12월 15일부터는 코드를 쓰지 않은 사람이 문서만 보고 설치, 장애 복구, 복원을 재현합니다. 마지막 주에 증거를 보고 공개 여부를 정합니다. 날짜에 맞추려고 억지로 공개하지 않고, 필수 증거가 빠지면 공개하지 않습니다.
 
 근거: https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/ROADMAP.md
 -->
@@ -298,8 +303,8 @@ v0.1의 약속은 세 가지입니다. 설치·복제, 장애 대응, 재구축�
 </OperatorSlide>
 
 <!--
-[30초 · 본문 설명]
-팀 역할은 1차 때 말씀드린 원칙을 그대로 지키고 있습니다. 구현과 시나리오 실행, 그리고 리뷰와 랩 운영, 독립 재현을 나눴습니다. 작성자와 최종 검증자를 다르게 하고, 공유 랩 시험은 한 번에 하나씩, 공개 여부는 함께 결정합니다.
+[20초 · 본문 설명]
+팀 원칙은 1차 때와 같습니다. 작성자와 최종 검증자를 다르게 하고, 공유 랩 시험은 한 번에 하나씩, 공개 여부는 함께 결정합니다.
 
 근거: https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/CONTRIBUTING.md
 -->
@@ -313,8 +318,8 @@ v0.1의 약속은 세 가지입니다. 설치·복제, 장애 대응, 재구축�
 </OperatorSlide>
 
 <!--
-[30초 · 본문 설명]
-v0.1 이후에는 로드맵에서 미뤄 둔 것부터 다시 봅니다. 남아 있던 데이터로 자동 재합류, 클러스터를 다시 만들 때 옛 볼륨을 이어받는 것, 멤버 볼륨 안에서 아카이브 로그 공간을 제한하는 것, 그리고 HA 상태 수집과 쓰기 격리 판단을 나누는 설계입니다. 우선순위는 v0.1 결과와 사용자 피드백을 보고 정하겠습니다.
+[20초 · 본문 설명]
+v0.1 이후에는 미뤄 둔 것부터 봅니다. 남아 있던 데이터로 자동 재합류, 옛 볼륨 이어받기, 아카이브 로그 공간 제한, 그리고 HA 관측과 격리 판단을 나누는 설계입니다. 우선순위는 v0.1 결과와 사용자 피드백을 보고 정하겠습니다.
 
 근거: https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/ROADMAP.md
 -->
@@ -323,7 +328,7 @@ v0.1 이후에는 로드맵에서 미뤄 둔 것부터 다시 봅니다. 남아 
 
 <OperatorSlide class="op-session" section="마무리">
 
-<p class="op-kicker">이번 검증의 성과</p><div class="op-clean-statement"><h1>표시에서 차단으로.<br>복귀에서 데이터 확인까지.</h1></div><p class="op-clean-caption">쓰기 격리 · 명시적 재구축 · 반복 장애 후 멤버 복귀 검증</p>
+<p class="op-kicker">이번 검증의 성과</p><div class="op-clean-statement"><h1>표시에서 차단으로.<br>복구 뒤 데이터 대조까지.</h1></div><p class="op-clean-caption">쓰기 격리 · 명시적 재구축 · 반복 장애 후 멤버 복귀 검증</p>
 
 </OperatorSlide>
 
