@@ -23,8 +23,8 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator
 <h1 class="op-title">발표 순서</h1>
 
 <div class="op-agenda">
-  <div><span>01</span><b>프로젝트 소개</b><p>누가 어떤 장애 상황에서 쓰는가</p></div>
-  <div><span>02</span><b>1차 피드백 반영</b><p>반영한 내용과 보류 사유</p></div>
+  <div><span>01</span><b>프로젝트 소개</b><p>누가 쓰고, 장애가 나면 어떻게 동작하나</p></div>
+  <div><span>02</span><b>1차 피드백 반영</b><p>무엇을 바꿨고 무엇을 미뤘나</p></div>
   <div><span>03</span><b>개발 현황과 아키텍처</b><p>처음 설계에서 v0.1 목표까지</p></div>
   <div><span>04</span><b>검증 결과와 시행착오</b><p>시험 결과, 발견한 문제, 검증 범위</p></div>
   <div><span>05</span><b>함께 논의할 질문</b><p>쓰기 재개 근거와 복원 성공 기준</p></div>
@@ -42,16 +42,37 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator
 
 <OperatorSlide class="op-compact op-session" section="01 · 프로젝트 소개">
 
-<h1 class="op-title">장애 뒤 CUBRID가 다시 쓸 수 있는 상태인지 확인합니다</h1>
+<h1 class="op-title">Kubernetes에서 CUBRID를 운영하고 장애에 대응합니다</h1>
 
-<p class="op-lead">Kubernetes에서 CUBRID 클러스터를 설치하고 운영하는 도구입니다.</p>
-<div class="op-evidence"><div><h3>누가 쓰나요?</h3><p>DB 운영자와 Kubernetes 플랫폼 담당자</p></div><div><h3>언제 쓰나요?</h3><p>DB 서버가 중단되거나 네트워크가 끊겼을 때, 어느 서버가 쓰기를 받을 수 있고 복구가 어디까지 됐는지 확인할 때</p></div></div>
+<div class="op-stack">
+  <h3>앱이 DB에 연결되는 경로</h3>
+  <div class="op-path">
+    <div class="op-node">애플리케이션<small>데이터 읽기·쓰기 요청</small></div>
+    <span class="op-arrow" aria-hidden="true">→</span>
+    <div class="op-node project">Broker<small>CUBRID에 접속하는 창구</small></div>
+    <span class="op-arrow" aria-hidden="true">→</span>
+    <div class="op-node engine">CUBRID 서버들<small>데이터 저장·복제</small></div>
+  </div>
+</div>
+
+<div class="op-stack">
+  <h3>DB 운영자와 Kubernetes 담당자가 쓰는 관리 경로</h3>
+  <div class="op-path">
+    <div class="op-node">운영자<small>클러스터 설정·복구 요청</small></div>
+    <span class="op-arrow" aria-hidden="true">→</span>
+    <div class="op-node project">Operator<small>DB 상태 확인·접속 제어</small></div>
+    <span class="op-arrow" aria-hidden="true">→</span>
+    <div class="op-node">Instance Manager<small>각 DB 서버의 상태를 알려주는 구성 요소</small></div>
+  </div>
+</div>
+
+<p class="op-caption">장애가 나면 Operator가 어느 서버가 쓰기를 받고 있는지 확인하고, 불확실하면 쓰기용 Broker를 멈춥니다.</p>
 
 </OperatorSlide>
 
 <!--
-[20초 · 01 · 프로젝트 소개]
-첫 사용자는 CUBRID 운영자와 Kubernetes 플랫폼 담당자입니다. 예를 들어 장애로 DB 서버가 교체됐을 때 운영자는 쓰기 연결을 다시 열어도 되는지 판단해야 합니다. 저희 Operator는 DB 상태를 확인하고 쓰기 연결과 복구 작업을 조정합니다.
+[30초 · 01 · 프로젝트 소개]
+아래 그림은 DB 운영자와 Kubernetes 담당자가 쓰는 관리 경로입니다. 위쪽에서 앱은 Broker를 거쳐 CUBRID에 연결합니다. 아래쪽의 Operator는 각 서버의 Instance Manager에 상태를 묻습니다. 장애가 나서 어느 서버가 쓰기를 받아야 할지 불확실하면, Operator가 쓰기용 Broker를 멈춥니다. 볼륨을 잃은 서버는 운영자가 복구를 요청할 수 있습니다.
 
 근거:
 https://github.com/cubrid-lab/showcase/tree/main/events/2026-builder-season4/01-validation
@@ -62,14 +83,14 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator
 
 <OperatorSlide class="op-compact op-session" section="02 · 1차 피드백 반영">
 
-<h1 class="op-title">장애 중 쓰기 차단과 복원 증거를 우선했습니다</h1>
+<h1 class="op-title">쓰기 차단과 복원 성공 여부부터 확인했습니다</h1>
 
 <table class="op-comparison">
 <thead><tr><th scope="col">1차 검토 의견</th><th scope="col">2차 반영</th><th scope="col">공개 전 확인</th></tr></thead>
 <tbody>
 <tr><td>네트워크가 끊기면 쓰기를 실제로 차단</td><td>쓰기용 연결 중지. 분할 시험에서 차단 뒤 승인 여부 확인</td><td>공개 후보에서 기존 연결과 새 연결 모두 재검증</td></tr>
-<tr><td>안전을 높이는 데 따른 쓰기 중단도 제시</td><td>공식 Operator와 같은 강제 삭제 시험. 쓰기 중단 시간 공개</td><td>분할과 전원 차단에서도 시간과 데이터 손실 범위를 따로 기록</td></tr>
-<tr><td>복원 성공을 확인할 수 없으면 통과에서 제외</td><td>1차 판정 보류 2회 보존. 이후 새 클러스터 복원 3회 통과 관측</td><td>같은 공개 후보로 반복, 실패 조건과 데이터 대조까지 검증</td></tr>
+<tr><td>쓰기를 막으면 서비스가 얼마나 멈추는지 공개</td><td>공식 Operator와 같은 강제 삭제 시험. 쓰기 중단 시간 공개</td><td>분할과 전원 차단에서도 시간과 데이터 손실 범위를 따로 기록</td></tr>
+<tr><td>복원 성공을 확인할 수 없으면 통과에서 제외</td><td>1차 복원 2회는 판정 보류. 이후 새 클러스터 복원 3회 통과</td><td>공개 후보로 반복 시험. 실패 조건과 데이터까지 확인</td></tr>
 </tbody>
 </table>
 <p class="op-caption">출처: 2026년 10월 31일 1차 검증 의견 취합본. 개별 의견을 주제별로 요약했습니다.</p>
@@ -90,14 +111,14 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/126
 
 <OperatorSlide class="op-compact op-session" section="02 · 1차 피드백 반영">
 
-<h1 class="op-title">자동화와 지원 범위는 검증할 수 있는 만큼 좁혔습니다</h1>
+<h1 class="op-title">첫 버전에 넣을 기능과 미룬 기능을 나눴습니다</h1>
 
 <table class="op-comparison">
 <thead><tr><th scope="col">1차 검토 의견</th><th scope="col">처리</th><th scope="col">이유</th></tr></thead>
 <tbody>
-<tr><td>재합류 시 최신 데이터 보호</td><td>승인 후 명시적 재구축을 v0.1에 포함. 기존 데이터 자동 재합류·옛 볼륨 자동 채택은 v0.2로 이월</td><td>오래된 데이터를 안전하게 구분하고 최신 데이터 보존을 재현할 증거가 더 필요</td></tr>
+<tr><td>재합류 시 최신 데이터 보호</td><td>승인 후 명시적 재구축을 v0.1에 포함. 기존 데이터 자동 재합류·기존 볼륨 자동 연결은 v0.2로 이월</td><td>오래된 데이터를 안전하게 구분하고 최신 데이터 보존을 재현할 증거가 더 필요</td></tr>
 <tr><td>공식 Operator와의 관계·도입 비용</td><td>같은 장애 조건에서 복구 방식과 수동 개입을 비교</td><td>비교는 강제 삭제 시험에 한정. 전환 비용·업스트림 협력 방식은 추가 검토</td></tr>
-<tr><td>CSI·무중단 확장·복제 지연 기반 읽기</td><td>이번 발표의 검증 범위 밖</td><td>현재 증거는 로컬 디스크를 쓰는 3대 VM 환경에 한정</td></tr>
+<tr><td>CSI·무중단 확장·복제 지연 기반 읽기</td><td>이번 발표의 검증 범위 밖</td><td>지금까지는 로컬 디스크를 쓰는 가상 서버 3대에서 확인</td></tr>
 </tbody>
 </table>
 <p class="op-caption">출처: 2026년 10월 31일 1차 검증 의견 취합본. 개별 의견을 주제별로 요약했습니다.</p>
@@ -117,14 +138,14 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/126
 
 <OperatorSlide class="op-compact op-session" section="03 · 개발 현황과 아키텍처">
 
-<h1 class="op-title">상태를 표시하는 설계에서 쓰기를 제어하는 설계로</h1>
+<h1 class="op-title">상태만 알리던 Operator가 쓰기 연결도 제어합니다</h1>
 
 <table class="op-comparison">
-<thead><tr><th scope="col">처음 설계</th><th scope="col">지금 구현한 동작</th><th scope="col">v0.1에서 입증할 동작</th></tr></thead>
+<thead><tr><th scope="col">처음 설계</th><th scope="col">지금 구현한 동작</th><th scope="col">v0.1 공개 전에 확인할 것</th></tr></thead>
 <tbody>
-<tr><td><b>쓰기</b><br>어느 서버가 쓰기를 받는지 관찰하고 미확정 상태를 표시</td><td>불확실하면 쓰기용 Broker를 중지. 안전 근거를 확인한 뒤 다시 시작</td><td>실제 차단 뒤 승인 0건. 재개 시간과 차단 전 손실은 측정·공개</td></tr>
-<tr><td><b>재구축</b><br>볼륨을 잃은 서버를 어떻게 복구할지 설계</td><td>운영자가 요청하면 현재 master의 백업으로 복구한 뒤 복제에 합류</td><td>잘못된 요청 거부와 복구 데이터 대조를 공개 후보에서 재현</td></tr>
-<tr><td><b>백업·복원</b><br>체크섬 확인 후 새 클러스터로 복원. 1차 VM 결과에는 판정 보류 포함</td><td>새 클러스터 복원 3회 통과 관측</td><td>실패 조건도 재시험하고 다른 운영자가 문서만 보고 복원을 재현</td></tr>
+<tr><td><b>쓰기</b><br>어느 서버가 쓰기를 받는지 관찰하고 미확정 상태를 표시</td><td>불확실하면 쓰기용 Broker를 중지. 안전 근거를 확인한 뒤 다시 시작</td><td>차단 후 성공한 쓰기가 없어야 함. 재개 시간과 차단 전 손실 기록</td></tr>
+<tr><td><b>재구축</b><br>볼륨을 잃은 서버를 어떻게 복구할지 설계</td><td>운영자가 요청하면 현재 master의 백업으로 복구한 뒤 복제에 합류</td><td>잘못된 요청을 거부하고, 복구 데이터가 맞는지 확인</td></tr>
+<tr><td><b>백업·복원</b><br>체크섬 확인 후 새 클러스터로 복원. 1차 VM 결과에는 판정 보류 포함</td><td>새 클러스터 복원 3회 통과</td><td>실패 조건도 재시험하고 다른 운영자가 문서만 보고 복원을 재현</td></tr>
 </tbody>
 </table>
 <p class="op-caption">CUBRID는 처음 설계대로 master 선출과 복제를 맡고, Operator가 연결과 복구 작업을 조정합니다.</p>
@@ -164,13 +185,13 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/adr/0005
 
 <OperatorSlide class="op-session" section="03 · 개발 현황과 아키텍처 · 현재 구조" source="전체 아키텍처 · 쓰기 격리 ADR-0005 · 재구축 ADR-0006" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/adr/0006-node-join-rebuild.md">
 
-<h1 class="op-title">Operator가 상태를 확인하고 연결을 관리합니다</h1><OperatorSessionArchitecture /><p class="session-takeaway"><b>Broker</b>는 DB 연결 창구 · <b>Instance Manager</b>는 각 DB 서버의 상태를 알려주는 구성 요소</p>
+<h1 class="op-title">Operator는 서버 상태를 보고 쓰기 연결을 제어합니다</h1><OperatorSessionArchitecture /><p class="session-takeaway"><b>Broker</b>는 DB 연결 창구 · <b>Instance Manager</b>는 각 DB 서버의 상태를 알려주는 구성 요소</p>
 
 </OperatorSlide>
 
 <!--
 [30초 · 02 · 설계 · 전체 구조]
-그림 아래가 데이터가 오가는 경로입니다. 애플리케이션은 DB 연결 창구인 Broker를 거쳐 CUBRID에 데이터를 저장합니다. 위쪽의 관리 프로그램 Operator는 각 DB 서버의 Instance Manager에 상태를 묻고, 불확실하면 쓰기용 Broker를 중지합니다.
+앞에서 본 구조를 조금 더 자세히 보겠습니다. 쓰기용 Broker가 DB 서버와 분리돼 있어, 어느 서버가 쓰기를 받아야 할지 불확실하면 Operator가 Broker를 모두 내려 연결을 끊을 수 있습니다. 데이터 볼륨을 잃은 서버를 다시 구성할 때는 운영자가 대상을 확인하고 Kubernetes를 통해 복구를 요청합니다.
 
 master 선출과 복제는 CUBRID가 맡고, Operator는 연결 관리와 복구 조정만 합니다.
 
@@ -182,7 +203,7 @@ master 선출과 복제는 CUBRID가 맡고, Operator는 연결 관리와 복구
 
 <OperatorSlide class="op-session" section="03 · 개발 현황과 아키텍처 · 쓰기 격리" source="ADR-0005 쓰기 격리" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/adr/0005-failover-split-brain.md">
 
-<h1 class="op-title">연결을 끊고, 확인한 뒤 다시 엽니다</h1><div class="session-flow"><div><span>01 · 관찰</span><h3>서버 상태 불확실</h3><p>응답 없음 · 역할 충돌<br>지운 멤버 확인 전</p></div><i>→</i><div class="focus"><span>02 · 차단</span><h3>쓰기 연결 차단</h3><p>Broker 0개로<br>기존 연결도 종료</p></div><i>→</i><div><span>03 · 검증</span><h3>성공 응답 0건</h3><p>기존 연결<br>새 연결</p></div><i>→</i><div><span>04 · 해제</span><h3>근거 확인</h3><p>자동: 두 번 재확인<br>수동: 이번 격리 전용 토큰</p></div></div><p class="session-takeaway">자동 해제는 멤버 미확인 격리에 한정 · 같은 단일 master와 안전 근거를 10초 이상 간격으로 두 번 확인</p>
+<h1 class="op-title">연결을 끊고, 확인한 뒤 다시 엽니다</h1><div class="session-flow"><div><span>01 · 관찰</span><h3>서버 상태 불확실</h3><p>서버가 응답하지 않거나<br>역할 정보가 서로 다름</p></div><i>→</i><div class="focus"><span>02 · 차단</span><h3>쓰기 연결 차단</h3><p>쓰기용 Broker를 모두 중지해<br>기존 연결도 종료</p></div><i>→</i><div><span>03 · 검증</span><h3>성공 응답 0건</h3><p>기존 연결<br>새 연결</p></div><i>→</i><div><span>04 · 해제</span><h3>다시 열기</h3><p>자동: 두 번 재확인<br>수동: 이번 격리 전용 토큰</p></div></div><p class="session-takeaway">자동 해제는 멤버 미확인 격리에 한정 · 같은 단일 master와 안전 근거를 10초 이상 간격으로 두 번 확인</p>
 
 </OperatorSlide>
 
@@ -201,7 +222,7 @@ master 선출과 복제는 CUBRID가 맡고, Operator는 연결 관리와 복구
 
 <OperatorSlide class="op-session" section="03 · 개발 현황과 아키텍처 · 재구축" source="볼륨 교체 재구축 #118" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/118">
 
-<h1 class="op-title">데이터를 잃은 서버는 요청에 따라 복구합니다</h1><div class="session-flow"><div><span>01</span><h3>데이터 볼륨 손실</h3><p>쓰기 격리</p></div><i>→</i><div><span>02</span><h3>사람이 복구 요청</h3><p>사람이 대상 확인</p></div><i>→</i><div class="focus"><span>03</span><h3>백업 복원</h3><p>현재 master → 대상</p></div><i>→</i><div><span>04</span><h3>데이터 대조</h3><p>승인된 데이터 확인</p></div></div><div class="session-metrics"><div><strong>40.2초</strong><span>재구축 완료</span></div><div><strong>48.9초</strong><span>행 확인 완료</span></div><p>Kind 측정 · 요청 시점부터<br>v0.1 제한 5분</p></div>
+<h1 class="op-title">데이터를 잃은 서버는 요청에 따라 복구합니다</h1><div class="session-flow"><div><span>01</span><h3>데이터 볼륨 손실</h3><p>쓰기 격리</p></div><i>→</i><div><span>02</span><h3>운영자가 복구 요청</h3><p>대상 서버와 볼륨 확인</p></div><i>→</i><div class="focus"><span>03</span><h3>백업 복원</h3><p>현재 master → 대상</p></div><i>→</i><div><span>04</span><h3>데이터 대조</h3><p>승인된 데이터 확인</p></div></div><div class="session-metrics"><div><strong>40.2초</strong><span>재구축 완료</span></div><div><strong>48.9초</strong><span>행 확인 완료</span></div><p>Kind 측정 · 요청 시점부터<br>v0.1 제한 5분</p></div>
 
 </OperatorSlide>
 
@@ -218,7 +239,7 @@ master 선출과 복제는 CUBRID가 맡고, Operator는 연결 관리와 복구
 
 <OperatorSlide class="op-session" section="04 · 검증 결과와 시행착오 · 시험 방법" source="시나리오 계약 · VM 랩 실행 기록 #122" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/testing/scenario-contract.md">
 
-<h1 class="op-title">성공 응답을 받은 데이터가 남았는지 확인합니다</h1><div class="op-clean-three"><div><span>왜</span><h3>응답이 맞았는지</h3><p>상태 표시가 아니라<br>애플리케이션이 받은 “성공”이<br>장애 뒤에도 남는지가 기준</p></div><div><span>어떻게</span><h3>Kind + VM 랩</h3><p>Kind(컨테이너로 띄운 테스트용 K8s)<br>main마다 실제 CUBRID 이미지<br>VM 3대: 전원 차단 · 네트워크 분할<br>Pod 삭제 · Operator 재시작</p></div><div><span>무엇을 확인</span><h3>행 단위 대조</h3><p>클라이언트가 승인된 쓰기를 기록<br>장애 뒤 멤버마다 남았는지 대조<br>닫힌 뒤 승인 0건 · 시간 측정</p></div></div><p class="session-takeaway">실제 전원 차단과 네트워크 정책 적용은 VM 랩에서 별도 시험 · 공유 랩은 점유 Lease로 한 번에 하나</p>
+<h1 class="op-title">성공 응답을 받은 데이터가 남았는지 확인합니다</h1><div class="op-clean-three"><div><span>왜</span><h3>응답이 맞았는지</h3><p>상태 표시가 아니라<br>애플리케이션이 받은 “성공”이<br>장애 뒤에도 남는지가 기준</p></div><div><span>어떻게</span><h3>Kind + VM 랩</h3><p>Kind(컨테이너로 띄운 테스트용 K8s)<br>main마다 실제 CUBRID 이미지<br>VM 3대: 전원 차단 · 네트워크 분할<br>Pod 삭제 · Operator 재시작</p></div><div><span>무엇을 확인</span><h3>데이터가 남았는지 확인</h3><p>클라이언트가 승인된 쓰기를 기록<br>장애 뒤 멤버마다 남았는지 대조<br>닫힌 뒤 승인 0건 · 시간 측정</p></div></div><p class="session-takeaway">전원 차단과 네트워크 장애는 가상 서버 3대에서 따로 시험했습니다.</p>
 
 </OperatorSlide>
 
@@ -237,7 +258,7 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/122
 
 <OperatorSlide class="op-session" section="04 · 검증 결과와 시행착오 · 장애 비교" source="VM 랩 비교 실행 2026-11-25 · #122" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/122">
 
-<h1 class="op-title">두 번째 장애에서 결과가 달라졌습니다</h1><p class="session-sub">11월 25일 VM 랩 · HA 3멤버 · operator별 master Pod 강제 삭제 2회 중 두 번째</p><svg class="session-chart" style="max-height:215px" viewBox="0 0 860 300" role="img" aria-label="두 번째 master Pod 삭제 뒤 초당 승인된 쓰기 수. 공식 operator는 삭제 직후 0으로 떨어져 측정 끝까지 회복하지 않았고, 이 Operator는 삭제 후 약 43초에 다시 올라왔습니다."><line x1="56" x2="670" y1="260.0" y2="260.0" stroke="var(--line)" stroke-width="1"/><text x="48" y="264.0" text-anchor="end" fill="var(--muted)" style="font-size:12px;font-weight:400">0</text><line x1="56" x2="670" y1="178.7" y2="178.7" stroke="var(--line)" stroke-width="1"/><text x="48" y="182.7" text-anchor="end" fill="var(--muted)" style="font-size:12px;font-weight:400">5</text><line x1="56" x2="670" y1="97.3" y2="97.3" stroke="var(--line)" stroke-width="1"/><text x="48" y="101.3" text-anchor="end" fill="var(--muted)" style="font-size:12px;font-weight:400">10</text><line x1="56" x2="670" y1="16.0" y2="16.0" stroke="var(--line)" stroke-width="1"/><text x="48" y="20.0" text-anchor="end" fill="var(--muted)" style="font-size:12px;font-weight:400">15</text><text x="56.0" y="280" text-anchor="middle" fill="var(--muted)" style="font-size:12px;font-weight:400">-30초</text><text x="117.4" y="280" text-anchor="middle" fill="var(--ink)" style="font-size:12px;font-weight:400">0</text><text x="240.2" y="280" text-anchor="middle" fill="var(--muted)" style="font-size:12px;font-weight:400">+60초</text><text x="363.0" y="280" text-anchor="middle" fill="var(--muted)" style="font-size:12px;font-weight:400">+120초</text><text x="485.8" y="280" text-anchor="middle" fill="var(--muted)" style="font-size:12px;font-weight:400">+180초</text><text x="608.6" y="280" text-anchor="middle" fill="var(--muted)" style="font-size:12px;font-weight:400">+240초</text><line x1="117.4" x2="117.4" y1="16" y2="260" stroke="var(--ink)" stroke-width="1.5" stroke-dasharray="4 4"/><text x="123.4" y="28" fill="var(--ink)" style="font-size:12px;font-weight:400">master Pod 강제 삭제</text><polyline points="58.0,162.4 62.1,146.1 66.2,178.7 70.3,162.4 74.4,162.4 78.5,154.3 82.6,186.8 86.7,243.7 90.8,235.6 94.9,154.3 99.0,146.1 103.1,146.1 107.2,194.9 111.3,219.3 115.4,219.3 119.4,178.7 123.5,260.0 127.6,260.0 131.7,260.0 135.8,260.0 139.9,260.0 144.0,260.0 148.1,260.0 152.2,260.0 156.3,260.0 160.4,260.0 164.5,260.0 168.6,260.0 172.7,260.0 176.8,260.0 180.8,260.0 184.9,260.0 189.0,260.0 193.1,260.0 197.2,260.0 201.3,260.0 205.4,260.0 209.5,260.0 213.6,260.0 217.7,260.0 221.8,260.0 225.9,260.0 230.0,260.0 234.1,260.0 238.2,260.0 242.2,260.0 246.3,260.0 250.4,260.0 254.5,260.0 258.6,260.0 262.7,260.0 266.8,260.0 270.9,260.0 275.0,260.0 279.1,260.0 283.2,260.0 287.3,260.0 291.4,260.0 295.5,260.0 299.6,260.0 303.6,260.0 307.7,260.0 311.8,260.0 315.9,260.0 320.0,260.0 324.1,260.0 328.2,260.0 332.3,260.0 336.4,260.0 340.5,260.0 344.6,260.0 348.7,260.0 352.8,260.0 356.9,260.0 361.0,260.0 365.0,260.0 369.1,260.0 373.2,260.0 377.3,260.0 381.4,260.0 385.5,260.0 389.6,260.0 393.7,260.0 397.8,260.0 401.9,260.0 406.0,260.0 410.1,260.0 414.2,260.0 418.3,260.0 422.4,260.0 426.4,260.0 430.5,260.0 434.6,260.0 438.7,260.0 442.8,260.0 446.9,260.0 451.0,260.0 455.1,260.0 459.2,260.0 463.3,260.0 467.4,260.0 471.5,260.0 475.6,260.0 479.7,260.0 483.8,260.0 487.8,260.0 491.9,260.0 496.0,260.0 500.1,260.0 504.2,260.0 508.3,260.0 512.4,260.0 516.5,260.0 520.6,260.0 524.7,260.0 528.8,260.0 532.9,260.0 537.0,260.0 541.1,260.0 545.2,260.0 549.2,260.0 553.3,260.0 557.4,260.0 561.5,260.0 565.6,260.0 569.7,260.0 573.8,260.0 577.9,260.0 582.0,260.0 586.1,260.0 590.2,260.0 594.3,260.0 598.4,260.0 602.5,260.0 606.6,260.0 610.6,260.0 614.7,260.0 618.8,260.0 622.9,260.0 627.0,260.0 631.1,260.0 635.2,260.0 639.3,260.0 643.4,260.0 647.5,260.0 651.6,260.0 655.7,260.0 659.8,260.0 663.9,260.0 668.0,260.0" fill="none" stroke="var(--blue)" stroke-width="2" stroke-linejoin="round"/><polyline points="58.0,154.3 62.1,162.4 66.2,146.1 70.3,129.9 74.4,162.4 78.5,154.3 82.6,154.3 86.7,154.3 90.8,154.3 94.9,146.1 99.0,162.4 103.1,138.0 107.2,146.1 111.3,138.0 115.4,154.3 119.4,235.6 123.5,138.0 127.6,97.3 131.7,113.6 135.8,138.0 139.9,260.0 144.0,260.0 148.1,260.0 152.2,260.0 156.3,260.0 160.4,260.0 164.5,260.0 168.6,260.0 172.7,260.0 176.8,260.0 180.8,260.0 184.9,260.0 189.0,260.0 193.1,260.0 197.2,260.0 201.3,260.0 205.4,154.3 209.5,129.9 213.6,146.1 217.7,154.3 221.8,138.0 225.9,146.1 230.0,162.4 234.1,146.1 238.2,138.0 242.2,146.1 246.3,138.0 250.4,146.1 254.5,154.3 258.6,138.0 262.7,154.3 266.8,154.3 270.9,154.3 275.0,154.3 279.1,146.1 283.2,154.3 287.3,162.4 291.4,146.1 295.5,146.1 299.6,154.3 303.6,146.1 307.7,154.3 311.8,146.1 315.9,154.3 320.0,154.3 324.1,146.1 328.2,154.3 332.3,154.3 336.4,146.1 340.5,162.4 344.6,146.1 348.7,162.4 352.8,154.3 356.9,154.3 361.0,146.1 365.0,170.5 369.1,154.3 373.2,154.3 377.3,162.4 381.4,154.3 385.5,154.3 389.6,146.1 393.7,154.3 397.8,162.4 401.9,154.3 406.0,162.4 410.1,170.5 414.2,146.1 418.3,154.3 422.4,154.3 426.4,154.3 430.5,146.1 434.6,154.3 438.7,162.4 442.8,162.4 446.9,138.0 451.0,170.5 455.1,170.5 459.2,154.3 463.3,162.4 467.4,146.1 471.5,138.0 475.6,154.3 479.7,146.1 483.8,146.1 487.8,162.4 491.9,138.0 496.0,170.5 500.1,162.4 504.2,170.5 508.3,162.4 512.4,146.1 516.5,162.4 520.6,162.4 524.7,146.1 528.8,154.3 532.9,154.3 537.0,162.4 541.1,170.5 545.2,138.0 549.2,154.3 553.3,154.3 557.4,162.4 561.5,170.5 565.6,170.5 569.7,146.1 573.8,154.3 577.9,162.4 582.0,154.3 586.1,162.4 590.2,138.0 594.3,154.3 598.4,170.5 602.5,162.4 606.6,170.5 610.6,154.3 614.7,154.3 618.8,162.4 622.9,146.1 627.0,162.4 631.1,162.4 635.2,138.0 639.3,146.1 643.4,162.4 647.5,154.3 651.6,146.1 655.7,146.1 659.8,146.1 663.9,154.3 668.0,154.3" fill="none" stroke="#9a3412" stroke-width="2" stroke-linejoin="round"/><circle cx="668.0" cy="154.3" r="4" fill="#9a3412" stroke="var(--paper)" stroke-width="2"/><text x="680" y="150.3" fill="var(--ink)" style="font-size:13px;font-weight:700">이 Operator</text><text x="680" y="167.3" fill="var(--muted)" style="font-size:12px;font-weight:400">최장 승인 공백 32.8초</text><text x="680" y="184.3" fill="var(--muted)" style="font-size:12px;font-weight:400">삭제 후 +42.5초 재개</text><circle cx="668.0" cy="260.0" r="4" fill="var(--blue)" stroke="var(--paper)" stroke-width="2"/><text x="680" y="242.0" fill="var(--ink)" style="font-size:13px;font-weight:700">cubrid-operator</text><text x="680" y="258.0" fill="var(--muted)" style="font-size:12px;font-weight:400">새 master 없음</text><text x="680" y="274.0" fill="var(--muted)" style="font-size:12px;font-weight:400">31분 뒤 정리까지 미복구</text><text x="56" y="296" fill="var(--muted)" style="font-size:11px;font-weight:400">초당 승인된 쓰기 (2초 평균) · 같은 클라이언트, 트랜잭션당 1행 · 측정 창은 삭제 뒤 약 282초</text><line x1="137.3" x2="137.3" y1="34" y2="260" stroke="var(--muted)" stroke-width="1" stroke-dasharray="2 3"/><text x="143.3" y="48" fill="var(--ink)" style="font-size:12px;font-weight:700">+9.7초 Operator 격리</text><text x="143.3" y="64" fill="var(--muted)" style="font-size:12px;font-weight:400">그 전 +2.5–9.6초: CUBRID가 올린 ha-0가 승인 (손실 0)</text></svg><table class="op-comparison session-why"><tbody><tr><td><b>왜 갈렸나</b></td><td><b>cubrid-operator</b><br>Pod 목록이 바뀔 때마다 멤버별 <code>ha_node_list</code> 순서를 다시 씀 → 남은 두 멤버의 우선순위가 달라 둘 다 standby</td><td><b>이 Operator</b><br>스펙에서 순번대로 만든 한 목록을 모든 멤버가 공유 → Pod가 바뀌어도 순서 불변, CUBRID가 새 master 선출</td></tr></tbody></table><p class="session-takeaway">첫 삭제의 쓰기 중단: 우리 22.0초 · 공식 12.4초 / 두 시험 모두 쓰기 손실 0건</p>
+<h1 class="op-title">두 번째 장애에서 결과가 달라졌습니다</h1><p class="session-sub">11월 25일 VM 랩 · HA 3멤버 · operator별 master Pod 강제 삭제 2회 중 두 번째</p><svg class="session-chart" style="max-height:215px" viewBox="0 0 860 300" role="img" aria-label="두 번째 master Pod 삭제 뒤 초당 승인된 쓰기 수. 공식 operator는 삭제 직후 0으로 떨어져 측정 끝까지 회복하지 않았고, 이 Operator는 삭제 후 약 43초에 다시 올라왔습니다."><line x1="56" x2="670" y1="260.0" y2="260.0" stroke="var(--line)" stroke-width="1"/><text x="48" y="264.0" text-anchor="end" fill="var(--muted)" style="font-size:12px;font-weight:400">0</text><line x1="56" x2="670" y1="178.7" y2="178.7" stroke="var(--line)" stroke-width="1"/><text x="48" y="182.7" text-anchor="end" fill="var(--muted)" style="font-size:12px;font-weight:400">5</text><line x1="56" x2="670" y1="97.3" y2="97.3" stroke="var(--line)" stroke-width="1"/><text x="48" y="101.3" text-anchor="end" fill="var(--muted)" style="font-size:12px;font-weight:400">10</text><line x1="56" x2="670" y1="16.0" y2="16.0" stroke="var(--line)" stroke-width="1"/><text x="48" y="20.0" text-anchor="end" fill="var(--muted)" style="font-size:12px;font-weight:400">15</text><text x="56.0" y="280" text-anchor="middle" fill="var(--muted)" style="font-size:12px;font-weight:400">-30초</text><text x="117.4" y="280" text-anchor="middle" fill="var(--ink)" style="font-size:12px;font-weight:400">0</text><text x="240.2" y="280" text-anchor="middle" fill="var(--muted)" style="font-size:12px;font-weight:400">+60초</text><text x="363.0" y="280" text-anchor="middle" fill="var(--muted)" style="font-size:12px;font-weight:400">+120초</text><text x="485.8" y="280" text-anchor="middle" fill="var(--muted)" style="font-size:12px;font-weight:400">+180초</text><text x="608.6" y="280" text-anchor="middle" fill="var(--muted)" style="font-size:12px;font-weight:400">+240초</text><line x1="117.4" x2="117.4" y1="16" y2="260" stroke="var(--ink)" stroke-width="1.5" stroke-dasharray="4 4"/><text x="123.4" y="28" fill="var(--ink)" style="font-size:12px;font-weight:400">master Pod 강제 삭제</text><polyline points="58.0,162.4 62.1,146.1 66.2,178.7 70.3,162.4 74.4,162.4 78.5,154.3 82.6,186.8 86.7,243.7 90.8,235.6 94.9,154.3 99.0,146.1 103.1,146.1 107.2,194.9 111.3,219.3 115.4,219.3 119.4,178.7 123.5,260.0 127.6,260.0 131.7,260.0 135.8,260.0 139.9,260.0 144.0,260.0 148.1,260.0 152.2,260.0 156.3,260.0 160.4,260.0 164.5,260.0 168.6,260.0 172.7,260.0 176.8,260.0 180.8,260.0 184.9,260.0 189.0,260.0 193.1,260.0 197.2,260.0 201.3,260.0 205.4,260.0 209.5,260.0 213.6,260.0 217.7,260.0 221.8,260.0 225.9,260.0 230.0,260.0 234.1,260.0 238.2,260.0 242.2,260.0 246.3,260.0 250.4,260.0 254.5,260.0 258.6,260.0 262.7,260.0 266.8,260.0 270.9,260.0 275.0,260.0 279.1,260.0 283.2,260.0 287.3,260.0 291.4,260.0 295.5,260.0 299.6,260.0 303.6,260.0 307.7,260.0 311.8,260.0 315.9,260.0 320.0,260.0 324.1,260.0 328.2,260.0 332.3,260.0 336.4,260.0 340.5,260.0 344.6,260.0 348.7,260.0 352.8,260.0 356.9,260.0 361.0,260.0 365.0,260.0 369.1,260.0 373.2,260.0 377.3,260.0 381.4,260.0 385.5,260.0 389.6,260.0 393.7,260.0 397.8,260.0 401.9,260.0 406.0,260.0 410.1,260.0 414.2,260.0 418.3,260.0 422.4,260.0 426.4,260.0 430.5,260.0 434.6,260.0 438.7,260.0 442.8,260.0 446.9,260.0 451.0,260.0 455.1,260.0 459.2,260.0 463.3,260.0 467.4,260.0 471.5,260.0 475.6,260.0 479.7,260.0 483.8,260.0 487.8,260.0 491.9,260.0 496.0,260.0 500.1,260.0 504.2,260.0 508.3,260.0 512.4,260.0 516.5,260.0 520.6,260.0 524.7,260.0 528.8,260.0 532.9,260.0 537.0,260.0 541.1,260.0 545.2,260.0 549.2,260.0 553.3,260.0 557.4,260.0 561.5,260.0 565.6,260.0 569.7,260.0 573.8,260.0 577.9,260.0 582.0,260.0 586.1,260.0 590.2,260.0 594.3,260.0 598.4,260.0 602.5,260.0 606.6,260.0 610.6,260.0 614.7,260.0 618.8,260.0 622.9,260.0 627.0,260.0 631.1,260.0 635.2,260.0 639.3,260.0 643.4,260.0 647.5,260.0 651.6,260.0 655.7,260.0 659.8,260.0 663.9,260.0 668.0,260.0" fill="none" stroke="var(--blue)" stroke-width="2" stroke-linejoin="round"/><polyline points="58.0,154.3 62.1,162.4 66.2,146.1 70.3,129.9 74.4,162.4 78.5,154.3 82.6,154.3 86.7,154.3 90.8,154.3 94.9,146.1 99.0,162.4 103.1,138.0 107.2,146.1 111.3,138.0 115.4,154.3 119.4,235.6 123.5,138.0 127.6,97.3 131.7,113.6 135.8,138.0 139.9,260.0 144.0,260.0 148.1,260.0 152.2,260.0 156.3,260.0 160.4,260.0 164.5,260.0 168.6,260.0 172.7,260.0 176.8,260.0 180.8,260.0 184.9,260.0 189.0,260.0 193.1,260.0 197.2,260.0 201.3,260.0 205.4,154.3 209.5,129.9 213.6,146.1 217.7,154.3 221.8,138.0 225.9,146.1 230.0,162.4 234.1,146.1 238.2,138.0 242.2,146.1 246.3,138.0 250.4,146.1 254.5,154.3 258.6,138.0 262.7,154.3 266.8,154.3 270.9,154.3 275.0,154.3 279.1,146.1 283.2,154.3 287.3,162.4 291.4,146.1 295.5,146.1 299.6,154.3 303.6,146.1 307.7,154.3 311.8,146.1 315.9,154.3 320.0,154.3 324.1,146.1 328.2,154.3 332.3,154.3 336.4,146.1 340.5,162.4 344.6,146.1 348.7,162.4 352.8,154.3 356.9,154.3 361.0,146.1 365.0,170.5 369.1,154.3 373.2,154.3 377.3,162.4 381.4,154.3 385.5,154.3 389.6,146.1 393.7,154.3 397.8,162.4 401.9,154.3 406.0,162.4 410.1,170.5 414.2,146.1 418.3,154.3 422.4,154.3 426.4,154.3 430.5,146.1 434.6,154.3 438.7,162.4 442.8,162.4 446.9,138.0 451.0,170.5 455.1,170.5 459.2,154.3 463.3,162.4 467.4,146.1 471.5,138.0 475.6,154.3 479.7,146.1 483.8,146.1 487.8,162.4 491.9,138.0 496.0,170.5 500.1,162.4 504.2,170.5 508.3,162.4 512.4,146.1 516.5,162.4 520.6,162.4 524.7,146.1 528.8,154.3 532.9,154.3 537.0,162.4 541.1,170.5 545.2,138.0 549.2,154.3 553.3,154.3 557.4,162.4 561.5,170.5 565.6,170.5 569.7,146.1 573.8,154.3 577.9,162.4 582.0,154.3 586.1,162.4 590.2,138.0 594.3,154.3 598.4,170.5 602.5,162.4 606.6,170.5 610.6,154.3 614.7,154.3 618.8,162.4 622.9,146.1 627.0,162.4 631.1,162.4 635.2,138.0 639.3,146.1 643.4,162.4 647.5,154.3 651.6,146.1 655.7,146.1 659.8,146.1 663.9,154.3 668.0,154.3" fill="none" stroke="#9a3412" stroke-width="2" stroke-linejoin="round"/><circle cx="668.0" cy="154.3" r="4" fill="#9a3412" stroke="var(--paper)" stroke-width="2"/><text x="680" y="150.3" fill="var(--ink)" style="font-size:13px;font-weight:700">이 Operator</text><text x="680" y="167.3" fill="var(--muted)" style="font-size:12px;font-weight:400">최장 승인 공백 32.8초</text><text x="680" y="184.3" fill="var(--muted)" style="font-size:12px;font-weight:400">삭제 후 +42.5초 재개</text><circle cx="668.0" cy="260.0" r="4" fill="var(--blue)" stroke="var(--paper)" stroke-width="2"/><text x="680" y="242.0" fill="var(--ink)" style="font-size:13px;font-weight:700">cubrid-operator</text><text x="680" y="258.0" fill="var(--muted)" style="font-size:12px;font-weight:400">새 master 없음</text><text x="680" y="274.0" fill="var(--muted)" style="font-size:12px;font-weight:400">31분 뒤 정리까지 미복구</text><text x="56" y="296" fill="var(--muted)" style="font-size:11px;font-weight:400">초당 승인된 쓰기 (2초 평균) · 같은 클라이언트, 트랜잭션당 1행 · 측정 창은 삭제 뒤 약 282초</text><line x1="137.3" x2="137.3" y1="34" y2="260" stroke="var(--muted)" stroke-width="1" stroke-dasharray="2 3"/><text x="143.3" y="48" fill="var(--ink)" style="font-size:12px;font-weight:700">+9.7초 Operator 격리</text><text x="143.3" y="64" fill="var(--muted)" style="font-size:12px;font-weight:400">그 전 +2.5–9.6초: CUBRID가 올린 ha-0가 승인 (손실 0)</text></svg><table class="op-comparison session-why"><tbody><tr><td><b>결과가 달랐던 이유</b></td><td><b>cubrid-operator</b><br>Pod 목록이 바뀔 때마다 멤버별 <code>ha_node_list</code> 순서를 다시 씀 → 남은 두 멤버의 우선순위가 달라 둘 다 standby</td><td><b>이 Operator</b><br>스펙에서 순번대로 만든 한 목록을 모든 멤버가 공유 → Pod가 바뀌어도 순서 불변, CUBRID가 새 master 선출</td></tr></tbody></table><p class="session-takeaway">첫 삭제의 쓰기 중단: 우리 22.0초 · 공식 12.4초 / 두 시험 모두 쓰기 손실 0건</p>
 
 </OperatorSlide>
 
@@ -257,7 +278,7 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/122
 
 <OperatorSlide class="op-session" section="04 · 검증 결과와 시행착오 · VM 시험 결과" source="VM 랩 실행 기록 #122" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/122">
 
-<h1 class="op-title">VM 랩에서 확인한 동작과 측정값입니다</h1><table class="session-table session-status"><thead><tr><th>VM 랩 시험</th><th>확인한 동작</th><th>상태</th></tr></thead><tbody><tr><td>분할 중 Operator 재시작</td><td>격리 유지 · 쓰기 승인 없음</td><td><b>안전 규칙 통과</b></td></tr><tr><td>볼륨 교체 재구축</td><td>재구축 뒤 행 대조</td><td><b>통과</b></td></tr><tr><td>새 클러스터 복원</td><td>3회 복원 · 세션 끊김 없음</td><td><b>통과</b></td></tr><tr><td>VM 전원 손실</td><td>전원 차단 표시 뒤 첫 쓰기까지 26–38초 (3회) · 복제 정지 조건에서는 13건 유실 (13장)</td><td><b>측정 공개</b></td></tr><tr><td>해제 후 재분할</td><td>옛 토큰 2개 모두 거부 · 닫힌 뒤 쓰기 승인 없음</td><td><b>안전 규칙 통과</b></td></tr></tbody></table><p class="session-takeaway">각 행은 해당 실행의 결과 · 승인했지만 사라진 쓰기는 13장에 모음</p>
+<h1 class="op-title">가상 서버에서 장애를 내고 복구를 확인했습니다</h1><table class="session-table session-status"><thead><tr><th>VM 랩 시험</th><th>확인한 동작</th><th>상태</th></tr></thead><tbody><tr><td>분할 중 Operator 재시작</td><td>격리 유지 · 쓰기 승인 없음</td><td><b>안전 규칙 통과</b></td></tr><tr><td>볼륨 교체 재구축</td><td>재구축 뒤 행 대조</td><td><b>통과</b></td></tr><tr><td>새 클러스터 복원</td><td>3회 복원 · 세션 끊김 없음</td><td><b>통과</b></td></tr><tr><td>VM 전원 손실</td><td>전원 차단 표시 후 첫 쓰기까지 26–38초 (3회)</td><td><b>측정 공개</b></td></tr><tr><td>해제 후 재분할</td><td>이전 해제 토큰 2개 모두 거부 · 차단 후 쓰기 승인 0건</td><td><b>안전 규칙 통과</b></td></tr></tbody></table><p class="session-takeaway">쓰기 손실 사례와 시험 조건은 15쪽에서 설명합니다.</p>
 
 </OperatorSlide>
 
@@ -276,7 +297,7 @@ VM 랩에서는 네트워크가 끊긴 동안 Operator를 재시작해도 쓰기
 
 <h1 class="op-title">실제 환경에서 발견한 연결 끊김을 고쳤습니다</h1>
 <div class="session-debug">
-  <div><span>관찰</span><h3>잠시 쉬면 연결이 끊겼습니다</h3><p>다른 서버에서 접속한 뒤 잠시 사용하지 않으면 기존 연결이 끊겼습니다.</p></div>
+  <div><span>관찰</span><h3>연결을 쓰지 않으면 끊겼습니다</h3><p>다른 서버에서 접속한 뒤 잠시 사용하지 않으면 기존 연결이 끊겼습니다.</p></div>
   <div class="focus"><span>원인</span><h3>연결 확인 신호가 막혔습니다</h3><p>실제 환경의 네트워크 규칙이 서버의 확인 신호를 차단했습니다.</p></div>
   <div><span>수정·확인</span><h3>수정 뒤 연결이 유지됐습니다</h3><p>필요한 신호를 허용하고, 같은 조건에서 연결이 유지되는지 확인했습니다.</p></div>
 </div>
@@ -296,7 +317,7 @@ VM 랩에서는 연결을 유지하지 못하는 결함도 찾았습니다. 같�
 
 <OperatorSlide class="op-session" section="04 · 검증 결과와 시행착오 · 한계" source="#1035 · #702 · #938" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/ROADMAP.md">
 
-<h1 class="op-title">차단 전에 성공한 쓰기는 새 master에 없을 수 있습니다</h1><div class="session-limits"><div><strong>13건</strong><h3>승인했지만 새 master에 없는 쓰기</h3><p>복제 정지 후 VM 전원 차단<br>옛 master 디스크에는 남음</p></div><div><strong>최대 73건</strong><h3>승인했지만 승격 멤버에 없는 쓰기</h3><p>VM 분할 5회에서 13–73건<br>격리 전 승인된 쓰기</p></div><div><strong>28초</strong><h3>불필요한 쓰기 중단</h3><p>master Pod 정상 종료 때 (Kind)<br>격리가 발생한 기록</p></div></div><p class="session-takeaway">차단 전 데이터 보존과 쓰기 중단 시간은 남은 과제 · 외부 스토리지(CSI)는 미검증</p>
+<h1 class="op-title">차단 전에 성공한 쓰기는 새 master에 없을 수 있습니다</h1><div class="session-limits"><div><strong>13건</strong><h3>성공 응답을 받았지만 새 master에 없는 쓰기</h3><p>복제 정지 후 VM 전원 차단<br>옛 master 디스크에는 남음</p></div><div><strong>최대 73건</strong><h3>성공 응답을 받았지만 새 master에 없는 쓰기</h3><p>VM 분할 5회에서 13–73건<br>격리 전 승인된 쓰기</p></div><div><strong>28초</strong><h3>불필요한 쓰기 중단</h3><p>master Pod 정상 종료 때 (Kind)<br>격리가 발생한 기록</p></div></div><p class="session-takeaway">차단 전 데이터 보존과 쓰기 중단 시간은 남은 과제 · 외부 스토리지(CSI)는 미검증</p>
 
 </OperatorSlide>
 
@@ -330,7 +351,7 @@ VM 랩에서는 연결을 유지하지 못하는 결함도 찾았습니다. 같�
 
 <OperatorSlide class="op-session" section="06 · 최종 발표까지의 계획 · 공개 범위" source="ROADMAP · 시나리오 계약" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/testing/scenario-contract.md">
 
-<h1 class="op-title">v0.1의 약속은 세 가지로 나눕니다</h1><table class="session-table"><thead><tr><th>구분</th><th>범위</th><th>공개 조건</th></tr></thead><tbody><tr><td><b>반드시 통과</b></td><td>설치·복제 · 장애 대응<br>재구축·백업·복원 · 운영 안전</td><td>필수 항목 실패·막힘·미실행 없음</td></tr><tr><td><b>측정해 공개</b></td><td>전원 손실 · 분할·반복 장애<br>master Pod 정상 종료 (switchover 전까지 master 교체 시)</td><td>안전 규칙 통과<br>시간·손실 측정 공개</td></tr><tr><td>v0.2로 이월</td><td>기존 데이터 자동 재합류<br>옛 볼륨 자동 채택</td><td>이번 공개 범위 밖</td></tr></tbody></table><p class="session-takeaway">CUBRID 11.4.x · amd64 · 3-VM 랩 · node-local 스토리지</p>
+<h1 class="op-title">v0.1에서 공개할 범위와 조건입니다</h1><table class="session-table"><thead><tr><th>구분</th><th>범위</th><th>공개 조건</th></tr></thead><tbody><tr><td><b>반드시 통과</b></td><td>설치·복제 · 장애 대응<br>재구축·백업·복원 · 운영 안전</td><td>필수 시험을 모두 실행하고 통과</td></tr><tr><td><b>측정해 공개</b></td><td>전원 손실 · 분할·반복 장애<br>master Pod 정상 종료 (switchover 전까지 master 교체 시)</td><td>안전 규칙 통과<br>시간·손실 측정 공개</td></tr><tr><td>v0.2로 이월</td><td>기존 데이터 자동 재합류<br>기존 볼륨 자동 연결</td><td>이번 공개 범위 밖</td></tr></tbody></table><p class="session-takeaway">CUBRID 11.4.x · amd64 · 3-VM 랩 · node-local 스토리지</p>
 
 </OperatorSlide>
 
@@ -338,9 +359,9 @@ VM 랩에서는 연결을 유지하지 못하는 결함도 찾았습니다. 같�
 [25초 · 04 · v0.1 · 범위]
 v0.1 공개 조건은 세 가지로 나눴습니다. 설치와 복구 같은 필수 기능은 모두 통과해야 합니다. 전원 차단이나 네트워크 분할에서는 시간과 손실을 측정해 공개하고, 닫힌 뒤 쓰기를 받지 않는 안전 규칙은 반드시 지켜야 합니다.
 
-기존 데이터를 그대로 활용하는 자동 재합류와 옛 볼륨 자동 채택은 다음 버전으로 미룹니다. 이번 검증은 CUBRID 11.4, amd64, 서버별 로컬 디스크를 쓰는 VM 세 대로 한정합니다. 다른 노드로 볼륨을 옮기는 CSI 동작은 검증하지 않았습니다.
+기존 데이터를 그대로 활용하는 자동 재합류와 기존 볼륨 자동 연결은 다음 버전으로 미룹니다. 이번 검증은 CUBRID 11.4, amd64, 서버별 로컬 디스크를 쓰는 VM 세 대로 한정합니다. 다른 노드로 볼륨을 옮기는 CSI 동작은 검증하지 않았습니다.
 
-질문 시 참고 — 상세 시나리오: 필수 S00–S02, S03 abrupt, S05–S06, S10–S15, 상태·이벤트·메트릭. 측정 S04, S07–S08, S03 graceful. 이월 S09 및 옛 볼륨 자동 채택.
+질문 시 참고 — 상세 시나리오: 필수 S00–S02, S03 abrupt, S05–S06, S10–S15, 상태·이벤트·메트릭. 측정 S04, S07–S08, S03 graceful. 이월 S09 및 기존 볼륨 자동 연결.
 
 근거: https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/testing/scenario-contract.md
 -->
@@ -349,7 +370,7 @@ v0.1 공개 조건은 세 가지로 나눴습니다. 설치와 복구 같은 필
 
 <OperatorSlide class="op-session" section="06 · 최종 발표까지의 계획 · 판정 기준" source="릴리스 후보 검증 #126" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/126">
 
-<h1 class="op-title">기준이 바뀌어도, 과거 결과는 남깁니다</h1><div class="session-debug"><div><span>원래 결과</span><h3>실패 기록 보존</h3><p>기존 시간 기준을 넘긴 기록도 유지<br>예: 전원 손실 30초 기준 실패 2회</p></div><div class="focus"><span>v0.1 판정</span><h3>범위별로 별도 판정</h3><p>안전 규칙 위반은 실패<br>측정 항목은 시간·손실 공개</p></div><div><span>공개 결정</span><h3>필수 증거 확인</h3><p>누락은 통과가 아닌 막힘<br>재구축은 5분 기준 적용</p></div></div>
+<h1 class="op-title">기준이 바뀌어도, 과거 결과는 남깁니다</h1><div class="session-debug"><div><span>원래 결과</span><h3>실패 기록 보존</h3><p>기존 시간 기준을 넘긴 기록도 유지<br>예: 전원 손실 30초 기준 실패 2회</p></div><div class="focus"><span>v0.1 판정</span><h3>범위별로 별도 판정</h3><p>안전 규칙 위반은 실패<br>측정 항목은 시간·손실 공개</p></div><div><span>공개 결정</span><h3>필수 증거 확인</h3><p>검증할 증거가 빠지면 공개 보류<br>재구축은 5분 기준 적용</p></div></div>
 
 </OperatorSlide>
 
@@ -364,7 +385,7 @@ v0.1 공개 조건은 세 가지로 나눴습니다. 설치와 복구 같은 필
 
 <OperatorSlide class="op-session" section="06 · 최종 발표까지의 계획 · 일정" source="ROADMAP v0.1 일정" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/ROADMAP.md">
 
-<h1 class="op-title">후보를 고정하고, 같은 조건에서 검증합니다</h1><div class="session-roadmap"><div><span>11.30–12.06</span><h3>후보 준비</h3><p>판정 도구 정렬<br>이미지·소스 식별</p></div><div class="focus"><span>12.07</span><h3>후보 동결</h3><p>소스·이미지·엔진<br>랩 환경 고정</p></div><div><span>12.08–12.14</span><h3>반복 검증</h3><p>필수 시나리오<br>24시간 부하 시험</p></div><div><span>12.15–12.20</span><h3>독립 재현</h3><p>문서만 보고<br>설치·복구·복원</p></div></div><p class="session-decision"><b>12.21–12.27 · 공개 판단</b><span>필수 증거가 빠지면 보류</span></p>
+<h1 class="op-title">공개할 버전을 정하고 같은 조건에서 반복 검증합니다</h1><div class="session-roadmap"><div><span>11.30–12.06</span><h3>후보 준비</h3><p>판정 기준 정리<br>소스와 이미지 버전 확인</p></div><div class="focus"><span>12.07</span><h3>후보 동결</h3><p>소스·이미지·엔진<br>랩 환경 고정</p></div><div><span>12.08–12.14</span><h3>반복 검증</h3><p>필수 시나리오<br>24시간 부하 시험</p></div><div><span>12.15–12.20</span><h3>독립 재현</h3><p>문서만 보고<br>설치·복구·복원</p></div></div><p class="session-decision"><b>12.21–12.27 · 공개 판단</b><span>필수 증거가 빠지면 보류</span></p>
 
 </OperatorSlide>
 
@@ -396,13 +417,13 @@ v0.1 이후에는 미뤄 둔 것부터 봅니다. 남아 있던 데이터로 자
 
 <OperatorSlide class="op-session" section="06 · 최종 발표까지의 계획 · 마무리">
 
-<p class="op-kicker">이번 검증의 성과</p><div class="op-clean-statement"><h1>표시에서 차단으로.<br>복구 뒤 데이터 대조까지.</h1></div><p class="op-clean-caption">쓰기 격리 · 명시적 재구축 · 반복 장애 후 멤버 복귀 검증</p>
+<p class="op-kicker">이번 검증의 성과</p><div class="op-clean-statement"><h1>장애 때 쓰기를 차단하고,<br>복구 뒤 데이터까지 확인했습니다</h1></div><p class="op-clean-caption">쓰기 격리 · 명시적 재구축 · 반복 장애 후 멤버 복귀 검증</p>
 
 </OperatorSlide>
 
 <!--
 [15초 · 마무리]
-이번에는 상태 표시에서 실제 쓰기 차단으로 나아갔고, 복구 뒤 데이터가 남았는지도 확인했습니다. 차단 전의 손실과 불필요한 중단은 여전히 남아 있습니다. 이 한계를 공개하고, 남은 안전성 시험과 다른 사람의 독립 재현을 통과한 뒤 릴리스를 결정하겠습니다.
+이번에는 상태 표시에서 실제 쓰기 차단으로 나아갔고, 복구 뒤 데이터가 남았는지도 확인했습니다. 차단 전에 승인된 데이터가 사라지거나, 쓰기를 불필요하게 막은 사례도 있었습니다. 이 한계를 공개하고, 남은 안전성 시험과 다른 사람의 독립 재현을 통과한 뒤 릴리스를 결정하겠습니다.
 
 -->
 
@@ -499,7 +520,7 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/122
 
 <OperatorSlide class="op-compact op-session" section="부록 · 한계와 시험 조건" source="#1035 · #702 · #938" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/ROADMAP.md">
 
-<h1 class="op-title">숨기지 않고 공개할 한계</h1><ol class="op-risks"><li><b>복제 지연 후 VM 전원 차단: 승인된 쓰기 13건이 새 master에 없음</b><span>2026-11-19 VM 시험 · 복제 프로세스를 정지한 조건 · 해당 행은 옛 master 디스크에만 남음</span></li><li><b>네트워크 분할에서 승격된 멤버에 승인된 쓰기 최대 73건 없음</b><span>11월 17–18일 VM 분할 5회에서 13–73건 미반영 · 1회는 73건이 없는 멤버가 active master로 전환</span></li><li><b>master Pod 정상 종료 때 쓰기 경로가 28초 닫힘 (Kind)</b><span>불필요한 격리 · 시간과 원인을 공개</span></li><li><b>스토리지는 node-local, CSI 아님</b><span>볼륨이 다른 노드로 따라가는 동작·스냅샷·크기 변경은 검증하지 않음</span></li></ol><p class="op-boundary"><b>원칙</b>　Operator의 제어 범위와 엔진 동작의 한계를 구분하고, 재현 조건과 영향을 공개합니다</p>
+<h1 class="op-title">시험에서 확인한 한계</h1><ol class="op-risks"><li><b>복제 지연 후 VM 전원 차단: 승인된 쓰기 13건이 새 master에 없음</b><span>2026-11-19 VM 시험 · 복제 프로세스를 정지한 조건 · 해당 행은 옛 master 디스크에만 남음</span></li><li><b>네트워크 분할에서 승격된 멤버에 승인된 쓰기 최대 73건 없음</b><span>11월 17–18일 VM 분할 5회에서 13–73건 미반영 · 1회는 73건이 없는 멤버가 active master로 전환</span></li><li><b>master Pod 정상 종료 때 쓰기 경로가 28초 닫힘 (Kind)</b><span>불필요한 격리 · 시간과 원인을 공개</span></li><li><b>스토리지는 node-local, CSI 아님</b><span>볼륨이 다른 노드로 따라가는 동작·스냅샷·크기 변경은 검증하지 않음</span></li></ol><p class="op-boundary"><b>원칙</b>　Operator의 제어 범위와 엔진 동작의 한계를 구분하고, 재현 조건과 영향을 공개합니다</p>
 
 <p class="op-caption text-right"><a href="#/22">← Q&amp;A로 돌아가기</a></p>
 

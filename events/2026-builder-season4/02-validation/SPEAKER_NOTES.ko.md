@@ -2,7 +2,7 @@
 
 슬라이드 원본: [slides.ko.md](../../../presentation/decks/2026-builder-season4/02-validation/slides.ko.md) · 예상 질문: [EXPECTED_QA.ko.md](EXPECTED_QA.ko.md)
 
-본편 21장, 설명 배정 9분 5초입니다. 10분 중 55초는 전환과 호흡에 배정합니다. 실제 시간은 리허설에서 확인합니다.
+본편 21장, 설명 배정 9분 15초입니다. 10분 중 45초는 전환과 호흡에 배정합니다. 실제 시간은 리허설에서 확인합니다.
 
 ## 장별 스크립트
 
@@ -17,15 +17,15 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator
 
 > 프로젝트와 1차 피드백을 먼저 소개하겠습니다. 이어서 설계가 어떻게 바뀌었는지와 검증 결과를 보여드리고, 함께 논의할 질문과 최종 발표까지의 계획을 말씀드리겠습니다.
 
-### 3. 장애 뒤 CUBRID가 다시 쓸 수 있는 상태인지 확인합니다 (20초)
+### 3. Kubernetes에서 CUBRID를 운영하고 장애에 대응합니다 (30초)
 
-> 첫 사용자는 CUBRID 운영자와 Kubernetes 플랫폼 담당자입니다. 예를 들어 장애로 DB 서버가 교체됐을 때 운영자는 쓰기 연결을 다시 열어도 되는지 판단해야 합니다. 저희 Operator는 DB 상태를 확인하고 쓰기 연결과 복구 작업을 조정합니다.
+> 아래 그림은 DB 운영자와 Kubernetes 담당자가 쓰는 관리 경로입니다. 위쪽에서 앱은 Broker를 거쳐 CUBRID에 연결합니다. 아래쪽의 Operator는 각 서버의 Instance Manager에 상태를 묻습니다. 장애가 나서 어느 서버가 쓰기를 받아야 할지 불확실하면, Operator가 쓰기용 Broker를 멈춥니다. 볼륨을 잃은 서버는 운영자가 복구를 요청할 수 있습니다.
 
 근거:
 https://github.com/cubrid-lab/showcase/tree/main/events/2026-builder-season4/01-validation
 https://github.com/cubrid-lab/cubrid-kubernetes-operator
 
-### 4. 장애 중 쓰기 차단과 복원 증거를 우선했습니다 (40초)
+### 4. 쓰기 차단과 복원 성공 여부부터 확인했습니다 (40초)
 
 > 1차 검토 의견은 쓰기 격리가 실제로 동작하는지 먼저 입증하라는 것이었습니다. 그래서 네트워크 분할 시험에서 차단 뒤 승인된 쓰기가 없는지 확인했습니다. 안전 때문에 쓰기가 얼마나 멈추는지도 별도로 측정했습니다. 복원은 1차 때 세션이 끊겨 판정을 보류한 두 건을 그대로 남겼고, 이후 새 클러스터로 복원한 시험 세 건에서 통과를 관측했습니다. 공개 후보에서는 실패 조건도 포함해 다시 확인합니다.
 
@@ -34,7 +34,7 @@ https://github.com/cubrid-lab/showcase/tree/main/events/2026-builder-season4/01-
 https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/122
 https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/126
 
-### 5. 자동화와 지원 범위는 검증할 수 있는 만큼 좁혔습니다 (30초)
+### 5. 첫 버전에 넣을 기능과 미룬 기능을 나눴습니다 (30초)
 
 > 재합류 과정에서 최신 데이터를 덮어쓰지 않도록, v0.1에서는 운영자가 대상을 확인하고 현재 master의 백업으로 재구축합니다. 기존 데이터를 자동으로 가져오는 방식은 판별 기준과 검증 증거가 더 필요해 미뤘습니다. 공식 Operator와는 동일 장애에서 수동 개입과 복구를 비교했습니다. CSI, 무중단 확장과 복제 지연에 따른 읽기 전환은 이번 검증 밖입니다.
 
@@ -42,7 +42,7 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/126
 https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/ROADMAP.md
 https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/126
 
-### 6. 상태를 표시하는 설계에서 쓰기를 제어하는 설계로 (40초)
+### 6. 상태만 알리던 Operator가 쓰기 연결도 제어합니다 (40초)
 
 > 처음부터 master 선출과 복제는 CUBRID가 맡았습니다. 달라진 것은 상태가 불확실할 때 Operator가 하는 일입니다. 처음에는 상태를 표시했고, 지금은 쓰기 연결을 닫습니다. 데이터 볼륨을 잃은 서버는 운영자 승인 뒤 현재 master의 백업으로 다시 구성합니다. v0.1에서는 차단 뒤 쓰기 승인이 없고, 잘못된 재구축은 거부되며, 복원 결과를 다른 운영자도 확인할 수 있어야 합니다.
 
@@ -61,9 +61,9 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/126
 https://github.com/cubrid-lab/showcase/tree/main/events/2026-builder-season4/01-validation
 https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/adr/0005-failover-split-brain.md
 
-### 8. Operator가 상태를 확인하고 연결을 관리합니다 (30초)
+### 8. Operator는 서버 상태를 보고 쓰기 연결을 제어합니다 (30초)
 
-> 그림 아래가 데이터가 오가는 경로입니다. 애플리케이션은 DB 연결 창구인 Broker를 거쳐 CUBRID에 데이터를 저장합니다. 위쪽의 관리 프로그램 Operator는 각 DB 서버의 Instance Manager에 상태를 묻고, 불확실하면 쓰기용 Broker를 중지합니다.
+> 앞에서 본 구조를 조금 더 자세히 보겠습니다. 쓰기용 Broker가 DB 서버와 분리돼 있어, 어느 서버가 쓰기를 받아야 할지 불확실하면 Operator가 Broker를 모두 내려 연결을 끊을 수 있습니다. 데이터 볼륨을 잃은 서버를 다시 구성할 때는 운영자가 대상을 확인하고 Kubernetes를 통해 복구를 요청합니다.
 
 > master 선출과 복제는 CUBRID가 맡고, Operator는 연결 관리와 복구 조정만 합니다.
 
@@ -109,7 +109,7 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/122
 근거:
 https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/122
 
-### 13. VM 랩에서 확인한 동작과 측정값입니다 (25초)
+### 13. 가상 서버에서 장애를 내고 복구를 확인했습니다 (25초)
 
 > VM 랩에서는 네트워크가 끊긴 동안 Operator를 재시작해도 쓰기 차단이 유지되는지 확인했습니다. 볼륨을 교체한 뒤의 복구와 새 클러스터로의 복원도 통과했습니다.
 
@@ -139,13 +139,13 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/122
 
 > 검증단과 다른 빌더 분들께 두 가지를 묻고 싶습니다. 상태를 확인할 수 없는 서버가 있어도 쓰기를 재개할 수 있다고 판단하는 근거는 무엇일까요? 그리고 백업의 체크섬이 맞고 작업이 끝났다고 표시됐을 때, 운영자가 복원 성공을 판단하려면 어떤 데이터 검증까지 있어야 할까요?
 
-### 17. v0.1의 약속은 세 가지로 나눕니다 (25초)
+### 17. v0.1에서 공개할 범위와 조건입니다 (25초)
 
 > v0.1 공개 조건은 세 가지로 나눴습니다. 설치와 복구 같은 필수 기능은 모두 통과해야 합니다. 전원 차단이나 네트워크 분할에서는 시간과 손실을 측정해 공개하고, 닫힌 뒤 쓰기를 받지 않는 안전 규칙은 반드시 지켜야 합니다.
 
-> 기존 데이터를 그대로 활용하는 자동 재합류와 옛 볼륨 자동 채택은 다음 버전으로 미룹니다. 이번 검증은 CUBRID 11.4, amd64, 서버별 로컬 디스크를 쓰는 VM 세 대로 한정합니다. 다른 노드로 볼륨을 옮기는 CSI 동작은 검증하지 않았습니다.
+> 기존 데이터를 그대로 활용하는 자동 재합류와 기존 볼륨 자동 연결은 다음 버전으로 미룹니다. 이번 검증은 CUBRID 11.4, amd64, 서버별 로컬 디스크를 쓰는 VM 세 대로 한정합니다. 다른 노드로 볼륨을 옮기는 CSI 동작은 검증하지 않았습니다.
 
-질문 시 참고 — 상세 시나리오: 필수 S00–S02, S03 abrupt, S05–S06, S10–S15, 상태·이벤트·메트릭. 측정 S04, S07–S08, S03 graceful. 이월 S09 및 옛 볼륨 자동 채택.
+질문 시 참고 — 상세 시나리오: 필수 S00–S02, S03 abrupt, S05–S06, S10–S15, 상태·이벤트·메트릭. 측정 S04, S07–S08, S03 graceful. 이월 S09 및 기존 볼륨 자동 연결.
 
 근거: https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/testing/scenario-contract.md
 
@@ -155,7 +155,7 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/122
 
 근거: https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/126
 
-### 19. 후보를 고정하고, 같은 조건에서 검증합니다 (25초)
+### 19. 공개할 버전을 정하고 같은 조건에서 반복 검증합니다 (25초)
 
 > 남은 일정입니다. 11월 말부터 판정 도구와 이미지 식별, 랩 통제를 정리하고, 12월 7일에 소스와 이미지, 엔진 버전, 랩을 하나로 고정합니다. 그 후보로 필수 시나리오를 반복하고 24시간 부하 시험을 합니다.
 
@@ -169,9 +169,9 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/122
 
 근거: https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/ROADMAP.md
 
-### 21. 표시에서 차단으로. 복구 뒤 데이터 대조까지. (15초)
+### 21. 장애 때 쓰기를 차단하고, 복구 뒤 데이터까지 확인했습니다 (15초)
 
-> 이번에는 상태 표시에서 실제 쓰기 차단으로 나아갔고, 복구 뒤 데이터가 남았는지도 확인했습니다. 차단 전의 손실과 불필요한 중단은 여전히 남아 있습니다. 이 한계를 공개하고, 남은 안전성 시험과 다른 사람의 독립 재현을 통과한 뒤 릴리스를 결정하겠습니다.
+> 이번에는 상태 표시에서 실제 쓰기 차단으로 나아갔고, 복구 뒤 데이터가 남았는지도 확인했습니다. 차단 전에 승인된 데이터가 사라지거나, 쓰기를 불필요하게 막은 사례도 있었습니다. 이 한계를 공개하고, 남은 안전성 시험과 다른 사람의 독립 재현을 통과한 뒤 릴리스를 결정하겠습니다.
 
 ### 22. Q&A (0초)
 
