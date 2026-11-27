@@ -228,7 +228,7 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/126
 
 <!--
 [35초 · v0.1 세부 아키텍처]
-v0.1에서 검증할 관리 경로입니다. 왼쪽 Kubernetes API에서 클러스터 설정과 백업 요청을 받습니다. 가운데 Operator의 클러스터 컨트롤러는 서버 상태를 모아 판단하고, 쓰기를 막아야 하면 쓰기용 Broker를 0개로 줄입니다. 백업 컨트롤러는 대상 서버를 정하고 결과를 기록합니다. 오른쪽 각 DB Pod의 Instance Manager는 인증된 요청을 받아 CUBRID 상태를 읽거나 백업과 복원 준비를 실행합니다. 공개 전에는 이 구조로 쓰기 차단과 재개, 승인 후 디스크 재구축, 새 클러스터 복원을 확인합니다.
+v0.1에서 검증할 관리 경로입니다. 왼쪽 Kubernetes API에서 클러스터 설정과 백업 요청을 받습니다. 가운데 Operator의 클러스터 컨트롤러는 서버 상태를 모아 판단하고, 쓰기를 막아야 하면 쓰기용 Broker를 0개로 줄입니다. 백업 컨트롤러는 대상 서버를 정하고 결과를 기록합니다. 오른쪽 각 DB Pod의 Instance Manager는 인증된 요청을 받아 CUBRID 상태를 읽거나 백업과 복원 준비를 실행합니다. 다음 두 장에서는 이 구조를 어떤 장애와 복구 시나리오로 검증하는지 보여드리겠습니다.
 
 근거:
 https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/DESIGN.md
@@ -239,20 +239,33 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/126
 
 ---
 
-<OperatorSlide class="op-session" section="03 · 개발 현황과 아키텍처 · 쓰기 격리" source="ADR-0005 쓰기 격리" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/adr/0005-failover-split-brain.md">
+<OperatorSlide class="op-compact op-session" section="03 · 개발 현황과 아키텍처 · 필수 시나리오" source="v0.1 시나리오 계약" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/testing/scenario-contract.md">
 
-<h1 class="op-title">안전을 확인한 뒤 쓰기 연결을 다시 엽니다</h1>
-<div class="session-debug">
-  <div><span>01 · 확인</span><h3>서버 상태를 봅니다</h3><p>응답을 받지 못하거나 역할 정보가 서로 다르면 쓰기 연결을 닫습니다.</p></div>
-  <div><span>02 · 차단</span><h3>기존 연결도 끊습니다</h3><p>쓰기용 Broker를 멈춰 새 연결과 기존 연결을 함께 막습니다.</p></div>
-  <div><span>03 · 재개</span><h3>안전 근거를 확인합니다</h3><p>정해진 조건에서 자동으로 엽니다. 그 밖의 경우 운영자가 판단합니다.</p></div>
-</div>
-<p class="op-caption">이 차단은 쓰기용 Broker에 적용됩니다. 읽기 전용 Broker는 그대로 둡니다.</p>
+<h1 class="op-title">v0.1에서 반드시 통과할 시나리오</h1>
+
+<table class="op-comparison">
+<thead><tr><th scope="col">검증할 상황</th><th scope="col">시나리오</th><th scope="col">통과 조건</th></tr></thead>
+<tbody>
+<tr><td>설치와 정상 동작</td><td>S00~S02</td><td>설치·SQL 읽기/쓰기, DB 서버 3대의 역할과 데이터 복제 확인</td></tr>
+<tr><td>서버 강제 종료</td><td>S03 강제 종료</td><td>쓰기 경로 복구와 데이터 확인. 첫 번째 DB 서버를 내리는 경우도 시험</td></tr>
+<tr><td>Broker 장애와 Operator 재시작</td><td>S05~S06</td><td>앱 접속이 복구되고, Operator가 다시 떠도 상태가 맞는지 확인</td></tr>
+<tr><td>데이터 디스크 손실</td><td>S10</td><td>운영자 승인 후 재구축. 원본과 복구 데이터를 대조</td></tr>
+<tr><td>백업과 새 클러스터 복원</td><td>S11~S12</td><td>백업·복원 성공과 데이터 검증. 손상된 파일이나 잘못된 복원 대상 거부</td></tr>
+<tr><td>클러스터 운영과 보안</td><td>S13~S15</td><td>디스크 보존·삭제, 토큰 검증, 노드 점검 시 동시 중단 제한 확인</td></tr>
+</tbody>
+</table>
+<p class="op-caption">모든 필수 시험은 같은 공개 후보로 실행합니다. 상태·이벤트·지표도 실제 동작과 대조합니다.</p>
 
 </OperatorSlide>
 
 <!--
-[25초 · 쓰기 차단과 재개]
+[35초 · 03 · 개발 현황과 아키텍처 · 필수 시나리오]
+설계가 동작하는지는 이 목록으로 판정합니다. 먼저 설치해서 앱이 쓰고 읽을 수 있는지 확인하고, 서버와 Broker를 강제로 내려도 복구되는지 봅니다. 디스크를 잃었을 때는 승인 후 다시 구성해 데이터를 대조합니다. 백업과 복원, 인증, 노드 점검도 같은 공개 후보에서 필수 조건을 모두 통과해야 합니다.
+
+발표자 참고:
+S03 강제 종료는 abrupt와 abrupt-first-member 두 경우입니다. S13은 디스크 보존·삭제를 모두 확인하며, S14는 토큰 교체와 이전 방식에서의 이전을 포함합니다. S15는 노드 점검 중 추가 DB 서버 중단을 막는지 확인합니다. 필수 시나리오 결과나 상태·이벤트·지표 증거가 빠지면 공개를 보류합니다.
+
+기존 설명 참고:
 서버 상태가 불확실하면 새 연결만 막아서는 부족합니다. 이미 열린 연결도 쓰기용 Broker를 멈춰 끊습니다. 상태를 확인하지 못해 차단한 경우에도 안전 근거를 다시 확인한 뒤에만 자동으로 엽니다. 여러 서버가 자신이 쓰기를 받는다고 보고하는 경우에는 운영자가 판단합니다.
 
 질문 시 참고:
@@ -263,28 +276,48 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/126
 상세 조건 — ADR-0005 Release: 두 차례 모두 격리에 기록된 같은 master를 확인하고, 다른 승격 가능 멤버는 인증·식별이 일치하는 최신 non-master 응답 또는 승인·감사된 외부 VM 전원 차단 확인과 out-of-service taint가 필요합니다. 멤버 식별이나 근거가 바뀌면 재확인하거나 자동 해제를 금지합니다. 외부 차단 근거에 따른 해제는 PrimaryResolved=True를 뜻하지 않습니다.
 
 근거: https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/adr/0005-failover-split-brain.md
+
+근거:
+https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/testing/scenario-contract.md
+https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/126#issuecomment-7096254639
 -->
 
 ---
 
-<OperatorSlide class="op-session" section="03 · 개발 현황과 아키텍처 · 재구축" source="볼륨 교체 재구축 #118" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/118">
+<OperatorSlide class="op-compact op-session" section="03 · 개발 현황과 아키텍처 · 측정과 공개" source="v0.1 시나리오 계약" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/testing/scenario-contract.md">
 
-<h1 class="op-title">디스크를 잃은 서버는 백업으로 복구합니다</h1>
-<div class="session-debug session-two">
-  <div><span>서버만 중단</span><h3>서버를 다시 띄웁니다</h3><p>디스크가 남은 서버의 자동 복귀를<br>강제 삭제 시험에서 확인했습니다.</p></div>
-  <div><span>데이터 디스크도 손실</span><h3>백업으로 데이터를 복구합니다</h3><p>운영자가 대상을 확인하고 요청하면<br>현재 쓰기를 받는 서버의 백업을 복원합니다.</p></div>
-</div>
-<p class="session-takeaway">재구축 후에는 저장 성공 응답을 받았던 데이터가 남아 있는지 대조합니다.</p>
+<h1 class="op-title">시간과 데이터 누락을 측정할 시나리오</h1>
+
+<table class="op-comparison">
+<thead><tr><th scope="col">검증할 상황</th><th scope="col">시나리오</th><th scope="col">기록할 결과</th></tr></thead>
+<tbody>
+<tr><td>쓰기 서버 정상 종료</td><td>S03 정상 종료</td><td>쓰기 중단 시간과 불필요한 차단이 있었는지 기록</td></tr>
+<tr><td>DB 서버가 있는 VM 전원 차단</td><td>S04</td><td>쓰기가 다시 가능해진 시간과 새 서버에서 확인되지 않은 데이터 기록</td></tr>
+<tr><td>DB 서버 사이 네트워크 차단</td><td>S07</td><td>실제 쓰기 차단과 재개를 확인하고, 차단 전 데이터 누락을 기록</td></tr>
+</tbody>
+</table>
+<p class="op-caption"><b>반복 장애(S08)</b>는 S04와 S07을 반복해 확인합니다. <b>기존 데이터로 자동 재합류(S09)</b>는 v0.2로 미뤘습니다.</p>
+<p class="op-boundary">쓰기 차단이 확인된 뒤 성공 응답이 나오거나 필수 측정 기록이 빠지면 공개를 보류합니다.</p>
 
 </OperatorSlide>
 
 <!--
-[30초 · 02 · 설계 · 재구축]
+[30초 · 03 · 개발 현황과 아키텍처 · 측정과 공개]
+정상 종료, 전원 차단, 네트워크 차단도 반드시 실행합니다. 이 세 시험에서는 얼마나 오래 쓰기가 멈췄는지, 새 서버에서 어떤 데이터가 확인되지 않는지 조건과 함께 공개합니다. 반복 장애는 전원 차단과 네트워크 차단을 여러 번 실행해 확인합니다. 쓰기 차단 뒤에는 성공 응답이 없어야 합니다. 기존 데이터를 그대로 써서 서버가 자동으로 다시 합류하는 시험은 v0.2로 미뤘습니다.
+
+발표자 참고:
+유효한 격리 해제 전까지 차단 뒤 성공 응답은 0건이어야 합니다. S08은 11월 23일 결정에 따라 별도 공개 판정에서 제외되고, 공개 후보에서 S04·S07을 반복해 검증합니다. S09와 기존 디스크 자동 연결(#798)은 모두 v0.2입니다.
+
+기존 설명 참고:
 프로그램이 다시 뜨는 것과 데이터를 되살리는 것은 다릅니다. 이번 시험에서는 Pod가 삭제된 멤버가 자동으로 돌아왔습니다. 반면 데이터 볼륨까지 잃은 경우에는 사람이 대상을 확인하고 복구를 요청해야 합니다.
 
 요청하면 현재 master의 백업으로 데이터를 채우고, 복제하는 서버로 합류시킵니다. 시험에서는 복구 뒤 실제 데이터도 대조했습니다. 컨테이너로 구성한 Kubernetes 시험 환경인 Kind에서 복구는 40.2초, 데이터 확인까지는 48.9초였습니다. v0.1 기준은 5분입니다.
 
 근거: https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/118
+
+근거:
+https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/testing/scenario-contract.md
+https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/126#issuecomment-7096254639
 -->
 
 ---
