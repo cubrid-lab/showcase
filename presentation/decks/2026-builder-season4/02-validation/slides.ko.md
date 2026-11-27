@@ -278,7 +278,7 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/122
 
 <OperatorSlide class="op-session" section="04 · 검증 결과와 시행착오 · VM 시험 결과" source="VM 랩 실행 기록 #122" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/122">
 
-<h1 class="op-title">가상 서버에서 장애를 내고 복구를 확인했습니다</h1><table class="session-table session-status"><thead><tr><th>VM 랩 시험</th><th>확인한 동작</th><th>상태</th></tr></thead><tbody><tr><td>분할 중 Operator 재시작</td><td>격리 유지 · 쓰기 승인 없음</td><td><b>안전 규칙 통과</b></td></tr><tr><td>볼륨 교체 재구축</td><td>재구축 뒤 행 대조</td><td><b>통과</b></td></tr><tr><td>새 클러스터 복원</td><td>3회 복원 · 세션 끊김 없음</td><td><b>통과</b></td></tr><tr><td>VM 전원 손실</td><td>전원 차단 표시 뒤 첫 쓰기까지 26–38초 (3회) · 복제를 멈춘 시험에서는 13건이 새 master에 없었음 (15장)</td><td><b>측정 공개</b></td></tr><tr><td>해제 후 재분할</td><td>이전 해제 토큰 2개 모두 거부 · 차단 후 쓰기 승인 0건</td><td><b>안전 규칙 통과</b></td></tr></tbody></table><p class="session-takeaway">표는 각 시험에서 관찰한 결과입니다. 쓰기 손실 범위는 15쪽에서 설명합니다.</p>
+<h1 class="op-title">가상 서버에서 장애를 내고 복구를 확인했습니다</h1><table class="session-table session-status"><thead><tr><th>VM 랩 시험</th><th>확인한 동작</th><th>상태</th></tr></thead><tbody><tr><td>분할 중 Operator 재시작</td><td>격리 유지 · 쓰기 승인 없음</td><td><b>안전 규칙 통과</b></td></tr><tr><td>볼륨 교체 재구축</td><td>재구축 뒤 행 대조</td><td><b>통과</b></td></tr><tr><td>새 클러스터 복원</td><td>3회 복원 · 세션 끊김 없음</td><td><b>통과</b></td></tr><tr><td>VM 전원 손실</td><td>전원 차단 표시 후 첫 쓰기까지 26–38초 (3회)</td><td><b>측정 공개</b></td></tr><tr><td>해제 후 재분할</td><td>이전 해제 토큰 2개 모두 거부 · 차단 후 쓰기 승인 0건</td><td><b>안전 규칙 통과</b></td></tr></tbody></table><p class="session-takeaway">쓰기 손실 사례와 시험 조건은 15쪽에서 설명합니다.</p>
 
 </OperatorSlide>
 
