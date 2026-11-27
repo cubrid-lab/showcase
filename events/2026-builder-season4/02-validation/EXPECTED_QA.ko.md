@@ -158,3 +158,40 @@ Kind만으로는 부족하고 실제 정책을 적용하는 환경이 필요하�
 CUBRID를 Kubernetes에서 운영하려는 DB 운영자와 플랫폼 팀을 생각합니다.
 장애 때 "지금 누가 master인지, 써도 되는지, 데이터가 남았는지"를 사람이 일일이 확인하지 않게 하는 것이 목표입니다.
 수요를 검증했다고 할 단계는 아닙니다. v0.1 공개 뒤 사용자 피드백으로 다음 우선순위를 정합니다.
+
+## 13. 28초 중단은 롤링 업데이트 때마다 반복되나요?
+
+측정하지 않았고, 아래는 코드에서 확인한 내용입니다.
+
+- **slave 교체.** Operator의 롤링 업데이트는 slave만 한 번에 하나씩 자동으로 교체합니다.
+- **master 교체.** master만 남으면 `MasterUpdatePending`으로 멈추고, master Pod는 자동으로 지우지 않습니다.
+  계획된 switchover는 아직 없어서, master를 교체하려면 사람이 master Pod를 정상 종료해야 합니다.
+- **결론.** 그 경로는 28초 중단이 기록된 경우(#938, Kind)와 같은 경로라, 같은 중단이 생길 것으로 예상합니다.
+  slave 교체만으로 격리가 걸리는지는 측정하지 않았습니다. 그래서 "업데이트 때도 같은 중단"이라고 발표에서 단정하지 않습니다.
+
+근거: [`rollingplan.go`](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/internal/controller/rollingplan.go),
+[ADR-0009](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/adr/0009-update-vs-upgrade.md),
+[ADR-0012](https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/adr/0012-voluntary-disruption.md),
+[#938](https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/938)
+
+## 14. 9장 그래프에서 삭제 직후 주황 선이 튀는 구간의 쓰기는 누가 승인했나요?
+
+CUBRID가 새로 올린 master(`ha-0`)가 승인했고, 그 쓰기는 하나도 사라지지 않았습니다.
+11월 25일 두 번째 삭제(지운 Pod는 그 전 master `ha-1`) 기록입니다. 시각은 삭제 시점 기준입니다.
+
+| 시각 | 일어난 일 |
+|---|---|
+| +0.9초 이전 | 쓰기 3건 승인. 지운 `ha-1`의 프로세스가 아직 멈추기 전입니다 |
+| +0.9 – 2.3초 | 연결 오류 5건 (`CAS did not answer`). 옛 master로 가던 연결이 끊겼습니다 |
+| +2.5 – 9.6초 | 쓰기 68건 승인. +2.4초 관측에서 master는 `ha-0` 하나뿐이었고, 읽기-쓰기 Broker도 아직 열려 있었습니다 |
+| +9.7초 | 기존 연결이 끊깁니다. 이후 Broker가 0개라 접속 실패입니다 |
+
+- **누가 받았나.** 새 master는 CUBRID가 스스로 올렸습니다. Operator는 지워진 멤버의 새 Pod를 아직 확인하지 못해 격리를 걸었고, 그게 +9.7초입니다.
+  그래서 튀는 구간은 "CUBRID 승격 뒤, Operator가 길을 닫기 전" 구간입니다. 이 Operator가 닫는 순서가 늦다는 점은 #1161에서 함께 보고 있습니다.
+- **사라졌나.** 시험이 끝난 뒤 새 연결로 읽은 최종 master(`ha-0`)에 이 구간의 승인된 쓰기가 모두 있었습니다. 손실은 0건입니다.
+- **한계.** 클라이언트는 행마다 어느 서버가 받았는지 기록하지 않았습니다. 그래서 +0.9초 이전 3건이 옛 master에서 승인됐다는 것은 시각으로 추정한 것입니다.
+  그래프의 2초 평균값이 평소보다 높은 것은 끊긴 연결을 다시 열면서 대기 중이던 요청이 몰린 결과로 보이지만, 따로 측정하지는 않았습니다.
+
+근거: [비교 실행](https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/122),
+[#1161](https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/1161)
+

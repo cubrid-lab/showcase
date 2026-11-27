@@ -217,7 +217,7 @@ VM 랩 검증이 실제로 결함을 찾아낸 사례도 하나 말씀드리겠�
 
 <OperatorSlide class="op-session" section="03 · 증거 · 한계" source="#1035 · #702 · #938" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/ROADMAP.md">
 
-<h1 class="op-title">확인한 한계도 결과에 포함합니다</h1><div class="session-limits"><div><strong>13건</strong><h3>새 master에 없음</h3><p>복제 정지 후 VM 전원 차단<br>옛 master 디스크에는 남음</p></div><div><strong>최대 73건</strong><h3>승격 멤버에 없음</h3><p>VM 분할 5회에서 13–73건<br>격리 전 승인된 쓰기</p></div><div><strong>28초</strong><h3>불필요한 쓰기 중단</h3><p>master Pod 정상 종료 때<br>격리가 발생한 기록</p></div></div><p class="session-takeaway">스토리지 검증은 node-local 범위 · CSI의 이동·스냅샷·확장은 미검증</p>
+<h1 class="op-title">확인한 한계도 결과에 포함합니다</h1><div class="session-limits"><div><strong>13건</strong><h3>새 master에 없음</h3><p>복제 정지 후 VM 전원 차단<br>옛 master 디스크에는 남음</p></div><div><strong>최대 73건</strong><h3>승격 멤버에 없음</h3><p>VM 분할 5회에서 13–73건<br>격리 전 승인된 쓰기</p></div><div><strong>28초</strong><h3>불필요한 쓰기 중단</h3><p>master Pod 정상 종료 때 (Kind)<br>격리가 발생한 기록</p></div></div><p class="session-takeaway">스토리지 검증은 node-local 범위 · CSI의 이동·스냅샷·확장은 미검증</p>
 
 </OperatorSlide>
 
