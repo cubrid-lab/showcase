@@ -14,6 +14,7 @@ this directory:
 | 2026 OSS Developer Contest | [`decks/2026-ossdevcon/slides.md`](decks/2026-ossdevcon/slides.md) | [`2026-ossdevcon.md`](2026-ossdevcon.md) |
 | Builder Season 4, first validation (Korean) | [`decks/2026-builder-season4/01-validation/slides.ko.md`](decks/2026-builder-season4/01-validation/slides.ko.md) | [`2026-builder-season4-01-validation.ko.md`](2026-builder-season4-01-validation.ko.md) |
 | Builder Season 4, first validation (English) | [`decks/2026-builder-season4/01-validation/slides.en.md`](decks/2026-builder-season4/01-validation/slides.en.md) | [`2026-builder-season4-01-validation.en.md`](2026-builder-season4-01-validation.en.md) |
+| Builder Season 4, second validation (Korean draft) | [`decks/2026-builder-season4/02-validation/slides.ko.md`](decks/2026-builder-season4/02-validation/slides.ko.md) | [`2026-builder-season4-02-validation.ko.md`](2026-builder-season4-02-validation.ko.md) |
 
 Naming rules for a new deck, round or language:
 
