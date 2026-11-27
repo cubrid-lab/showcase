@@ -2,7 +2,7 @@
   <svg class="session-architecture" viewBox="0 0 870 300" role="img" aria-labelledby="session-arch-title session-arch-desc">
     <title id="session-arch-title">CUBRID Operator의 제어 경로와 데이터 경로</title>
     <desc id="session-arch-desc">Kubernetes API의 요청을 받은 Operator는 Instance Manager로 역할을 관찰하고, 불확실하면 RW Broker를 0개로 줄입니다. 앱의 SQL은 Broker에서 CUBRID로 직접 흐릅니다. 재구축 요청 시 현재 master의 백업을 대상 멤버에 복원합니다.</desc>
-    <defs><marker id="session-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#a8bdd4"/></marker><marker id="session-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#ffad5c"/></marker></defs>
+    <defs><marker id="session-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10Z" fill="var(--ink)"/></marker><marker id="session-control-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10Z" fill="var(--blue)"/></marker></defs>
     <text class="lane" x="0" y="20">제어 경로</text>
     <rect class="arch-node" x="0" y="38" width="200" height="65" rx="7"/><text x="100" y="65">Kubernetes API</text><text class="arch-note" x="100" y="87">구성 · 재구축 요청</text>
     <path class="link" d="M200 70H320"/>
@@ -24,14 +24,14 @@
 </template>
 <style scoped>
 .session-architecture { display:block; width:100%; height:auto; }
-text { fill:#f2f6fc; font:650 18px var(--sans); text-anchor:middle; }
-.arch-note { fill:#afbed0; font-size:13px; font-weight:450; }
-.lane { text-anchor:start; font-size:13px; fill:#a8bdd4; }
-.label { fill:#ffad5c; font-size:13px; font-weight:550; }
-.muted { fill:#a8bdd4; }
-.arch-node { fill:#17283c; stroke:#597087; stroke-width:1.3; }
-.accent { stroke:#ffad5c; stroke-width:2; }
-.link { fill:none; stroke:#a8bdd4; stroke-width:2; marker-end:url(#session-arrow); }
-.control { fill:none; stroke:#ffad5c; stroke-width:2; stroke-dasharray:6 4; marker-end:url(#session-orange); }
-.dotted { stroke:#597087; stroke-width:1.5; stroke-dasharray:3 4; }
+text { fill:var(--ink); font:650 18px var(--sans); text-anchor:middle; }
+.arch-note { fill:var(--muted); font-size:13px; font-weight:450; }
+.lane { text-anchor:start; font-size:13px; fill:var(--ink); }
+.label { fill:var(--blue); font-size:13px; font-weight:550; }
+.muted { fill:var(--muted); }
+.arch-node { fill:var(--paper); stroke:var(--line); stroke-width:1.3; }
+.accent { fill:var(--blue-soft); stroke:var(--blue); stroke-width:2; }
+.link { fill:none; stroke:var(--ink); stroke-width:2; marker-end:url(#session-arrow); }
+.control { fill:none; stroke:var(--blue); stroke-width:2; stroke-dasharray:6 4; marker-end:url(#session-control-arrow); }
+.dotted { stroke:var(--line); stroke-width:1.5; stroke-dasharray:3 4; }
 </style>

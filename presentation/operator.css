@@ -501,23 +501,15 @@
 .slidev-layout.showcase-deck.operator-deck .op-clean-statement { margin: 28px 0; }
 .slidev-layout.showcase-deck.operator-deck .op-clean-statement h1 { font-size: 3.1rem; line-height: 1.4; }
 
-/* Technical-session treatment, scoped to this talk's main slides. */
-.slidev-layout.showcase-deck.operator-deck:has(.op-session) {
-  --paper: #101d2d; --ink: #f2f6fc; --muted: #b1c0d2;
-  --line: #34485f; --blue: #ffad5c; --blue-soft: #29384a;
-  background: var(--paper); color: var(--ink);
-}
-.slidev-layout.showcase-deck.operator-deck .op-session .op-header { border-bottom-color: #34485f; }
-.slidev-layout.showcase-deck.operator-deck .op-session .op-body { gap: 22px; }
-.slidev-layout.showcase-deck.operator-deck .op-session .op-title { white-space: normal; font-size: 2.15rem; line-height: 1.22; text-wrap: initial; }
-.slidev-layout.showcase-deck.operator-deck .op-session .op-cover .op-title { font-size: 3.3rem; }
+/* Layouts for the second validation use the shared Operator palette. */
+.slidev-layout.showcase-deck.operator-deck .op-session .op-title { white-space: normal; }
 .slidev-layout.showcase-deck.operator-deck .op-session .op-clean-caption { margin-top: auto; font-size: .86rem; color: var(--muted); line-height: 1.5; }
 .slidev-layout.showcase-deck.operator-deck .session-architecture { margin-top: 4px; }
 .slidev-layout.showcase-deck.operator-deck .session-sub { color: var(--muted); font-size: .85rem; }
 .slidev-layout.showcase-deck.operator-deck .session-takeaway { margin-top: auto; border-left: 3px solid var(--blue); padding: 6px 0 6px 14px; font-size: .85rem; color: var(--muted); line-height: 1.5; }
-.slidev-layout.showcase-deck.operator-deck .session-takeaway b { color: var(--blue); margin-left: 20px; }
+.slidev-layout.showcase-deck.operator-deck .session-takeaway b { color: var(--blue); }
 .slidev-layout.showcase-deck.operator-deck .session-flow { display:grid; grid-template-columns: 1fr 18px 1fr 18px 1fr 18px 1fr; gap: 9px; align-items:center; margin-top: 24px; }
-.slidev-layout.showcase-deck.operator-deck .session-flow > div { min-height:174px; padding:18px 12px; border-top:3px solid #597087; background:#17283c; display:flex; flex-direction:column; gap:14px; }
+.slidev-layout.showcase-deck.operator-deck .session-flow > div { min-height:174px; padding:18px 12px; border-top:3px solid var(--line); display:flex; flex-direction:column; gap:14px; }
 .slidev-layout.showcase-deck.operator-deck .session-flow i { color:var(--muted); font-style:normal; }
 .slidev-layout.showcase-deck.operator-deck .session-flow h3 { font-size:1.24rem; }
 .slidev-layout.showcase-deck.operator-deck .session-flow p { color:var(--muted); font-size:.9rem; line-height:1.5; }
@@ -534,16 +526,16 @@
 .slidev-layout.showcase-deck.operator-deck .session-metrics span,
 .slidev-layout.showcase-deck.operator-deck .session-metrics p { font-size:.78rem; color:var(--muted); }
 .slidev-layout.showcase-deck.operator-deck .session-table { width:100%; border-collapse:collapse; table-layout:fixed; font-size:.95rem; }
-.slidev-layout.showcase-deck.operator-deck .session-table th { color:var(--muted); text-align:left; font-size:.82rem; font-weight:550; padding:10px 12px; border-bottom:2px solid #597087; }
+.slidev-layout.showcase-deck.operator-deck .session-table th { color:var(--blue); text-align:left; font-size:.82rem; font-weight:700; padding:10px 12px; border-bottom:2px solid var(--line); }
 .slidev-layout.showcase-deck.operator-deck .session-table td { padding:14px 12px; border-bottom:1px solid var(--line); line-height:1.5; vertical-align:middle; }
 .slidev-layout.showcase-deck.operator-deck .session-table th:first-child { width:24%; }
 .slidev-layout.showcase-deck.operator-deck .session-table b { color:var(--blue); }
 .slidev-layout.showcase-deck.operator-deck .session-table small { color:var(--muted); font-size:.84rem; }
-.slidev-layout.showcase-deck.operator-deck .session-table .highlight { background:#23364a; }
+.slidev-layout.showcase-deck.operator-deck .session-table .highlight { background:var(--blue-soft); }
 .slidev-layout.showcase-deck.operator-deck .session-status td { padding:12px; font-size:.88rem; }
 .slidev-layout.showcase-deck.operator-deck .session-status th:first-child { width:32%; }
 .slidev-layout.showcase-deck.operator-deck .session-debug { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:35px; }
-.slidev-layout.showcase-deck.operator-deck .session-debug > div { display:grid; align-content:start; gap:20px; padding:22px 16px; border-top:3px solid #597087; background:#17283c; }
+.slidev-layout.showcase-deck.operator-deck .session-debug > div { display:grid; align-content:start; gap:20px; padding:22px 16px; border-top:3px solid var(--line); }
 .slidev-layout.showcase-deck.operator-deck .session-debug h3 { font-size:1.3rem; line-height:1.5; }
 .slidev-layout.showcase-deck.operator-deck .session-debug p { color:var(--muted); font-size:.95rem; line-height:1.6; }
 .slidev-layout.showcase-deck.operator-deck .session-two { grid-template-columns:repeat(2,1fr); }
@@ -552,23 +544,14 @@
 .slidev-layout.showcase-deck.operator-deck .session-limits h3 { font-size:1.12rem; margin-bottom:12px; }
 .slidev-layout.showcase-deck.operator-deck .session-limits p { color:var(--muted); font-size:.85rem; line-height:1.6; }
 .slidev-layout.showcase-deck.operator-deck .session-roadmap { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; margin-top:35px; }
-.slidev-layout.showcase-deck.operator-deck .session-roadmap > div { border-top:4px solid #597087; padding-top:20px; display:grid; gap:18px; }
+.slidev-layout.showcase-deck.operator-deck .session-roadmap > div { border-top:4px solid var(--line); padding-top:20px; display:grid; gap:18px; }
 .slidev-layout.showcase-deck.operator-deck .session-roadmap h3 { font-size:1.35rem; }
 .slidev-layout.showcase-deck.operator-deck .session-roadmap p { color:var(--muted); font-size:.95rem; line-height:1.5; }
-.slidev-layout.showcase-deck.operator-deck .session-decision { background:#23364a; padding:18px 22px; display:flex; justify-content:space-between; margin-top:24px; font-size:1rem; }
+.slidev-layout.showcase-deck.operator-deck .session-decision { background:var(--blue-soft); padding:18px 22px; display:flex; justify-content:space-between; margin-top:24px; font-size:1rem; }
 .slidev-layout.showcase-deck.operator-deck .session-decision b { color:var(--blue); }
 .slidev-layout.showcase-deck.operator-deck .session-next { display:grid; grid-template-columns:1fr 1fr; gap:28px 50px; margin-top:12px; }
 .slidev-layout.showcase-deck.operator-deck .session-next > div { border-left:2px solid var(--blue); padding-left:18px; display:grid; gap:10px; }
 .slidev-layout.showcase-deck.operator-deck .session-next h3 { font-size:1.35rem; }
 .slidev-layout.showcase-deck.operator-deck .session-next p { color:var(--muted); font-size:.9rem; }
 
-/* The appendix keeps the first round's architecture SVG; give its plain boxes
-   and arrowheads the dark session colors so white labels stay readable. */
-.slidev-layout.showcase-deck.operator-deck .op-session .op-arch .box { fill: #17283c; }
-.slidev-layout.showcase-deck.operator-deck .op-session .op-arch .box.op,
-.slidev-layout.showcase-deck.operator-deck .op-session .op-arch .box.im { fill: var(--blue-soft); }
-.slidev-layout.showcase-deck.operator-deck .op-session .op-arch .box.ha { fill: none; }
-.slidev-layout.showcase-deck.operator-deck .op-session .op-arch #op-arch-ink path { fill: var(--ink); }
-.slidev-layout.showcase-deck.operator-deck .op-session .op-arch #op-arch-blue path { fill: var(--blue); }
-.slidev-layout.showcase-deck.operator-deck .op-session .op-arch #op-arch-mute path { fill: var(--muted); }
 .slidev-layout.showcase-deck.operator-deck .session-chart { width: 100%; height: auto; max-height: 300px; margin-top: 4px; }

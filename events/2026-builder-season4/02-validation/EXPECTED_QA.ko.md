@@ -146,7 +146,7 @@ Kind만으로는 부족하고 실제 정책을 적용하는 환경이 필요하�
 | 조건 | 측정값 |
 |---|---|
 | VM 전원 차단 | 차단 표시 뒤 첫 쓰기까지 26–38초 (3회) |
-| master Pod 강제 삭제 (VM 랩 비교) | 쓰기 승인 사이의 최대 공백 22.0초, 32.8초. 두 번째 삭제 기준 재개는 +42.5초 |
+| master Pod 강제 삭제 (VM 랩 비교) | 쓰기 승인 사이의 최대 공백 22.0초, 32.8초. 두 번째 삭제 후 격리 뒤 첫 쓰기 승인은 +42.5초 |
 | master Pod 정상 종료 | 쓰기 경로가 28초 닫힘 (불필요한 격리, 원인 공개) |
 | 볼륨 재구축 (Kind) | 요청부터 완료 40.2초, 행 확인 48.9초 (v0.1 제한 5분) |
 
@@ -194,4 +194,3 @@ CUBRID가 새로 올린 master(`ha-0`)가 승인했고, 그 쓰기는 하나도 
 
 근거: [비교 실행](https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/122),
 [#1161](https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/1161)
-
