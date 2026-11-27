@@ -129,6 +129,9 @@
 .slidev-layout.showcase-deck.operator-deck .op-comparison th,
 .slidev-layout.showcase-deck.operator-deck .op-comparison td { padding: 10px 14px 10px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
 .slidev-layout.showcase-deck.operator-deck .op-comparison td:first-child { font-weight: 700; width: 23%; }
+.slidev-layout.showcase-deck.operator-deck .op-comparison.session-why { margin-top: 6px; font-size: .78rem; line-height: 1.35; }
+.slidev-layout.showcase-deck.operator-deck .op-comparison.session-why td { padding: 6px 12px 6px 0; }
+.slidev-layout.showcase-deck.operator-deck .op-comparison.session-why td:first-child { width: 12%; white-space: nowrap; }
 .slidev-layout.showcase-deck.operator-deck .op-frame.op-compact .op-body { gap: 16px; }
 
 .slidev-layout.showcase-deck.operator-deck .op-peer-group { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
