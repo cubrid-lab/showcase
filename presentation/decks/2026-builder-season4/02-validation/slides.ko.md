@@ -42,37 +42,50 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator
 
 <OperatorSlide class="op-compact op-session" section="01 · 프로젝트 소개">
 
-<h1 class="op-title">Kubernetes에서 CUBRID를 운영하고 장애에 대응합니다</h1>
+<h1 class="op-title">CUBRID 운영을 위해 만드는 두 구성 요소</h1>
 
-<div class="op-stack">
-  <h3>앱이 DB에 연결되는 경로</h3>
-  <div class="op-path">
-    <div class="op-node">애플리케이션<small>데이터 읽기·쓰기 요청</small></div>
-    <span class="op-arrow" aria-hidden="true">→</span>
-    <div class="op-node project">Broker<small>CUBRID에 접속하는 창구</small></div>
-    <span class="op-arrow" aria-hidden="true">→</span>
-    <div class="op-node engine">CUBRID 서버들<small>데이터 저장·복제</small></div>
-  </div>
-</div>
-
-<div class="op-stack">
-  <h3>DB 운영자와 Kubernetes 담당자가 쓰는 관리 경로</h3>
-  <div class="op-path">
-    <div class="op-node">운영자<small>클러스터 설정·복구 요청</small></div>
-    <span class="op-arrow" aria-hidden="true">→</span>
-    <div class="op-node project">Operator<small>DB 상태 확인·접속 제어</small></div>
-    <span class="op-arrow" aria-hidden="true">→</span>
-    <div class="op-node">Instance Manager<small>각 DB 서버의 상태를 알려주는 구성 요소</small></div>
-  </div>
-</div>
-
-<p class="op-caption">장애가 나면 Operator가 어느 서버가 쓰기를 받고 있는지 확인하고, 불확실하면 쓰기용 Broker를 멈춥니다.</p>
+<svg class="op-arch" style="max-height:340px" viewBox="0 0 900 392" role="img" aria-label="CUBRID Kubernetes Operator 전체 구조. 개발하는 구성 요소는 클러스터를 관리하는 Operator와 각 DB 서버에서 상태 조회 및 작업을 수행하는 Instance Manager입니다. 앱은 Service와 Broker를 거쳐 CUBRID에 접속합니다. CUBRID가 master 선출과 데이터 복제를 맡으며, 백업과 복원에는 S3 호환 저장소를 사용합니다.">
+<defs><marker id="op-arch-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0f1b2d"/></marker><marker id="op-arch-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1f4e8c"/></marker><marker id="op-arch-mute" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#5b6b82"/></marker></defs>
+<rect class="box" x="150" y="0" width="750" height="328" rx="10" style="fill:none;stroke-dasharray:3 4"/><text class="s" x="162" y="16">Kubernetes 클러스터</text>
+<rect class="box" x="0" y="14" width="130" height="50" rx="8"/><text x="65" y="35" text-anchor="middle">운영자</text><text class="s" x="65" y="53" text-anchor="middle">클러스터 설정·작업 요청</text>
+<path class="ctl" d="M130 39H166" marker-end="url(#op-arch-blue)"/><text class="s b" x="148" y="32" text-anchor="middle">①</text>
+<rect class="box" x="170" y="24" width="120" height="62" rx="8"/><text x="230" y="46" text-anchor="middle">Kubernetes API</text><text class="s" x="230" y="63" text-anchor="middle">CubridCluster</text><text class="s" x="230" y="78" text-anchor="middle">CubridBackup</text>
+<path class="ctl" d="M290 44H336" marker-end="url(#op-arch-blue)"/><text class="s b" x="313" y="37" text-anchor="middle">② 설정</text>
+<path class="ctl" d="M338 70H292" marker-end="url(#op-arch-blue)"/><text class="s b" x="315" y="84" text-anchor="middle">④ 상태</text>
+<rect class="box op" x="340" y="20" width="290" height="96" rx="8"/><text class="b" x="485" y="43" text-anchor="middle">CUBRID Kubernetes Operator</text><text class="s" x="485" y="64" text-anchor="middle">CubridCluster · CubridBackup 컨트롤러</text><text class="s" x="485" y="81" text-anchor="middle">HA · 서비스 · 스토리지 · 백업 · 업데이트</text><text class="s" x="485" y="101" text-anchor="middle">쓰기 연결과 복구 절차 조정</text>
+<path class="mgmt" d="M630 50H656" marker-end="url(#op-arch-mute)"/>
+<rect class="box" x="660" y="24" width="228" height="62" rx="8"/><text x="774" y="46" text-anchor="middle">운영 상태 확인</text><text class="s" x="774" y="63" text-anchor="middle">클러스터·서버 지표</text><text class="s" x="774" y="78" text-anchor="middle">이벤트 · 구조화 로그</text>
+<path class="mgmt" d="M400 116V136" marker-end="url(#op-arch-mute)"/><text class="s" x="392" y="131" text-anchor="end">생성·관리</text>
+<path class="ctl" d="M600 116V150" marker-end="url(#op-arch-blue)"/><text class="s b" x="610" y="135">③ 역할 조회·작업 요청 (토큰 인증)</text>
+<rect class="box" x="170" y="138" width="262" height="84" rx="8"/><text x="301" y="159" text-anchor="middle">Kubernetes 리소스</text><text class="s" x="301" y="177" text-anchor="middle">StatefulSet · PVC · Secret</text><text class="s" x="301" y="194" text-anchor="middle">Service: headless · 노드별 alias</text><text class="s" x="301" y="211" text-anchor="middle">NetworkPolicy · Broker Deployment</text>
+<rect class="box ha" x="450" y="152" width="440" height="152" rx="10"/><text x="464" y="174">CUBRID HA 3대 · master 선출과 데이터 복제</text>
+<rect class="box ink" x="462" y="184" width="126" height="108" rx="7"/><text class="b" x="525" y="205" text-anchor="middle">서버 0 · master</text><rect class="box im" x="467" y="215" width="116" height="28" rx="5"/><text class="b" x="525" y="234" text-anchor="middle" style="font-size:11px">Instance Manager</text><text class="s" x="525" y="270" text-anchor="middle">CUBRID · PVC</text>
+<rect class="box ink" x="604" y="184" width="126" height="108" rx="7"/><text x="667" y="205" text-anchor="middle">서버 1 · 복제본</text><rect class="box im" x="609" y="215" width="116" height="28" rx="5"/><text class="b" x="667" y="234" text-anchor="middle" style="font-size:11px">Instance Manager</text><text class="s" x="667" y="270" text-anchor="middle">CUBRID · PVC</text>
+<rect class="box ink" x="746" y="184" width="126" height="108" rx="7"/><text x="809" y="205" text-anchor="middle">서버 2 · 복제본</text><rect class="box im" x="751" y="215" width="116" height="28" rx="5"/><text class="b" x="809" y="234" text-anchor="middle" style="font-size:11px">Instance Manager</text><text class="s" x="809" y="270" text-anchor="middle">CUBRID · PVC</text>
+<path class="sql" d="M525 292V299H809V294" marker-end="url(#op-arch-ink)"/><path class="sql" d="M667 299V294" marker-end="url(#op-arch-ink)"/>
+<rect class="box" x="0" y="240" width="130" height="46" rx="8"/><text x="65" y="268" text-anchor="middle">애플리케이션</text>
+<path class="sql" d="M130 263H166" marker-end="url(#op-arch-ink)"/>
+<rect class="box" x="170" y="243" width="128" height="40" rx="8"/><text x="234" y="268" text-anchor="middle">RW / RO Service</text>
+<path class="sql" d="M298 263H310" marker-end="url(#op-arch-ink)"/>
+<rect class="box ink" x="312" y="235" width="126" height="56" rx="8"/><text x="375" y="257" text-anchor="middle">Broker (RW · RO)</text><text class="s" x="375" y="277" text-anchor="middle">앱의 읽기·쓰기 요청 전달</text>
+<path class="sql" d="M438 263H458" marker-end="url(#op-arch-ink)"/>
+<path class="mgmt" d="M670 304V340" marker-start="url(#op-arch-mute)" marker-end="url(#op-arch-mute)"/><text class="s" x="680" y="326">백업 업로드 · 복원</text>
+<rect class="box store" x="450" y="342" width="440" height="40" rx="8"/><text x="670" y="360" text-anchor="middle">S3 호환 오브젝트 저장소</text><text class="s" x="670" y="376" text-anchor="middle">초기 복사 · 백업 파일 · 파일 목록·체크섬</text>
+<path class="sql" d="M0 346H40"/><text class="s" x="48" y="350">앱의 SQL 요청 · DB 복제</text>
+<path class="ctl" d="M0 364H40"/><text class="s" x="48" y="368">운영자의 설정 · Operator의 제어</text>
+<path class="mgmt" d="M0 382H40"/><text class="s" x="48" y="386">생성·관리 · 백업 데이터 · 관측</text>
+<rect class="box op" x="0" y="93" width="139" height="108" rx="8"/>
+<text class="b" x="11" y="117">우리가 만드는 것</text>
+<text class="s" x="11" y="142">Operator</text>
+<text class="s" x="11" y="161">Instance Manager</text>
+<text class="s" x="11" y="184">파란색 상자로 표시</text>
+</svg>
 
 </OperatorSlide>
 
 <!--
 [30초 · 01 · 프로젝트 소개]
-아래 그림은 DB 운영자와 Kubernetes 담당자가 쓰는 관리 경로입니다. 위쪽에서 앱은 Broker를 거쳐 CUBRID에 연결합니다. 아래쪽의 Operator는 각 서버의 Instance Manager에 상태를 묻습니다. 장애가 나서 어느 서버가 쓰기를 받아야 할지 불확실하면, Operator가 쓰기용 Broker를 멈춥니다. 볼륨을 잃은 서버는 운영자가 복구를 요청할 수 있습니다.
+Kubernetes에서 CUBRID를 운영하는 DB 담당자와 플랫폼 팀을 위한 프로젝트입니다. 파란색 상자가 저희가 만드는 부분입니다. Operator는 클러스터 전체의 설정과 복구를 조정하고, Instance Manager는 각 DB 서버에서 상태를 알려주고 요청받은 작업을 실행합니다. 앱은 아래쪽 Service와 Broker를 통해 CUBRID에 연결합니다. CUBRID는 서버 간 데이터 복제와 master 선출을 맡고, 백업과 복원에는 오른쪽 아래 저장소를 씁니다.
 
 근거:
 https://github.com/cubrid-lab/showcase/tree/main/events/2026-builder-season4/01-validation
@@ -191,7 +204,7 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/adr/0005
 
 <!--
 [30초 · 02 · 설계 · 전체 구조]
-앞에서 본 구조를 조금 더 자세히 보겠습니다. 쓰기용 Broker가 DB 서버와 분리돼 있어, 어느 서버가 쓰기를 받아야 할지 불확실하면 Operator가 Broker를 모두 내려 연결을 끊을 수 있습니다. 데이터 볼륨을 잃은 서버를 다시 구성할 때는 운영자가 대상을 확인하고 Kubernetes를 통해 복구를 요청합니다.
+앞에서 본 전체 구조에서, 장애 때 쓰기 연결을 닫고 서버를 다시 구성하는 부분만 보겠습니다. 쓰기용 Broker가 DB 서버와 분리돼 있어, 어느 서버가 쓰기를 받아야 할지 불확실하면 Operator가 Broker를 모두 내려 연결을 끊을 수 있습니다. 데이터 볼륨을 잃은 서버를 다시 구성할 때는 운영자가 대상을 확인하고 Kubernetes를 통해 복구를 요청합니다.
 
 master 선출과 복제는 CUBRID가 맡고, Operator는 연결 관리와 복구 조정만 합니다.
 
@@ -431,7 +444,7 @@ v0.1 이후에는 미뤄 둔 것부터 봅니다. 남아 있던 데이터로 자
 
 <OperatorSlide class="op-session" section="Q&amp;A · 질의응답" source="Operator 저장소" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator">
 
-<div class="op-cover op-closing"><h1 class="op-title">Q&amp;A</h1><p class="op-lead">감사합니다</p><p class="op-caption"><a href="#/23">상세 구조</a> · <a href="#/24">시험 비교</a> · <a href="#/25">관측 조건</a></p><div class="op-meta"><b>CUBRID Lab</b><span>최영선 · 백경준</span></div><BrandMark name="lockup-horizontal" alt="CUBRID Lab" :height="40" /><p class="op-notice">CUBRID Lab은 CUBRID Corporation 및 공식 CUBRID 프로젝트와 제휴·후원·보증 관계가 없는 독립 프로젝트입니다. CUBRID는 해당 권리자의 상표입니다.</p></div>
+<div class="op-cover op-closing"><h1 class="op-title">Q&amp;A</h1><p class="op-lead">감사합니다</p><p class="op-caption"><a href="#/23">구성 요소 역할</a> · <a href="#/24">시험 비교</a> · <a href="#/25">관측 조건</a></p><div class="op-meta"><b>CUBRID Lab</b><span>최영선 · 백경준</span></div><BrandMark name="lockup-horizontal" alt="CUBRID Lab" :height="40" /><p class="op-notice">CUBRID Lab은 CUBRID Corporation 및 공식 CUBRID 프로젝트와 제휴·후원·보증 관계가 없는 독립 프로젝트입니다. CUBRID는 해당 권리자의 상표입니다.</p></div>
 
 </OperatorSlide>
 
@@ -444,53 +457,26 @@ v0.1 이후에는 미뤄 둔 것부터 봅니다. 남아 있던 데이터로 자
 
 ---
 
-<OperatorSlide class="op-compact op-session" section="부록 · 전체 아키텍처" source="전체 아키텍처 · 쓰기 격리 ADR-0005 · 재구축 ADR-0006" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/adr/0006-node-join-rebuild.md">
+<OperatorSlide class="op-compact op-session" section="부록 · 장애 시 구성 요소의 역할" source="전체 아키텍처 · 쓰기 격리 ADR-0005 · 재구축 ADR-0006" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/adr/0006-node-join-rebuild.md">
 
-<h1 class="op-title">1차 아키텍처 위에 쓰기 격리와 재구축을 더했습니다</h1><svg class="op-arch" style="max-height:325px" viewBox="0 0 900 392" role="img" aria-label="1차 전체 아키텍처 위에 이번에 더한 것: A 쓰기 격리 판단은 Operator가, B 격리 시 읽기-쓰기 Broker를 0개로 줄여 SQL 경로를 닫고, C 볼륨을 잃은 멤버는 요청에 따라 현재 master의 백업으로 다시 채웁니다.">
-<defs><marker id="op-arch-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0f1b2d"/></marker><marker id="op-arch-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1f4e8c"/></marker><marker id="op-arch-mute" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#5b6b82"/></marker></defs>
-<rect class="box" x="150" y="0" width="750" height="328" rx="10" style="fill:none;stroke-dasharray:3 4"/><text class="s" x="162" y="16">Kubernetes 클러스터</text>
-<rect class="box" x="0" y="14" width="130" height="50" rx="8"/><text x="65" y="35" text-anchor="middle">사용자</text><text class="s" x="65" y="53" text-anchor="middle">kubectl · YAML 적용</text>
-<path class="ctl" d="M130 39H166" marker-end="url(#op-arch-blue)"/><text class="s b" x="148" y="32" text-anchor="middle">①</text>
-<rect class="box" x="170" y="24" width="120" height="62" rx="8"/><text x="230" y="46" text-anchor="middle">Kubernetes API</text><text class="s" x="230" y="63" text-anchor="middle">CubridCluster</text><text class="s" x="230" y="78" text-anchor="middle">CubridBackup</text>
-<path class="ctl" d="M290 44H336" marker-end="url(#op-arch-blue)"/><text class="s b" x="313" y="37" text-anchor="middle">② spec</text>
-<path class="ctl" d="M338 70H292" marker-end="url(#op-arch-blue)"/><text class="s b" x="315" y="84" text-anchor="middle">④ status</text>
-<rect class="box op" x="340" y="20" width="290" height="96" rx="8"/><text class="b" x="485" y="43" text-anchor="middle">CUBRID Kubernetes Operator</text><text class="s" x="485" y="64" text-anchor="middle">CubridCluster · CubridBackup 컨트롤러</text><text class="s" x="485" y="81" text-anchor="middle">HA · 서비스 · 스토리지 · 백업 · 업데이트</text><text class="s" x="485" y="101" text-anchor="middle">→ 하나의 상태 머신으로 조정</text>
-<path class="mgmt" d="M630 50H656" marker-end="url(#op-arch-mute)"/>
-<rect class="box" x="660" y="24" width="228" height="62" rx="8"/><text x="774" y="46" text-anchor="middle">관측</text><text class="s" x="774" y="63" text-anchor="middle">cubrid_cluster_* · cubrid_instance_*</text><text class="s" x="774" y="78" text-anchor="middle">Events · JSON 로그</text>
-<path class="mgmt" d="M400 116V136" marker-end="url(#op-arch-mute)"/><text class="s" x="392" y="131" text-anchor="end">생성·관리</text>
-<path class="ctl" d="M600 116V150" marker-end="url(#op-arch-blue)"/><text class="s b" x="610" y="135">③ 역할 조회·작업 요청 (토큰 인증)</text>
-<rect class="box" x="170" y="138" width="262" height="84" rx="8"/><text x="301" y="159" text-anchor="middle">Kubernetes 리소스</text><text class="s" x="301" y="177" text-anchor="middle">StatefulSet · PVC · Secret</text><text class="s" x="301" y="194" text-anchor="middle">Service: headless · 노드별 alias</text><text class="s" x="301" y="211" text-anchor="middle">NetworkPolicy · Broker Deployment</text>
-<rect class="box ha" x="450" y="152" width="440" height="152" rx="10"/><text x="464" y="174">CUBRID HA 3노드 — master 선출과 복제는 CUBRID가 직접</text>
-<rect class="box ink" x="462" y="184" width="126" height="108" rx="7"/><text class="b" x="525" y="205" text-anchor="middle">노드 0 · master</text><rect class="box im" x="467" y="215" width="116" height="28" rx="5"/><text class="b" x="525" y="234" text-anchor="middle" style="font-size:11px">Instance Manager</text><text class="s" x="525" y="270" text-anchor="middle">CUBRID · PVC</text>
-<rect class="box ink" x="604" y="184" width="126" height="108" rx="7"/><text x="667" y="205" text-anchor="middle">노드 1 · slave</text><rect class="box im" x="609" y="215" width="116" height="28" rx="5"/><text class="b" x="667" y="234" text-anchor="middle" style="font-size:11px">Instance Manager</text><text class="s" x="667" y="270" text-anchor="middle">CUBRID · PVC</text>
-<rect class="box ink" x="746" y="184" width="126" height="108" rx="7"/><text x="809" y="205" text-anchor="middle">노드 2 · slave</text><rect class="box im" x="751" y="215" width="116" height="28" rx="5"/><text class="b" x="809" y="234" text-anchor="middle" style="font-size:11px">Instance Manager</text><text class="s" x="809" y="270" text-anchor="middle">CUBRID · PVC</text>
-<path class="sql" d="M588 262H602" marker-end="url(#op-arch-ink)"/><path class="sql" d="M730 262H744" marker-end="url(#op-arch-ink)"/>
-<rect class="box" x="0" y="240" width="130" height="46" rx="8"/><text x="65" y="268" text-anchor="middle">애플리케이션</text>
-<path class="sql" d="M130 263H166" marker-end="url(#op-arch-ink)"/>
-<rect class="box" x="170" y="243" width="128" height="40" rx="8"/><text x="234" y="268" text-anchor="middle">RW / RO Service</text>
-<path class="sql" d="M298 263H310" marker-end="url(#op-arch-ink)"/>
-<rect class="box ink" x="312" y="235" width="126" height="56" rx="8"/><text x="375" y="257" text-anchor="middle">Broker (RW · RO)</text><text class="s" x="375" y="277" text-anchor="middle">RW가 master를 찾음</text>
-<path class="sql" d="M438 263H458" marker-end="url(#op-arch-ink)"/>
-<path class="mgmt" d="M670 304V340" marker-start="url(#op-arch-mute)" marker-end="url(#op-arch-mute)"/><text class="s" x="680" y="326">백업 업로드 · 복원</text>
-<rect class="box store" x="450" y="342" width="440" height="40" rx="8"/><text x="670" y="360" text-anchor="middle">S3 호환 오브젝트 저장소</text><text class="s" x="670" y="376" text-anchor="middle">초기 복사 · 백업 파일 · 파일 목록·체크섬</text>
-<path class="sql" d="M0 346H40"/><text class="s" x="48" y="350">SQL 경로 · 복제 (Operator는 SQL을 중계하지 않음)</text>
-<path class="ctl" d="M0 364H40"/><text class="s" x="48" y="368">운영 경로 ①–④</text>
-<path class="mgmt" d="M0 382H40"/><text class="s" x="48" y="386">생성·관리 · 백업 데이터 · 관측</text>
-<rect x="0" y="92" width="140" height="132" rx="8" style="fill:var(--blue-soft);stroke:var(--blue);stroke-width:1.5"/><text x="10" y="112" style="fill:var(--blue);font-weight:700">이번에 더한 것</text><text class="s" x="10" y="136"><tspan style="fill:var(--blue);font-weight:700">A</tspan> 쓰기 격리 판단</text><text class="s" x="10" y="160"><tspan style="fill:var(--blue);font-weight:700">B</tspan> RW Broker 0개로</text><text class="s" x="22" y="176">SQL 경로 차단</text><text class="s" x="10" y="200"><tspan style="fill:var(--blue);font-weight:700">C</tspan> 명시적 재구축</text><text class="s" x="22" y="216">master 백업 → 복원</text>
-<circle cx="352" cy="32" r="9" style="fill:var(--blue-soft);stroke:var(--blue);stroke-width:1.5"/><text x="352" y="36" text-anchor="middle" style="fill:var(--blue);font-weight:700" font-size="11">A</text>
-<rect x="309" y="232" width="132" height="62" rx="9" style="fill:none;stroke:var(--blue);stroke-width:2.5"/><circle cx="440" cy="234" r="9" style="fill:var(--blue-soft);stroke:var(--blue);stroke-width:1.5"/><text x="440" y="238" text-anchor="middle" style="fill:var(--blue);font-weight:700" font-size="11">B</text>
-<circle cx="874" cy="186" r="9" style="fill:var(--blue-soft);stroke:var(--blue);stroke-width:1.5"/><text x="874" y="190" text-anchor="middle" style="fill:var(--blue);font-weight:700" font-size="11">C</text>
-</svg>
+<h1 class="op-title">장애가 나면 누가 무엇을 하나요?</h1>
+<table class="op-comparison">
+<thead><tr><th scope="col">구성 요소</th><th scope="col">장애 때 맡는 일</th></tr></thead>
+<tbody>
+<tr><td>Operator</td><td>서버들의 상태를 비교합니다. 쓰기를 받을 서버가 불확실하면 쓰기용 Broker를 중지하고, 운영자가 요청한 재구축을 조정합니다.</td></tr>
+<tr><td>Instance Manager</td><td>각 DB 서버에서 역할을 조회하고, 인증된 요청에 따라 백업·복원 같은 로컬 작업을 실행합니다.</td></tr>
+<tr><td>CUBRID HA</td><td>master를 선출하고 데이터를 복제합니다.</td></tr>
+<tr><td>Broker</td><td>앱에서 받은 SQL 요청을 CUBRID에 전달합니다.</td></tr>
+</tbody>
+</table>
 
-<p class="op-caption text-right"><a href="#/22">← Q&amp;A로 돌아가기</a></p>
+<p class="op-caption text-right"><a href="#/3">전체 구조 보기</a> · <a href="#/22">← Q&amp;A로 돌아가기</a></p>
 
 </OperatorSlide>
 
 <!--
 [부록 · 질문 시 설명]
-1차 때 보여 드린 전체 아키텍처입니다. 구조 자체는 그대로입니다. master 선출과 복제는 CUBRID HA가 하고, Operator는 각 멤버의 Instance Manager에 역할을 묻고 결과를 status에 기록합니다. Operator는 SQL을 중계하지 않습니다.
-
-파란색으로 표시한 A, B, C가 이번에 추가한 동작입니다. A, Operator가 master를 확신할 수 없다고 판단하면 쓰기 격리를 기록합니다. B, 격리 중에는 읽기-쓰기 Broker를 0개로 줄여 애플리케이션의 쓰기 경로를 실제로 닫습니다. C, 볼륨을 잃은 멤버는 사람이 요청하면 현재 master의 백업으로 다시 채웁니다. 다음 장부터 하나씩 보겠습니다.
+운영자는 쓰기 차단이나 복구가 어디까지 진행됐는지 Operator에서 확인합니다. 각 DB 서버에서 실제 작업을 하는 쪽은 Instance Manager입니다. CUBRID HA는 master를 선출하고 Broker는 애플리케이션 요청을 DB로 전달합니다.
 
 근거: https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/adr/0006-node-join-rebuild.md
 -->

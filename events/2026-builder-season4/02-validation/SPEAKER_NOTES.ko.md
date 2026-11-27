@@ -17,9 +17,9 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator
 
 > 프로젝트와 1차 피드백을 먼저 소개하겠습니다. 이어서 설계가 어떻게 바뀌었는지와 검증 결과를 보여드리고, 함께 논의할 질문과 최종 발표까지의 계획을 말씀드리겠습니다.
 
-### 3. Kubernetes에서 CUBRID를 운영하고 장애에 대응합니다 (30초)
+### 3. CUBRID 운영을 위해 만드는 두 구성 요소 (30초)
 
-> 아래 그림은 DB 운영자와 Kubernetes 담당자가 쓰는 관리 경로입니다. 위쪽에서 앱은 Broker를 거쳐 CUBRID에 연결합니다. 아래쪽의 Operator는 각 서버의 Instance Manager에 상태를 묻습니다. 장애가 나서 어느 서버가 쓰기를 받아야 할지 불확실하면, Operator가 쓰기용 Broker를 멈춥니다. 볼륨을 잃은 서버는 운영자가 복구를 요청할 수 있습니다.
+> Kubernetes에서 CUBRID를 운영하는 DB 담당자와 플랫폼 팀을 위한 프로젝트입니다. 파란색 상자가 저희가 만드는 부분입니다. Operator는 클러스터 전체의 설정과 복구를 조정하고, Instance Manager는 각 DB 서버에서 상태를 알려주고 요청받은 작업을 실행합니다. 앱은 아래쪽 Service와 Broker를 통해 CUBRID에 연결합니다. CUBRID는 서버 간 데이터 복제와 master 선출을 맡고, 백업과 복원에는 오른쪽 아래 저장소를 씁니다.
 
 근거:
 https://github.com/cubrid-lab/showcase/tree/main/events/2026-builder-season4/01-validation
@@ -63,7 +63,7 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator/blob/main/docs/adr/0005
 
 ### 8. Operator는 서버 상태를 보고 쓰기 연결을 제어합니다 (30초)
 
-> 앞에서 본 구조를 조금 더 자세히 보겠습니다. 쓰기용 Broker가 DB 서버와 분리돼 있어, 어느 서버가 쓰기를 받아야 할지 불확실하면 Operator가 Broker를 모두 내려 연결을 끊을 수 있습니다. 데이터 볼륨을 잃은 서버를 다시 구성할 때는 운영자가 대상을 확인하고 Kubernetes를 통해 복구를 요청합니다.
+> 앞에서 본 전체 구조에서, 장애 때 쓰기 연결을 닫고 서버를 다시 구성하는 부분만 보겠습니다. 쓰기용 Broker가 DB 서버와 분리돼 있어, 어느 서버가 쓰기를 받아야 할지 불확실하면 Operator가 Broker를 모두 내려 연결을 끊을 수 있습니다. 데이터 볼륨을 잃은 서버를 다시 구성할 때는 운영자가 대상을 확인하고 Kubernetes를 통해 복구를 요청합니다.
 
 > master 선출과 복제는 CUBRID가 맡고, Operator는 연결 관리와 복구 조정만 합니다.
 
