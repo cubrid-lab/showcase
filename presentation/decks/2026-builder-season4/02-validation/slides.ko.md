@@ -392,7 +392,7 @@ v0.1 이후에는 미뤄 둔 것부터 봅니다. 남아 있던 데이터로 자
 <circle cx="874" cy="186" r="9" style="fill:var(--blue-soft);stroke:var(--blue);stroke-width:1.5"/><text x="874" y="190" text-anchor="middle" style="fill:var(--blue);font-weight:700" font-size="11">C</text>
 </svg>
 
-<p class="op-caption"><a href="#/21">← Q&amp;A로 돌아가기</a></p>
+<p class="op-caption text-right"><a href="#/21">← Q&amp;A로 돌아가기</a></p>
 
 </OperatorSlide>
 
@@ -409,9 +409,9 @@ v0.1 이후에는 미뤄 둔 것부터 봅니다. 남아 있던 데이터로 자
 
 <OperatorSlide class="op-compact op-session" section="부록 · 비교 시험 상세" source="VM 랩 비교 실행 2026-11-25 · #122" source-url="https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/122">
 
-<h1 class="op-title">두 번의 master 삭제 뒤, 세 멤버가 자동 복귀했습니다</h1><p class="op-caption">2026-11-25 VM 랩 · HA 3멤버 · 쓰기 중 master Pod 강제 삭제를 operator별 2회</p><table class="op-comparison op-repeat-comparison"><thead><tr><th>관찰 항목</th><th>CUBRID/cubrid-operator</th><th>CUBRID Lab Operator</th></tr></thead><tbody><tr><td><b>첫 삭제 뒤</b></td><td>쓰기 중단 12.4초<br>삭제한 멤버는 수동 재합류</td><td>쓰기 중단 22.0초<br>삭제한 멤버 자동 복귀</td></tr><tr><td><b>두 번째 삭제 뒤</b></td><td>새 master 미선출 · Pod는 Ready<br>31분 뒤 정리할 때까지 쓰기 불가</td><td>최장 승인 공백 32.8초<br>격리 이후 재개 +42.5초<br>세 멤버 모두 자동 복귀</td></tr><tr><td><b>두 번째 장애의 원인</b></td><td>Pod 목록이 바뀔 때마다 <code>ha_node_list</code> 순서를 다시 씀<br>멤버마다 우선순위가 달라 남은 둘 다 standby</td><td>스펙에서 만든 한 목록을 모든 멤버가 공유<br>Pod 교체·master 이동에도 순서 불변</td></tr><tr><td><b>승인된 쓰기 손실</b></td><td>두 시험 모두 0건</td><td>두 시험 모두 0건</td></tr></tbody></table><p class="op-boundary"><b>이번에 확인한 차이</b>　장애 뒤 멤버 복귀까지 자동으로 이어짐<br>첫 장애의 쓰기 중단은 더 길었음 · 이 결과를 다른 장애 조건으로 일반화하지 않음</p>
+<h1 class="op-title">두 번의 master 삭제 뒤, 세 멤버가 자동 복귀했습니다</h1><p class="op-caption">2026-11-25 VM 랩 · HA 3멤버 · 쓰기 중 master Pod 강제 삭제를 operator별 2회</p><table class="op-comparison op-repeat-comparison"><thead><tr><th>관찰 항목</th><th>CUBRID/cubrid-operator</th><th>CUBRID Lab Operator</th></tr></thead><tbody><tr><td><b>첫 삭제 뒤</b></td><td>쓰기 중단 12.4초<br>삭제한 멤버는 수동 재합류</td><td>쓰기 중단 22.0초<br>삭제한 멤버 자동 복귀</td></tr><tr><td><b>두 번째 삭제 뒤</b></td><td>새 master 미선출 · Pod는 Ready<br>31분 뒤 정리할 때까지 쓰기 불가</td><td>최장 승인 공백 32.8초<br>격리 이후 재개 +42.5초<br>세 멤버 모두 자동 복귀</td></tr><tr><td><b>두 번째 장애의 원인</b></td><td>Pod 목록이 바뀔 때마다 <code>ha_node_list</code> 순서를 다시 씀<br>멤버마다 우선순위가 달라 남은 둘 다 standby</td><td>스펙에서 만든 한 목록을 모든 멤버가 공유<br>Pod 교체·master 이동에도 순서 불변</td></tr><tr><td><b>승인된 쓰기 손실</b></td><td>두 시험 모두 0건</td><td>두 시험 모두 0건</td></tr></tbody></table>
 
-<p class="op-caption"><a href="#/21">← Q&amp;A로 돌아가기</a></p>
+<p class="op-caption text-right"><a href="#/21">← Q&amp;A로 돌아가기</a></p>
 
 </OperatorSlide>
 
@@ -432,7 +432,7 @@ https://github.com/cubrid-lab/cubrid-kubernetes-operator/issues/122
 
 <h1 class="op-title">숨기지 않고 공개할 한계</h1><ol class="op-risks"><li><b>복제 지연 후 VM 전원 차단: 승인된 쓰기 13건이 새 master에 없음</b><span>2026-11-19 VM 시험 · 복제 프로세스를 정지한 조건 · 해당 행은 옛 master 디스크에만 남음</span></li><li><b>네트워크 분할에서 승격된 멤버에 승인된 쓰기 최대 73건 없음</b><span>11월 17–18일 VM 분할 5회에서 13–73건 미반영 · 1회는 73건이 없는 멤버가 active master로 전환</span></li><li><b>master Pod 정상 종료 때 쓰기 경로가 28초 닫힘 (Kind)</b><span>불필요한 격리 · 시간과 원인을 공개</span></li><li><b>스토리지는 node-local, CSI 아님</b><span>볼륨이 다른 노드로 따라가는 동작·스냅샷·크기 변경은 검증하지 않음</span></li></ol><p class="op-boundary"><b>원칙</b>　Operator의 제어 범위와 엔진 동작의 한계를 구분하고, 재현 조건과 영향을 공개합니다</p>
 
-<p class="op-caption"><a href="#/21">← Q&amp;A로 돌아가기</a></p>
+<p class="op-caption text-right"><a href="#/21">← Q&amp;A로 돌아가기</a></p>
 
 </OperatorSlide>
 
